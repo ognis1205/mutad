@@ -1,0 +1,12 @@
+subprojects {
+    group 'io.github.ognis1205'
+
+    version '1.0.0-SNAPSHOT'
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+    }
+}
