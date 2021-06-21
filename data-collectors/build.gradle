@@ -1,0 +1,7 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+sourceCompatibility = '13'
+targetCompatibility = '13'
