@@ -13,14 +13,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.ognis1205.tweet_visualization.data_collectors;
+package io.github.ognis1205.tweet_visualization.data_collectors.impl;
+
+import io.github.ognis1205.tweet_visualization.data_collectors.Collector;
 
 /**
  * @author Shingo OKAWA
  * @version 1.0.0
  */
-public class DataCollectionDriver {
-    public static void main(String[] args) {
-        System.out.println("Hello, twitter!");
+public class TweetCollector implements Collector<String> {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void start() {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String collect() {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void stop() {
+        throw new UnsupportedOperationException();
     }
 }

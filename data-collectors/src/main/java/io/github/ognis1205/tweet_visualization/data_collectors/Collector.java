@@ -20,9 +20,23 @@ package io.github.ognis1205.tweet_visualization.data_collectors;
  * @version 1.0.0
  */
 public interface Collector<T> {
-    void start();
+    /**
+     * Starts to collect data from a specified data source.
+     * This method is supposed to be called before calling `collect` method, responsible
+     * for ensuring the pre-process is executed properly before collecting data.
+     */
+    public void start();
 
-    T collect();
+    /**
+     * Collects data from a specified data source.
+     * @return the data from the specified data source.
+     */
+    public T collect();
 
-    void stop();
+    /**
+     * Stops to collect data from a specified data source.
+     * This method is supposed to be called after the data collection loop ends, responsible
+     * for ensuring the post-process is executed properly after collecting data.
+     */
+    public void stop();
 }
