@@ -1,0 +1,9 @@
+import java.time.format.DateTimeFormatter
+
+System.setProperty(
+        "buildTimestamp",
+        LocalDateTime.now(ZoneOffset.UTC).format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")))
+
+rootProject.name = 'tweet-visualization-java'
+
+include 'data-collectors'
