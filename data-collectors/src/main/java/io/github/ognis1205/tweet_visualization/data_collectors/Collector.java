@@ -25,18 +25,18 @@ public interface Collector<T> {
      * This method is supposed to be called before calling `collect` method, responsible
      * for ensuring the pre-process is executed properly before collecting data.
      */
-    public void start();
+    void start();
 
     /**
      * Collects data from a specified data source.
      * @return the data from the specified data source.
      */
-    public T collect();
+    T collect();
 
     /**
      * Stops to collect data from a specified data source.
      * This method is supposed to be called after the data collection loop ends, responsible
      * for ensuring the post-process is executed properly after collecting data.
      */
-    public void stop();
+    void stop();
 }
