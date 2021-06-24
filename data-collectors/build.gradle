@@ -1,11 +1,13 @@
 plugins {
     id 'java'
     id 'application'
+    id 'com.github.johnrengelman.shadow' version '5.2.0'
+    id "com.palantir.docker" version "0.26.0"
 }
 
-sourceCompatibility = '11'
+sourceCompatibility = '13'
 
-targetCompatibility = '11'
+targetCompatibility = '13'
 
 mainClassName = 'io.github.ognis1205.tweet_visualization.data_collectors.DataCollectionDriver'
 
@@ -17,4 +19,31 @@ dependencies {
     implementation group: 'org.apache.kafka', name: 'kafka-clients', version: '2.8.0'
     implementation group: 'com.twitter', name: 'hbc-core', version: '2.2.0'
     implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+}
+
+//shadowJar {
+//    mergeServiceFiles()
+//    zip64 = true
+//}
+
+jar {
+    manifest {
+        attributes(
+                'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
+                'Main-Class': 'io.github.ognis1205.tweet_visualization.data_collectors.DataCollectionDriver'
+        )
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+docker {
+    dependsOn jar
+    name "${dockerRepo}/${jar.getArchiveBaseName().get()}:${jar.getArchiveVersion().get()}"
+    dockerfile file('Dockerfile')
+    files jar.archivePath
+    buildArgs(['JAR_FILE': "${jar.getArchiveFileName().get()}", 'APP_NAME': "${jar.getArchiveBaseName().get()}"])
+    pull false
+    noCache true
 }

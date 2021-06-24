@@ -7,3 +7,5 @@ System.setProperty(
 rootProject.name = 'tweet-visualization-java'
 
 include 'data-collectors'
+
+include 'data-indexers'

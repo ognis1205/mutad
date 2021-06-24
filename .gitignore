@@ -232,4 +232,7 @@ gradle-app.setting
 ### Gradle Patch ###
 **/build/
 
+### Docker ###
+.env
+
 # End of https://www.toptal.com/developers/gitignore/api/java,intellij,gradle,emacs,macos
