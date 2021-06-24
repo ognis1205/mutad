@@ -15,12 +15,27 @@
  */
 package io.github.ognis1205.tweet_visualization.data_collectors;
 
+import io.github.ognis1205.tweet_visualization.data_collectors.Collector;
+import io.github.ognis1205.tweet_visualization.data_collectors.impl.TweetCollector;
+
 /**
  * @author Shingo OKAWA
  * @version 1.0.0
  */
 public class DataCollectionDriver {
     public static void main(String[] args) {
-        System.out.println("Hello, twitter!");
+        Collector<String> collect = new TweetCollector(
+                System.getenv("HOSEBIRD_API_KEY"),
+                System.getenv("HOSEBIRD_API_SECRET"),
+                System.getenv("HOSEBIRD_TOKEN"),
+                System.getenv("HOSEBIRD_TOKEN_SECRET")
+        );
+        collect.start();
+        int i = 100;
+        while (i > 0) {
+            System.out.println(collect.collect());
+            i--;
+        }
+        collect.stop();
     }
 }

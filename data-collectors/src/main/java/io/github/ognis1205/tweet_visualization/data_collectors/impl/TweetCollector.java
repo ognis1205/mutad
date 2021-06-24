@@ -46,17 +46,17 @@ public class TweetCollector implements Collector<String> {
      *     <li>Set up your blocking queues: Be sure to the size set properly based on the expected TPS.</li>
      *     <li>Declare the host you want to connect to.</li>
      * </ul>
-     * @param consumerKey consumer key of the OAuth.
-     * @param consumerSecret consumer secret key of the OAuth.
+     * @param apiKey API key of the OAuth.
+     * @param apiSecret API secret key of the OAuth.
      * @param token token of the OAuth.
      * @param tokenSecret secret token of the OAuth.
      */
-    public TweetCollector(String consumerKey, String consumerSecret, String token, String tokenSecret) {
+    public TweetCollector(String apiKey, String apiSecret, String token, String tokenSecret) {
         this.que = new LinkedBlockingQueue<String>(1000);
         ClientBuilder builder = new ClientBuilder()
                 .name("Tweet-Visualization-Hosebird-Client")
                 .hosts(new HttpHosts(Constants.STREAM_HOST))
-                .authentication(new OAuth1(consumerKey, consumerSecret, token, tokenSecret))
+                .authentication(new OAuth1(apiKey, apiSecret, token, tokenSecret))
                 .endpoint(new StatusesSampleEndpoint())
                 .processor(new StringDelimitedProcessor(this.que));
         this.client = builder.build();
