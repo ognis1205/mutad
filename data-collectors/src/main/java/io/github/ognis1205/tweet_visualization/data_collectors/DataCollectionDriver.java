@@ -15,12 +15,15 @@
  */
 package io.github.ognis1205.tweet_visualization.data_collectors;
 
+import lombok.extern.slf4j.Slf4j;
+import io.github.ognis1205.tweet_visualization.data_collectors.impl.KafkaSink;
 import io.github.ognis1205.tweet_visualization.data_collectors.impl.TweetCollector;
 
 /**
  * @author Shingo OKAWA
  * @version 1.0.0
  */
+@Slf4j
 public class DataCollectionDriver {
     public static void main(String[] args) {
         Collector<String> collect = new TweetCollector(
@@ -29,10 +32,23 @@ public class DataCollectionDriver {
                 System.getenv("HOSEBIRD_TOKEN"),
                 System.getenv("HOSEBIRD_TOKEN_SECRET")
         );
+
+        Sink<String> sink = new KafkaSink(
+                System.getenv("KAFKA_BROKERS"),
+                System.getenv("KAFKA_TOPIC")
+        );
+
         collect.start();
+        sink.connect();
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            log.info("shutting down application...");
+            collect.stop();
+            sink.close();
+            log.info("shutting down application: done!");
+        }));
+
         while (true) {
-            System.out.println(collect.collect());
+            sink.send(collect.collect());
         }
-        //collect.stop();
     }
 }

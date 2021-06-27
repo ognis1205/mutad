@@ -12,7 +12,7 @@ services:
     environment:
       - ALLOW_ANONYMOUS_LOGIN=yes
       - ZOO_SERVER_ID=1
-      # You have to change the IP address appropriately according in the following line.
+      # You have to change the IP address appropriately in the following line.
       - ZOO_SERVERS=0.0.0.0:2888:3888,172.2.2.2:2888:3888
   kafka:
     image: 'docker.io/bitnami/kafka:2-debian-10'
@@ -31,7 +31,7 @@ services:
       - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=true
       - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=EXTERNAL:PLAINTEXT
       - KAFKA_CFG_LISTENERS=EXTERNAL://:9092
-      # You have to change the URL appropriately according in the following line.
+      # You have to change the URL appropriately in the following line.
       - KAFKA_CFG_ADVERTISED_LISTENERS=EXTERNAL://ec2-A-B-C-D.us-east-1.compute.amazonaws.com:9092
       - KAFKA_INTER_BROKER_LISTENER_NAME=EXTERNAL
     depends_on:

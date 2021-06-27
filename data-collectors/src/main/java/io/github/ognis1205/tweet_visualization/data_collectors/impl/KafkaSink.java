@@ -31,11 +31,11 @@ import io.github.ognis1205.tweet_visualization.data_collectors.Sink;
  */
 @Slf4j
 public class KafkaSink implements Sink<String> {
+    /** Kafka brokers' names. */
+    private String brokers;
+
     /** Kafka topic. */
     private String topic;
-
-    /** Kafka brokers' names. */
-    private String broker;
 
     /** Kafka producer/client. */
     private KafkaProducer<String, String> producer;
@@ -43,11 +43,11 @@ public class KafkaSink implements Sink<String> {
     /**
      * Initialize `KafkaSink` instance.
      * @param topic Kafka topic.
-     * @param broker Kafka broker.
+     * @param brokers Kafka broker.
      */
-    public KafkaSink(String topic, String broker) {
+    public KafkaSink(String brokers, String topic) {
+        this.brokers = brokers;
         this.topic = topic;
-        this.broker = broker;
     }
 
     /**
@@ -58,7 +58,7 @@ public class KafkaSink implements Sink<String> {
         log.info("starting up producer to sink tweets to Kafka...");
         // Create Producer properties.
         Properties properties = new Properties();
-        properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, this.broker);
+        properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, this.brokers);
         properties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         properties.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         // Create safe Producer.
@@ -85,7 +85,7 @@ public class KafkaSink implements Sink<String> {
                 @Override
                 public void onCompletion(RecordMetadata recordMetadata, Exception e) {
                     if (e != null) {
-                        log.error("Something bad happened", e);
+                        log.error("something bad happened", e);
                     }
                 }
             });
