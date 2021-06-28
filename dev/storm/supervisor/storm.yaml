@@ -1,0 +1,12 @@
+storm.zookeeper.servers:
+  - "zookeeper"
+
+storm.zookeeper.port: 2181
+
+nimbus.seeds : ["nimbus"]
+
+supervisor.slots.ports:
+  - 6700
+  - 6701
+  - 6702
+  - 6703
