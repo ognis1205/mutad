@@ -1,1 +1,0 @@
-# Set up Kafka Cluster over Amazon EC2 Instances

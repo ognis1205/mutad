@@ -13,19 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.ognis1205.tweet_visualization.data_processors;
-
-import lombok.extern.slf4j.Slf4j;
-//import io.github.ognis1205.tweet_visualization.data_collectors.impl.KafkaSink;
-//import io.github.ognis1205.tweet_visualization.data_collectors.impl.TweetCollector;
+package io.github.ognis1205.tweet_visualization.storm.spouts;
 
 /**
  * @author Shingo OKAWA
  * @version 1.0.0
  */
-@Slf4j
-public class DataIndexDriver {
-    public static void main(String[] args) {
-    }
+public class KafkaTweetSpout {
 }
-

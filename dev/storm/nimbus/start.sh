@@ -16,11 +16,13 @@ fi
 
 while sleep 60; do
   ps aux | grep "java -server -Ddaemon.name=nimbus" | grep -q -v grep
-  NI_STATUS=$?
+  nimbus_status=$?
   ps aux | grep "java -server -Ddaemon.name=ui"     | grep -q -v grep
-  UI_STATUS=$?
-  if [ $NI_STATUS -ne 0 -o $UI_STATUS -ne 0 ]; then
-    echo "the processes has already exited."
-    exit 1
+  ui_status=$?
+  if [ $nimbus_status -ne 0 ]; then
+    echo "storm nimbus is temporarily down."
+  fi
+  if [ $ui_status -ne 0     ]; then
+    echo "storm ui is temporarily down."
   fi
 done

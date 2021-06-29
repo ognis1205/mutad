@@ -1,0 +1,34 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+sourceCompatibility = '13'
+
+targetCompatibility = '13'
+
+mainClassName = 'io.github.ognis1205.tweet_visualization.storm.ProcessorTopology'
+
+dependencies {
+    compileOnly 'org.projectlombok:lombok:1.18.20'
+    annotationProcessor 'org.projectlombok:lombok:1.18.20'
+    testCompileOnly 'org.projectlombok:lombok:1.18.20'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
+    implementation group: 'commons-cli',      name: 'commons-cli',        version: '1.4'
+    implementation group: 'org.apache.kafka', name: 'kafka-clients',      version: '2.8.0'
+    implementation group: 'org.apache.storm', name: 'storm-core',         version: '2.2.0'
+    implementation group: 'org.apache.storm', name: 'storm-kafka-client', version: '2.2.0'
+    implementation group: 'ch.qos.logback',   name: 'logback-classic',    version: '1.2.3'
+}
+
+//jar {
+//    manifest {
+//        attributes(
+//                'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
+//                'Main-Class': 'io.github.ognis1205.tweet_visualization.storm.ProcessorTopology'
+//        )
+//    }
+//    from {
+//        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+//    }
+//}
