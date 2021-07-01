@@ -31,10 +31,11 @@ public class KafkaTweetSpoutBuilder {
      * Instanciate `KafkaSpout` instance.
      * @param bootstrapServers Comma-separated Kafka bootstrap servers.
      * @param topic Kafka topic.
+     * @param groupId Kafka consumer group id.
      */
-    public static KafkaSpout<String, String> build(String bootstrapServers, String topic) {
+    public static KafkaSpout<String, String> build(String bootstrapServers, String topic, String groupId) {
         Properties props = new Properties();
-        props.put(ConsumerConfig.GROUP_ID_CONFIG,                 "console-consumer-myapp"                                  );
+        props.put(ConsumerConfig.GROUP_ID_CONFIG,                 groupId                                                   );
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG,   "org.apache.kafka.common.serialization.StringDeserializer");
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringDeserializer");
         props.put(ConsumerConfig.SECURITY_PROVIDERS_CONFIG,       "org.apache.kafka.common.serialization.StringDeserializer");
