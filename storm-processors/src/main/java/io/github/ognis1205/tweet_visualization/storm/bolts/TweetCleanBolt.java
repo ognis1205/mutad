@@ -83,13 +83,13 @@ public class TweetCleanBolt extends BaseRichBolt {
         JSONObject json = new JSONObject();
 
         try {
-            json.put("id", tweet.getString("id_str"));
+            json.put("id", tweet.getLong("id"));
         } catch (Exception e) {
             json.put("id", "");
         }
 
         try {
-            json.put("timestamp", tweet.getLong("timestamp_ms"));
+            json.put("timestamp", Long.parseLong(tweet.getString("timestamp_ms")));
         } catch (Exception e) {
             json.put("timestamp", 0L);
         }

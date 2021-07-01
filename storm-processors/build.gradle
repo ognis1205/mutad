@@ -14,17 +14,18 @@ configurations {
 }
 
 dependencies {
-    compileOnly             group: 'org.projectlombok', name: 'lombok',             version: '1.18.20'
-    annotationProcessor     group: 'org.projectlombok', name: 'lombok',             version: '1.18.20'
-    testCompileOnly         group: 'org.projectlombok', name: 'lombok',             version:'1.18.20'
-    testAnnotationProcessor group: 'org.projectlombok', name: 'lombok',             version:'1.18.20'
-    extraLibrary            group: 'commons-cli',       name: 'commons-cli',        version: '1.4'
-    extraLibrary            group: 'org.apache.storm',  name: 'storm-kafka-client', version: '2.2.0'
-    extraLibrary            group: 'org.apache.kafka',  name: 'kafka-clients',      version: '2.8.0'
-    extraLibrary            group: 'org.json',          name: 'json',               version: '20210307'
-    extraLibrary            group: 'com.vdurmont',      name: 'emoji-java',         version: '5.1.1'
-    implementation          group: 'org.apache.storm',  name: 'storm-core',         version: '2.2.0'
-    implementation          group: 'ch.qos.logback',    name: 'logback-classic',    version: '1.2.3'
+    compileOnly             group: 'org.projectlombok', name: 'lombok',              version: '1.18.20'
+    annotationProcessor     group: 'org.projectlombok', name: 'lombok',              version: '1.18.20'
+    testCompileOnly         group: 'org.projectlombok', name: 'lombok',              version: '1.18.20'
+    testAnnotationProcessor group: 'org.projectlombok', name: 'lombok',              version: '1.18.20'
+    extraLibrary            group: 'commons-cli',       name: 'commons-cli',         version: '1.4'
+    extraLibrary            group: 'org.apache.storm',  name: 'storm-kafka-client',  version: '2.2.0'
+    extraLibrary            group: 'org.apache.kafka',  name: 'kafka-clients',       version: '2.8.0'
+    extraLibrary            group: 'org.elasticsearch', name: 'elasticsearch-storm', version: '7.13.2'
+    extraLibrary            group: 'org.json',          name: 'json',                version: '20210307'
+    extraLibrary            group: 'com.vdurmont',      name: 'emoji-java',          version: '5.1.1'
+    implementation          group: 'org.apache.storm',  name: 'storm-core',          version: '2.2.0'
+    implementation          group: 'ch.qos.logback',    name: 'logback-classic',     version: '1.2.3'
     configurations.implementation.extendsFrom(configurations.extraLibrary)
 }
 
@@ -32,4 +33,5 @@ jar {
     from {
         configurations.extraLibrary.collect { it.isDirectory() ? it : zipTree(it) }
     }
+    exclude 'defaults.yaml','META-INF/*.RSA','META-INF/*.SF','META-INF/*.DSA'
 }

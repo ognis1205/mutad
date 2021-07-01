@@ -1,0 +1,30 @@
+{
+  "mappings": {
+    "tweet_type": {
+      "properties": {
+        "id": {
+          "type": "long",
+          "store": "yes"
+        },
+        "timestamp": {
+          "type": "long",
+          "store": "yes"
+        },
+        "text": {
+          "type": "text",
+          "store": "yes",
+          "index": "analyzed"
+        },
+        "geo": {
+          "type": "geo_point",
+          "store": "yes"
+        },
+        "hashtags": {
+          "type": "text",
+          "store": "yes",
+          "index": "analyzed"
+        }
+      }
+    }
+  }
+}
