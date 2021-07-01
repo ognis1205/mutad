@@ -114,8 +114,8 @@ public class CollectorTopology {
 
             StormSubmitter.submitTopology("collectors", conf, builder.createTopology());
         } catch (ParseException exception) {
-            System.out.print("parse error: ");
-            System.out.println(exception.getMessage());
+            System.err.print("parse error: ");
+            System.err.println(exception.getMessage());
         }
     }
 }

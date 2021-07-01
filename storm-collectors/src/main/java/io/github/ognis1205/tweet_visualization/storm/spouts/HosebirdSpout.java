@@ -27,20 +27,23 @@ import com.twitter.hbc.core.endpoint.StatusesSampleEndpoint;
 import com.twitter.hbc.core.event.Event;
 import com.twitter.hbc.core.processor.StringDelimitedProcessor;
 import com.twitter.hbc.httpclient.auth.OAuth1;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.storm.spout.SpoutOutputCollector;
 import org.apache.storm.task.TopologyContext;
 import org.apache.storm.tuple.Fields;
 import org.apache.storm.tuple.Values;
 import org.apache.storm.topology.OutputFieldsDeclarer;
 import org.apache.storm.topology.base.BaseRichSpout;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 /**
  * @author Shingo OKAWA
  * @version 1.0.0
  */
-@Slf4j
 public class HosebirdSpout extends BaseRichSpout {
+    /** SL4J Logger. */
+    private static final Logger LOG = LoggerFactory.getLogger(HosebirdSpout.class);
+
     /** `OutputCollector` instance to expose the API for emitting tuples. */
     SpoutOutputCollector collector;
 
@@ -87,7 +90,7 @@ public class HosebirdSpout extends BaseRichSpout {
     @Override
     public void open(Map conf, TopologyContext context, SpoutOutputCollector collector) {
         this.collector = collector;
-        log.info("starting up client to collect tweets from Hosebird...");
+        LOG.info("starting up client to collect tweets from Hosebird...");
         ClientBuilder builder = new ClientBuilder()
                 .name("Tweet-Visualization-Hosebird-Client")
                 .hosts(new HttpHosts(Constants.STREAM_HOST))
@@ -96,7 +99,7 @@ public class HosebirdSpout extends BaseRichSpout {
                 .processor(new StringDelimitedProcessor(this.que));
         this.client = builder.build();
         this.client.connect();
-        log.info("starting up client to collect tweets from Hosebird: done!");
+        LOG.info("starting up client to collect tweets from Hosebird: done!");
     }
 
     /**
@@ -104,9 +107,9 @@ public class HosebirdSpout extends BaseRichSpout {
      */
     @Override
     public void close() {
-        log.info("shutting down client from twitter...");
+        LOG.info("shutting down client from twitter...");
         this.client.stop();
-        log.info("shutting down client from twitter: done!");
+        LOG.info("shutting down client from twitter: done!");
     }
 
     /**
@@ -117,10 +120,10 @@ public class HosebirdSpout extends BaseRichSpout {
         String tweet = null;
         try {
             tweet = this.que.poll(5, TimeUnit.SECONDS);
-            log.trace("HOSEBIRD: " + tweet);
+            LOG.trace(tweet);
             this.collector.emit(new Values(tweet));
         } catch (InterruptedException e) {
-            log.error(e.getMessage());
+            LOG.error(e.getMessage());
         }
     }
 

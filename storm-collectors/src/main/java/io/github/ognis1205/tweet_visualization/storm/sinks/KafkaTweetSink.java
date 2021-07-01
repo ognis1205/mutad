@@ -17,7 +17,6 @@ package io.github.ognis1205.tweet_visualization.storm.sinks;
 
 import java.util.Map;
 import java.util.Properties;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.*;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.apache.storm.task.OutputCollector;
@@ -25,13 +24,17 @@ import org.apache.storm.task.TopologyContext;
 import org.apache.storm.topology.OutputFieldsDeclarer;
 import org.apache.storm.topology.base.BaseRichBolt;
 import org.apache.storm.tuple.Tuple;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 /**
  * @author Shingo OKAWA
  * @version 1.0.0
  */
-@Slf4j
 public class KafkaTweetSink extends BaseRichBolt {
+    /** SL4J Logger. */
+    private static final Logger LOG = LoggerFactory.getLogger(KafkaTweetSink.class);
+
     /** `OutputCollector` instance to expose the API for emitting tuples. */
     OutputCollector collector;
 
@@ -60,7 +63,7 @@ public class KafkaTweetSink extends BaseRichBolt {
     @Override
     public void prepare(Map map, TopologyContext topologyContext, OutputCollector collector) {
         this.collector = collector;
-        log.info("starting up producer to sink tweets to Kafka...");
+        LOG.info("starting up producer to sink tweets to Kafka...");
         Properties properties = new Properties();
         properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,              this.brokerList                    );
         properties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,           StringSerializer.class.getName()   );
@@ -73,7 +76,7 @@ public class KafkaTweetSink extends BaseRichBolt {
         properties.setProperty(ProducerConfig.LINGER_MS_CONFIG,                      "20"                               );
         properties.setProperty(ProducerConfig.BATCH_SIZE_CONFIG,                     Integer.toString(32 * 1024)     );
         this.producer = new KafkaProducer<String, String>(properties);
-        log.info("starting up producer to sink tweets to Kafka: done!");
+        LOG.info("starting up producer to sink tweets to Kafka: done!");
     }
 
     /**
@@ -82,12 +85,12 @@ public class KafkaTweetSink extends BaseRichBolt {
     @Override
     public void execute(Tuple tuple) {
         String tweet = tuple.getString(0);
-        log.trace("KAFKA: " + tweet);
+        LOG.trace(tweet);
         this.producer.send(new ProducerRecord<String, String>(this.topic,null, tweet), new Callback() {
             @Override
             public void onCompletion(RecordMetadata recordMetadata, Exception e) {
                 if (e != null) {
-                    log.error("something bad happened", e);
+                    LOG.error("something bad happened", e);
                 }
             }
         });

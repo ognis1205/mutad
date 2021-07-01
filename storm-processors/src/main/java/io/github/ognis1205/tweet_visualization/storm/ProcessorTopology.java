@@ -34,14 +34,14 @@ public class ProcessorTopology {
     public static void main(String[] args) throws Exception {
         Options options = new Options();
 
-        Option kafkaServers = Option.builder("k")
+        Option kafkaServers = Option.builder("a")
                 .required(true)
                 .hasArg(true)
                 .desc("specifies Kafka bootstrap servers in csv format")
-                .longOpt("kafka-bootstrap-servers")
+                .longOpt("kafka-broker-list")
                 .build();
 
-        Option kafkaTopic = Option.builder("t")
+        Option kafkaTopic = Option.builder("b")
                 .required(true)
                 .hasArg(true)
                 .desc("specifies Kafka topic")
@@ -58,7 +58,10 @@ public class ProcessorTopology {
 
             builder.setSpout(
                     "kafka",
-                    KafkaTweetSpoutBuilder.build(commandLine.getOptionValue("k"), commandLine.getOptionValue("t"), "storm-processor"),
+                    KafkaTweetSpoutBuilder.build(
+                            commandLine.getOptionValue("a"),
+                            commandLine.getOptionValue("b"),
+                            "storm-processor"),
                     1);
 
             builder.setBolt(
@@ -71,11 +74,12 @@ public class ProcessorTopology {
             conf.setMaxSpoutPending(5000);
             conf.setStatsSampleRate(1.0d);
             conf.setNumWorkers(1);
+            conf.setDebug(true);
 
             StormSubmitter.submitTopology("processors", conf, builder.createTopology());
         } catch (ParseException exception) {
-            System.out.print("parse error: ");
-            System.out.println(exception.getMessage());
+            System.err.print("parse error: ");
+            System.err.println(exception.getMessage());
         }
     }
 }
