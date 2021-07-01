@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Start the Supervisor
 nohup storm supervisor &
 status=$?
 if [ $status -ne 0 ]; then
