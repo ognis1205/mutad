@@ -24,6 +24,7 @@ import org.apache.storm.topology.base.BaseRichBolt;
 import org.apache.storm.tuple.Fields;
 import org.apache.storm.tuple.Tuple;
 import org.apache.storm.tuple.Values;
+import org.json.JSONObject;
 
 /**
  * @author Shingo OKAWA
@@ -47,13 +48,9 @@ public class TweetCleanBolt extends BaseRichBolt {
      */
     @Override
     public void execute(Tuple tuple) {
-        String topic = tuple.getString(0);
-//        String key = tuple.getString(1);
-//        String value = tuple.getString(2);
-        log.info("TOPIC: " + topic);
-//        log.info("KEY:   " + key);
-//        log.info("VALUE: " + value);
-        this.collector.emit(tuple, new Values(topic));
+        JSONObject tweets = new JSONObject(tuple.getString(0));
+        log.info("TWEET: " + tweets);
+        this.collector.emit(tuple, new Values(tweets));
         this.collector.ack(tuple);
     }
 
@@ -62,6 +59,6 @@ public class TweetCleanBolt extends BaseRichBolt {
      */
     @Override
     public void declareOutputFields(OutputFieldsDeclarer declarer) {
-        declarer.declare(new Fields("exclamated-word"));
+        declarer.declare(new Fields("tweet"));
     }
 }

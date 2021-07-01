@@ -21,7 +21,6 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.ParseException;
-import org.apache.storm.testing.TestWordSpout;
 import org.apache.storm.Config;
 import org.apache.storm.StormSubmitter;
 import org.apache.storm.topology.TopologyBuilder;
@@ -57,14 +56,9 @@ public class ProcessorTopology {
             CommandLine commandLine = parser.parse(options, args);
             TopologyBuilder builder = new TopologyBuilder();
 
-//            builder.setSpout(
-//                    "kafka",
-                    //KafkaTweetSpoutBuilder.build(commandLine.getOptionValue("k"), commandLine.getOptionValue("t")),
-                    //1);
-
             builder.setSpout(
                     "kafka",
-                    new TestWordSpout(),
+                    KafkaTweetSpoutBuilder.build(commandLine.getOptionValue("k"), commandLine.getOptionValue("t"), "storm-processor"),
                     1);
 
             builder.setBolt(
@@ -76,10 +70,9 @@ public class ProcessorTopology {
             Config conf = new Config();
             conf.setMaxSpoutPending(5000);
             conf.setStatsSampleRate(1.0d);
-            conf.setDebug(true);
             conf.setNumWorkers(1);
 
-            StormSubmitter.submitTopology("storm-processors", conf, builder.createTopology());
+            StormSubmitter.submitTopology("processors", conf, builder.createTopology());
         } catch (ParseException exception) {
             System.out.print("parse error: ");
             System.out.println(exception.getMessage());

@@ -6,6 +6,6 @@ System.setProperty(
 
 rootProject.name = 'tweet-visualization-java'
 
-include 'data-collectors'
+include 'storm-collectors'
 
 include 'storm-processors'

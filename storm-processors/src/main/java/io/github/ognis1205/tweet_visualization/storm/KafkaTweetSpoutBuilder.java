@@ -17,6 +17,7 @@ package io.github.ognis1205.tweet_visualization.storm;
 
 import java.util.Properties;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.storm.kafka.spout.KafkaSpout;
 import org.apache.storm.kafka.spout.KafkaSpoutConfig;
 import org.apache.storm.tuple.Fields;
@@ -35,15 +36,15 @@ public class KafkaTweetSpoutBuilder {
      */
     public static KafkaSpout<String, String> build(String bootstrapServers, String topic, String groupId) {
         Properties props = new Properties();
-        props.put(ConsumerConfig.GROUP_ID_CONFIG,                 groupId                                                   );
-        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG,   "org.apache.kafka.common.serialization.StringDeserializer");
-        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringDeserializer");
-        props.put(ConsumerConfig.SECURITY_PROVIDERS_CONFIG,       "org.apache.kafka.common.serialization.StringDeserializer");
+        props.put(ConsumerConfig.GROUP_ID_CONFIG,                 groupId                           );
+        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG,   StringDeserializer.class.getName());
+        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
+        props.put(ConsumerConfig.SECURITY_PROVIDERS_CONFIG,       StringDeserializer.class.getName());
 
         KafkaSpoutConfig<String, String> kafkaSpoutConfig = KafkaSpoutConfig
                 .builder(bootstrapServers, topic)
                 .setProp(props)
-                .setRecordTranslator((r) -> new Values(r.topic(), r.key(), r.value()), new Fields("topic", "key", "message"))
+                .setRecordTranslator((r) -> new Values(r.value()), new Fields("tweets"))
                 .build();
 
         return new KafkaSpout<String, String>(kafkaSpoutConfig);
