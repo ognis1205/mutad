@@ -107,10 +107,8 @@ public class CollectorTopology {
                     .shuffleGrouping("hosebird");
 
             Config conf = new Config();
-            //conf.setMaxSpoutPending(5000);
-            //conf.setStatsSampleRate(1.0d);
             conf.setNumWorkers(1);
-            conf.setDebug(true);
+            conf.setDebug(false);
 
             StormSubmitter.submitTopology("collectors", conf, builder.createTopology());
         } catch (ParseException exception) {

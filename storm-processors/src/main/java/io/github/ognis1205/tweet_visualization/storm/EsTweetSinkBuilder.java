@@ -26,16 +26,17 @@ import org.elasticsearch.storm.EsBolt;
 public class EsTweetSinkBuilder {
     /**
      * Instanciate `EsBolt` instance.
-     * @param esNodes Comma-separated Elasticsearch nodes.
-     * @param esPort Elasticsearch port number.
+     *
+     * @param esNodes   Comma-separated Elasticsearch nodes.
      * @param indexType index/type string.
      */
-    public static EsBolt build(String esNodes, Integer esPort, String indexType) {
+    public static EsBolt build(String esNodes, String indexType) {
         Map<String, Object> conf = new HashMap<>();
-        conf.put("es.nodes",              esNodes);
-        conf.put("es.port",               esPort);
-        conf.put("es.input.json",         "true");
-        conf.put("es.batch.size.entries", "100");
+        conf.put("es.nodes",                       esNodes);
+        conf.put("es.nodes.wan.only",              "true" );
+        conf.put("es.input.json",                  "true" );
+        conf.put("es.storm.bolt.tick.tuple.flush", "false");
+        conf.put("es.batch.size.entries",          "100"  );
         return new EsBolt(indexType, conf);
     }
 

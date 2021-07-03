@@ -9,3 +9,5 @@ rootProject.name = 'tweet-visualization-java'
 include 'storm-collectors'
 
 include 'storm-processors'
+
+include 'trie-dictionary'

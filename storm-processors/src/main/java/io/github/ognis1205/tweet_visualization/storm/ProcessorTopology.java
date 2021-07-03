@@ -55,17 +55,17 @@ public class ProcessorTopology {
                 .longOpt("es-node-list")
                 .build();
 
-        Option esPort = Option.builder("d")
+        Option esIndexType = Option.builder("d")
                 .required(true)
                 .hasArg(true)
-                .desc("specifies Elasticsearch port number")
-                .longOpt("es-port")
+                .desc("specifies Elasticsearch index/type")
+                .longOpt("es-index-type")
                 .build();
 
         options.addOption(kafkaServers);
         options.addOption(kafkaTopic);
         options.addOption(esNodes);
-        options.addOption(esPort);
+        options.addOption(esIndexType);
         CommandLineParser parser = new DefaultParser();
 
         try {
@@ -90,16 +90,13 @@ public class ProcessorTopology {
                     "elasticsearch",
                     EsTweetSinkBuilder.build(
                             commandLine.getOptionValue("c"),
-                            Integer.parseInt(commandLine.getOptionValue("d")),
-                            "tweet/tweet_type"),
+                            commandLine.getOptionValue("d")),
                     1)
                     .shuffleGrouping("clean");
 
             Config conf = new Config();
             conf.setMaxSpoutPending(5000);
-            //conf.setStatsSampleRate(1.0d);
-            //conf.setNumWorkers(1);
-            conf.setDebug(true);
+            conf.setDebug(false);
 
             StormSubmitter.submitTopology("processors", conf, builder.createTopology());
         } catch (ParseException exception) {

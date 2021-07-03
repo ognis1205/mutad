@@ -22,10 +22,11 @@ Connect to both instances with SSH and run:
 
 ## Setup VPC
 
-| Source                       | Type        | Protocol | Port Range      |
-| ---------------------------- | ----------- | -------- | --------------- |
-| Security Group sg1234567890  | All Traffic | All      | All             |
-| Your Client IP Address(es)   | Custom TCP  | TCP      | 5601(Kibana)    |
+| Source                       | Type        | Protocol | Port Range          |
+| ---------------------------- | ----------- | -------- | ------------------- |
+| Security Group sg1234567890  | All Traffic | All      | All                 |
+| Your Client IP Address(es)   | Custom TCP  | TCP      | 5601(Kibana)        |
+| Your Client IP Address(es)   | Custom TCP  | TCP      | 9200(Elasticsearch) |
 
 ## Start containers
 

@@ -64,8 +64,10 @@ public class TweetCleanBolt extends BaseRichBolt {
         LOG.trace(tweet.toString());
         JSONObject json = this.parse(tweet);
         LOG.trace(json.toString());
-        this.collector.emit(tuple, new Values(json));
-        this.collector.ack(tuple);
+        if (json.has("id") && json.has("text")) {
+            this.collector.emit(tuple, new Values(json));
+            this.collector.ack(tuple);
+        }
     }
 
     /**
@@ -77,7 +79,8 @@ public class TweetCleanBolt extends BaseRichBolt {
     }
 
     /**
-     *
+     * Parses a given `JSONObject` and converts it into a datum in Elasticsearch schema form.
+     * @return the corresponding datum form of a given data.
      */
     private JSONObject parse(JSONObject tweet) {
         JSONObject json = new JSONObject();
@@ -85,37 +88,41 @@ public class TweetCleanBolt extends BaseRichBolt {
         try {
             json.put("id", tweet.getLong("id"));
         } catch (Exception e) {
-            json.put("id", "");
+            // Do nothing.
         }
 
         try {
             json.put("timestamp", Long.parseLong(tweet.getString("timestamp_ms")));
         } catch (Exception e) {
-            json.put("timestamp", 0L);
+            // Do nothing.
         }
 
         try {
             json.put("text", this.removeEmoji(this.removeUrl(tweet.getString("text"))));
         } catch (Exception e) {
-            json.put("text", "");
+            // Do nothing.
         }
 
         try {
-            json.put("geo", tweet.getJSONObject("coordinates").getJSONArray("coordinates"));
+            JSONArray coords = tweet.getJSONObject("coordinates").getJSONArray("coordinates");
+            JSONObject result = new JSONObject();
+            result.put("lon", coords.getFloat(0));
+            result.put("lat", coords.getFloat(1));
+            json.put("geo", result);
         } catch (Exception e) {
-            json.put("geo", new JSONArray());
+            // Do nothing.
         }
 
         try {
             JSONArray hashtags = tweet.getJSONObject("entities").getJSONArray("hashtags");
             JSONArray result = new JSONArray();
-            for (Object entry : hashtags) {
-                JSONObject hashtag = new JSONObject(entry);
+            for (int i = 0; i < hashtags.length(); i++) {
+                JSONObject hashtag = hashtags.getJSONObject(i);
                 result.put(hashtag.getString("text"));
             }
             json.put("hashtags", result);
         } catch (Exception e) {
-            json.put("hashtags", new JSONArray());
+            // Do nothing.
         }
 
         return json;
