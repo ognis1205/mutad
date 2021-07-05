@@ -26,20 +26,20 @@ import io.github.ognis1205.util.nlang.trie.impl.DoubleArraySearcher;
  * @author Shingo OKAWA
  * @version 1.0.0
  */
-public class Dictionary implements Trie {
+public class Dictionary<T> implements Trie {
     /** Index for TRIE trie. */
-    private TrieSearcher index;
+    public DoubleArraySearcher index;
 
-    /** Lexemes indexed. */
-    private LexemeArray lexemes;
+    /** Indexed lexemes. */
+    public LexemeArray<T> lexemes;
 
     /**
      * Instanciates from a given lexemes.
      * @param lexemes the lexemes to be indexed.
      * @param sorted if this value is set to be `true,` a given lexemes will be treated as already sorted.
      */
-    public Dictionary(List<? extends Lexeme> lexemes, boolean sorted) {
-        LexemeArrayBuilder lexemeArrayBuilder = new LexemeArrayBuilder(lexemes);
+    public Dictionary(List<? extends Lexeme<T>> lexemes, boolean sorted) {
+        LexemeArrayBuilder<T> lexemeArrayBuilder = new LexemeArrayBuilder<T>(lexemes, sorted);
         DoubleArray doubleArray = DoubleArrayBuilder.build(lexemeArrayBuilder.getTrieEntryList(), sorted, lexemeArrayBuilder);
         this.lexemes = LexemeArrayBuilder.build(lexemeArrayBuilder);
         this.index = new DoubleArraySearcher(doubleArray);
@@ -74,9 +74,9 @@ public class Dictionary implements Trie {
     /**
      * Returns the value of a given id.
      * @param id the id of a registered value.
-     * @return the registered value of a given id.
+     * @return the registered id.
      */
-    public String get(int id) {
+    public T get(int id) {
         return this.lexemes.get(id);
     }
 }

@@ -23,10 +23,15 @@ import io.github.ognis1205.util.nlang.trie.impl.DoubleArraySearcher;
  */
 public interface Trie {
     /** Interface for Double Array elements. */
-    public static interface Entry extends Comparable<Entry> {
-        public String getKey();
+    public static abstract class Entry<T> implements Comparable<Entry> {
+        public abstract String getKey();
 
-        public String getValue();
+        public abstract T getValue();
+
+        @Override
+        public int compareTo(Entry that) {
+            return this.getKey().compareTo(that.getKey());
+        }
     }
 
     /**

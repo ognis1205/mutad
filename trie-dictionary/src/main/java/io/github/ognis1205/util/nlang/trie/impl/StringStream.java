@@ -49,6 +49,14 @@ final class StringStream implements Comparable<StringStream> {
      * {@inheritDoc}
      */
     @Override
+    public String toString() {
+        return this.sequence.toString();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public int compareTo(StringStream stream) {
         return this.rest().compareTo(stream.rest());
     }

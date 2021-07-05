@@ -27,9 +27,7 @@ final class DoubleArrayAllocator {
     /** Linked node data structure used for a memory allocation. */
     private static class LinkedNode {
         public int prev;
-
         public int next;
-
         public LinkedNode(int prev, int next) {
             this.prev = prev;
             this.next = next;

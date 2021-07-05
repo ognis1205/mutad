@@ -52,7 +52,8 @@ public final class DoubleArraySearcher implements TrieSearcher {
         final int begin = this.doubleArray.begins.get(id);
         final int offset = this.doubleArray.lengths.get(id);
         final String suffix = this.doubleArray.tail.substring(begin, begin + offset);
-        return key.rest().equals(suffix);
+        return key.rest(-1).equals(suffix);
+        //return key.rest().equals(suffix);
     }
 
     /**

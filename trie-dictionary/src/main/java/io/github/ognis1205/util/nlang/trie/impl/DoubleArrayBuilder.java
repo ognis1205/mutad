@@ -64,8 +64,8 @@ public final class DoubleArrayBuilder implements TrieBuilder {
         if (!sorted) {
             java.util.Collections.sort(keys);
         }
-        String prev = null;
-        String keyString = null;
+        CharSequence prev = null;
+        CharSequence keyString = null;
         for (Trie.Entry key : keys) {
             keyString = key.getKey();
             if (!keyString.equals(prev)) {
@@ -84,7 +84,7 @@ public final class DoubleArrayBuilder implements TrieBuilder {
      */
     private void build(DoubleArrayAllocator allocator, int begin, int end, int rootIndex, Callback func) {
         if (end - begin == 1) {
-            this.insertTail(keys.get(begin), rootIndex, func);
+            this.insertTail(this.keys.get(begin), rootIndex, func);
             return;
         }
 
@@ -130,6 +130,7 @@ public final class DoubleArrayBuilder implements TrieBuilder {
     private void insertTail(StringStream key, int nodeIndex, Callback func) {
         String suffix = key.rest(-1);
         int id = Constants.DoubleArrayBase.ID(this.begins.size());
+        //System.out.println(Constants.DoubleArrayBase.ID(id));
         this.base.set(nodeIndex, id, Constants.DoubleArrayBase.INIT_VALUE);
         this.begins.add(this.tail.length());
         this.lengths.add(suffix.length());

@@ -21,6 +21,6 @@ import io.github.ognis1205.util.nlang.trie.Trie;
  * @author Shingo OKAWA
  * @version 1.0.0
  */
-public interface Lexeme extends Trie.Entry {
+public abstract class Lexeme<T> extends Trie.Entry<T> {
     /* Nothing defined here. */
 }

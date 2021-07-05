@@ -24,32 +24,29 @@ import io.github.ognis1205.util.nlang.trie.TrieBuilder;
  * @author Shingo OKAWA
  * @version 1.0.0
  */
-final class LexemeArrayBuilder implements TrieBuilder.Callback {
+final class LexemeArrayBuilder<T> implements TrieBuilder.Callback {
     /** Lexemes to be used to build an array. */
-    private final List<? extends Lexeme> lexemes;
-
-    /** Data array; the starting position of lexemes. */
-    private final ArrayList<Integer> begins = new ArrayList<Integer>();
-
-    /** Data array; the length of lexemes. */
-    private final ArrayList<Integer> lengths = new ArrayList<Integer>();
+    private final List<? extends Lexeme<T>> lexemes;
 
     /** Tail array. */
-    private final StringBuffer data = new StringBuffer();
+    private final List<T> data = new ArrayList<T>();
 
     /**
      * Instanciates from a given Lexeme Array builder.
      * @param builder the builder to be used to construct a Lexeme Array.
      */
-    public static LexemeArray build(LexemeArrayBuilder builder) {
-        return new LexemeArray(builder);
+    public static <T> LexemeArray<T> build(LexemeArrayBuilder<T> builder) {
+        return new LexemeArray<T>(builder);
     }
 
     /**
      * Instanciates from a given lexemes.
      * @param lexemes the lexemes to be used to build an array.
      */
-    public LexemeArrayBuilder(List<? extends Lexeme> lexemes) {
+    public LexemeArrayBuilder(List<? extends Lexeme<T>> lexemes, boolean sorted) {
+//        if (!sorted) {
+            java.util.Collections.sort(lexemes);
+//        }
         this.lexemes = lexemes;
     }
 
@@ -58,28 +55,25 @@ final class LexemeArrayBuilder implements TrieBuilder.Callback {
      */
     @Override
     public void apply(int id) {
-        Lexeme lexeme = this.lexemes.get(id);
-        if (lexeme != null) {
-            String value = lexeme.getValue();
-            this.begins.add(data.length());
-            this.lengths.add(value.length());
-            this.data.append(value);
-        }
+        Lexeme<T> lexeme = this.lexemes.get(id);
+//        if (lexeme != null) {
+//            System.out.println(lexeme.getKey());
+//            if (lexeme.getKey().equals("Tokyo")) {
+//                System.out.println("APPLY");
+//                System.out.println(id);
+//                System.out.println(lexeme.getKey());
+//                System.out.println("APPLY END");
+//            }
+            T value = lexeme.getValue();
+            this.data.add(id, value);
+//        }
     }
 
-    public List<? extends Trie.Entry> getTrieEntryList() {
+    public List<? extends Trie.Entry<T>> getTrieEntryList() {
         return this.lexemes;
     }
 
-    public List<Integer> getBegins() {
-        return this.begins;
-    }
-
-    public List<Integer> getLengths() {
-        return this.lengths;
-    }
-
-    public String getData() {
-        return data.toString();
+    public List<T> getData() {
+        return this.data;
     }
 }

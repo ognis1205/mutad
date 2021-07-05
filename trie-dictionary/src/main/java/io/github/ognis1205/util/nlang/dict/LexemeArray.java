@@ -21,23 +21,15 @@ import java.util.List;
  * @author Shingo OKAWA
  * @version 1.0.0
  */
-final class LexemeArray {
-    /** Data array; the starting position of lexemes. */
-    private final List<Integer> begins;
-
-    /** Data array; the length of lexemes. */
-    private final List<Integer> lengths;
-
+final class LexemeArray<T> {
     /** Data array. */
-    private final String data;
+    public final List<T> data;
 
     /**
      * Instanciates from a given builder.
      * @param builder the builder to be used.
      */
-    public LexemeArray(LexemeArrayBuilder builder) {
-        this.begins = builder.getBegins();
-        this.lengths = builder.getLengths();
+    public LexemeArray(LexemeArrayBuilder<T> builder) {
         this.data = builder.getData();
     }
 
@@ -46,9 +38,7 @@ final class LexemeArray {
      * @param id the id to be queried.
      * @return the value which is specified by a given id.
      */
-    public String get(int id) {
-        int begin = begins.get(id);
-        int length = lengths.get(id);
-        return data.substring(begin, begin + length);
+    public T get(int id) {
+        return this.data.get(id);
     }
 }
