@@ -29,6 +29,7 @@ import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import io.github.ognis1205.util.nlang.trie.TrieSearcher;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -44,6 +45,11 @@ public class DictionaryTest {
         public Coord(double lon, double lat) {
             this.lon = lon;
             this.lat = lat;
+        }
+
+        @Override
+        public String toString() {
+            return "(" + this.lon + "," + this.lat + ")";
         }
     }
 
@@ -66,6 +72,21 @@ public class DictionaryTest {
 
         public void add(Coord coord) {
             this.value.add(coord);
+        }
+    }
+
+    private static class Match implements TrieSearcher.Callback {
+        public Dictionary<List<Coord>> dict;
+
+        public List<Coord> coords;
+
+        public Match(Dictionary<List<Coord>> dict) {
+            this.dict = dict;
+            this.coords = new ArrayList<>();
+        }
+
+        public void apply(int begin, int offset, int id) {
+            this.coords.addAll(this.dict.get(id));
         }
     }
 
@@ -110,10 +131,23 @@ public class DictionaryTest {
         assertEquals(this.dict.get(this.dict.membership("Tokyo")).get(0).lon, 35.685);
         assertEquals(this.dict.get(this.dict.membership("Tokushima")).get(0).lat, 134.5525);
         assertEquals(this.dict.get(this.dict.membership("Tokushima")).get(0).lon, 34.0674);
+        assertEquals(this.dict.membership("Mishima"), -1);
+        assertEquals(this.dict.membership("Numazu"), -1);
     }
 
     @Test
     void testPrefix() {
-        // Do nothing.
+        String text = "Compare & reserve one-way or return flights from Osaka Rio de Janeiro from ￥117480 only to get the best flight deals and promotions for your KIX to GIG trip!";
+        Match match = new Match(this.dict);
+        int curr = 0;
+        while (curr < text.length()) {
+            this.dict.prefix(text, curr, match);
+            curr++;
+        }
+        assertEquals(match.coords.size(), 2);
+        assertEquals(match.coords.get(0).lat, 135.4601);
+        assertEquals(match.coords.get(0).lon, 34.75);
+        assertEquals(match.coords.get(1).lat, -43.225);
+        assertEquals(match.coords.get(1).lon, -22.925);
     }
 }

@@ -53,7 +53,6 @@ public final class DoubleArraySearcher implements TrieSearcher {
         final int offset = this.doubleArray.lengths.get(id);
         final String suffix = this.doubleArray.tail.substring(begin, begin + offset);
         return key.rest(-1).equals(suffix);
-        //return key.rest().equals(suffix);
     }
 
     /**
@@ -83,6 +82,7 @@ public final class DoubleArraySearcher implements TrieSearcher {
         StringStream keyStream = new StringStream(key);
         for (char code = keyStream.read(); ; code = keyStream.read()) {
             final int index = node + code;
+            if (index < 0) return -1;
             node = this.doubleArray.base.get(index);
             if (this.doubleArray.check.get(index) == code) {
                 if (node >= 0) {
@@ -92,6 +92,8 @@ public final class DoubleArraySearcher implements TrieSearcher {
                 } else {
                     return -1;
                 }
+            } else {
+                return -1;
             }
         }
     }
@@ -105,21 +107,15 @@ public final class DoubleArraySearcher implements TrieSearcher {
         int offset = 0;
         StringStream queryStream = new StringStream(query, begin);
         for (char code = queryStream.read(); ; code = queryStream.read(), offset++) {
-            final int terminalIndex = node + Constants.DoubleArrayCheck.TERM_CODE;
-            if (this.doubleArray.check.get(terminalIndex) == Constants.DoubleArrayCheck.TERM_CODE) {
-                func.apply(begin, offset, Constants.DoubleArrayBase.ID(this.doubleArray.base.get(terminalIndex)));
-                if (code == Constants.DoubleArrayCheck.TERM_CODE) {
-                    return;
-                }
-            }
             final int index = node + code;
+            offset++;
+            if (index < 0) return;
             node = this.doubleArray.base.get(index);
             if (this.doubleArray.check.get(index) == code) {
                 if (node >= 0) {
                     continue;
                 } else {
-                    final int suffixOffset = this.doubleArray.lengths.get(node);
-                    this.applyIfKeyIncludesSuffix(queryStream, node, begin, suffixOffset, func);
+                    this.applyIfKeyIncludesSuffix(queryStream, node, begin, offset, func);
                 }
             } else {
                 return;
