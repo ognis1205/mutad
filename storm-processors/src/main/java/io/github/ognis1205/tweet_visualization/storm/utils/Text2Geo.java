@@ -19,13 +19,12 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
+import java.util.*;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import io.github.ognis1205.util.nlang.trie.TrieSearcher;
 import io.github.ognis1205.util.nlang.dict.Dictionary;
 import io.github.ognis1205.util.nlang.dict.Lexeme;
@@ -35,6 +34,9 @@ import io.github.ognis1205.util.nlang.dict.Lexeme;
  * @version 1.0.0
  */
 public class Text2Geo {
+    /** SL4J Logger. */
+    private static final Logger LOG = LoggerFactory.getLogger(Text2Geo.class);
+
     private static class City extends Lexeme<JSONObject> {
         /** City name. */
         private String name;
@@ -63,7 +65,7 @@ public class Text2Geo {
         /** {@inheritDoc} */
         @Override
         public String getKey() {
-            return this.name;
+            return this.name.toLowerCase(Locale.ROOT);
         }
 
         /** {@inheritDoc} */
@@ -130,9 +132,9 @@ public class Text2Geo {
             while ((line = br.readLine()) != null) {
                 String[] values = line.split("\\s*,\\s*");
                 if (result.containsKey(values[0])) {
-                    result.get(values[0]).add(Arrays.asList(values));
+                    result.get(values[0].toLowerCase(Locale.ROOT)).add(Arrays.asList(values));
                 } else {
-                    result.put(values[0], new City(Arrays.asList(values)));
+                    result.put(values[0].toLowerCase(Locale.ROOT), new City(Arrays.asList(values)));
                 }
             }
         }

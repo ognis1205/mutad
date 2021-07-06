@@ -15,6 +15,8 @@
  */
 package io.github.ognis1205.tweet_visualization.storm.bolts;
 
+import java.nio.file.Paths;
+import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -30,6 +32,7 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.vdurmont.emoji.EmojiParser;
+import io.github.ognis1205.tweet_visualization.storm.utils.Text2Geo;
 
 /**
  * @author Shingo OKAWA
@@ -47,12 +50,20 @@ public class TweetCleanBolt extends BaseRichBolt {
     /** `OutputCollector` instance to expose the API for emitting tuples. */
     OutputCollector collector;
 
+    /** `OutputCollector` instance to expose the API for emitting tuples. */
+    Text2Geo text2Geo;
+
     /**
      * {@inheritDoc}
      */
     @Override
     public void prepare(Map map, TopologyContext topologyContext, OutputCollector collector) {
-        this.collector = collector;
+        try {
+            this.collector = collector;
+            this.text2Geo = new Text2Geo(Paths.get("src", "main", "resources", "worldcities.csv"));
+        } catch (Exception e) {
+            LOG.error("something bad happened", e);
+        }
     }
 
     /**
@@ -64,7 +75,7 @@ public class TweetCleanBolt extends BaseRichBolt {
         LOG.trace(tweet.toString());
         JSONObject json = this.parse(tweet);
         LOG.trace(json.toString());
-        if (json.has("id") && json.has("text")) {
+        if (json.has("id") && json.has("text") && json.has("lang") && json.getString("lang").equals("en")) {
             this.collector.emit(tuple, new Values(json));
             this.collector.ack(tuple);
         }
@@ -98,7 +109,16 @@ public class TweetCleanBolt extends BaseRichBolt {
         }
 
         try {
-            json.put("text", this.removeEmoji(this.removeUrl(tweet.getString("text"))));
+            json.put("lang", tweet.getString("lang"));
+        } catch (Exception e) {
+            // Do nothing.
+        }
+
+        try {
+            String text = this.removeEmoji(this.removeUrl(tweet.getString("text")));
+            JSONArray cities = this.text2Geo.extract(text.toLowerCase(Locale.ROOT));
+            json.put("text", text);
+            json.put("cities", cities);
         } catch (Exception e) {
             // Do nothing.
         }

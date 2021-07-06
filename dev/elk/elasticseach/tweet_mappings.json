@@ -15,14 +15,19 @@
           "store": "yes",
           "index": "analyzed"
         },
-        "geo": {
-          "type": "geo_point",
-          "store": "yes"
-        },
         "hashtags": {
           "type": "text",
           "store": "yes",
           "index": "analyzed"
+        },
+        "geo": {
+          "type": "geo_point",
+          "store": "yes"
+        },
+        "cities": {
+          "type": "geo_shape",
+          "strategy": "recursive",
+          "store": "yes"
         }
       }
     }
