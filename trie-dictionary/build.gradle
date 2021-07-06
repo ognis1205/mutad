@@ -27,9 +27,3 @@ test {
     maxHeapSize = '1G'
 }
 
-//jar {
-//    from {
-//        configurations.extraLibrary.collect { it.isDirectory() ? it : zipTree(it) }
-//    }
-//    exclude 'defaults.yaml','META-INF/*.RSA','META-INF/*.SF','META-INF/*.DSA'
-//}

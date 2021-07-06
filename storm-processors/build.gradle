@@ -24,6 +24,7 @@ dependencies {
     extraLibrary            group: 'org.elasticsearch', name: 'elasticsearch-storm', version: '7.13.2'
     extraLibrary            group: 'org.json',          name: 'json',                version: '20210307'
     extraLibrary            group: 'com.vdurmont',      name: 'emoji-java',          version: '5.1.1'
+    extraLibrary            project(':trie-dictionary')
     implementation          group: 'org.apache.storm',  name: 'storm-core',          version: '2.2.0'
     implementation          group: 'ch.qos.logback',    name: 'logback-classic',     version: '1.2.3'
     configurations.implementation.extendsFrom(configurations.extraLibrary)

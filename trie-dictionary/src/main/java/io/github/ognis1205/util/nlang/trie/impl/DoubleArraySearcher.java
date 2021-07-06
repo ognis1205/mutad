@@ -69,7 +69,7 @@ public final class DoubleArraySearcher implements TrieSearcher {
         final int suffixBegin = this.doubleArray.begins.get(id);
         final int suffixOffset = this.doubleArray.lengths.get(id);
         if (key.startsWith(this.doubleArray.tail, suffixBegin, suffixOffset)) {
-            func.apply(begin, offset, id);
+            func.apply(begin, offset + suffixOffset, id);
         }
     }
 
@@ -108,7 +108,6 @@ public final class DoubleArraySearcher implements TrieSearcher {
         StringStream queryStream = new StringStream(query, begin);
         for (char code = queryStream.read(); ; code = queryStream.read(), offset++) {
             final int index = node + code;
-            offset++;
             if (index < 0) return;
             node = this.doubleArray.base.get(index);
             if (this.doubleArray.check.get(index) == code) {

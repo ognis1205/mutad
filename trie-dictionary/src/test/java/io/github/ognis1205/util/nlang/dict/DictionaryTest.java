@@ -78,14 +78,18 @@ public class DictionaryTest {
     private static class Match implements TrieSearcher.Callback {
         public Dictionary<List<Coord>> dict;
 
+        public String text;
+
         public List<Coord> coords;
 
-        public Match(Dictionary<List<Coord>> dict) {
+        public Match(Dictionary<List<Coord>> dict, String text) {
             this.dict = dict;
+            this.text = text;
             this.coords = new ArrayList<>();
         }
 
         public void apply(int begin, int offset, int id) {
+            //System.out.println(this.text.substring(begin, begin + offset));
             this.coords.addAll(this.dict.get(id));
         }
     }
@@ -138,11 +142,10 @@ public class DictionaryTest {
     @Test
     void testPrefix() {
         String text = "Compare & reserve one-way or return flights from Osaka Rio de Janeiro from ￥117480 only to get the best flight deals and promotions for your KIX to GIG trip!";
-        Match match = new Match(this.dict);
+        Match match = new Match(this.dict, text);
         int curr = 0;
         while (curr < text.length()) {
-            this.dict.prefix(text, curr, match);
-            curr++;
+            this.dict.prefix(text, curr++, match);
         }
         assertEquals(match.coords.size(), 2);
         assertEquals(match.coords.get(0).lat, 135.4601);
