@@ -60,7 +60,7 @@ public class TweetCleanBolt extends BaseRichBolt {
     public void prepare(Map map, TopologyContext topologyContext, OutputCollector collector) {
         try {
             this.collector = collector;
-            this.text2Geo = new Text2Geo(Paths.get("src", "main", "resources", "worldcities.csv"));
+            this.text2Geo = new Text2Geo(getClass().getResourceAsStream("/worldcities.csv"));
         } catch (Exception e) {
             LOG.error("something bad happened", e);
         }
@@ -75,10 +75,8 @@ public class TweetCleanBolt extends BaseRichBolt {
         LOG.trace(tweet.toString());
         JSONObject json = this.parse(tweet);
         LOG.trace(json.toString());
-        if (json.has("id") && json.has("text") && json.has("lang") && json.getString("lang").equals("en")) {
-            this.collector.emit(tuple, new Values(json));
-            this.collector.ack(tuple);
-        }
+        this.collector.emit(tuple, new Values(json));
+        this.collector.ack(tuple);
     }
 
     /**
@@ -116,9 +114,14 @@ public class TweetCleanBolt extends BaseRichBolt {
 
         try {
             String text = this.removeEmoji(this.removeUrl(tweet.getString("text")));
-            JSONArray cities = this.text2Geo.extract(text.toLowerCase(Locale.ROOT));
             json.put("text", text);
-            json.put("cities", cities);
+            JSONObject cities = new JSONObject();
+            JSONArray coordinates = this.text2Geo.extract(text.toLowerCase(Locale.ROOT));
+            if (coordinates.length() > 0) {
+                cities.put("type", "multipoint");
+                cities.put("coordinates", coordinates);
+                json.put("cities", cities);
+            }
         } catch (Exception e) {
             // Do nothing.
         }

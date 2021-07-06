@@ -16,11 +16,15 @@
 package io.github.ognis1205.tweet_visualization.storm.utils;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.util.*;
-
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
+import java.util.HashMap;
+import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -37,7 +41,7 @@ public class Text2Geo {
     /** SL4J Logger. */
     private static final Logger LOG = LoggerFactory.getLogger(Text2Geo.class);
 
-    private static class City extends Lexeme<JSONObject> {
+    private static class City extends Lexeme<JSONArray> {
         /** City name. */
         private String name;
 
@@ -70,8 +74,8 @@ public class Text2Geo {
 
         /** {@inheritDoc} */
         @Override
-        public JSONObject getValue() {
-            JSONObject geo = new JSONObject();
+        public JSONArray getValue() {
+            JSONArray geo = new JSONArray();
             Double lat = 0.0;
             Double lon = 0.0;
             for (int i = 0; i < this.geos.length(); i++) {
@@ -79,8 +83,10 @@ public class Text2Geo {
                 lat += entry.getDouble("lat");
                 lon += entry.getDouble("lon");
             }
-            geo.put("lat", lat / this.geos.length());
-            geo.put("lon", lon / this.geos.length());
+            geo.put(lon / this.geos.length());
+            geo.put(lat / this.geos.length());
+            //geo.put("lat", lat / this.geos.length());
+            //geo.put("lon", lon / this.geos.length());
             return geo;
         }
     }
@@ -93,7 +99,7 @@ public class Text2Geo {
         private String text;
 
         /** Found citie so far. */
-        public Map<String, JSONObject> found;
+        public Map<String, JSONArray> found;
 
         /** Constructor. */
         public Matcher(Text2Geo text2Geo, String text) {
@@ -105,8 +111,8 @@ public class Text2Geo {
         /** Returns found matches as JSON. */
         public JSONArray toJSON() {
             JSONArray ret = new JSONArray();
-            for (JSONObject obj : this.found.values()) {
-                ret.put(obj);
+            for (JSONArray arr : this.found.values()) {
+                ret.put(arr);
             }
             return ret;
         }
@@ -119,15 +125,15 @@ public class Text2Geo {
     }
 
     /** City names to Lon/Lat pairs. */
-    protected Dictionary<JSONObject> cities;
+    protected Dictionary<JSONArray> cities;
 
     /**
      * Instanciate `TExt2Geo` instance.
-     * @param path the path to world cities CSV file.
+     * @param csv the path to world cities CSV file.
      */
-    public Text2Geo(Path path) throws IOException {
+    public Text2Geo(InputStream csv) throws IOException {
         Map<String, City> result = new HashMap<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(path.toFile()))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(csv))) {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split("\\s*,\\s*");
@@ -138,7 +144,7 @@ public class Text2Geo {
                 }
             }
         }
-        this.cities = new Dictionary<JSONObject>(new ArrayList<>(result.values()), false);
+        this.cities = new Dictionary<JSONArray>(new ArrayList<>(result.values()), false);
     }
 
     /**
