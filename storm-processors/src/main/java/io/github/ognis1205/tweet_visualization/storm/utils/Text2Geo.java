@@ -25,10 +25,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.HashMap;
 import java.util.Map;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import io.github.ognis1205.tweet_visualization.storm.beans.LonLat;
 import io.github.ognis1205.util.nlang.trie.TrieSearcher;
 import io.github.ognis1205.util.nlang.dict.Dictionary;
 import io.github.ognis1205.util.nlang.dict.Lexeme;
@@ -38,32 +35,23 @@ import io.github.ognis1205.util.nlang.dict.Lexeme;
  * @version 1.0.0
  */
 public class Text2Geo {
-    /** SL4J Logger. */
-    private static final Logger LOG = LoggerFactory.getLogger(Text2Geo.class);
-
-    private static class City extends Lexeme<JSONArray> {
+    private static class City extends Lexeme<LonLat> {
         /** City name. */
         private String name;
 
         /** City geos. */
-        private JSONArray geos;
+        private List<LonLat> geos;
 
         /** Constructor. */
         public City (List<String> line) {
             this.name = line.get(0);
-            this.geos = new JSONArray();
-            JSONObject geo = new JSONObject();
-            geo.put("lat", Double.parseDouble(line.get(1)));
-            geo.put("lon", Double.parseDouble(line.get(2)));
-            this.geos.put(geo);
+            this.geos = new ArrayList<>();
+            this.geos.add(new LonLat(Double.parseDouble(line.get(2)), Double.parseDouble(line.get(1))));
         }
 
         /** Add another geo point. */
         public void add(List<String> line) {
-            JSONObject geo = new JSONObject();
-            geo.put("lat", Double.parseDouble(line.get(1)));
-            geo.put("lon", Double.parseDouble(line.get(2)));
-            this.geos.put(geo);
+            this.geos.add(new LonLat(Double.parseDouble(line.get(2)), Double.parseDouble(line.get(1))));
         }
 
         /** {@inheritDoc} */
@@ -74,20 +62,14 @@ public class Text2Geo {
 
         /** {@inheritDoc} */
         @Override
-        public JSONArray getValue() {
-            JSONArray geo = new JSONArray();
+        public LonLat getValue() {
             Double lat = 0.0;
             Double lon = 0.0;
-            for (int i = 0; i < this.geos.length(); i++) {
-                JSONObject entry = this.geos.getJSONObject(i);
-                lat += entry.getDouble("lat");
-                lon += entry.getDouble("lon");
+            for (int i = 0; i < this.geos.size(); i++) {
+                lat += this.geos.get(i).getLat();
+                lon += this.geos.get(i).getLon();
             }
-            geo.put(lon / this.geos.length());
-            geo.put(lat / this.geos.length());
-            //geo.put("lat", lat / this.geos.length());
-            //geo.put("lon", lon / this.geos.length());
-            return geo;
+            return new LonLat(lon, lat);
         }
     }
 
@@ -99,7 +81,7 @@ public class Text2Geo {
         private String text;
 
         /** Found citie so far. */
-        public Map<String, JSONArray> found;
+        public Map<String, LonLat> found;
 
         /** Constructor. */
         public Matcher(Text2Geo text2Geo, String text) {
@@ -109,11 +91,16 @@ public class Text2Geo {
         }
 
         /** Returns found matches as JSON. */
-        public JSONArray toJSON() {
-            JSONArray ret = new JSONArray();
-            for (JSONArray arr : this.found.values()) {
-                ret.put(arr);
-            }
+        public List<String> getKeys() {
+            List<String> ret = new ArrayList<>();
+            for (String key : this.found.keySet()) ret.add(key);
+            return ret;
+        }
+
+        /** Returns found matches as JSON. */
+        public List<LonLat> getValues() {
+            List<LonLat> ret = new ArrayList<>();
+            for (LonLat val : this.found.values()) ret.add(val);
             return ret;
         }
 
@@ -125,7 +112,10 @@ public class Text2Geo {
     }
 
     /** City names to Lon/Lat pairs. */
-    protected Dictionary<JSONArray> cities;
+    protected Dictionary<LonLat> cities;
+
+    /** Match found. */
+    private Matcher match;
 
     /**
      * Instanciate `TExt2Geo` instance.
@@ -144,17 +134,25 @@ public class Text2Geo {
                 }
             }
         }
-        this.cities = new Dictionary<JSONArray>(new ArrayList<>(result.values()), false);
+        this.cities = new Dictionary<>(new ArrayList<>(result.values()), false);
     }
 
     /**
      * Extracts geo information from a given text.
      * @param text the text to be extracted.
-     * @return JSONArray consisting of found geo coordinates.
      */
-    public JSONArray extract(String text) {
-        Matcher match = new Matcher(this, text);
+    public void match(String text) {
+        this.match = new Matcher(this, text);
         for (int curr = 0; curr < text.length(); curr++) this.cities.prefix(text, curr++, match);
-        return match.toJSON();
+    }
+
+    /** Returns found matches as JSON. */
+    public List<String> getCityNames() {
+        return this.match.getKeys();
+    }
+
+    /** Returns found matches as JSON. */
+    public List<LonLat> getCityCoords() {
+        return this.match.getValues();
     }
 }

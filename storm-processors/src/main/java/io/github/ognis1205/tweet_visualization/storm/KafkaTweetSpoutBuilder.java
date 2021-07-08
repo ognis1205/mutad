@@ -28,6 +28,9 @@ import org.apache.storm.tuple.Values;
  * @version 1.0.0
  */
 public class KafkaTweetSpoutBuilder {
+    /** Field name. */
+    public static final String FIELD = "json";
+
     /**
      * Instanciate `KafkaSpout` instance.
      * @param bootstrapServers Comma-separated Kafka bootstrap servers.
@@ -44,7 +47,7 @@ public class KafkaTweetSpoutBuilder {
         KafkaSpoutConfig<String, String> kafkaSpoutConfig = KafkaSpoutConfig
                 .builder(bootstrapServers, topic)
                 .setProp(props)
-                .setRecordTranslator((r) -> new Values(r.value()), new Fields("tweets"))
+                .setRecordTranslator((r) -> new Values(r.value()), new Fields(FIELD))
                 .build();
 
         return new KafkaSpout<String, String>(kafkaSpoutConfig);

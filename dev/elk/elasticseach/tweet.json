@@ -2,34 +2,40 @@
   "properties": {
     "id": {
       "type": "long",
-      "store": "true"
+      "store": true
     },
     "timestamp": {
       "type": "long",
-      "store": "true"
+      "store": true
     },
     "lang": {
       "type": "text",
-      "store": "true"
+      "store": true
     },
     "text": {
       "type": "text",
-      "store": "true",
-      "index": "true"
+      "store": true,
+      "index": true
     },
     "hashtags": {
       "type": "text",
-      "store": "true",
-      "index": "true"
+      "store": true,
+      "index": true
     },
     "geo": {
       "type": "geo_point",
-      "store": "true"
+      "store": true
     },
-    "cities": {
+    "city_names": {
+      "type": "text",
+      "store": true,
+      "index": true
+    },
+    "city_coords": {
       "type": "geo_shape",
       "strategy": "recursive",
-      "store": "true"
+      "store": true,
+      "doc_values": true
     }
   }
 }

@@ -24,7 +24,11 @@ import org.apache.commons.cli.ParseException;
 import org.apache.storm.Config;
 import org.apache.storm.StormSubmitter;
 import org.apache.storm.topology.TopologyBuilder;
+import org.json.JSONObject;
+import io.github.ognis1205.tweet_visualization.storm.beans.LonLat;
+import io.github.ognis1205.tweet_visualization.storm.beans.Tweet;
 import io.github.ognis1205.tweet_visualization.storm.bolts.TweetCleanBolt;
+import io.github.ognis1205.tweet_visualization.storm.bolts.TweetGeoBolt;
 
 /**
  * @author Shingo OKAWA
@@ -55,17 +59,9 @@ public class ProcessorTopology {
                 .longOpt("es-node-list")
                 .build();
 
-        Option esIndexType = Option.builder("d")
-                .required(true)
-                .hasArg(true)
-                .desc("specifies Elasticsearch index/type")
-                .longOpt("es-index-type")
-                .build();
-
         options.addOption(kafkaServers);
         options.addOption(kafkaTopic);
         options.addOption(esNodes);
-        options.addOption(esIndexType);
         CommandLineParser parser = new DefaultParser();
 
         try {
@@ -86,15 +82,32 @@ public class ProcessorTopology {
                     1)
                     .shuffleGrouping("kafka");
 
+//            builder.setBolt(
+//                    "geo",
+//                    new TweetGeoBolt(),
+//                    1)
+//                    .shuffleGrouping("clean");
+
             builder.setBolt(
-                    "elasticsearch",
+                    "es-tweet",
                     EsTweetSinkBuilder.build(
                             commandLine.getOptionValue("c"),
-                            commandLine.getOptionValue("d")),
+                            "tweet"),
                     1)
                     .shuffleGrouping("clean");
 
+/*            builder.setBolt(
+                    "es-geo",
+                    EsTweetSinkBuilder.build(
+                            commandLine.getOptionValue("c"),
+                            "geo"),
+                    1)
+                    .shuffleGrouping("geo");*/
+
             Config conf = new Config();
+            conf.registerSerialization(LonLat.class);
+            conf.registerSerialization(Tweet.class);
+            conf.registerSerialization(JSONObject.class);
             conf.setMaxSpoutPending(5000);
             conf.setDebug(false);
 

@@ -33,10 +33,10 @@ public class EsTweetSinkBuilder {
     public static EsBolt build(String esNodes, String indexType) {
         Map<String, Object> conf = new HashMap<>();
         conf.put("es.nodes",                       esNodes);
-        conf.put("es.nodes.wan.only",              true );
-        conf.put("es.input.json",                  true );
-        conf.put("es.storm.bolt.tick.tuple.flush", false);
-        conf.put("es.batch.size.entries",          100  );
+        conf.put("es.nodes.wan.only",              "true" );
+        conf.put("es.input.json",                  "true" );
+        conf.put("es.storm.bolt.tick.tuple.flush", "false");
+        conf.put("es.batch.size.entries",          "100"  );
         return new EsBolt(indexType, conf);
     }
 

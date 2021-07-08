@@ -1,0 +1,21 @@
+{
+  "properties": {
+    "id": {
+      "type": "long",
+      "store": true
+    },
+    "timestamp": {
+      "type": "long",
+      "store": true
+    },
+    "city_name": {
+      "type": "text",
+      "store": true,
+      "index": true
+    },
+    "city_coord": {
+      "type": "geo_point",
+      "store": true
+    }
+  }
+}

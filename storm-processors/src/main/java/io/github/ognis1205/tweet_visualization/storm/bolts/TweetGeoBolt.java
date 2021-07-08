@@ -15,10 +15,7 @@
  */
 package io.github.ognis1205.tweet_visualization.storm.bolts;
 
-import java.util.Locale;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import org.apache.storm.task.OutputCollector;
 import org.apache.storm.task.TopologyContext;
 import org.apache.storm.topology.OutputFieldsDeclarer;
@@ -30,18 +27,14 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.vdurmont.emoji.EmojiParser;
-import io.github.ognis1205.tweet_visualization.storm.beans.Tweet;
-import io.github.ognis1205.tweet_visualization.storm.KafkaTweetSpoutBuilder;
-import io.github.ognis1205.tweet_visualization.storm.utils.Text2Geo;
 
 /**
  * @author Shingo OKAWA
  * @version 1.0.0
  */
-public class TweetCleanBolt extends BaseRichBolt {
+public class TweetGeoBolt extends BaseRichBolt {
     /** SL4J Logger. */
-    private static final Logger LOG = LoggerFactory.getLogger(TweetCleanBolt.class);
+    private static final Logger LOG = LoggerFactory.getLogger(TweetGeoBolt.class);
 
     /** Field name. */
     public static final String FIELD = "json";
@@ -49,20 +42,12 @@ public class TweetCleanBolt extends BaseRichBolt {
     /** `OutputCollector` instance to expose the API for emitting tuples. */
     OutputCollector collector;
 
-    /** `OutputCollector` instance to expose the API for emitting tuples. */
-    Text2Geo text2Geo;
-
     /**
      * {@inheritDoc}
      */
     @Override
     public void prepare(Map map, TopologyContext topologyContext, OutputCollector collector) {
-        try {
-            this.collector = collector;
-            this.text2Geo = new Text2Geo(getClass().getResourceAsStream("/worldcities.csv"));
-        } catch (Exception e) {
-            LOG.error("something bad happened", e);
-        }
+        this.collector = collector;
     }
 
     /**
@@ -70,16 +55,12 @@ public class TweetCleanBolt extends BaseRichBolt {
      */
     @Override
     public void execute(Tuple tuple) {
-        String json = tuple.getStringByField(KafkaTweetSpoutBuilder.FIELD);
-        if (json != null && !json.isEmpty()) {
-            Tweet tweet = new Tweet(json);
-            this.parse(tweet);
-            LOG.trace(tweet.toJSON().toString());
-            if (tweet.getId() > -1 && !tweet.getText().isEmpty()) {
-                this.collector.emit(tuple, new Values(tweet.toJSON()));
-                this.collector.ack(tuple);
-            }
-        }
+        JSONObject tweet = (JSONObject) tuple.getValueByField(TweetCleanBolt.FIELD);
+        JSONArray json = this.parse(tweet);
+        LOG.trace(json.toString());
+        this.collector.emit(tuple, new Values(new JSONObject()));
+        //for (int i = 0; i < json.length(); i++) this.collector.emit(tuple, new Values(json.getJSONObject(i)));
+        this.collector.ack(tuple);
     }
 
     /**
@@ -87,20 +68,36 @@ public class TweetCleanBolt extends BaseRichBolt {
      */
     @Override
     public void declareOutputFields(OutputFieldsDeclarer declarer) {
-        declarer.declare(new Fields(FIELD));
+        declarer.declare(new Fields("geo"));
     }
 
     /**
      * Parses a given `JSONObject` and converts it into a datum in Elasticsearch schema form.
      * @return the corresponding datum form of a given data.
      */
-    private void parse(Tweet tweet) {
+    private JSONArray parse(JSONObject tweet) {
+        JSONArray json = new JSONArray();
+
         try {
-            this.text2Geo.match(tweet.getText().toLowerCase(Locale.ROOT));
-            tweet.setCityNames(this.text2Geo.getCityNames());
-            tweet.setCityCoords(this.text2Geo.getCityCoords());
+//            JSONArray names = tweet.getJSONArray("city_names");
+//            JSONArray coords = tweet.getJSONObject("city_coords").getJSONArray("coordinates");
+//            for (int i = 0; i < names.length(); i++) {
+                JSONObject result = new JSONObject();
+                JSONObject coord = new JSONObject();
+//                coord.put("lon", coords.getJSONArray(i).getFloat(0));
+//                coord.put("lat", coords.getJSONArray(i).getFloat(1));
+                result.put("id", tweet.getLong("id"));
+                result.put("timestamp", Long.parseLong(tweet.getString("timestamp")));
+//                result.put("city_name", names.getString(i));
+//                result.put("city_coord", coord);
+                json.put(result);
+//            }
         } catch (Exception e) {
+//            LOG.trace("");
             // Do nothing.
         }
+
+        return json;
     }
 }
+
