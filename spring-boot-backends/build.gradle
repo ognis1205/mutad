@@ -1,0 +1,66 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot'            version '2.5.2'
+    id 'io.spring.dependency-management'     version '1.0.11.RELEASE'
+    id 'com.palantir.docker'                 version '0.26.0'
+    id 'com.gorylenko.gradle-git-properties' version '2.3.1'
+}
+
+sourceCompatibility = '11'
+
+targetCompatibility = '11'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+ext {
+    set('springBootAdminVersion', '2.3.1'      )
+    set('mapstructVersion',       '1.4.1.Final')
+}
+
+dependencies {
+    compileOnly             group: 'org.projectlombok',        name: 'lombok',                                 version: '1.18.20'
+    annotationProcessor     group: 'org.mapstruct',            name: 'mapstruct-processor',                    version: "${mapstructVersion}"
+    annotationProcessor     group: 'org.projectlombok',        name: 'lombok',                                 version: '1.18.20'
+    implementation          group: 'de.codecentric',           name: 'spring-boot-admin-starter-client',       version: "${springBootAdminVersion}"
+    implementation          group: 'org.mapstruct',            name: 'mapstruct',                              version: '${mapstructVersion}'
+    implementation          group: 'org.springdoc',            name:'springdoc-openapi-ui',                    version: '1.5.2'
+    implementation          group: 'org.springframework.boot', name: 'spring-boot-starter-actuator',           version: '2.5.2'
+    implementation          group: 'org.springframework.boot', name: 'spring-boot-starter-data-elasticsearch', version: '2.5.2'
+    implementation          group: 'org.springframework.boot', name: 'spring-boot-starter-web',                version: '2.5.2'
+    testAnnotationProcessor group: 'org.mapstruct',            name: 'mapstruct-processor',                    version: "${mapstructVersion}"
+    testImplementation      group: 'org.springframework.boot', name:' spring-boot-starter-test',               version: '2.5.2'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "de.codecentric:spring-boot-admin-dependencies:${springBootAdminVersion}"
+    }
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        showStandardStreams true
+        events 'started', 'skipped', 'passed', 'failed'
+        exceptionFormat 'full'
+    }
+    maxHeapSize = '1G'
+}
+
+springBoot {
+    buildInfo()
+}
+
+docker {
+    dependsOn jar
+    name "${dockerRepo}/${jar.getArchiveBaseName().get()}:${jar.getArchiveVersion().get()}"
+    dockerfile file('Dockerfile')
+    files jar.archivePath
+    buildArgs(['JAR_FILE': "${jar.getArchiveFileName().get()}", 'APP_NAME': "${jar.getArchiveBaseName().get()}"])
+    pull false
+    noCache true
+}

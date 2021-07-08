@@ -103,11 +103,11 @@ public class CollectorTopology {
                     new KafkaTweetSink(
                             commandLine.getOptionValue("e"),
                             commandLine.getOptionValue("f")),
-                    1)
+                    3)
                     .shuffleGrouping("hosebird");
 
             Config conf = new Config();
-            conf.setNumWorkers(1);
+            conf.setNumWorkers(10);
             conf.setDebug(false);
 
             StormSubmitter.submitTopology("collectors", conf, builder.createTopology());

@@ -5,7 +5,8 @@
       "store": true
     },
     "timestamp": {
-      "type": "long",
+      "type": "date",
+      "format": "epoch_millis",
       "store": true
     },
     "lang": {

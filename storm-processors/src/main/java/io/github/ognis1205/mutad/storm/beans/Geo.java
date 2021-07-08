@@ -38,6 +38,7 @@ public class Geo implements Serializable {
         Long timestamp = tweet.getTimestamp();
         String lang    = tweet.getLang();
         String text    = tweet.getText();
+        List<String> hashtags   = tweet.getHashtags();
         List<String> cityNames  = tweet.getCityNames();
         List<LonLat> cityCoords = tweet.getCityCoords();
 
@@ -47,6 +48,7 @@ public class Geo implements Serializable {
             geo.setTimestamp(timestamp);
             geo.setLang(lang);
             geo.setText(text);
+            geo.setHashtags(hashtags);
             geo.setCityName(cityNames.get(i));
             geo.setCityCoord(cityCoords.get(i));
             geos.add(geo);
@@ -88,6 +90,7 @@ public class Geo implements Serializable {
         json.put("timestamp",  this.getTimestamp()          );
         json.put("lang",       this.getLang()               );
         json.put("text",       this.getText()               );
+        json.put("hashtags",   this.getHashtags().toArray() );
         json.put("city_name",  this.getCityName()           );
         json.put("city_coord", this.getCityCoord().toArray());
         return json;

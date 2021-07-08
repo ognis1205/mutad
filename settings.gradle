@@ -6,6 +6,8 @@ System.setProperty(
 
 rootProject.name = 'mutad'
 
+include 'spring-boot-backends'
+
 include 'storm-collectors'
 
 include 'storm-processors'
