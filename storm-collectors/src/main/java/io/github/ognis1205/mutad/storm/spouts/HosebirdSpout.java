@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.ognis1205.tweet_visualization.storm.spouts;
+package io.github.ognis1205.mutad.storm.spouts;
 
 import java.util.Map;
 import java.util.concurrent.BlockingQueue;

@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.ognis1205.tweet_visualization.storm;
+package io.github.ognis1205.mutad.storm;
 
+import io.github.ognis1205.mutad.storm.beans.LonLat;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
@@ -25,10 +26,8 @@ import org.apache.storm.Config;
 import org.apache.storm.StormSubmitter;
 import org.apache.storm.topology.TopologyBuilder;
 import org.json.JSONObject;
-import io.github.ognis1205.tweet_visualization.storm.beans.LonLat;
-import io.github.ognis1205.tweet_visualization.storm.beans.Tweet;
-import io.github.ognis1205.tweet_visualization.storm.bolts.TweetCleanBolt;
-import io.github.ognis1205.tweet_visualization.storm.bolts.TweetGeoBolt;
+import io.github.ognis1205.mutad.storm.beans.Tweet;
+import io.github.ognis1205.mutad.storm.bolts.TweetCleanBolt;
 
 /**
  * @author Shingo OKAWA

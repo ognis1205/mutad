@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.ognis1205.tweet_visualization.storm.utils;
+package io.github.ognis1205.mutad.storm.utils;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -25,7 +25,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.HashMap;
 import java.util.Map;
-import io.github.ognis1205.tweet_visualization.storm.beans.LonLat;
+
+import io.github.ognis1205.mutad.storm.beans.LonLat;
 import io.github.ognis1205.util.nlang.trie.TrieSearcher;
 import io.github.ognis1205.util.nlang.dict.Dictionary;
 import io.github.ognis1205.util.nlang.dict.Lexeme;

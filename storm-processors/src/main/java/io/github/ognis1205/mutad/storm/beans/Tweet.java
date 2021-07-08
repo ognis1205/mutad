@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.ognis1205.tweet_visualization.storm.beans;
+package io.github.ognis1205.mutad.storm.beans;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import io.github.ognis1205.tweet_visualization.storm.utils.Texts;
+import io.github.ognis1205.mutad.storm.utils.Texts;
 
 /**
  * @author Shingo OKAWA

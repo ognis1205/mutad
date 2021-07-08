@@ -7,7 +7,7 @@ sourceCompatibility = '8'
 
 targetCompatibility = '8'
 
-mainClassName = 'io.github.ognis1205.tweet_visualization.storm.ProcessorTopology'
+mainClassName = 'io.github.ognis1205.mutad.storm.ProcessorTopology'
 
 configurations {
     extraLibrary

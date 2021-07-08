@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.ognis1205.tweet_visualization.storm.bolts;
+package io.github.ognis1205.mutad.storm.bolts;
 
 import java.util.Locale;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 import org.apache.storm.task.OutputCollector;
 import org.apache.storm.task.TopologyContext;
 import org.apache.storm.topology.OutputFieldsDeclarer;
@@ -26,14 +25,11 @@ import org.apache.storm.topology.base.BaseRichBolt;
 import org.apache.storm.tuple.Fields;
 import org.apache.storm.tuple.Tuple;
 import org.apache.storm.tuple.Values;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.vdurmont.emoji.EmojiParser;
-import io.github.ognis1205.tweet_visualization.storm.beans.Tweet;
-import io.github.ognis1205.tweet_visualization.storm.KafkaTweetSpoutBuilder;
-import io.github.ognis1205.tweet_visualization.storm.utils.Text2Geo;
+import io.github.ognis1205.mutad.storm.beans.Tweet;
+import io.github.ognis1205.mutad.storm.KafkaTweetSpoutBuilder;
+import io.github.ognis1205.mutad.storm.utils.Text2Geo;
 
 /**
  * @author Shingo OKAWA

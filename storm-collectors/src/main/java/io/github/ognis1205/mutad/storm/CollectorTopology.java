@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.ognis1205.tweet_visualization.storm;
+package io.github.ognis1205.mutad.storm;
 
+import io.github.ognis1205.mutad.storm.spouts.HosebirdSpout;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
@@ -24,8 +25,7 @@ import org.apache.commons.cli.ParseException;
 import org.apache.storm.Config;
 import org.apache.storm.StormSubmitter;
 import org.apache.storm.topology.TopologyBuilder;
-import io.github.ognis1205.tweet_visualization.storm.sinks.KafkaTweetSink;
-import io.github.ognis1205.tweet_visualization.storm.spouts.HosebirdSpout;
+import io.github.ognis1205.mutad.storm.sinks.KafkaTweetSink;
 
 /**
  * @author Shingo OKAWA

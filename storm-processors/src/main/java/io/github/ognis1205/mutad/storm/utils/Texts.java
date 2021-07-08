@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.ognis1205.tweet_visualization.storm.utils;
+package io.github.ognis1205.mutad.storm.utils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
