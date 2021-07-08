@@ -26,8 +26,8 @@ dependencies {
     annotationProcessor     group: 'org.mapstruct',            name: 'mapstruct-processor',                    version: "${mapstructVersion}"
     annotationProcessor     group: 'org.projectlombok',        name: 'lombok',                                 version: '1.18.20'
     implementation          group: 'de.codecentric',           name: 'spring-boot-admin-starter-client',       version: "${springBootAdminVersion}"
-    implementation          group: 'org.mapstruct',            name: 'mapstruct',                              version: '${mapstructVersion}'
-    implementation          group: 'org.springdoc',            name:'springdoc-openapi-ui',                    version: '1.5.2'
+    implementation          group: 'org.mapstruct',            name: 'mapstruct',                              version: "${mapstructVersion}"
+    implementation          group: 'org.springdoc',            name: 'springdoc-openapi-ui',                   version: '1.5.2'
     implementation          group: 'org.springframework.boot', name: 'spring-boot-starter-actuator',           version: '2.5.2'
     implementation          group: 'org.springframework.boot', name: 'spring-boot-starter-data-elasticsearch', version: '2.5.2'
     implementation          group: 'org.springframework.boot', name: 'spring-boot-starter-web',                version: '2.5.2'
@@ -53,14 +53,19 @@ test {
 
 springBoot {
     buildInfo()
+    mainClass = 'io.github.ognis1205.mutad.spring.bootloader.ElasticsearchApplication'
+}
+
+bootJar {
+    mainClass = 'io.github.ognis1205.mutad.spring.bootloader.ElasticsearchApplication'
 }
 
 docker {
-    dependsOn jar
-    name "${dockerRepo}/${jar.getArchiveBaseName().get()}:${jar.getArchiveVersion().get()}"
+    dependsOn bootJar
+    name "${dockerRepo}/${bootJar.getArchiveBaseName().get()}:${bootJar.getArchiveVersion().get()}"
     dockerfile file('Dockerfile')
-    files jar.archivePath
-    buildArgs(['JAR_FILE': "${jar.getArchiveFileName().get()}", 'APP_NAME': "${jar.getArchiveBaseName().get()}"])
+    files bootJar.archivePath
+    buildArgs(['JAR_FILE': "${bootJar.getArchiveFileName().get()}", 'APP_NAME': "${bootJar.getArchiveBaseName().get()}"])
     pull false
     noCache true
 }

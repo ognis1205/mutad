@@ -82,7 +82,7 @@ public class TweetCleanBolt extends BaseRichBolt {
                 this.collector.emit(TWEET_STREAM, tuple, new Values(tweet.toJSON()));
                 List<Geo> geos = Geo.split(tweet);
                 for (Geo geo : geos) this.collector.emit(GEO_STREAM, tuple, new Values(geo.toJSON()));
-                this.collector.ack(tuple);
+                //this.collector.ack(tuple);
             }
         }
     }

@@ -6,7 +6,7 @@ System.setProperty(
 
 rootProject.name = 'mutad'
 
-include 'spring-boot-backends'
+include 'spring-boot-elasticsearch'
 
 include 'storm-collectors'
 

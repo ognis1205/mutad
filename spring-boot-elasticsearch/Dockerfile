@@ -1,4 +1,4 @@
-FROM openjdk:11-jdk-alpine
+FROM openjdk:16-jdk-alpine
 
 LABEL version="1.0.0"
 

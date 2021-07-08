@@ -95,7 +95,7 @@ public class ProcessorTopology {
                     EsTweetSinkBuilder.build(
                             commandLine.getOptionValue("c"),
                             "geo"),
-                    3)
+                    9)
                     .shuffleGrouping("clean", TweetCleanBolt.GEO_STREAM);
 
             Config conf = new Config();
@@ -104,7 +104,7 @@ public class ProcessorTopology {
             conf.registerSerialization(Tweet.class);
             conf.registerSerialization(JSONObject.class);
             conf.setMaxSpoutPending(5000);
-            conf.setNumWorkers(10);
+            conf.setNumWorkers(30);
             conf.setDebug(false);
 
             StormSubmitter.submitTopology("processors", conf, builder.createTopology());
