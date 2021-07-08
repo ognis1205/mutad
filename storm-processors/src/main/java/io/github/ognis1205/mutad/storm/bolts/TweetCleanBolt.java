@@ -15,9 +15,9 @@
  */
 package io.github.ognis1205.mutad.storm.bolts;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
 import org.apache.storm.task.OutputCollector;
 import org.apache.storm.task.TopologyContext;
 import org.apache.storm.topology.OutputFieldsDeclarer;
@@ -27,6 +27,7 @@ import org.apache.storm.tuple.Tuple;
 import org.apache.storm.tuple.Values;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import io.github.ognis1205.mutad.storm.beans.Geo;
 import io.github.ognis1205.mutad.storm.beans.Tweet;
 import io.github.ognis1205.mutad.storm.KafkaTweetSpoutBuilder;
 import io.github.ognis1205.mutad.storm.utils.Text2Geo;
@@ -41,6 +42,12 @@ public class TweetCleanBolt extends BaseRichBolt {
 
     /** Field name. */
     public static final String FIELD = "json";
+
+    /** Stream name. */
+    public static final String TWEET_STREAM = "tweet";
+
+    /** Stream name. */
+    public static final String GEO_STREAM = "geo";
 
     /** `OutputCollector` instance to expose the API for emitting tuples. */
     OutputCollector collector;
@@ -72,7 +79,9 @@ public class TweetCleanBolt extends BaseRichBolt {
             this.parse(tweet);
             LOG.trace(tweet.toJSON().toString());
             if (tweet.getId() > -1 && !tweet.getText().isEmpty()) {
-                this.collector.emit(tuple, new Values(tweet.toJSON()));
+                this.collector.emit(TWEET_STREAM, tuple, new Values(tweet.toJSON()));
+                List<Geo> geos = Geo.split(tweet);
+                for (Geo geo : geos) this.collector.emit(GEO_STREAM, tuple, new Values(geo.toJSON()));
                 this.collector.ack(tuple);
             }
         }
@@ -83,7 +92,8 @@ public class TweetCleanBolt extends BaseRichBolt {
      */
     @Override
     public void declareOutputFields(OutputFieldsDeclarer declarer) {
-        declarer.declare(new Fields(FIELD));
+        declarer.declareStream(TWEET_STREAM, new Fields(FIELD));
+        declarer.declareStream(GEO_STREAM,   new Fields(FIELD));
     }
 
     /**

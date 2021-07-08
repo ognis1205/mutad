@@ -8,6 +8,20 @@
       "type": "long",
       "store": true
     },
+    "lang": {
+      "type": "text",
+      "store": true
+    },
+    "text": {
+      "type": "text",
+      "store": true,
+      "index": true
+    },
+    "hashtags": {
+      "type": "text",
+      "store": true,
+      "index": true
+    },
     "city_name": {
       "type": "text",
       "store": true,

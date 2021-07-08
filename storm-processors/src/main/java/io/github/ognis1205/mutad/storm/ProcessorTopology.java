@@ -15,7 +15,6 @@
  */
 package io.github.ognis1205.mutad.storm;
 
-import io.github.ognis1205.mutad.storm.beans.LonLat;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
@@ -26,6 +25,8 @@ import org.apache.storm.Config;
 import org.apache.storm.StormSubmitter;
 import org.apache.storm.topology.TopologyBuilder;
 import org.json.JSONObject;
+import io.github.ognis1205.mutad.storm.beans.Geo;
+import io.github.ognis1205.mutad.storm.beans.LonLat;
 import io.github.ognis1205.mutad.storm.beans.Tweet;
 import io.github.ognis1205.mutad.storm.bolts.TweetCleanBolt;
 
@@ -81,29 +82,24 @@ public class ProcessorTopology {
                     1)
                     .shuffleGrouping("kafka");
 
-//            builder.setBolt(
-//                    "geo",
-//                    new TweetGeoBolt(),
-//                    1)
-//                    .shuffleGrouping("clean");
-
             builder.setBolt(
                     "es-tweet",
                     EsTweetSinkBuilder.build(
                             commandLine.getOptionValue("c"),
                             "tweet"),
                     1)
-                    .shuffleGrouping("clean");
+                    .shuffleGrouping("clean", TweetCleanBolt.TWEET_STREAM);
 
-/*            builder.setBolt(
+            builder.setBolt(
                     "es-geo",
                     EsTweetSinkBuilder.build(
                             commandLine.getOptionValue("c"),
                             "geo"),
                     1)
-                    .shuffleGrouping("geo");*/
+                    .shuffleGrouping("clean", TweetCleanBolt.GEO_STREAM);
 
             Config conf = new Config();
+            conf.registerSerialization(Geo.class);
             conf.registerSerialization(LonLat.class);
             conf.registerSerialization(Tweet.class);
             conf.registerSerialization(JSONObject.class);
