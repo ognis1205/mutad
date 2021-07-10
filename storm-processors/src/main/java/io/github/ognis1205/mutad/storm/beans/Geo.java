@@ -86,13 +86,16 @@ public class Geo implements Serializable {
     /** toJSON. */
     public JSONObject toJSON() {
         JSONObject json = new JSONObject();
+        JSONObject geo  = new JSONObject();
+        geo.put("lon", this.getCityCoord().getLon());
+        geo.put("lat", this.getCityCoord().getLat());
         json.put("id",         this.getId()                 );
         json.put("timestamp",  this.getTimestamp()          );
         json.put("lang",       this.getLang()               );
         json.put("text",       this.getText()               );
         json.put("hashtags",   this.getHashtags().toArray() );
         json.put("city_name",  this.getCityName()           );
-        json.put("city_coord", this.getCityCoord().toArray());
+        json.put("city_coord", geo                          );
         return json;
     }
 

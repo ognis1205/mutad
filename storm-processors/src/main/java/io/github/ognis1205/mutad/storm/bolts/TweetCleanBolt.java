@@ -18,6 +18,8 @@ package io.github.ognis1205.mutad.storm.bolts;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.stream.Collectors;
+
 import org.apache.storm.task.OutputCollector;
 import org.apache.storm.task.TopologyContext;
 import org.apache.storm.topology.OutputFieldsDeclarer;
@@ -27,10 +29,11 @@ import org.apache.storm.tuple.Tuple;
 import org.apache.storm.tuple.Values;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import io.github.ognis1205.mutad.storm.KafkaTweetSpoutBuilder;
 import io.github.ognis1205.mutad.storm.beans.Geo;
 import io.github.ognis1205.mutad.storm.beans.Tweet;
-import io.github.ognis1205.mutad.storm.KafkaTweetSpoutBuilder;
-import io.github.ognis1205.mutad.storm.utils.Text2Geo;
+import io.github.ognis1205.mutad.storm.utils.GeoParser;
+import io.github.ognis1205.mutad.storm.utils.impl.TrieGeoParser;
 
 /**
  * @author Shingo OKAWA
@@ -50,10 +53,10 @@ public class TweetCleanBolt extends BaseRichBolt {
     public static final String GEO_STREAM = "geo";
 
     /** `OutputCollector` instance to expose the API for emitting tuples. */
-    OutputCollector collector;
+    private OutputCollector collector;
 
-    /** `OutputCollector` instance to expose the API for emitting tuples. */
-    Text2Geo text2Geo;
+    /** `GeoParser` instance to parse geo locations. */
+    private GeoParser parser;
 
     /**
      * {@inheritDoc}
@@ -62,7 +65,7 @@ public class TweetCleanBolt extends BaseRichBolt {
     public void prepare(Map map, TopologyContext topologyContext, OutputCollector collector) {
         try {
             this.collector = collector;
-            this.text2Geo = new Text2Geo(getClass().getResourceAsStream("/worldcities.csv"));
+            this.parser = new TrieGeoParser(getClass().getResourceAsStream("/worldcities.csv"));
         } catch (Exception e) {
             LOG.error("something bad happened", e);
         }
@@ -76,12 +79,12 @@ public class TweetCleanBolt extends BaseRichBolt {
         String json = tuple.getStringByField(KafkaTweetSpoutBuilder.FIELD);
         if (json != null && !json.isEmpty()) {
             Tweet tweet = new Tweet(json);
-            //this.parse(tweet);
+            this.parse(tweet);
             LOG.trace(tweet.toJSON().toString());
-            if (tweet.getId() > -1 && !tweet.getText().isEmpty()) {
+            if (tweet.getId() > -1 && !tweet.getText().isEmpty() && tweet.getLang().equals("en")) {
                 this.collector.emit(TWEET_STREAM, tuple, new Values(tweet.toJSON()));
-                //List<Geo> geos = Geo.split(tweet);
-                //for (Geo geo : geos) this.collector.emit(GEO_STREAM, tuple, new Values(geo.toJSON()));
+                List<Geo> geos = Geo.split(tweet);
+                for (Geo geo : geos) this.collector.emit(GEO_STREAM, tuple, new Values(geo.toJSON()));
                 //this.collector.ack(tuple);
             }
         }
@@ -102,9 +105,9 @@ public class TweetCleanBolt extends BaseRichBolt {
      */
     private void parse(Tweet tweet) {
         try {
-            this.text2Geo.match(tweet.getText().toLowerCase(Locale.ROOT));
-            tweet.setCityNames(this.text2Geo.getCityNames());
-            tweet.setCityCoords(this.text2Geo.getCityCoords());
+            List<GeoParser.Location> locs = this.parser.parse(tweet.getText().toLowerCase(Locale.ROOT));
+            tweet.setCityNames(locs.stream().map(l -> l.getName()).collect(Collectors.toList()));
+            tweet.setCityCoords(locs.stream().map(l -> l.getLonLat()).collect(Collectors.toList()));
         } catch (Exception e) {
             // Do nothing.
         }

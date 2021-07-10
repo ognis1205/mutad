@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.ognis1205.mutad.storm.utils;
+package io.github.ognis1205.mutad.storm.utils.impl;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -25,8 +25,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.HashMap;
 import java.util.Map;
-
 import io.github.ognis1205.mutad.storm.beans.LonLat;
+import io.github.ognis1205.mutad.storm.utils.GeoParser;
 import io.github.ognis1205.util.nlang.trie.TrieSearcher;
 import io.github.ognis1205.util.nlang.dict.Dictionary;
 import io.github.ognis1205.util.nlang.dict.Lexeme;
@@ -35,7 +35,7 @@ import io.github.ognis1205.util.nlang.dict.Lexeme;
  * @author Shingo OKAWA
  * @version 1.0.0
  */
-public class Text2Geo {
+public class TrieGeoParser implements GeoParser {
     private static class City extends Lexeme<LonLat> {
         /** City name. */
         private String name;
@@ -76,7 +76,7 @@ public class Text2Geo {
 
     private static class Matcher implements TrieSearcher.Callback {
         /** Text2Geo module reference. */
-        private Text2Geo text2Geo;
+        private TrieGeoParser parser;
 
         /** Text to be handled. */
         private String text;
@@ -85,8 +85,8 @@ public class Text2Geo {
         public Map<String, LonLat> found;
 
         /** Constructor. */
-        public Matcher(Text2Geo text2Geo, String text) {
-            this.text2Geo = text2Geo;
+        public Matcher(TrieGeoParser parser, String text) {
+            this.parser = parser;
             this.text = text;
             this.found = new HashMap<>();
         }
@@ -108,7 +108,7 @@ public class Text2Geo {
         /** {@inheritDoc} */
         @Override
         public void apply(int begin, int offset, int id) {
-            this.found.put(this.text.substring(begin, begin + offset), this.text2Geo.cities.get(id));
+            this.found.put(this.text.substring(begin, begin + offset), this.parser.cities.get(id));
         }
     }
 
@@ -119,10 +119,10 @@ public class Text2Geo {
     private Matcher match;
 
     /**
-     * Instanciate `TExt2Geo` instance.
+     * Instanciate `TrieGeoParser` instance.
      * @param csv the path to world cities CSV file.
      */
-    public Text2Geo(InputStream csv) throws IOException {
+    public TrieGeoParser(InputStream csv) throws IOException {
         Map<String, City> result = new HashMap<>();
         try (BufferedReader br = new BufferedReader(new InputStreamReader(csv))) {
             String line;
@@ -139,21 +139,19 @@ public class Text2Geo {
     }
 
     /**
-     * Extracts geo information from a given text.
-     * @param text the text to be extracted.
+     * {@inheritDoc}
      */
-    public void match(String text) {
+    @Override
+    public List<Location> parse(String text) {
         this.match = new Matcher(this, text);
         for (int curr = 0; curr < text.length(); curr++) this.cities.prefix(text, curr++, match);
-    }
-
-    /** Returns found matches as JSON. */
-    public List<String> getCityNames() {
-        return this.match.getKeys();
-    }
-
-    /** Returns found matches as JSON. */
-    public List<LonLat> getCityCoords() {
-        return this.match.getValues();
+        List<Location> ret = new ArrayList<>();
+        for (Map.Entry<String, LonLat> entry : this.match.found.entrySet()) {
+            ret.add(new Location(
+                    entry.getKey(),
+                    entry.getValue()));
+        }
+        return ret;
     }
 }
+
