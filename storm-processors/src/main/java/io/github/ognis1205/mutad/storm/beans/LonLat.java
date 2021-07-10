@@ -33,13 +33,18 @@ public class LonLat implements Serializable {
     /** Latitude. */
     private Double lat;
 
+    /** Lon/Lat is set. */
+    private Boolean defined;
+
     /** Constructor. */
     public LonLat() {
+        this.defined = false;
         this.lon = this.lat = 0.0D;
     }
 
     /** Constructor. */
     public LonLat(Double lon, Double lat) {
+        this.defined = true;
         this.lon = lon;
         this.lat = lat;
     }
@@ -70,5 +75,15 @@ public class LonLat implements Serializable {
     /** Getter/Setter. */
     public void setLat(Double lat) {
         this.lat = lat;
+    }
+
+    /** Getter/Setter. */
+    public Boolean getDefined() {
+        return this.defined;
+    }
+
+    /** Getter/Setter. */
+    public void setDefined(Boolean defined) {
+        this.defined = defined;
     }
 }

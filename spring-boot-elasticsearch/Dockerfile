@@ -37,4 +37,3 @@ RUN ln -s ${JAR_FILE} server.jar
 
 
 ENTRYPOINT ["java", "-jar", "server.jar"]
-#ENTRYPOINT exec java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /app.jar

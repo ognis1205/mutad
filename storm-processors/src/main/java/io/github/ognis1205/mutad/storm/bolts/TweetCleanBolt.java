@@ -76,12 +76,12 @@ public class TweetCleanBolt extends BaseRichBolt {
         String json = tuple.getStringByField(KafkaTweetSpoutBuilder.FIELD);
         if (json != null && !json.isEmpty()) {
             Tweet tweet = new Tweet(json);
-            this.parse(tweet);
+            //this.parse(tweet);
             LOG.trace(tweet.toJSON().toString());
             if (tweet.getId() > -1 && !tweet.getText().isEmpty()) {
                 this.collector.emit(TWEET_STREAM, tuple, new Values(tweet.toJSON()));
-                List<Geo> geos = Geo.split(tweet);
-                for (Geo geo : geos) this.collector.emit(GEO_STREAM, tuple, new Values(geo.toJSON()));
+                //List<Geo> geos = Geo.split(tweet);
+                //for (Geo geo : geos) this.collector.emit(GEO_STREAM, tuple, new Values(geo.toJSON()));
                 //this.collector.ack(tuple);
             }
         }

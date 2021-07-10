@@ -127,12 +127,13 @@ public class Tweet implements Serializable {
             cityCoords.put("coordinates", coodinates);
             json.put("city_coords", cityCoords);
         }
+        if (this.getGeo().getDefined())
+            json.put("geo", this.getGeo().toArray());
         json.put("id",          this.getId()                );
         json.put("timestamp",   this.getTimestamp()         );
         json.put("lang",        this.getLang()              );
         json.put("text",        this.getText()              );
         json.put("hashtags",    this.getHashtags().toArray());
-        json.put("geo",         this.getGeo().toArray()     );
         json.put("city_names",  this.getCityNames()         );
         return json;
     }

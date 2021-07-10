@@ -13,27 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.ognis1205.mutad.spring.bootloader;
+package io.github.ognis1205.mutad.spring.repository;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import java.util.List;
+import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
+import io.github.ognis1205.mutad.spring.model.Tweet;
 
 /**
  * @author Shingo OKAWA
  * @version 1.0.0
  */
-@SpringBootApplication
-@RestController
-public class ElasticsearchApplication {
-
-    @RequestMapping("/")
-    public String home() {
-        return "Hello Docker World";
-    }
-
-    public static void main(String[] args) {
-        SpringApplication.run(ElasticsearchApplication.class, args);
-    }
+public interface TweetRepository extends ElasticsearchRepository<Tweet, String>, EsTweetRepository {
+    /**
+     * Finds all tweet documents in 'tweet' index.
+     * @return the `Tweet` instances match the query condition.
+     */
+    public List<Tweet> findAll();
 }

@@ -90,13 +90,13 @@ public class ProcessorTopology {
                     9)
                     .shuffleGrouping("clean", TweetCleanBolt.TWEET_STREAM);
 
-            builder.setBolt(
+            /*builder.setBolt(
                     "es-geo",
                     EsTweetSinkBuilder.build(
                             commandLine.getOptionValue("c"),
                             "geo"),
                     9)
-                    .shuffleGrouping("clean", TweetCleanBolt.GEO_STREAM);
+                    .shuffleGrouping("clean", TweetCleanBolt.GEO_STREAM);*/
 
             Config conf = new Config();
             conf.registerSerialization(Geo.class);

@@ -41,6 +41,12 @@ dependencyManagement {
     }
 }
 
+compileJava {
+    options.compilerArgs = [
+            '-Amapstruct.defaultComponentModel=spring'
+    ]
+}
+
 test {
     useJUnitPlatform()
     testLogging {
@@ -53,11 +59,11 @@ test {
 
 springBoot {
     buildInfo()
-    mainClass = 'io.github.ognis1205.mutad.spring.bootloader.ElasticsearchApplication'
+    mainClass = 'io.github.ognis1205.mutad.spring.ElasticsearchApplication'
 }
 
 bootJar {
-    mainClass = 'io.github.ognis1205.mutad.spring.bootloader.ElasticsearchApplication'
+    mainClass = 'io.github.ognis1205.mutad.spring.ElasticsearchApplication'
 }
 
 docker {
