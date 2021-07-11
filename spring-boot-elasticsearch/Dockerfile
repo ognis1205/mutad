@@ -35,5 +35,4 @@ COPY ${JAR_FILE} ${JAR_FILE}
 
 RUN ln -s ${JAR_FILE} server.jar
 
-
 ENTRYPOINT ["java", "-jar", "server.jar"]

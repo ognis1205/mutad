@@ -17,11 +17,11 @@ package io.github.ognis1205.mutad.storm.utils.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.novetta.clavin.extractor.LocationExtractor;
-import com.novetta.clavin.extractor.LocationOccurrence;
-import com.novetta.clavin.gazetteer.query.Gazetteer;
-import com.novetta.clavin.resolver.ClavinLocationResolver;
-import com.novetta.clavin.resolver.ResolvedLocation;
+import com.bericotech.clavin.extractor.LocationExtractor;
+import com.bericotech.clavin.extractor.LocationOccurrence;
+import com.bericotech.clavin.gazetteer.query.Gazetteer;
+import com.bericotech.clavin.resolver.ClavinLocationResolver;
+import com.bericotech.clavin.resolver.ResolvedLocation;
 import io.github.ognis1205.mutad.storm.beans.LonLat;
 import io.github.ognis1205.mutad.storm.utils.GeoParser;
 

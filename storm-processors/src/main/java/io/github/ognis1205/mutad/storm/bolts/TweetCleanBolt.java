@@ -15,11 +15,13 @@
  */
 package io.github.ognis1205.mutad.storm.bolts;
 
+import java.io.File;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
-
+import com.bericotech.clavin.extractor.ApacheExtractor;
+import com.bericotech.clavin.gazetteer.query.LuceneGazetteer;
 import org.apache.storm.task.OutputCollector;
 import org.apache.storm.task.TopologyContext;
 import org.apache.storm.topology.OutputFieldsDeclarer;
@@ -33,7 +35,8 @@ import io.github.ognis1205.mutad.storm.KafkaTweetSpoutBuilder;
 import io.github.ognis1205.mutad.storm.beans.Geo;
 import io.github.ognis1205.mutad.storm.beans.Tweet;
 import io.github.ognis1205.mutad.storm.utils.GeoParser;
-import io.github.ognis1205.mutad.storm.utils.impl.TrieGeoParser;
+import io.github.ognis1205.mutad.storm.utils.impl.ClavinGeoParser;
+//import io.github.ognis1205.mutad.storm.utils.impl.TrieGeoParser;
 
 /**
  * @author Shingo OKAWA
@@ -65,7 +68,13 @@ public class TweetCleanBolt extends BaseRichBolt {
     public void prepare(Map map, TopologyContext topologyContext, OutputCollector collector) {
         try {
             this.collector = collector;
-            this.parser = new TrieGeoParser(getClass().getResourceAsStream("/worldcities.csv"));
+            //this.parser = new TrieGeoParser(getClass().getResourceAsStream("/worldcities.csv"));
+            this.parser = new ClavinGeoParser(
+                    new ApacheExtractor(),
+                    new LuceneGazetteer(new File("/CLAVIN-clavin-2.1.0/IndexDirectory")),
+                    3,
+                    5,
+                    true);
         } catch (Exception e) {
             LOG.error("something bad happened", e);
         }
@@ -79,10 +88,10 @@ public class TweetCleanBolt extends BaseRichBolt {
         String json = tuple.getStringByField(KafkaTweetSpoutBuilder.FIELD);
         if (json != null && !json.isEmpty()) {
             Tweet tweet = new Tweet(json);
-            this.parse(tweet);
             LOG.trace(tweet.toJSON().toString());
             if (tweet.getId() > -1 && !tweet.getText().isEmpty() && tweet.getLang().equals("en")) {
                 this.collector.emit(TWEET_STREAM, tuple, new Values(tweet.toJSON()));
+                this.parse(tweet);
                 List<Geo> geos = Geo.split(tweet);
                 for (Geo geo : geos) this.collector.emit(GEO_STREAM, tuple, new Values(geo.toJSON()));
                 //this.collector.ack(tuple);
