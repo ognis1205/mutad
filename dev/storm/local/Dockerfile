@@ -46,7 +46,8 @@ RUN set -ex && \
 ENV PATH $PATH:/$SPARK_DESTRO/bin
 
 
-ARG CLAVIN_DESTRO=CLAVIN-clavin-2.1.0
+#ARG CLAVIN_DESTRO=CLAVIN-clavin-2.1.0
+ARG CLAVIN_DESTRO=CLAVIN
 
 # THIS IS TEMPORAL
 COPY $CLAVIN_DESTRO.zip $CLAVIN_DESTRO.zip
@@ -57,14 +58,14 @@ RUN set -ex && \
     rm "$CLAVIN_DESTRO.zip"
 
 # THIS IS TEMPORAL
-COPY allCountries.zip /$CLAVIN_DESTRO/allCountries.zip
+COPY cities5000.zip /$CLAVIN_DESTRO/cities5000.zip
 
 # THIS IS TEMPORAL
 RUN cd /$CLAVIN_DESTRO && \
-    unzip allCountries.zip && \
-    rm allCountries.zip && \
+    unzip cities5000.zip && \
+    rm cities5000.zip && \
     mvn compile && \
-    mvn exec:java -Dexec.mainClass="com.bericotech.clavin.index.IndexDirectoryBuilder" && \
+    mvn exec:java -Dexec.mainClass="com.bericotech.clavin.index.IndexDirectoryBuilder" -Dexec.args="--gazetteer-files cities5000.txt" && \
     cd -
 
 

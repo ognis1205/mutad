@@ -1,0 +1,5 @@
+org.apache.lucene.codecs.simpletext.SimpleTextCodec
+org.apache.lucene.codecs.appending.AppendingCodec
+org.apache.lucene.codecs.lucene40.Lucene40Codec
+org.apache.lucene.codecs.lucene410.Lucene410Codec
+org.apache.lucene.codecs.lucene41.Lucene41Codec

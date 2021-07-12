@@ -1,0 +1,301 @@
+49518	Republic of Rwanda	Republic of Rwanda	RW,RWA,RW	-2	30	A	PCLI	RW		0				11055976		1354	Africa/Kigali	3/5/2013
+51537	Somalia	Somalia	SO,SOM,SO	6	48	A	PCLI	SO	SO	0				10112453		118	Africa/Mogadishu	4/4/2013
+69543	Republic of Yemen	Republic of Yemen	YE,YEM,YM	15.5	47.5	A	PCLI	YE		0				23495361		1421	Asia/Aden	4/2/2013
+99237	Republic of Iraq	Republic of Iraq	IQ,IRQ,IZ	33	44	A	PCLI	IQ		0				29671605		44	Asia/Baghdad	2/7/2013
+102358	Kingdom of Saudi Arabia	Kingdom of Saudi Arabia	SA,SAU,SA	25	45	A	PCLI	SA		0				25731776		790	Asia/Riyadh	3/5/2013
+130758	Islamic Republic of Iran	Islamic Republic of Iran	IR,IRN,IR	32	53	A	PCLI	IR		0				76923300		1511	Asia/Tehran	8/30/2013
+146669	Republic of Cyprus	Republic of Cyprus	CY,CYP,CY	35	33	A	PCLI	CY		0				1102677		698	Asia/Nicosia	10/18/2013
+149590	United Republic of Tanzania	United Republic of Tanzania	TZ,TZA,TZ	-6	35	A	PCLI	TZ		0				41892895		829	Africa/Dar_es_Salaam	4/3/2013
+163843	Syrian Arab Republic	Syrian Arab Republic	SY,SYR,SY	35	38	A	PCLI	SY		0				22198110		918	Asia/Damascus	9/6/2013
+174982	Republic of Armenia	Republic of Armenia	AM,ARM,AM	40.25	45	A	PCLI	AM		0				2968000		2768	Asia/Yerevan	11/8/2013
+192950	Republic of Kenya	Republic of Kenya	KE,KEN,KE	1	38	A	PCLI	KE		0				40046566		697	Africa/Nairobi	3/5/2013
+203312	Democratic Republic of the Congo	Democratic Republic of the Congo	CD,COD,CG	-2.5	23.5	A	PCLI	CD		0				70916439		441		11/8/2013
+223816	Republic of Djibouti	Republic of Djibouti	DJ,DJI,DJ	11.83333	42.5	A	PCLI	DJ		0				740528		986	Africa/Djibouti	11/8/2013
+226074	Republic of Uganda	Republic of Uganda	UG,UGA,UG	1.25	32.5	A	PCLI	UG		0				33398682		1094	Africa/Kampala	11/9/2013
+239880	Central African Republic	Central African Republic	CF,CAF,CT	7	21	A	PCLI	CF		0				4844927		527	Africa/Bangui	1/18/2012
+241170	Republic of Seychelles	Republic of Seychelles	SC,SYC,SE	-4.58333	55.66667	A	PCLI	SC		0				88340		-9999	Indian/Mahe	3/5/2013
+248816	Hashemite Kingdom of Jordan	Hashemite Kingdom of Jordan	JO,JOR,JO	31	36	A	PCLI	JO		0				6407085		860	Asia/Amman	3/5/2013
+272103	Lebanon	Lebanon	LB,LBN,LE	33.83333	35.83333	A	PCLI	LB		0				4125247		1210	Asia/Beirut	3/5/2013
+285570	State of Kuwait	State of Kuwait	KW,KWT,KU	29.5	47.75	A	PCLI	KW		0				2789132		79	Asia/Kuwait	3/5/2013
+286963	Sultanate of Oman	Sultanate of Oman	OM,OMN,MU	21	57	A	PCLI	OM		0				2967717		129	Asia/Muscat	3/5/2013
+289688	State of Qatar	State of Qatar	QA,QAT,QA	25.5	51.25	A	PCLI	QA		0				840926		27	Asia/Qatar	3/5/2013
+290291	Kingdom of Bahrain	Kingdom of Bahrain	BH,BHR,BA	26.03333	50.55	A	PCLI	BH		0				738004		77	Asia/Bahrain	11/10/2013
+290557	United Arab Emirates	United Arab Emirates	AE,ARE,AE	23.75	54.5	A	PCLI	AE		0				4975593		96	Asia/Dubai	11/10/2013
+294640	State of Israel	State of Israel	IL,ISR,IS	31.5	34.75	A	PCLI	IL		0				7353985		168	Asia/Jerusalem	3/5/2013
+298795	Republic of Turkey	Republic of Turkey	TR,TUR,TU	39	35	A	PCLI	TR		0				77804122		1148	Europe/Istanbul	11/10/2013
+337996	Federal Democratic Republic of Ethiopia	Federal Democratic Republic of Ethiopia	ET,ETH,ET	9	39.5	A	PCLI	ET		0				88013491		1721	Africa/Addis_Ababa	11/10/2013
+338010	State of Eritrea	State of Eritrea	ER,ERI,ER	15	39	A	PCLI	ER		0				5792984		1867	Africa/Asmara	7/6/2013
+357994	Arab Republic of Egypt	Arab Republic of Egypt	EG,EGY,EG	27	30	A	PCLI	EG		0				80471869		199	Africa/Cairo	3/21/2013
+366755	Republic of the Sudan	Republic of the Sudan	SD,SDN,SU	16	30	A	PCLI	SD		0				35000000		424	Africa/Khartoum	3/5/2013
+390903	Hellenic Republic	Hellenic Republic	GR,GRC,GR	39	22	A	PCLI	GR		0				11000000		644	Europe/Athens	11/27/2012
+433561	Republic of Burundi	Republic of Burundi	BI,BDI,BY	-3.5	30	A	PCLI	BI		0				9863117		1732	Africa/Bujumbura	3/6/2013
+453733	Republic of Estonia	Republic of Estonia	EE,EST,EN	59	26	A	PCLI	EE		0				1291170		99	Europe/Tallinn	12/9/2013
+458258	Republic of Latvia	Republic of Latvia	LV,LVA,LG	57	25	A	PCLI	LV		0				2217969		105	Europe/Riga	3/5/2013
+587116	Republic of Azerbaijan	Republic of Azerbaijan	AZ,AZE,AJ	40.5	47.5	A	PCLI	AZ		0				8303512		12	Asia/Baku	3/5/2013
+597427	Republic of Lithuania	Republic of Lithuania	LT,LTU,LH	55.41667	24	A	PCLI	LT		0				3565000		51	Europe/Vilnius	11/14/2013
+614540	Georgia	Georgia	GE,GEO,GG	41.99998	43.4999	A	PCLI	GE		0				4630000		1021	Asia/Tbilisi	1/17/2012
+617790	Republic of Moldova	Republic of Moldova	MD,MDA,MD	47.25	28.58333	A	PCLI	MD		0				4324000		172	Europe/Chisinau	11/8/2013
+630336	Republic of Belarus	Republic of Belarus	BY,BLR,BO	53	28	A	PCLI	BY		0				9685000		144	Europe/Minsk	11/8/2013
+660013	Republic of Finland	Republic of Finland	FI,FIN,FI	64	26	A	PCLI	FI		0				5244000		124	Europe/Helsinki	12/17/2013
+690791	Ukraine	Ukraine	UA,UKR,UP	49	32	A	PCLI	UA		0				45415596		147		5/24/2013
+718075	Republic of Macedonia	Republic of Macedonia	MK,MKD,MK	41.66667	21.75	A	PCLI	MK		0				2062294		209	Europe/Skopje	11/25/2013
+719819	Hungary	Hungary	HU,HUN,HU	47	20	A	PCLI	HU		0				9982000		87	Europe/Budapest	2/23/2013
+732800	Republic of Bulgaria	Republic of Bulgaria	BG,BGR,BU	42.66667	25.25	A	PCLI	BG		0				7148785		442	Europe/Sofia	11/10/2013
+783754	Republic of Albania	Republic of Albania	AL,ALB,AL	41	20	A	PCLI	AL		0				2986952		89	Europe/Tirane	3/5/2013
+798544	Republic of Poland	Republic of Poland	PL,POL,PL	52	20	A	PCLI	PL		0				38500000		110	Europe/Warsaw	3/5/2013
+798549	România	Romania	RO,ROU,RO	46	25	A	PCLI	RO		0				21959278		576	Europe/Bucharest	7/25/2013
+831053	Republic of Kosovo	Republic of Kosovo	XK,XKX,KV	42.58333	20.91667	A	PCLI	XK		0				1800000		600	Europe/Belgrade	11/11/2013
+878675	Republic of Zimbabwe	Republic of Zimbabwe	ZW,ZWE,ZI	-19	29.75	A	PCLI	ZW		0				11651858		1285	Africa/Harare	11/8/2013
+895949	Republic of Zambia	Republic of Zambia	ZM,ZMB,ZA	-14.33333	28.5	A	PCLI	ZM		0				13460305		1156	Africa/Lusaka	11/8/2013
+921929	Union of the Comoros	Union of the Comoros	KM,COM,CN	-12.23333	44.44553	A	PCLI	KM		0				773407		1136	Indian/Comoro	1/6/2012
+927384	Republic of Malawi	Republic of Malawi	MW,MWI,MI	-13.5	34	A	PCLI	MW		0				15447500		1180	Africa/Blantyre	3/5/2013
+932692	Kingdom of Lesotho	Kingdom of Lesotho	LS,LSO,LT	-29.5	28.25	A	PCLI	LS		0				1919552		2468	Africa/Maseru	3/5/2013
+933860	Republic of Botswana	Republic of Botswana	BW,BWA,BC	-22	24	A	PCLI	BW		0				2029307		963	Africa/Gaborone	3/5/2013
+934292	Republic of Mauritius	Republic of Mauritius	MU,MUS,MP	-20.3	57.58333	A	PCLI	MU		0				1294104		432	Indian/Mauritius	12/1/2013
+934841	Kingdom of Swaziland	Kingdom of Swaziland	SZ,SWZ,WZ	-26.5	31.5	A	PCLI	SZ		0				1354051		538	Africa/Mbabane	3/5/2013
+953987	Republic of South Africa	Republic of South Africa	ZA,ZAF,SF	-29	24	A	PCLI	ZA		0				49000000		1037	Africa/Johannesburg	5/11/2012
+1036973	Republic of Mozambique	Republic of Mozambique	MZ,MOZ,MZ	-18.25	35	A	PCLI	MZ		0				22061451		138	Africa/Maputo	3/5/2013
+1062947	Republic of Madagascar	Republic of Madagascar	MG,MDG,MA	-20	47	A	PCLI	MG		0				21281844		1678	Indian/Antananarivo	3/5/2013
+1149361	Islamic Republic of Afghanistan	Islamic Republic of Afghanistan	AF,AFG,AF	33	66	A	PCLI	AF		0				29121286		2260	Asia/Kabul	6/16/2013
+1168579	Islamic Republic of Pakistan	Islamic Republic of Pakistan	PK,PAK,PK	30	70	A	PCLI	PK		0				184404791		1721	Asia/Karachi	3/5/2013
+1210997	Bangladesh	Bangladesh	BD,BGD,BG	24	90	A	PCLI	BD		0				156118464		10	Asia/Dhaka	12/1/2013
+1218197	Turkmenistan	Turkmenistan	TM,TKM,TX	39.75	59.66667	A	PCLI	TM		0				4940916		148	Asia/Ashgabat	11/8/2013
+1220409	Republic of Tajikistan	Republic of Tajikistan	TJ,TJK,TI	39	71	A	PCLI	TJ		0				7487489		3461	Asia/Dushanbe	3/5/2013
+1227603	Democratic Socialist Republic of Sri Lanka	Democratic Socialist Republic of Sri Lanka	LK,LKA,CE	7.75	80.75	A	PCLI	LK		0				21513990		394	Asia/Colombo	11/8/2013
+1252634	Kingdom of Bhutan	Kingdom of Bhutan	BT,BTN,BT	27.5	90.5	A	PCLI	BT		0				699847		1816	Asia/Thimphu	3/5/2013
+1269750	Republic of India	Republic of India	IN,IND,IN	22	79	A	PCLI	IN		0				1173108018		686	Asia/Kolkata	11/8/2013
+1282028	Republic of Maldives	Republic of Maldives	MV,MDV,MV	3.2	73	A	PCLI	MV		0				395650		-9999	Indian/Maldives	3/5/2013
+1282988	Federal Democratic Republic of Nepal	Federal Democratic Republic of Nepal	NP,NPL,NP	28	84	A	PCLI	NP		0				28951852		1041	Asia/Kathmandu	3/5/2013
+1327865	Union of Burma	Union of Burma	MM,MMR,BM	21	96	A	PCLI	MM		0				53414374		165	Asia/Rangoon	11/10/2013
+1512440	Republic of Uzbekistan	Republic of Uzbekistan	UZ,UZB,UZ	41.66667	63.83333	A	PCLI	UZ		0				27865738		193		12/10/2013
+1522867	Republic of Kazakhstan	Republic of Kazakhstan	KZ,KAZ,KZ	48	68	A	PCLI	KZ		0				15340000		381		3/5/2013
+1527747	Kyrgyz Republic	Kyrgyz Republic	KG,KGZ,KG	41.5	75	A	PCLI	KG		0				5508626		1850	Asia/Bishkek	11/8/2013
+1546748	Territory of the French Southern and Antarctic Lands	Territory of the French Southern and Antarctic Lands	TF,ATF,FS	-43	67	A	PCLIX	TF	TF	0				140		-9999	Indian/Kerguelen	8/30/2013
+1562822	Socialist Republic of Vietnam	Socialist Republic of Vietnam	VN,VNM,VM	16.16667	107.83333	A	PCLI	VN		0				89571130		934	Asia/Ho_Chi_Minh	3/5/2013
+1605651	Kingdom of Thailand	Kingdom of Thailand	TH,THA,TH	15.5	101	A	PCLI	TH		0				67089500		120	Asia/Bangkok	11/7/2013
+1643084	Republic of Indonesia	Republic of Indonesia	ID,IDN,ID	-5	120	A	PCLI	ID		0				242968342		412		3/5/2013
+1655842	Lao People’s Democratic Republic	Lao People's Democratic Republic	LA,LAO,LA	18	105	A	PCLI	LA		0				6368162		702	Asia/Vientiane	7/4/2013
+1668284	Taiwan	Taiwan	TW,TWN,TW	24	121	A	PCLI	TW	TW	0				22894384		1103	Asia/Taipei	8/30/2013
+1694008	Republic of the Philippines	Republic of the Philippines	PH,PHL,RP	13	122	A	PCLI	PH		0				99900177		-9999	Asia/Manila	5/7/2013
+1733045	Malaysia	Malaysia	MY,MYS,MY	2.5	112.5	A	PCLI	MY		0				28274729		275		1/17/2012
+1814991	People’s Republic of China	People's Republic of China	CN,CHN,CH	35	105	A	PCLI	CN		0				1330044000		1982		3/5/2013
+1820814	Brunei Darussalam	Brunei Darussalam	BN,BRN,BX	4.5	114.66667	A	PCLI	BN		0				395027		95	Asia/Brunei	3/8/2013
+1831722	Kingdom of Cambodia	Kingdom of Cambodia	KH,KHM,CB	13	105	A	PCLI	KH		0				14453680		37	Asia/Phnom_Penh	3/5/2013
+1835841	Republic of Korea	Republic of Korea	KR,KOR,KS	36.5	127.75	A	PCLI	KR		0				48422644		184	Asia/Seoul	11/10/2013
+1861060	Japan	Japan	JP,JPN,JA	35.68536	139.75309	A	PCLI	JP		0				127288000		19	Asia/Tokyo	1/6/2012
+1873107	Democratic People’s Republic of Korea	Democratic People's Republic of Korea	KP,PRK,KN	40	127	A	PCLI	KP		0				22912177		1018	Asia/Pyongyang	8/30/2013
+1880251	Republic of Singapore	Republic of Singapore	SG,SGP,SN	1.36667	103.8	A	PCLI	SG		0				4701069		42	Asia/Singapore	3/5/2013
+1966436	Democratic Republic of Timor-Leste	Democratic Republic of Timor-Leste	TL,TLS,TT	-8.83333	125.75	A	PCLI	TL		0				1154625		1419	Asia/Dili	3/6/2013
+2017370	Russian Federation	Russian Federation	RU,RUS,RS	60	100	A	PCLI	RU		0				140702000		307		3/5/2013
+2029969	Mongolia	Mongolia	MN,MNG,MG	46	105	A	PCLI	MN		0				3086918		1387		1/17/2012
+2077456	Commonwealth of Australia	Commonwealth of Australia	AU,AUS,AS	-25	135	A	PCLI	AU		0				21515754		269		3/5/2013
+2088628	Independent State of Papua New Guinea	Independent State of Papua New Guinea	PG,PNG,PP	-6	147	A	PCLI	PG		0				6064515		1209	Pacific/Port_Moresby	3/5/2013
+2103350	Solomon Islands	Solomon Islands	SB,SLB,BP	-8	159	A	PCLI	SB		0				559198		231	Pacific/Guadalcanal	8/30/2013
+2110297	Tuvalu	Tuvalu	TV,TUV,TV	-8.51719	179.14478	A	PCLI	TV		0				10472		-9999	Pacific/Funafuti	1/6/2012
+2110425	Nauru	Nauru	NR,NRU,NR	-0.517	166.933	A	PCLI	NR		0				10065	71	37	Pacific/Nauru	1/6/2012
+2134431	Republic of Vanuatu	Republic of Vanuatu	VU,VUT,NH	-16	167	A	PCLI	VU		0				221552		-9999	Pacific/Efate	3/5/2013
+2186224	New Zealand	New Zealand	NZ,NZL,NZ	-42	174	A	PCLI	NZ		0				4252277		21		1/6/2012
+2205218	Republic of Fiji	Republic of Fiji	FJ,FJI,FJ	-18	178	A	PCLI	FJ		0				875983		735	Pacific/Fiji	3/5/2013
+2215636	Libya	Libya	LY,LBY,LY	28	17	A	PCLI	LY		0				6461454		512	Africa/Tripoli	8/30/2013
+2233387	Republic of Cameroon	Republic of Cameroon	CM,CMR,CM	6	12.5	A	PCLI	CM		0				19294149		720	Africa/Douala	11/7/2013
+2245662	Republic of Senegal	Republic of Senegal	SN,SEN,SG	14.5	-14.25	A	PCLI	SN		0				12323252		53	Africa/Dakar	11/8/2013
+2260494	Republic of the Congo	Republic of the Congo	CG,COG,CF	-1	15.5	A	PCLI	CG		0				3039126		396	Africa/Brazzaville	11/8/2013
+2264397	Portuguese Republic	Portuguese Republic	PT,PRT,PO	39.6945	-8.13057	A	PCLI	PT		0				10676000		571		3/19/2013
+2275384	Republic of Liberia	Republic of Liberia	LR,LBR,LI	6.5	-9.5	A	PCLI	LR		0				3685076		203	Africa/Monrovia	3/5/2013
+2287781	Republic of Côte d’Ivoire	Republic of Cote d'Ivoire	CI,CIV,IV	8	-5.5	A	PCLI	CI		0				21058798		257	Africa/Abidjan	12/1/2013
+2300660	Republic of Ghana	Republic of Ghana	GH,GHA,GH	8.1	-1.2	A	PCLI	GH		0				24339838		137	Africa/Accra	4/24/2012
+2309096	Republic of Equatorial Guinea	Republic of Equatorial Guinea	GQ,GNQ,EK	1.7	10.5	A	PCLI	GQ		0				1014999		741	Africa/Malabo	4/24/2012
+2328926	Federal Republic of Nigeria	Federal Republic of Nigeria	NG,NGA,NI	10	8	A	PCLI	NG		0				154000000		779	Africa/Lagos	3/5/2013
+2361809	Burkina Faso	Burkina Faso	BF,BFA,UV	12.5	-1.66667	A	PCLI	BF		0				16241811		313	Africa/Ouagadougou	11/9/2013
+2363686	Togolese Republic	Togolese Republic	TG,TGO,TO	8.66667	1.08333	A	PCLI	TG		0				6587239		325	Africa/Lome	11/9/2013
+2372248	Republic of Guinea-Bissau	Republic of Guinea-Bissau	GW,GNB,PU	12	-15	A	PCLI	GW		0				1565126		29	Africa/Bissau	3/5/2013
+2378080	Islamic Republic of Mauritania	Islamic Republic of Mauritania	MR,MRT,MR	20.25	-10.5	A	PCLI	MR		0				3205060		388	Africa/Nouakchott	11/9/2013
+2395170	Republic of Benin	Republic of Benin	BJ,BEN,BN	9.5	2.25	A	PCLI	BJ		0				9056010		334	Africa/Porto-Novo	3/5/2013
+2400553	Gabonese Republic	Gabonese Republic	GA,GAB,GB	-1	11.75	A	PCLI	GA		0				1545255		328	Africa/Libreville	3/5/2013
+2403846	Republic of Sierra Leone	Republic of Sierra Leone	SL,SLE,SL	8.5	-11.5	A	PCLI	SL		0				5245695		361	Africa/Freetown	3/5/2013
+2410758	Sao Tome and Principe	Sao Tome and Principe	ST,STP,TP	1	7	A	PCLI	ST		0				175808		-9999	Africa/Sao_Tome	12/1/2013
+2413451	Gambia	Gambia	GM,GMB,GA	13.5	-15.5	A	PCLI	GM		0				1593256		14	Africa/Banjul	1/6/2012
+2420477	Republic of Guinea	Republic of Guinea	GN,GIN,GV	10.83333	-10.66667	A	PCLI	GN		0				10324025		428	Africa/Conakry	11/9/2013
+2434508	Republic of Chad	Republic of Chad	TD,TCD,CD	15	19	A	PCLI	TD		0				10543464		340	Africa/Ndjamena	3/5/2013
+2440476	Republic of Niger	Republic of Niger	NE,NER,NG	18	9	A	PCLI	NE		0				15878271		1030	Africa/Niamey	5/11/2012
+2453866	Republic of Mali	Republic of Mali	ML,MLI,ML	18	-2	A	PCLI	ML		0				13796354		297	Africa/Bamako	5/11/2012
+2464461	Tunisian Republic	Tunisian Republic	TN,TUN,TS	34	9	A	PCLI	TN		0				10589025		24	Africa/Tunis	5/16/2013
+2510769	Kingdom of Spain	Kingdom of Spain	ES,ESP,SP	40	-4	A	PCLI	ES		0				46505963		511		10/15/2013
+2542007	Kingdom of Morocco	Kingdom of Morocco	MA,MAR,MO	32	-6	A	PCLI	MA		0				31627428		2710	Africa/Casablanca	11/11/2013
+2562770	Republic of Malta	Republic of Malta	MT,MLT,MT	35.91667	14.43333	A	PCLI	MT		0				403000		96	Europe/Malta	12/25/2013
+2589581	People’s Democratic Republic of Algeria	People's Democratic Republic of Algeria	DZ,DZA,AG	28	3	A	PCLI	DZ		0				34586184		494	Africa/Algiers	3/6/2013
+2623032	Kingdom of Denmark	Kingdom of Denmark	DK,DNK,DA	56	10	A	PCLI	DK		0				5484000		50	Europe/Copenhagen	3/5/2013
+2629691	Republic of Iceland	Republic of Iceland	IS,ISL,IC	65	-18	A	PCLI	IS		0				308910		859	Atlantic/Reykjavik	3/5/2013
+2635167	United Kingdom of Great Britain and Northern Ireland	United Kingdom of Great Britain and Northern Ireland	GB,GBR,UK	54.75844	-2.69531	A	PCLI	GB		0				62348447		71	Europe/London	11/25/2011
+2658434	Swiss Confederation	Swiss Confederation	CH,CHE,SZ	47.00016	8.01427	A	PCLI	CH		0				7581000		931	Europe/Zurich	2/24/2012
+2661886	Kingdom of Sweden	Kingdom of Sweden	SE,SWE,SW	62	15	A	PCLI	SE		0				9555893		359	Europe/Stockholm	3/5/2013
+2750405	Kingdom of the Netherlands	Kingdom of the Netherlands	NL,NLD,NL	52.25	5.75	A	PCLI	NL		0				16645000		24	Europe/Amsterdam	12/1/2013
+2782113	Republic of Austria	Republic of Austria	AT,AUT,AU	47.33333	13.33333	A	PCLI	AT		0				8205000		1359	Europe/Vienna	5/13/2013
+2802361	Kingdom of Belgium	Kingdom of Belgium	BE,BEL,BE	50.75	4.5	A	PCLI	BE		0				10403000		91	Europe/Brussels	12/1/2013
+2921044	Federal Republic of Germany	Federal Republic of Germany	DE,DEU,GM	51.5	10.5	A	PCLI	DE		0				81802257		303		12/11/2013
+2960313	Grand Duchy of Luxembourg	Grand Duchy of Luxembourg	LU,LUX,LU	49.75	6.16667	A	PCLI	LU		0				497538		406	Europe/Luxembourg	12/1/2013
+2963597	Ireland	Ireland	IE,IRL,EI	53	-8	A	PCLI	IE		0				4622917		126	Europe/Dublin	1/18/2012
+2993457	Principality of Monaco	Principality of Monaco	MC,MCO,MN	43.73141	7.41903	A	PCLI	MC		0				32965		43	Europe/Monaco	1/6/2012
+3017382	Republic of France	Republic of France	FR,FRA,FR	46	2	A	PCLI	FR		0				64768389		543	Europe/Paris	1/6/2012
+3041565	Principality of Andorra	Principality of Andorra	AD,AND,AN	42.55	1.58333	A	PCLI	AD		0				84000		1802	Europe/Andorra	11/9/2013
+3042058	Principality of Liechtenstein	Principality of Liechtenstein	LI,LIE,LS	47.16667	9.53333	A	PCLI	LI		0				35000		730	Europe/Vaduz	8/30/2013
+3057568	Slovak Republic	Slovak Republic	SK,SVK,LO	48.66667	19.5	A	PCLI	SK		0				5455000		1183	Europe/Bratislava	8/30/2013
+3077311	Czech Republic	Czech Republic	CZ,CZE,EZ	49.75	15	A	PCLI	CZ		0				10476000	430	439	Europe/Prague	12/23/2013
+3144096	Kingdom of Norway	Kingdom of Norway	NO,NOR,NO	62	10	A	PCLI	NO		0				5009150		740	Europe/Oslo	3/5/2013
+3164670	State of the Vatican City	State of the Vatican City	VA,VAT,VT	41.90225	12.4533	A	PCLI	VA		0				921		62	Europe/Vatican	12/1/2013
+3168068	Repubblica di San Marino	Repubblica di San Marino	SM,SMR,SM	43.9367	12.4463	A	PCLI	SM		0				31477		683	Europe/San_Marino	6/4/2012
+3175395	Repubblica Italiana	Repubblica Italiana	IT,ITA,IT	42.83333	12.83333	A	PCLI	IT		0				60340328		673	Europe/Rome	12/22/2013
+3190538	Republic of Slovenia	Republic of Slovenia	SI,SVN,SI	46.08333	15	A	PCLI	SI		0				2007000		696	Europe/Ljubljana	11/10/2013
+3194884	Montenegro	Montenegro	ME,MNE,MJ	42.75	19.25	A	PCLI	ME		0				666730		1678	Europe/Podgorica	11/10/2013
+3202326	Republic of Croatia	Republic of Croatia	HR,HRV,HR	45.16667	15.5	A	PCLI	HR		0				4491000		321	Europe/Zagreb	3/5/2013
+3277605	Bosnia and Herzegovina	Bosnia and Herzegovina	BA,BIH,BK	44.25	17.83333	A	PCLI	BA		0				4590000		876	Europe/Sarajevo	12/1/2013
+3351879	Republic of Angola	Republic of Angola	AO,AGO,AO	-12.5	18.5	A	PCLI	AO		0				13068161		1355	Africa/Luanda	4/3/2013
+3355338	Republic of Namibia	Republic of Namibia	NA,NAM,WA	-22	17	A	PCLI	NA		0				2128471		1381	Africa/Windhoek	3/5/2013
+3374084	Barbados	Barbados	BB,BRB,BB	13.16667	-59.53333	A	PCLI	BB		0				285653		249	America/Barbados	1/18/2012
+3374766	Republic of Cape Verde	Republic of Cape Verde	CV,CPV,CV	16	-24	A	PCLI	CV		0				508659		-9999	Atlantic/Cape_Verde	3/5/2013
+3378535	Co-operative Republic of Guyana	Co-operative Republic of Guyana	GY,GUY,GY	5	-59	A	PCLI	GY		0				748486		157	America/Guyana	12/12/2013
+3382998	Republic of Suriname	Republic of Suriname	SR,SUR,NS	4	-56	A	PCLI	SR		0				492829		171	America/Paramaribo	3/5/2013
+3437598	Republic of Paraguay	Republic of Paraguay	PY,PRY,PA	-23.33333	-58	A	PCLI	PY		0				6375830		83	America/Asuncion	11/10/2013
+3439705	Oriental Republic of Uruguay	Oriental Republic of Uruguay	UY,URY,UY	-33	-56	A	PCLI	UY		0				3477000		115	America/Montevideo	3/5/2013
+3469034	Federative Republic of Brazil	Federative Republic of Brazil	BR,BRA,BR	-10	-55	A	PCLI	BR		0				201103330		258		3/5/2013
+3489940	Jamaica	Jamaica	JM,JAM,JM	18.16667	-77.25	A	PCLI	JM		0				2847232		556	America/Jamaica	11/7/2013
+3508796	Dominican Republic	Dominican Republic	DO,DOM,DR	19	-70.66667	A	PCLI	DO		0				9823821		1459	America/Santo_Domingo	7/17/2013
+3562981	Republic of Cuba	Republic of Cuba	CU,CUB,CU	22	-79.5	A	PCLI	CU		0				11423000		109	America/Havana	3/5/2013
+3572887	Commonwealth of The Bahamas	Commonwealth of The Bahamas	BS,BHS,BF	25.04082	-77.37122	A	PCLI	BS		0				301790		20	America/Nassau	1/6/2012
+3573591	Republic of Trinidad and Tobago	Republic of Trinidad and Tobago	TT,TTO,TD	11	-61	A	PCLI	TT		0				1228691		-9999	America/Port_of_Spain	12/1/2013
+3575174	Federation of Saint Kitts and Nevis	Federation of Saint Kitts and Nevis	KN,KNA,SC	17.33333	-62.75	A	PCLI	KN		0				49898		480	America/St_Kitts	12/1/2013
+3575830	Dominica	Dominica	DM,DMA,DO	15.5	-61.33333	A	PCLI	DM		0				72813		484	America/Dominica	3/31/2013
+3576396	Antigua and Barbuda	Antigua and Barbuda	AG,ATG,AC	17.05	-61.8	A	PCLI	AG		0				86754		65	America/Antigua	1/18/2012
+3576468	Saint Lucia	Saint Lucia	LC,LCA,ST	13.88333	-60.96667	A	PCLI	LC		0				160922		330	America/St_Lucia	11/27/2012
+3577279	Aruba	Aruba	AW,ABW,AA	12.5	-69.96667	A	PCLIX	AW		0				71566		31	America/Aruba	1/18/2012
+3577815	Saint Vincent and the Grenadines	Saint Vincent and the Grenadines	VC,VCT,VC	13.08333	-61.2	A	PCLI	VC		0				104217		-9999	America/St_Vincent	12/1/2013
+3578421	Saint-Martin	Saint-Martin	MF,MAF,RN	18.06667	-63.06667	A	PCLIX	MF		0				35925		95	America/Marigot	11/19/2013
+3578476	Saint-Barthélemy	Saint-Barthelemy	BL,BLM,TB	17.9	-62.8257	A	PCLIX	BL		0				8450		1	America/St_Barthelemy	12/1/2013
+3580239	Grenada	Grenada	GD,GRD,GJ	12.11667	-61.66667	A	PCLI	GD		0				107818		261	America/Grenada	1/18/2012
+3582678	Belize	Belize	BZ,BLZ,BH	17.25	-88.75	A	PCLI	BZ		0				314522		69	America/Belize	1/18/2012
+3585968	Republic of El Salvador	Republic of El Salvador	SV,SLV,ES	13.83333	-88.91667	A	PCLI	SV		0				6052064		694	America/El_Salvador	3/5/2013
+3595528	Republic of Guatemala	Republic of Guatemala	GT,GTM,GT	15.5	-90.25	A	PCLI	GT		0				13550440		1376	America/Guatemala	3/5/2013
+3608932	Republic of Honduras	Republic of Honduras	HN,HND,HO	15	-86.5	A	PCLI	HN		0				7989415		945	America/Tegucigalpa	3/5/2013
+3617476	Republic of Nicaragua	Republic of Nicaragua	NI,NIC,NU	13	-85	A	PCLI	NI		0				5995928		130	America/Managua	4/4/2013
+3624060	Republic of Costa Rica	Republic of Costa Rica	CR,CRI,CS	10	-84	A	PCLI	CR		0				4516220		1415	America/Costa_Rica	3/5/2013
+3625428	Bolivarian Republic of Venezuela	Bolivarian Republic of Venezuela	VE,VEN,VE	8	-66	A	PCLI	VE		0				27223228		68	America/Caracas	4/3/2013
+3658394	Republic of Ecuador	Republic of Ecuador	EC,ECU,EC	-1.25	-78.25	A	PCLI	EC		0				14790608		3074		11/10/2013
+3686110	Republic of Colombia	Republic of Colombia	CO,COL,CO	4	-73.25	A	PCLI	CO		0				44205293		223	America/Bogota	11/10/2013
+3703430	Republic of Panama	Republic of Panama	PA,PAN,PM	9	-80	A	PCLI	PA		0				3410676		60	America/Panama	3/5/2013
+3723988	Republic of Haiti	Republic of Haiti	HT,HTI,HA	19	-72.41667	A	PCLI	HT		0				9648924		162	America/Port-au-Prince	3/5/2013
+3865483	Argentine Republic	Argentine Republic	AR,ARG,AR	-34	-64	A	PCLI	AR		0				41343201		189		3/5/2013
+3895114	Republic of Chile	Republic of Chile	CL,CHL,CI	-30	-71	A	PCLI	CL		0				16746491		297		3/5/2013
+3923057	Plurinational State of Bolivia	Plurinational State of Bolivia	BO,BOL,BL	-17	-65	A	PCLI	BO		0				9947418		233	America/La_Paz	4/2/2013
+3932488	Republic of Peru	Republic of Peru	PE,PER,PE	-10	-75.25	A	PCLI	PE		0				29907003		306	America/Lima	11/10/2013
+3996063	Mexico	Mexico	MX,MEX,MX	23	-102	A	PCLI	MX		0				112468855		2062		1/6/2012
+4030945	Republic of Kiribati	Republic of Kiribati	KI,KIR,KR	1.421	172.984	A	PCLI	KI		0				92533		-9999		1/6/2012
+4032283	Kingdom of Tonga	Kingdom of Tonga	TO,TON,TN	-20	-175	A	PCLI	TO		0				122580		-9999	Pacific/Tongatapu	3/5/2013
+4034894	Independent State of Samoa	Independent State of Samoa	WS,WSM,WS	-13.8	-172.13333	A	PCLI	WS		0				192001		-9999	Pacific/Apia	11/9/2013
+6251999	Canada	Canada	CA,CAN,CA	60.10867	-113.64258	A	PCLI	CA		0				33679000		292		1/27/2012
+6252001	United States	United States	US,USA,US	39.76	-98.5	A	PCLI	US		0				310232863		543		1/30/2012
+6290252	Serbia	Serbia	RS,SRB,RI	44.81892	20.45998	A	PCLI	RS		0				7344847		117	Europe/Belgrade	1/6/2012
+7609695	Sint Maarten	Sint Maarten	SX,SXM,NN	18.04167	-63.06667	A	PCLIX	SX		0				37429		48	America/Lower_Princes	11/17/2013
+7626836	Land Curaçao	Land Curacao	CW,CUW,UC	12.16667	-68.96667	A	PCLIX	CW		0				141766		39	America/Curacao	11/13/2013
+7626844	Bonaire, Saint Eustatius and Saba	Bonaire, Saint Eustatius and Saba	BQ,BES	12.21286	-68.29445	A	PCLIX	BQ		0				18012		118	America/Kralendijk	4/2/2013
+7909807	South Sudan	South Sudan	SS,SSD,OD	7.5	30	A	PCLI	SS		0				8260490		406	Africa/Juba	1/3/2013
+3042362	Bailiwick of Guernsey	Bailiwick of Guernsey	GG,GGY,GK	49.58333	-2.33333	A	PCL	GG		0				65228		-9999	Europe/Guernsey	1/6/2012
+3042225	Isle of Man	Isle of Man	IM,IMN,IM	54.25	-4.5	A	PCL	IM		0				75049		356	Europe/Isle_of_Man	1/3/2013
+3042142	Bailiwick of Jersey	Bailiwick of Jersey	JE,JEY,JE	49.21667	-2.11667	A	PCL	JE		0				90812		96	Europe/Jersey	1/6/2012
+3573511	Anguilla	Anguilla	AI,AIA,AV	18.21667	-63.05	A	PCLD	AI		0				13254		19	America/Anguilla	1/18/2012
+661882	Ahvenanmaan Lääni	Ahvenanmaan Laeaeni	AX,ALA	60.25	20	A	PCLD	AX		0				26711		6	Europe/Mariehamn	8/30/2013
+3573345	Bermuda	Bermuda	BM,BMU,BD	32.33333	-64.75	A	PCLD	BM		0				65365		-9999	Atlantic/Bermuda	1/6/2012
+3371123	Bouvet Island	Bouvet Island	BV,BVT,BV	-54.43333	3.4	A	PCLD	BV	NO	0				0		240	Europe/Oslo	11/27/2012
+1547376	Territory of Cocos (Keeling) Islands	Territory of Cocos (Keeling) Islands	CC,CCK,CK	-12.1642	96.87332	A	PCLD	CC	CC	0				628		-9999	Indian/Cocos	11/27/2012
+2078138	Territory of Christmas Island	Territory of Christmas Island	CX,CXR,KT	-10.5	105.66667	A	PCLD	CX	CX	0				1500		234	Indian/Christmas	3/5/2013
+3474414	Falkland Islands (Islas Malvinas)	Falkland Islands (Islas Malvinas)	FK,FLK,FK	-51.75	-59.16667	A	PCLD	FK		0				2638		17	Atlantic/Stanley	4/2/2013
+2622320	Faroe Islands	Faroe Islands	FO,FRO,FO	62	-7	A	PCLD	FO	FO	0				48228		58	Atlantic/Faroe	8/30/2013
+3381670	Guyane	Guyane	GF,GUF,FG	4	-53	A	PCLD	GF	GF,FR	0				195506		195	America/Cayenne	11/27/2012
+2411586	Gibraltar	Gibraltar	GI,GIB,GI	36.13333	-5.35	A	PCLD	GI		0				27884		82	Europe/Gibraltar	1/18/2012
+3425505	Greenland	Greenland	GL,GRL,GL	72	-40	A	PCLD	GL	GL	0				56375		3009		1/6/2012
+3579143	Guadeloupe	Guadeloupe	GP,GLP,GP	16.25	-61.58333	A	PCLD	GP	FR	0				443000		26	America/Guadeloupe	5/26/2013
+3474415	South Georgia and the South Sandwich Islands	South Georgia and the South Sandwich Islands	GS,SGS,SX	-56	-33	A	PCLD	GS	GS	0				30		-9999	Atlantic/South_Georgia	12/1/2013
+4043988	Guam	Guam	GU,GUM,GQ	13.47861	144.81834	A	PCLD	GU	US	0				159358	406	111	Pacific/Guam	5/9/2013
+1547314	Territory of Heard Island and McDonald Islands	Territory of Heard Island and McDonald Islands	HM,HMD,HM	-53.11711	73.50952	A	PCLD	HM	AU	0				0		1634	Indian/Kerguelen	8/30/2013
+1282588	British Indian Ocean Territory	British Indian Ocean Territory	IO,IOT,IO	-6	72	A	PCLD	IO		0				4000		-9999	Indian/Chagos	11/27/2012
+3580718	Cayman Islands	Cayman Islands	KY,CYM,CJ	19.5	-80.66667	A	PCLD	KY	KY	0				44270		-9999	America/Cayman	11/27/2012
+4041468	Commonwealth of the Northern Mariana Islands	Commonwealth of the Northern Mariana Islands	MP,MNP,CQ	15.214	145.756	A	PCLD	MP	US	0				53883	979	197	Pacific/Saipan	1/6/2012
+3570311	Martinique	Martinique	MQ,MTQ,MB	14.66667	-61	A	PCLD	MQ		0				432900		79	America/Martinique	1/6/2012
+3578097	Montserrat	Montserrat	MS,MSR,MH	16.75	-62.2	A	PCLD	MS	MS	0				9341		369	America/Montserrat	4/13/2013
+2139685	Nouvelle-Calédonie	Nouvelle-Caledonie	NC,NCL,NC	-21.5	165.5	A	PCLD	NC	NC	0				216494		87	Pacific/Noumea	1/6/2012
+2155115	Territory of Norfolk Island	Territory of Norfolk Island	NF,NFK,NF	-29.03333	167.95	A	PCLD	NF	NF	0				1828		115	Pacific/Norfolk	3/5/2013
+4030656	Polynésie Française	Polynesie Francaise	PF,PYF,FP	-15	-140	A	PCLD	PF		0				270485		-9999		1/9/2012
+3424932	Saint-Pierre et Miquelon	Saint-Pierre et Miquelon	PM,SPM,SB	46.83333	-56.33333	A	PCLD	PM	PM	0				7012		155	America/Miquelon	1/6/2012
+4030699	Henderson, Ducie and Oeno Islands Pitcairn	Henderson, Ducie and Oeno Islands Pitcairn	PN,PCN,PC	-25.06667	-130.1	A	PCLD	PN		0				46		92	Pacific/Pitcairn	3/5/2013
+4566966	Puerto Rico	Puerto Rico	PR,PRI,RQ	18.24829	-66.49989	A	PCLD	PR		0				3916632	454	475	America/Puerto_Rico	1/6/2012
+935317	Reunion	Reunion	RE,REU,RE	-21.1	55.6	A	PCLD	RE	RE	0				776948		1071	Indian/Reunion	1/6/2012
+3370751	Ascension, and Tristan da Cunha Saint Helena	Ascension, and Tristan da Cunha Saint Helena	SH,SHN,SH	-15.95	-5.7	A	PCLD	SH		0				7460		572	Atlantic/St_Helena	5/25/2013
+3576916	Turks and Caicos Islands	Turks and Caicos Islands	TC,TCA,TK	21.73333	-71.58333	A	PCLD	TC		0				20556		5	America/Grand_Turk	11/27/2012
+4031074	Tokelau	Tokelau	TK,TKL,TL	-9.167	-171.83	A	PCLD	TK	NZ	0				1466		-9999	Pacific/Fakaofo	1/6/2012
+5854968	United States Minor Outlying Islands	United States Minor Outlying Islands	UM,UMI	5.875	-162.057	A	PCLD	UM		0				0		-9999		8/30/2013
+3577718	British Virgin Islands	British Virgin Islands	VG,VGB,VI	18.5	-64.5	A	PCLD	VG	VG	0				21730		-9999	America/Tortola	4/2/2013
+4796775	Virgin Islands of the United States	Virgin Islands of the United States	VI,VIR,VQ	18.34829	-64.98348	A	PCLD	VI		0				108708	82	87	America/St_Thomas	4/2/2013
+4034749	Wallis et Futuna	Wallis et Futuna	WF,WLF,WF	-13.3	-176.2	A	PCLD	WF	WF	0				16025		18	Pacific/Wallis	12/1/2013
+1024031	Mayotte	Mayotte	YT,MYT,MF	-12.83333	45.16667	A	PCLD	YT	FR	0				159042		140	Indian/Mayotte	2/3/2012
+2081918	Federated States of Micronesia	Federated States of Micronesia	FM,FSM,FM	6.924	158.162	A	PCLF	FM	FM	0				107708	0	87		4/2/2013
+2080185	Republic of the Marshall Islands	Republic of the Marshall Islands	MH,MHL,RM	7.113	171.236	A	PCLF	MH		0				65859	10	-9999		11/27/2012
+1559582	Republic of Palau	Republic of Palau	PW,PLW,PS	7.503	134.621	A	PCLF	PW		0				19907	242	64	Pacific/Palau	1/6/2012
+1899402	Cook Islands	Cook Islands	CK,COK,CW	-21.24842	-159.78516	A	PCLS	CK		0				21388		125	Pacific/Rarotonga	1/6/2012
+1819730	Hong Kong Special Administrative Region	Hong Kong Special Administrative Region	HK,HKG,HK	22.25	114.16667	A	PCLS	HK	HK	0				6898686		46	Asia/Hong_Kong	8/30/2013
+1821275	Macau Special Administrative Region	Macau Special Administrative Region	MO,MAC,MC	22.15778	113.55972	A	PCLS	MO		0				449198		6	Asia/Macau	3/5/2013
+4036232	Niue	Niue	NU,NIU,NE	-19.03333	-169.86667	A	PCLS	NU	NU	0				2166		65	Pacific/Niue	1/18/2012
+6254930	Palestine	Palestine	PS,PSE,WE	31.92157	35.20329	A	PCLS	PS		0				3800000		868		11/21/2013
+6697173	Antarctica	Antarctica	AQ,ATA,AY	-82.67628	8.78906	A	TERR	AQ		0				0		2481		1/6/2012
+5880801	American Samoa, Territory of	American Samoa, Territory of	AS,ASM,AQ	-14.23377	-169.47767	A	TERR	AS	US	0				57881		765	Pacific/Pago_Pago	2/2/2012
+2461445	Western Sahara	Western Sahara	EH,ESH,WI	24.49215	-12.65625	A	TERR	EH		0				273008		237	Africa/El_Aaiun	11/27/2012
+607072	Svalbard and Jan Mayen	Svalbard and Jan Mayen	SJ,SJM,SV	78	20	A	TERR	SJ		0				2550		-9999	Arctic/Longyearbyen	11/18/2013
+2077507	Territory of Ashmore and Cartier Islands	Territory of Ashmore and Cartier Islands	AT	-12.41667	123.33333	A	TERR	AU	AU	0				0		-9999		8/16/2010
+146836	Akrotiri	Akrotiri	AX	34.63333	32.91667	L	MILB	GB		0				0		3	Asia/Nicosia	1/17/2012
+4743755	Navassa Island	Navassa Island	BQ	18.403	-75.012	A	ADM1	UM		350				0		69	Pacific/Johnston	10/21/2010
+936202	Bassas da India	Bassas da India	BS	-21.41667	39.7	A	ADM2	TF		5	BS			0		-9999	Indian/Kerguelen	3/16/2008
+2170371	Coral Sea Islands Territory	Coral Sea Islands Territory	CR	-17.5	151	A	TERR	AU	AU	0				0		-9999		8/16/2010
+5854926	Jarvis Island	Jarvis Island	DQ	-0.375	-160.001	A	ADM1	UM		150				0		4	Pacific/Johnston	7/8/2013
+146663	Dhekelia	Dhekelia	DX	35.00117	33.74536	L	MILB	GB		0				0		63	Asia/Nicosia	1/17/2012
+933909	Île Europa	Ile Europa	EU	-22.33333	40.36667	T	ISL	TF	FR	5	EU			0		1	Indian/Kerguelen	9/29/2013
+5854907	Baker Island	Baker Island	FQ	0.19472	-176.47944	A	ADM1	UM		50				0		5	Pacific/Midway	5/23/2013
+1024033	Îles Glorieuses	Iles Glorieuses	GO	-11.5	47.33333	T	ISLS	TF	FR	5				0		-9999	Indian/Kerguelen	9/29/2013
+281132	Gaza Strip	Gaza Strip	GZ	31.41667	34.33333	A	ADM1	PS		GZ				487904		12	Asia/Gaza	12/1/2013
+5854922	Howland Island	Howland Island	HQ 	0.81021	-176.61733	A	ADM1	UM		100				0		5	Pacific/Midway	10/17/2010
+4020095	Clipperton	Clipperton	IP	10.28333	-109.21667	T	ATOL	FR						0		-9999	Pacific/Marquesas	8/16/2010
+3041964	Jan Mayen	Jan Mayen	JN	70.98333	-8.5	A	ADM1	SJ		22				18		1	Arctic/Longyearbyen	7/6/2013
+5854929	Johnston Atoll	Johnston Atoll	JQ	16.72	-169.506	A	ADM1	UM		200				0		-9999	Pacific/Johnston	5/23/2013
+1024028	Île Juan de Nova	Ile Juan de Nova	JU	-17.05449	42.7248	T	ISL	TF	FR	5	JU			0	12	17	Indian/Kerguelen	9/29/2013
+5854936	Kingman Reef	Kingman Reef	KQ	6.4	-162.4	A	ADM1	UM		250				0	-3	-9999	Pacific/Johnston	5/23/2013
+5854952	Palmyra Atoll	Palmyra Atoll	LQ	5.875	-162.056	A	ADM1	UM		400				10		-9999	Pacific/Johnston	7/6/2013
+5854943	Midway Islands	Midway Islands	MQ 	28.228	-177.392	A	ADM1	UM		300				0		-9999	Pacific/Midway	7/8/2013
+8505032	Netherlands Antilles	Netherlands Antilles	NT,ANT	12.11721	-68.91964	A	PCLH	CW		0				175653		1	America/Curacao	4/2/2013
+1821073	Paracel Islands	Paracel Islands	PF	16.5	112.25	T	ISLS	CN	CN	0Z				0		-9999	Asia/Chongqing	10/6/2013
+1821005	Spratly Islands	Spratly Islands	PG	10	114	T	ISLS			0Z				0		-9999	Asia/Brunei	6/13/2012
+2125384	Habomai Islands	Habomai Islands	PJ	43.5	146.16667	T	ISLS	JP		12				0		15	Asia/Magadan	8/4/2013
+933908	Tromelin Island	Tromelin Island	TE	-15.89332	54.52377	A	ADM2	TF	FR	5	TE			0		6	Indian/Kerguelen	3/7/2013
+285153	West Bank	West Bank	WE	31.66667	35.25	A	ADM1	PS	PS	WE				2771681		624	Asia/Hebron	1/26/2011
+4041685	Wake Island	Wake Island	WQ	19.31	166.6	A	ADM1	UM		450				150		-9999	Pacific/Wake	7/6/2013
+8354411	Union of Soviet Socialist Republics	Union of Soviet Socialist Republics	USSR,CCCP,SU	60	98	A	PCLH							0		355	Asia/Krasnoyarsk	7/30/2012
+8505035	Yugoslavia	Yugoslavia	YU,YUG	44.81838	20.46787	A	PCLH	RS		0				0		89	Europe/Belgrade	4/2/2013
+8505033	Serbia and Montenegro	Serbia and Montenegro	CS,SCG	44.8174	20.46341	A	PCLH	RS		0				0		110	Europe/Belgrade	4/2/2013
+8354410	German Democratic Republic	German Democratic Republic	GDR,DDR,EG	51	13	A	PCLH	DE		0				0		280		12/16/2013
+6695072	European Union	European Union	EU	50.83857	4.37599	A	ZN							0		80	Europe/Brussels	7/15/2008
+6269131	England	England	ENG	52.16045	-0.70312	A	ADM1	GB		ENG				50000000		62	Europe/London	2012-05-07
+2638360	Scotland	Scotland	SCT	56	-4	A	ADM1	GB		SCT				5000000		171	Europe/London	2013-08-14
+2634895	Wales	Wales	WLS	52.5	-3.5	A	ADM1	GB		WLS				3000000		133	Europe/London	2011-12-03
+2641364	Northern Ireland	Northern Ireland	NIR	54.5	-6.5	A	ADM1	GB		NIR				1700000		13	Europe/London	2012-02-02
+2800867	Bruxelles-Capitale	Bruxelles-Capitale	BRU	50.85332	4.35144	A	ADM1	BE		BRU				1830000		23	Europe/Brussels	2013-11-02
+3337387	Walloon Region	Walloon Region	WAL	50.5	4.75	A	ADM1	BE		WAL				0		163	Europe/Brussels	2013-10-14
+3337388	Flanders	Flanders	VLG	51	4.5	A	ADM1	BE		VLG				6350765		5	Europe/Brussels	2013-11-29
+2657895	Kanton Zürich	Kanton Zurich	ZH	47.41667	8.66667	A	ADM1	CH		ZH				1289559		526	Europe/Zurich	11/20/2013
+2657907	Kanton Zug	Kanton Zug	ZG	47.16667	8.58333	A	ADM1	CH		ZG				106352		823	Europe/Zurich	3/5/2013
+2658182	Canton de Vaud	Canton de Vaud	VD	46.66667	6.5	A	ADM1	CH		VD				646233		546	Europe/Zurich	11/20/2013
+2658205	Canton du Valais	Canton du Valais	VS	46.22925	7.45972	A	ADM1	CH		VS				284653		1350	Europe/Zurich	11/25/2011
+2658226	Kanton Uri	Kanton Uri	UR	46.83333	8.75	A	ADM1	CH		UR				34088		1661	Europe/Zurich	3/5/2013
+2658370	Cantone Ticino	Cantone Ticino	TI	46.25	8.58333	A	ADM1	CH		TI				317006		1537	Europe/Zurich	3/5/2013
+2658372	Kanton Thurgau	Kanton Thurgau	TG	47.58333	9.25	A	ADM1	CH		TG				230600		518	Europe/Zurich	11/22/2013
+2658563	Kanton Solothurn	Kanton Solothurn	SO	47.21071	7.52048	A	ADM1	CH		SO				250155		439	Europe/Zurich	1/21/2012
+2658664	Kanton Schwyz	Kanton Schwyz	SZ	47.08333	8.75	A	ADM1	CH		SZ				135461		1244	Europe/Zurich	3/5/2013
+2658760	Kanton Schaffhausen	Kanton Schaffhausen	SH	47.71034	8.63388	A	ADM1	CH		SH				73443		485	Europe/Zurich	11/24/2011
+2658821	Kanton St. Gallen	Kanton St. Gallen	SG	47.25	9.25	A	ADM1	CH		SG				462877		1120	Europe/Zurich	11/24/2011
+2659315	Kanton Obwalden	Kanton Obwalden	OW	46.85	8.25	A	ADM1	CH		OW				33717		1173	Europe/Zurich	1/16/2012
+2659471	Kanton Nidwalden	Kanton Nidwalden	NW	46.95	8.41667	A	ADM1	CH		NW				40794		1052	Europe/Zurich	1/16/2012

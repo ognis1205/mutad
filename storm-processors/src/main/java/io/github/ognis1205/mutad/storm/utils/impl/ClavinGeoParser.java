@@ -76,9 +76,11 @@ public class ClavinGeoParser implements GeoParser {
                     ClavinLocationResolver.DEFAULT_ANCESTRY_MODE);
             List<Location> ret = new ArrayList<>();
             for (ResolvedLocation loc : locs) {
-                ret.add(new Location(
-                        loc.getGeoname().getAsciiName(),
-                        new LonLat(loc.getGeoname().getLongitude(), loc.getGeoname().getLatitude())));
+                //if (loc.getConfidence()) {
+                    ret.add(new Location(
+                            loc.getGeoname().getAsciiName(),
+                            new LonLat(loc.getGeoname().getLongitude(), loc.getGeoname().getLatitude())));
+                //}
             }
             return ret;
         } catch (Exception e) {
