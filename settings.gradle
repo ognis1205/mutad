@@ -8,8 +8,6 @@ rootProject.name = 'mutad'
 
 include 'spring-boot-elasticsearch'
 
-include 'storm-clavin'
-
 include 'storm-collectors'
 
 include 'storm-processors'
