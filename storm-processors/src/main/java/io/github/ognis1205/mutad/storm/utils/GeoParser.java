@@ -39,7 +39,7 @@ public interface GeoParser {
 
         /** Returns location name. */
         public String getName() {
-            return this.name.toLowerCase(Locale.ROOT);
+            return this.name;
         }
 
         /** Returns location lon/lat. */

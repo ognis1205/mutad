@@ -22,7 +22,10 @@ import com.bericotech.clavin.extractor.LocationOccurrence;
 import com.bericotech.clavin.gazetteer.query.Gazetteer;
 import com.bericotech.clavin.resolver.ClavinLocationResolver;
 import com.bericotech.clavin.resolver.ResolvedLocation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import io.github.ognis1205.mutad.storm.beans.LonLat;
+import io.github.ognis1205.mutad.storm.bolts.TweetCleanBolt;
 import io.github.ognis1205.mutad.storm.utils.GeoParser;
 
 /**
@@ -30,6 +33,9 @@ import io.github.ognis1205.mutad.storm.utils.GeoParser;
  * @version 1.0.0
  */
 public class ClavinGeoParser implements GeoParser {
+    /** SL4J Logger. */
+    private static final Logger LOG = LoggerFactory.getLogger(ClavinGeoParser.class);
+
     /** Entity extractor to find location names in text. */
     private LocationExtractor extractor;
 
@@ -68,7 +74,7 @@ public class ClavinGeoParser implements GeoParser {
     public List<Location> parse(String text) {
         try {
             List<LocationOccurrence> occurs = this.extractor.extractLocationNames(text);
-            List<ResolvedLocation> locs = resolver.resolveLocations(
+            List<ResolvedLocation> locs = this.resolver.resolveLocations(
                     occurs,
                     this.maxHitDepth,
                     this.maxContextWindow,
@@ -76,11 +82,10 @@ public class ClavinGeoParser implements GeoParser {
                     ClavinLocationResolver.DEFAULT_ANCESTRY_MODE);
             List<Location> ret = new ArrayList<>();
             for (ResolvedLocation loc : locs) {
-                //if (loc.getConfidence()) {
-                    ret.add(new Location(
-                            loc.getGeoname().getAsciiName(),
-                            new LonLat(loc.getGeoname().getLongitude(), loc.getGeoname().getLatitude())));
-                //}
+                LOG.trace(loc.toString());
+                ret.add(new Location(
+                        loc.getGeoname().getAsciiName(),
+                        new LonLat(loc.getGeoname().getLongitude(), loc.getGeoname().getLatitude())));
             }
             return ret;
         } catch (Exception e) {

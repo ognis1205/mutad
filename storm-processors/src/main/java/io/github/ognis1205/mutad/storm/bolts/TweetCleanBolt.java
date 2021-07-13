@@ -24,6 +24,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import com.bericotech.clavin.extractor.ApacheExtractor;
 import com.bericotech.clavin.gazetteer.query.LuceneGazetteer;
+import com.bericotech.clavin.resolver.ResolvedLocation;
 import org.apache.storm.task.OutputCollector;
 import org.apache.storm.task.TopologyContext;
 import org.apache.storm.topology.OutputFieldsDeclarer;
@@ -74,9 +75,9 @@ public class TweetCleanBolt extends BaseRichBolt {
             this.parser = new ClavinGeoParser(
                     new ApacheExtractor(),
                     new LuceneGazetteer(index),
-                    3,
-                    5,
-                    true);
+                    1,
+                    1,
+                    false);
         } catch (Exception e) {
             LOG.error("something bad happened", e);
         }
@@ -90,10 +91,9 @@ public class TweetCleanBolt extends BaseRichBolt {
         String json = tuple.getStringByField(KafkaTweetSpoutBuilder.FIELD);
         if (json != null && !json.isEmpty()) {
             Tweet tweet = new Tweet(json);
-            LOG.trace(tweet.toJSON().toString());
             if (tweet.getId() > -1 && !tweet.getText().isEmpty() && tweet.getLang().equals("en")) {
                 this.parse(tweet);
-                LOG.info(tweet.toJSON().toString());
+                LOG.trace(tweet.toJSON().toString());
                 this.collector.emit(TWEET_STREAM, tuple, new Values(tweet.toJSON()));
                 List<Geo> geos = Geo.split(tweet);
                 for (Geo geo : geos) {
@@ -120,7 +120,7 @@ public class TweetCleanBolt extends BaseRichBolt {
      */
     private void parse(Tweet tweet) {
         try {
-            List<GeoParser.Location> locs = this.parser.parse(tweet.getText().toLowerCase(Locale.ROOT));
+            List<GeoParser.Location> locs = this.parser.parse(tweet.getText());
             tweet.setCityNames(locs.stream().map(l -> l.getName()).collect(Collectors.toList()));
             tweet.setCityCoords(locs.stream().map(l -> l.getLonLat()).collect(Collectors.toList()));
         } catch (Exception e) {
