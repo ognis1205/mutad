@@ -16,6 +16,8 @@
 package io.github.ognis1205.mutad.storm.bolts;
 
 import java.io.File;
+import java.net.URL;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -36,7 +38,6 @@ import io.github.ognis1205.mutad.storm.beans.Geo;
 import io.github.ognis1205.mutad.storm.beans.Tweet;
 import io.github.ognis1205.mutad.storm.utils.GeoParser;
 import io.github.ognis1205.mutad.storm.utils.impl.ClavinGeoParser;
-//import io.github.ognis1205.mutad.storm.utils.impl.TrieGeoParser;
 
 /**
  * @author Shingo OKAWA
@@ -68,10 +69,11 @@ public class TweetCleanBolt extends BaseRichBolt {
     public void prepare(Map map, TopologyContext topologyContext, OutputCollector collector) {
         try {
             this.collector = collector;
-            //this.parser = new TrieGeoParser(getClass().getResourceAsStream("/worldcities.csv"));
+            URL url =new URL("file:///IndexDirectory");
+            File index = Paths.get(url.toURI()).toFile();
             this.parser = new ClavinGeoParser(
                     new ApacheExtractor(),
-                    new LuceneGazetteer(new File("/CLAVIN-clavin-2.1.0/IndexDirectory")),
+                    new LuceneGazetteer(index),
                     3,
                     5,
                     true);
@@ -90,8 +92,9 @@ public class TweetCleanBolt extends BaseRichBolt {
             Tweet tweet = new Tweet(json);
             LOG.trace(tweet.toJSON().toString());
             if (tweet.getId() > -1 && !tweet.getText().isEmpty() && tweet.getLang().equals("en")) {
-                this.collector.emit(TWEET_STREAM, tuple, new Values(tweet.toJSON()));
                 this.parse(tweet);
+                LOG.info(tweet.toJSON().toString());
+                this.collector.emit(TWEET_STREAM, tuple, new Values(tweet.toJSON()));
                 List<Geo> geos = Geo.split(tweet);
                 for (Geo geo : geos) {
                     LOG.trace(geo.toJSON().toString());

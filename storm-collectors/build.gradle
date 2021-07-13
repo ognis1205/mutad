@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'application'
+    id 'com.github.johnrengelman.shadow' version '6.0.0'
 }
 
 sourceCompatibility = '8'
@@ -9,28 +10,24 @@ targetCompatibility = '8'
 
 mainClassName = 'io.github.ognis1205.mutad.storm.CollectorTopology'
 
-configurations {
-    extraLibrary
-}
-
 dependencies {
     compileOnly             group: 'org.projectlombok', name: 'lombok',             version: '1.18.20'
     annotationProcessor     group: 'org.projectlombok', name: 'lombok',             version: '1.18.20'
-    extraLibrary            group: 'commons-cli',       name: 'commons-cli',        version: '1.4'
-    extraLibrary            group: 'org.apache.storm',  name: 'storm-kafka-client', version: '2.2.0'
-    extraLibrary            group: 'org.apache.kafka',  name: 'kafka-clients',      version: '2.8.0'
-    extraLibrary            group: 'org.json',          name: 'json',               version: '20210307'
-    extraLibrary            group: 'com.twitter',       name: 'hbc-core',           version: '2.2.0'
-    implementation          group: 'org.apache.storm',  name: 'storm-core',         version: '2.2.0'
-    implementation          group: 'ch.qos.logback',    name: 'logback-classic',    version: '1.2.3'
+    implementation          group: 'commons-cli',       name: 'commons-cli',        version: '1.4'
+    implementation          group: 'org.apache.storm',  name: 'storm-kafka-client', version: '2.2.0'
+    implementation          group: 'org.apache.kafka',  name: 'kafka-clients',      version: '2.8.0'
+    implementation          group: 'org.json',          name: 'json',               version: '20210307'
+    implementation          group: 'com.twitter',       name: 'hbc-core',           version: '2.2.0'
+    shadow                  group: 'org.apache.storm',  name: 'storm-core',         version: '2.2.0'
+    shadow                  group: 'ch.qos.logback',    name: 'logback-classic',    version: '1.2.3'
     testCompileOnly         group: 'org.projectlombok', name: 'lombok',             version:'1.18.20'
     testAnnotationProcessor group: 'org.projectlombok', name: 'lombok',             version:'1.18.20'
-    configurations.implementation.extendsFrom(configurations.extraLibrary)
 }
 
-jar {
-    from {
-        configurations.extraLibrary.collect { it.isDirectory() ? it : zipTree(it) }
-    }
-    exclude 'defaults.yaml','META-INF/*.RSA','META-INF/*.SF','META-INF/*.DSA'
+shadowJar {
+    exclude 'defaults.yaml'
+    exclude 'META-INF/*.RSA'
+    exclude 'META-INF/*.SF'
+    exclude 'META-INF/*.DSA'
 }
+

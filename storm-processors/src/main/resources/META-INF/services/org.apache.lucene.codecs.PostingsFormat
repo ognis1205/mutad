@@ -1,7 +1,0 @@
-org.apache.lucene.codecs.bloom.BloomFilteringPostingsFormat
-org.apache.lucene.codecs.memory.DirectPostingsFormat
-org.apache.lucene.codecs.memory.FSTOrdPostingsFormat
-org.apache.lucene.codecs.memory.FSTPostingsFormat
-org.apache.lucene.codecs.memory.MemoryPostingsFormat
-org.apache.lucene.codecs.lucene40.Lucene40PostingsFormat
-org.apache.lucene.codecs.lucene41.Lucene41PostingsFormat

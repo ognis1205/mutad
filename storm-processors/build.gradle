@@ -13,18 +13,16 @@ mainClassName = 'io.github.ognis1205.mutad.storm.ProcessorTopology'
 dependencies {
     compileOnly             group: 'org.projectlombok',    name: 'lombok',              version: '1.18.20'
     annotationProcessor     group: 'org.projectlombok',    name: 'lombok',              version: '1.18.20'
-    extraLibrary            group: 'commons-cli',          name: 'commons-cli',         version: '1.4'
-    extraLibrary            group: 'org.apache.storm',     name: 'storm-kafka-client',  version: '2.2.0'
-    extraLibrary            group: 'org.apache.kafka',     name: 'kafka-clients',       version: '2.8.0'
-    extraLibrary            group: 'org.elasticsearch',    name: 'elasticsearch-storm', version: '7.13.2'
-    extraLibrary            group: 'org.json',             name: 'json',                version: '20210307'
-    extraLibrary            group: 'com.vdurmont',         name: 'emoji-java',          version: '5.1.1'
-    //extraLibrary            group: 'com.bericotech',    name: 'clavin',              version: '2.1.0'
-    //extraLibrary            group: 'com.github.ognis1205', name: 'CLAVIN',              version: '1.0.1'
-    extraLibrary            project(':storm-clavin')
-    extraLibrary            project(':storm-trie')
-    implementation          group: 'org.apache.storm',     name: 'storm-core',          version: '2.2.0'
-    implementation          group: 'ch.qos.logback',       name: 'logback-classic',     version: '1.2.3'
+    implementation          group: 'commons-cli',          name: 'commons-cli',         version: '1.4'
+    implementation          group: 'org.apache.storm',     name: 'storm-kafka-client',  version: '2.2.0'
+    implementation          group: 'org.apache.kafka',     name: 'kafka-clients',       version: '2.8.0'
+    implementation          group: 'org.elasticsearch',    name: 'elasticsearch-storm', version: '7.13.2'
+    implementation          group: 'org.json',             name: 'json',                version: '20210307'
+    implementation          group: 'com.vdurmont',         name: 'emoji-java',          version: '5.1.1'
+    implementation          group: 'com.bericotech',       name: 'clavin',              version: '2.1.0'
+    implementation          project(':storm-trie')
+    shadow                  group: 'org.apache.storm',     name: 'storm-core',          version: '2.2.0'
+    shadow                  group: 'ch.qos.logback',       name: 'logback-classic',     version: '1.2.3'
     testCompileOnly         group: 'org.projectlombok',    name: 'lombok',              version: '1.18.20'
     testAnnotationProcessor group: 'org.projectlombok',    name: 'lombok',              version: '1.18.20'
 }

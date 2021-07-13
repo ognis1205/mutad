@@ -6,15 +6,10 @@ sourceCompatibility = '8'
 
 targetCompatibility = '8'
 
-configurations {
-    extraLibrary
-}
-
 dependencies {
     testCompileOnly         group: 'org.projectlombok', name: 'lombok',        version: '1.18.20'
     testAnnotationProcessor group: 'org.projectlombok', name: 'lombok',        version: '1.18.20'
     testImplementation      group: 'org.junit.jupiter', name: 'junit-jupiter', version: '5.5.2'
-    configurations.implementation.extendsFrom(configurations.extraLibrary)
 }
 
 test {

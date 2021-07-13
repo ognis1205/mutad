@@ -1,3 +1,0 @@
-org.apache.lucene.codecs.memory.MemoryDocValuesFormat
-org.apache.lucene.codecs.memory.DirectDocValuesFormat
-org.apache.lucene.codecs.lucene410.Lucene410DocValuesFormat
