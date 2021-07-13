@@ -16,6 +16,7 @@
 package io.github.ognis1205.mutad.spring.config;
 
 import org.elasticsearch.client.RestHighLevelClient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.elasticsearch.client.ClientConfiguration;
 import org.springframework.data.elasticsearch.client.RestClients;
@@ -33,10 +34,13 @@ import org.springframework.context.annotation.Configuration;
 @EnableElasticsearchRepositories(basePackages = "io.github.ognis1205.mutad.spring.repositories")
 @ComponentScan(basePackages = { "io.github.ognis1205.mutad.spring.services" })
 public class EsConfig {
+    @Autowired
+    private EsProperties esProperties;
+
     @Bean
     public RestHighLevelClient client() {
         ClientConfiguration clientConfiguration = ClientConfiguration.builder()
-                .connectedTo("${spring.data.elasticsearch.cluster-nodes}")
+                .connectedTo(esProperties.getUris())
                 .build();
         return RestClients.create(clientConfiguration).rest();
     }
