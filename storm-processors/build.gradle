@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'application'
+    id 'com.github.johnrengelman.shadow' version '6.0.0'
 }
 
 sourceCompatibility = '8'
@@ -8,16 +9,6 @@ sourceCompatibility = '8'
 targetCompatibility = '8'
 
 mainClassName = 'io.github.ognis1205.mutad.storm.ProcessorTopology'
-
-repositories {
-    maven {
-        url "https://jitpack.io"
-    }
-}
-
-configurations {
-    extraLibrary
-}
 
 dependencies {
     compileOnly             group: 'org.projectlombok',    name: 'lombok',              version: '1.18.20'
@@ -36,12 +27,12 @@ dependencies {
     implementation          group: 'ch.qos.logback',       name: 'logback-classic',     version: '1.2.3'
     testCompileOnly         group: 'org.projectlombok',    name: 'lombok',              version: '1.18.20'
     testAnnotationProcessor group: 'org.projectlombok',    name: 'lombok',              version: '1.18.20'
-    configurations.implementation.extendsFrom(configurations.extraLibrary)
 }
 
-jar {
-    from {
-        configurations.extraLibrary.collect { it.isDirectory() ? it : zipTree(it) }
-    }
-    exclude 'defaults.yaml','META-INF/*.RSA','META-INF/*.SF','META-INF/*.DSA'
+shadowJar {
+    exclude 'defaults.yaml'
+    exclude 'META-INF/*.RSA'
+    exclude 'META-INF/*.SF'
+    exclude 'META-INF/*.DSA'
 }
+
