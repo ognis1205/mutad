@@ -15,7 +15,7 @@
     },
     "text": {
       "type": "text",
-      "analyzer": "my_analyzer",
+      "analyzer": "rebuilt_english",
       "store": true,
       "index": true
     },

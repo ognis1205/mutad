@@ -17,6 +17,7 @@ package io.github.ognis1205.mutad.spring.mapper;
 
 import java.util.List;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 import io.github.ognis1205.mutad.spring.dto.TweetDTO;
 import io.github.ognis1205.mutad.spring.model.Tweet;
@@ -31,6 +32,12 @@ public interface TweetMapper {
     public TweetMapper INSTANCE = Mappers.getMapper(TweetMapper.class);
 
     /** Converts `Tweet` into `TweetDTO`. */
+    @Mapping(target = "id", source = "id")
+    @Mapping(target = "timestamp", source = "timestamp")
+    @Mapping(target = "lang", source = "lang")
+    @Mapping(target = "text", source = "text")
+    @Mapping(target = "hashtags", source = "hashtags")
+    @Mapping(target = "geo", source = "geo")
     public TweetDTO convert(Tweet tweet);
 
     /** Converts `Tweet` into `TweetDTO`. */

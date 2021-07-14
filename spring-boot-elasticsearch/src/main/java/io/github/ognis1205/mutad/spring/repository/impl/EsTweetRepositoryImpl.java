@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.common.unit.Fuzziness;
-import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
@@ -52,20 +52,21 @@ public class EsTweetRepositoryImpl implements EsTweetRepository {
             Date to,
             String text,
             List<String> hashtags) {
-        QueryBuilder builder = QueryBuilders
+        BoolQueryBuilder builder = QueryBuilders
                 .boolQuery()
                 .must(QueryBuilders
                         .rangeQuery("timestamp")
                         .gte(from.getTime())
                         .lte(to.getTime()))
                 .filter(QueryBuilders
-                        .matchQuery("text", text)
-                        .analyzer("my_analyzer")
-                        .fuzziness(Fuzziness.AUTO)
-                        .prefixLength(3)
-                        .maxExpansions(10))
-                .filter(QueryBuilders
                         .termsQuery("hashtags", hashtags));
+        if (!text.isEmpty())
+            builder.filter(QueryBuilders
+                .matchQuery("text", text)
+                .analyzer("rebuilt_english")
+                .fuzziness(Fuzziness.AUTO)
+                .prefixLength(3)
+                .maxExpansions(10));
         NativeSearchQuery query = new NativeSearchQueryBuilder()
                 .withQuery(builder)
                 .build();
@@ -86,24 +87,26 @@ public class EsTweetRepositoryImpl implements EsTweetRepository {
             List<String> hashtags,
             GeoPoint center,
             String radius) {
-        QueryBuilder builder = QueryBuilders
+        BoolQueryBuilder builder = QueryBuilders
                 .boolQuery()
                 .must(QueryBuilders
                         .rangeQuery("timestamp")
                         .gte(from.getTime())
                         .lte(to.getTime()))
                 .filter(QueryBuilders
-                        .matchQuery("text", text)
-                        .analyzer("my_analyzer")
-                        .fuzziness(Fuzziness.AUTO)
-                        .prefixLength(3)
-                        .maxExpansions(10))
-                .filter(QueryBuilders
-                        .termsQuery("hashtags", hashtags))
-                .filter(QueryBuilders
                         .geoDistanceQuery("geo")
                         .point(center.getLat(), center.getLon())
                         .distance(radius));
+        if (!text.isEmpty())
+            builder.filter(QueryBuilders
+                    .matchQuery("text", text)
+                    .analyzer("rebuilt_english")
+                    .fuzziness(Fuzziness.AUTO)
+                    .prefixLength(3)
+                    .maxExpansions(10));
+        if (!hashtags.isEmpty())
+            builder.filter(QueryBuilders
+                    .termsQuery("hashtags", hashtags));
         NativeSearchQuery query = new NativeSearchQueryBuilder()
                 .withQuery(builder)
                 .build();

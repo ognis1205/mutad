@@ -17,18 +17,12 @@ package io.github.ognis1205.mutad.spring.dto;
 
 import java.util.Date;
 import java.util.List;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.data.elasticsearch.core.geo.GeoPoint;
 
 /**
  * @author Shingo OKAWA
  * @version 1.0.0
  */
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class TweetDTO {
     private String id;
 
@@ -41,5 +35,70 @@ public class TweetDTO {
     private List<String> hashtags;
 
     private GeoPoint geo;
+
+    /** Constructor. */
+    public TweetDTO() {
+        // Do nothing.
+    }
+
+    /** Getter/Setter. */
+    public String getId() {
+        return this.id;
+    }
+
+    /** Getter/Setter. */
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    /** Getter/Setter. */
+    public Date getTimestamp() {
+        return this.timestamp;
+    }
+
+    /** Getter/Setter. */
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    /** Getter/Setter. */
+    public String getLang() {
+        return this.lang;
+    }
+
+    /** Getter/Setter. */
+    public void setLang(String lang) {
+        this.lang = lang;
+    }
+
+    /** Getter/Setter. */
+    public String getText() {
+        return this.text;
+    }
+
+    /** Getter/Setter. */
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    /** Getter/Setter. */
+    public List<String> getHashtags() {
+        return this.hashtags;
+    }
+
+    /** Getter/Setter. */
+    public void setHashtags(List<String> hashtags) {
+        this.hashtags = hashtags;
+    }
+
+    /** Getter/Setter. */
+    public GeoPoint getGeo() {
+        return this.geo;
+    }
+
+    /** Getter/Setter. */
+    public void setGeo(GeoPoint geo) {
+        this.geo = geo;
+    }
 }
 

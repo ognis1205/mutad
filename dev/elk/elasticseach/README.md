@@ -3,8 +3,8 @@
 ## Create index
 
 ```bash
- $ curl -XPUT http://localhost:9200/tweet?pretty
- $ curl -XPUT http://localhost:9200/geo?pretty
+ $ curl -H "Content-Type: application/json" -XPUT http://localhost:9200/tweet?pretty -d @analysis.json
+ $ curl -H "Content-Type: application/json" -XPUT http://localhost:9200/geo?pretty -d @analysis.json
 ```
 
 ## Define mappings
