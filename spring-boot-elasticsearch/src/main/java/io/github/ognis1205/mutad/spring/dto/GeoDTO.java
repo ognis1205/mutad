@@ -13,50 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.ognis1205.mutad.spring.model;
+package io.github.ognis1205.mutad.spring.dto;
 
 import java.util.Date;
 import java.util.List;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.elasticsearch.annotations.Document;
-import org.springframework.data.elasticsearch.annotations.DateFormat;
-import org.springframework.data.elasticsearch.annotations.Field;
-import org.springframework.data.elasticsearch.annotations.FieldType;
-import org.springframework.data.elasticsearch.annotations.GeoPointField;
 import org.springframework.data.elasticsearch.core.geo.GeoPoint;
 
 /**
  * @author Shingo OKAWA
  * @version 1.0.0
  */
-@Document(indexName = "geo")
-public class Geo {
-    @Id
+public class GeoDTO {
     private String id;
 
-    @Field(name = "timestamp", type = FieldType.Date, format = DateFormat.epoch_millis)
     private Date timestamp;
 
-    @Field(name = "lang", type = FieldType.Keyword)
     private String lang;
 
-    @Field(name = "text", type = FieldType.Text)
     private String text;
 
-    @Field(name = "hashtags", type = FieldType.Keyword)
     private List<String> hashtags;
 
-    @Field(name = "city_name", type = FieldType.Keyword)
     private String cityName;
 
-    @GeoPointField
     private GeoPoint cityCoord;
 
     /** Constructor. */
-    public Geo() {
+    public GeoDTO() {
         // Do nothing.
     }
 
@@ -130,3 +113,5 @@ public class Geo {
         this.cityCoord = cityCoord;
     }
 }
+
+

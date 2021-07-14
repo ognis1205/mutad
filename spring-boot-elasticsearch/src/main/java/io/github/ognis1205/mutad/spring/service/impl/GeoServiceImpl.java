@@ -21,9 +21,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.elasticsearch.core.geo.GeoPoint;
 import org.springframework.stereotype.Service;
-import io.github.ognis1205.mutad.spring.model.Tweet;
-import io.github.ognis1205.mutad.spring.repository.TweetRepository;
-import io.github.ognis1205.mutad.spring.service.TweetService;
+import io.github.ognis1205.mutad.spring.model.Geo;
+import io.github.ognis1205.mutad.spring.repository.GeoRepository;
+import io.github.ognis1205.mutad.spring.service.GeoService;
 
 /**
  * @author Shingo OKAWA
@@ -31,16 +31,16 @@ import io.github.ognis1205.mutad.spring.service.TweetService;
  */
 @Slf4j
 @Service
-public class TweetServiceImpl implements TweetService {
-    /** `TweetRepository` implementation. */
+public class GeoServiceImpl implements GeoService {
+    /** `GeoRepository` implementation. */
     @Autowired
-    private TweetRepository repository;
+    private GeoRepository repository;
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public List<Tweet> getAll() {
+    public List<Geo> getAll() {
         return this.repository.findAll();
     }
 
@@ -48,7 +48,7 @@ public class TweetServiceImpl implements TweetService {
      * {@inheritDoc}
      */
     @Override
-    public List<Tweet> getByHashtags(
+    public List<Geo> getByHashtags(
             Date from,
             Date to,
             String text,
@@ -60,7 +60,7 @@ public class TweetServiceImpl implements TweetService {
      * {@inheritDoc}
      */
     @Override
-    public List<Tweet> getByGeolocation(
+    public List<Geo> getByGeolocation(
             Date from,
             Date to,
             String text,

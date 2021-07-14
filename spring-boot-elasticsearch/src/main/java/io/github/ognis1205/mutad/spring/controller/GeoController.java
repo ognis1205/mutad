@@ -20,11 +20,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import io.github.ognis1205.mutad.spring.model.Tweet;
-import io.github.ognis1205.mutad.spring.dto.TweetDTO;
-import io.github.ognis1205.mutad.spring.filter.TweetFilter;
-import io.github.ognis1205.mutad.spring.mapper.TweetMapper;
-import io.github.ognis1205.mutad.spring.service.TweetService;
+import io.github.ognis1205.mutad.spring.model.Geo;
+import io.github.ognis1205.mutad.spring.dto.GeoDTO;
+import io.github.ognis1205.mutad.spring.filter.GeoFilter;
+import io.github.ognis1205.mutad.spring.mapper.GeoMapper;
+import io.github.ognis1205.mutad.spring.service.GeoService;
 
 /**
  * @author Shingo OKAWA
@@ -32,63 +32,63 @@ import io.github.ognis1205.mutad.spring.service.TweetService;
  */
 @Slf4j
 @RestController
-@RequestMapping(TweetController.BASE_URL)
-public class TweetController {
+@RequestMapping(GeoController.BASE_URL)
+public class GeoController {
     /** Base URL. */
-    public static final String BASE_URL = "api/v3/tweet";
+    public static final String BASE_URL = "api/v3/geo";
 
-    /** `TweetService` instance. */
+    /** `GeoService` instance. */
     @Autowired
-    private TweetService service;
+    private GeoService service;
 
-    /** `TweetMapper` instance. */
+    /** `GeoMapper` instance. */
     @Autowired
-    private TweetMapper mapper;
+    private GeoMapper mapper;
 
     /**
-     * Gets all tweet documents in 'tweet' index.
-     * @return the all `TweetDTO` instances.
+     * Gets all geo documents in 'geo' index.
+     * @return the all `GeoDTO` instances.
      */
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<TweetDTO> getAll() {
-        List<Tweet> tweets = this.service.getAll();
-        return this.mapper.convert(tweets);
+    public List<GeoDTO> getAll() {
+        List<Geo> geos = this.service.getAll();
+        return this.mapper.convert(geos);
     }
 
     /**
-     * Gets all tweet documents in 'tweet' index which have selected hashtags
+     * Gets all geo documents in 'geo' index which have selected hashtags
      * within a given time period.
      * @param filter the search condition.
-     * @return the `TweetDTO` instances match the query condition.
+     * @return the `GeoDTO` instances match the query condition.
      */
     @PostMapping("/hashtags")
     @ResponseStatus(HttpStatus.OK)
-    public List<TweetDTO> getByHashtags(@RequestBody TweetFilter filter) {
-        List<Tweet> tweets = this.service.getByHashtags(
+    public List<GeoDTO> getByHashtags(@RequestBody GeoFilter filter) {
+        List<Geo> geos = this.service.getByHashtags(
                 filter.getFrom(),
                 filter.getTo(),
                 filter.getText(),
                 filter.getHashtags());
-        return this.mapper.convert(tweets);
+        return this.mapper.convert(geos);
     }
 
     /**
-     * Returns all tweet documents in 'tweet' index which have selected hashtags
+     * Returns all geo documents in 'geo' index which have selected hashtags
      * within a given time period with a given geolocation.
      * @param filter the search condition.
-     * @return the `TweetDTO` instances match the query condition.
+     * @return the `GeoDTO` instances match the query condition.
      */
     @PostMapping("/geo")
     @ResponseStatus(HttpStatus.OK)
-    public List<TweetDTO> getByGeolocation(@RequestBody TweetFilter filter) {
-        List<Tweet> tweets = this.service.getByGeolocation(
+    public List<GeoDTO> getByGeolocation(@RequestBody GeoFilter filter) {
+        List<Geo> geos = this.service.getByGeolocation(
                 filter.getFrom(),
                 filter.getTo(),
                 filter.getText(),
                 filter.getHashtags(),
                 filter.getCenter(),
                 filter.getRadius());
-        return this.mapper.convert(tweets);
+        return this.mapper.convert(geos);
     }
 }
