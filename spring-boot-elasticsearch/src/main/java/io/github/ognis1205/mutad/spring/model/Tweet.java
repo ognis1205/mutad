@@ -46,6 +46,7 @@ public class Tweet {
     @Field(name = "hashtags", type = FieldType.Keyword)
     private List<String> hashtags;
 
+    @Field(name = "geo")
     @GeoPointField
     private GeoPoint geo;
 

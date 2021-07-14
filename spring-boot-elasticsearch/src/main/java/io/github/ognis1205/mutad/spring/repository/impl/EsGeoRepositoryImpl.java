@@ -94,7 +94,7 @@ public class EsGeoRepositoryImpl implements EsGeoRepository {
                         .gte(from.getTime())
                         .lte(to.getTime()))
                 .filter(QueryBuilders
-                        .geoDistanceQuery("cityCoord")
+                        .geoDistanceQuery("city_coord")
                         .point(center.getLat(), center.getLon())
                         .distance(radius));
         if (!text.isEmpty())

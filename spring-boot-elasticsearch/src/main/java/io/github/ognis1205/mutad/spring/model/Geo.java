@@ -17,9 +17,6 @@ package io.github.ognis1205.mutad.spring.model;
 
 import java.util.Date;
 import java.util.List;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.DateFormat;
@@ -52,6 +49,7 @@ public class Geo {
     @Field(name = "city_name", type = FieldType.Keyword)
     private String cityName;
 
+    @Field(name = "city_coord")
     @GeoPointField
     private GeoPoint cityCoord;
 
