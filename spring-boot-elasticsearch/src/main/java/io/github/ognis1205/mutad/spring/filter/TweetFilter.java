@@ -34,6 +34,8 @@ public class TweetFilter {
 
     private Date to;
 
+    private String text;
+
     private List<String> hashtags;
 
     private GeoPoint center;

@@ -36,20 +36,22 @@ public interface TweetService {
      * within a given time period.
      * @param from the start date of a given period.
      * @param to the end date of a given period.
+     * @param text the text for full text search.
      * @param hashtags the target hashtags.
      * @return the `Tweet` instances match the query condition.
      */
-    public List<Tweet> getByHashtags(Date from, Date to, List<String> hashtags);
+    public List<Tweet> getByHashtags(Date from, Date to, String text, List<String> hashtags);
 
     /**
      * Returns all tweet documents in 'tweet' index which have selected hashtags
      * within a given time period with a given geolocation.
      * @param from the start date of a given period.
      * @param to the end date of a given period.
+     * @param text the text for full text search.
      * @param hashtags the target hashtags.
      * @param center the center geo point to be queried.
      * @param radius the radius of a concerning geo area.
      * @return the `Tweet` instances match the query condition.
      */
-    public List<Tweet> getByGeolocation(Date from, Date to, List<String> hashtags, GeoPoint center, String radius);
+    public List<Tweet> getByGeolocation(Date from, Date to, String text, List<String> hashtags, GeoPoint center, String radius);
 }

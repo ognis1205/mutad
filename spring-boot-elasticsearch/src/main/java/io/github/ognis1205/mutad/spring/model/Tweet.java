@@ -43,7 +43,7 @@ public class Tweet {
     @Field(name = "timestamp", type = FieldType.Date, format = DateFormat.epoch_millis)
     private Date timestamp;
 
-    @Field(name = "lang", type = FieldType.Text)
+    @Field(name = "lang", type = FieldType.Keyword)
     private String lang;
 
     @Field(name = "text", type = FieldType.Text)

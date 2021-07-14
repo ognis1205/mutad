@@ -10,16 +10,17 @@
       "store": true
     },
     "lang": {
-      "type": "text",
+      "type": "keyword",
       "store": true
     },
     "text": {
       "type": "text",
+      "analyzer": "my_analyzer",
       "store": true,
       "index": true
     },
     "hashtags": {
-      "type": "text",
+      "type": "keyword",
       "store": true,
       "index": true
     },
@@ -28,7 +29,7 @@
       "store": true
     },
     "city_names": {
-      "type": "text",
+      "type": "keyword",
       "store": true,
       "index": true
     },

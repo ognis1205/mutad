@@ -1,0 +1,23 @@
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "my_analyzer": {
+          "type": "custom",
+          "tokenizer": "my_tokenizer"
+        }
+      },
+      "tokenizer": {
+        "my_tokenizer": {
+          "type": "ngram",
+          "min_gram": 2,
+          "max_gram": 3,
+          "token_chars": [
+            "letter",
+            "digit"
+          ]
+        }
+      }
+    }
+  }
+}

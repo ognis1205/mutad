@@ -15,12 +15,12 @@
  */
 package io.github.ognis1205.mutad.spring.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import io.github.ognis1205.mutad.spring.model.Tweet;
 import io.github.ognis1205.mutad.spring.dto.TweetDTO;
 import io.github.ognis1205.mutad.spring.filter.TweetFilter;
 import io.github.ognis1205.mutad.spring.mapper.TweetMapper;
@@ -52,7 +52,12 @@ public class TweetController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<TweetDTO> getAll() {
-        return this.mapper.convert(this.service.getAll());
+        List<Tweet> tweets = this.service.getAll();
+        if (tweets.size() > 0) {
+            List<Tweet> toShow = tweets.subList(0, Math.min(3, tweets.size()));
+            for (Tweet tweet : toShow) log.trace(tweet.toString());
+        }
+        return this.mapper.convert(tweets);
     }
 
     /**
@@ -64,8 +69,17 @@ public class TweetController {
     @PostMapping("/hashtags")
     @ResponseStatus(HttpStatus.OK)
     public List<TweetDTO> getByHashtags(@RequestBody TweetFilter filter) {
-        return this.mapper
-                .convert(this.service.getByHashtags(filter.getFrom(), filter.getTo(), filter.getHashtags()));
+        log.trace(filter.toString());
+        List<Tweet> tweets = this.service.getByHashtags(
+                filter.getFrom(),
+                filter.getTo(),
+                filter.getText(),
+                filter.getHashtags());
+        if (tweets.size() > 0) {
+            List<Tweet> toShow = tweets.subList(0, Math.min(3, tweets.size()));
+            for (Tweet tweet : toShow) log.trace(tweet.toString());
+        }
+        return this.mapper.convert(tweets);
     }
 
     /**
@@ -77,7 +91,18 @@ public class TweetController {
     @PostMapping("/geo")
     @ResponseStatus(HttpStatus.OK)
     public List<TweetDTO> getByGeolocation(@RequestBody TweetFilter filter) {
-        return this.mapper
-                .convert(this.service.getByGeolocation(filter.getFrom(), filter.getTo(), filter.getHashtags(), filter.getCenter(), filter.getRadius()));
+        log.trace(filter.toString());
+        List<Tweet> tweets = this.service.getByGeolocation(
+                filter.getFrom(),
+                filter.getTo(),
+                filter.getText(),
+                filter.getHashtags(),
+                filter.getCenter(),
+                filter.getRadius());
+        if (tweets.size() > 0) {
+            List<Tweet> toShow = tweets.subList(0, Math.min(3, tweets.size()));
+            for (Tweet tweet : toShow) log.trace(tweet.toString());
+        }
+        return this.mapper.convert(tweets);
     }
 }

@@ -43,7 +43,7 @@ public class Geo {
     @Field(name = "timestamp", type = FieldType.Date, format = DateFormat.epoch_millis)
     private Date timestamp;
 
-    @Field(name = "lang", type = FieldType.Text)
+    @Field(name = "lang", type = FieldType.Keyword)
     private String lang;
 
     @Field(name = "text", type = FieldType.Text)
@@ -52,7 +52,7 @@ public class Geo {
     @Field(name = "hashtags", type = FieldType.Keyword)
     private List<String> hashtags;
 
-    @Field(name = "city_name", type = FieldType.Text)
+    @Field(name = "city_name", type = FieldType.Keyword)
     private String cityName;
 
     @GeoPointField

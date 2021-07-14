@@ -19,13 +19,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
+import org.elasticsearch.common.unit.Fuzziness;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
 import org.springframework.data.elasticsearch.core.SearchHit;
 import org.springframework.data.elasticsearch.core.geo.GeoPoint;
-import org.springframework.data.elasticsearch.core.query.Criteria;
-import org.springframework.data.elasticsearch.core.query.CriteriaQuery;
-import org.springframework.data.elasticsearch.core.query.Query;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Repository;
 import io.github.ognis1205.mutad.spring.model.Tweet;
 import io.github.ognis1205.mutad.spring.repository.EsTweetRepository;
@@ -45,12 +47,28 @@ public class EsTweetRepositoryImpl implements EsTweetRepository {
      * {@inheritDoc}
      */
     @Override
-    public List<Tweet> findByHashtags(Date from, Date to, List<String> hashtags) {
-        Criteria criteria = new Criteria("timestamp")
-                .greaterThanEqual(from)
-                .lessThanEqual(to);
-        if (hashtags != null) criteria.and("hashtags").in(hashtags);
-        Query query = new CriteriaQuery(criteria);
+    public List<Tweet> findByHashtags(
+            Date from,
+            Date to,
+            String text,
+            List<String> hashtags) {
+        QueryBuilder builder = QueryBuilders
+                .boolQuery()
+                .must(QueryBuilders
+                        .rangeQuery("timestamp")
+                        .gte(from.getTime())
+                        .lte(to.getTime()))
+                .filter(QueryBuilders
+                        .matchQuery("text", text)
+                        .analyzer("my_analyzer")
+                        .fuzziness(Fuzziness.AUTO)
+                        .prefixLength(3)
+                        .maxExpansions(10))
+                .filter(QueryBuilders
+                        .termsQuery("hashtags", hashtags));
+        NativeSearchQuery query = new NativeSearchQueryBuilder()
+                .withQuery(builder)
+                .build();
         return this.template.search(query, Tweet.class)
                 .get()
                 .map(SearchHit::getContent)
@@ -61,13 +79,34 @@ public class EsTweetRepositoryImpl implements EsTweetRepository {
      * {@inheritDoc}
      */
     @Override
-    public List<Tweet> findByGeolocation(Date from, Date to, List<String> hashtags, GeoPoint center, String radius) {
-        Criteria criteria = new Criteria("timestamp")
-                .greaterThanEqual(from)
-                .lessThanEqual(to);
-        if (hashtags != null) criteria.and("hashtags").in(hashtags);
-        if (center != null) criteria.and("geo").within(center, radius);
-        Query query = new CriteriaQuery(criteria);
+    public List<Tweet> findByGeolocation(
+            Date from,
+            Date to,
+            String text,
+            List<String> hashtags,
+            GeoPoint center,
+            String radius) {
+        QueryBuilder builder = QueryBuilders
+                .boolQuery()
+                .must(QueryBuilders
+                        .rangeQuery("timestamp")
+                        .gte(from.getTime())
+                        .lte(to.getTime()))
+                .filter(QueryBuilders
+                        .matchQuery("text", text)
+                        .analyzer("my_analyzer")
+                        .fuzziness(Fuzziness.AUTO)
+                        .prefixLength(3)
+                        .maxExpansions(10))
+                .filter(QueryBuilders
+                        .termsQuery("hashtags", hashtags))
+                .filter(QueryBuilders
+                        .geoDistanceQuery("geo")
+                        .point(center.getLat(), center.getLon())
+                        .distance(radius));
+        NativeSearchQuery query = new NativeSearchQueryBuilder()
+                .withQuery(builder)
+                .build();
         return this.template.search(query, Tweet.class)
                 .get()
                 .map(SearchHit::getContent)

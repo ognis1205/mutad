@@ -41,22 +41,47 @@ public class TweetServiceImpl implements TweetService {
      */
     @Override
     public List<Tweet> getAll() {
-        return this.repository.findAll();
+        List<Tweet> tweets = this.repository.findAll();
+        if (tweets.size() > 0) {
+            List<Tweet> toShow = tweets.subList(0, Math.min(3, tweets.size()));
+            for (Tweet tweet : toShow) log.trace(tweet.toString());
+        }
+        return tweets;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public List<Tweet> getByHashtags(Date from, Date to, List<String> hashtags) {
-        return this.repository.findByHashtags(from, to, hashtags);
+    public List<Tweet> getByHashtags(
+            Date from,
+            Date to,
+            String text,
+            List<String> hashtags) {
+        List<Tweet> tweets = this.repository.findByHashtags(from, to, text, hashtags);
+        if (tweets.size() > 0) {
+            List<Tweet> toShow = tweets.subList(0, Math.min(3, tweets.size()));
+            for (Tweet tweet : toShow) log.trace(tweet.toString());
+        }
+        return tweets;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public List<Tweet> getByGeolocation(Date from, Date to, List<String> hashtags, GeoPoint center, String radius) {
-        return this.repository.findByGeolocation(from, to, hashtags, center, radius);
+    public List<Tweet> getByGeolocation(
+            Date from,
+            Date to,
+            String text,
+            List<String> hashtags,
+            GeoPoint center,
+            String radius) {
+        List<Tweet> tweets = this.repository.findByGeolocation(from, to, text, hashtags, center, radius);
+        if (tweets.size() > 0) {
+            List<Tweet> toShow = tweets.subList(0, Math.min(3, tweets.size()));
+            for (Tweet tweet : toShow) log.trace(tweet.toString());
+        }
+        return tweets;
     }
 }
