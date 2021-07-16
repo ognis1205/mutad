@@ -19,12 +19,10 @@ import java.io.File;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 import com.bericotech.clavin.extractor.ApacheExtractor;
 import com.bericotech.clavin.gazetteer.query.LuceneGazetteer;
-import com.bericotech.clavin.resolver.ResolvedLocation;
 import org.apache.storm.task.OutputCollector;
 import org.apache.storm.task.TopologyContext;
 import org.apache.storm.topology.OutputFieldsDeclarer;
@@ -32,11 +30,16 @@ import org.apache.storm.topology.base.BaseRichBolt;
 import org.apache.storm.tuple.Fields;
 import org.apache.storm.tuple.Tuple;
 import org.apache.storm.tuple.Values;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import io.github.ognis1205.mutad.storm.KafkaTweetSpoutBuilder;
 import io.github.ognis1205.mutad.storm.beans.Geo;
 import io.github.ognis1205.mutad.storm.beans.Tweet;
+import io.github.ognis1205.mutad.storm.mappers.Geo2JSON;
+import io.github.ognis1205.mutad.storm.mappers.JSON2Tweet;
+import io.github.ognis1205.mutad.storm.mappers.Tweet2Geo;
+import io.github.ognis1205.mutad.storm.mappers.Tweet2JSON;
 import io.github.ognis1205.mutad.storm.utils.GeoParser;
 import io.github.ognis1205.mutad.storm.utils.impl.ClavinGeoParser;
 
@@ -90,17 +93,19 @@ public class TweetCleanBolt extends BaseRichBolt {
     public void execute(Tuple tuple) {
         String json = tuple.getStringByField(KafkaTweetSpoutBuilder.FIELD);
         if (json != null && !json.isEmpty()) {
-            Tweet tweet = new Tweet(json);
+            Tweet tweet = JSON2Tweet.map(json);
             if (tweet.getId() > -1 && !tweet.getText().isEmpty() && tweet.getLang().equals("en")) {
                 this.parse(tweet);
-                LOG.trace(tweet.toJSON().toString());
-                this.collector.emit(TWEET_STREAM, tuple, new Values(tweet.toJSON()));
-                List<Geo> geos = Geo.split(tweet);
+                JSONObject tweetJSON = Tweet2JSON.map(tweet);
+                LOG.trace(tweetJSON.toString());
+                this.collector.emit(TWEET_STREAM, tuple, new Values(tweetJSON));
+                List<Geo> geos = Tweet2Geo.map(tweet);
                 for (Geo geo : geos) {
-                    LOG.trace(geo.toJSON().toString());
-                    this.collector.emit(GEO_STREAM, tuple, new Values(geo.toJSON()));
+                    JSONObject geoJSON = Geo2JSON.map(geo);
+                    LOG.trace(geoJSON.toString());
+                    this.collector.emit(GEO_STREAM, tuple, new Values(geoJSON));
                 }
-                //this.collector.ack(tuple);
+                this.collector.ack(tuple);
             }
         }
     }

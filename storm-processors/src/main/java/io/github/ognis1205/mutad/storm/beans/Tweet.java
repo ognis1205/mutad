@@ -16,12 +16,8 @@
 package io.github.ognis1205.mutad.storm.beans;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import io.github.ognis1205.mutad.storm.utils.Texts;
+
 
 /**
  * @author Shingo OKAWA
@@ -58,88 +54,6 @@ public class Tweet implements Serializable {
     /** Constructor. */
     public Tweet() {
         // Do nothing.
-    }
-
-    /** Constructor. */
-    public Tweet(String json) {
-        this(new JSONObject(json));
-    }
-
-    /** Constructor. */
-    public Tweet(JSONObject json) {
-        try {
-            this.id = json.getLong("id");
-        } catch (Exception e) {
-            this.id = -1L;
-        }
-
-        try {
-            this.timestamp = Long.parseLong(json.getString("timestamp_ms"));
-        } catch (Exception e) {
-            this.timestamp = -1L;
-        }
-
-        try {
-            this.lang = json.getString("lang");
-        } catch (Exception e) {
-            this.lang = "";
-        }
-
-        try {
-            this.text = Texts.removeEmoji(Texts.removeUrl(json.getString("text")));
-        } catch (Exception e) {
-            this.text = "";
-        }
-
-        try {
-            JSONArray hashtags = json.getJSONObject("entities").getJSONArray("hashtags");
-            this.hashtags = new ArrayList<>();
-            for (int i = 0; i < hashtags.length(); i++)
-                this.hashtags.add(hashtags.getJSONObject(i).getString("text"));
-        } catch (Exception e) {
-            this.hashtags = new ArrayList<>();
-        }
-
-        try {
-            JSONArray coords = json.getJSONObject("coordinates").getJSONArray("coordinates");
-            this.geo = new LonLat(coords.getDouble(0), coords.getDouble(1));
-        } catch (Exception e) {
-            this.geo = new LonLat();
-        }
-
-        this.cityNames = new ArrayList<>();
-
-        this.cityCoords = new ArrayList<>();
-    }
-
-    /** toJSON. */
-    public JSONObject toJSON() {
-        JSONObject json = new JSONObject();
-        List<List<Double>> coodinates = this.getCityCoords().stream().map(l -> {
-                List<Double> ret = new ArrayList();
-                ret.add(l.getLon());
-                ret.add(l.getLat());
-                return ret;
-        }).collect(Collectors.toList());
-        if (coodinates.size() > 0) {
-            JSONObject cityCoords = new JSONObject();
-            cityCoords.put("type", "multipoint");
-            cityCoords.put("coordinates", coodinates);
-            json.put("city_coords", cityCoords);
-        }
-        if (this.getGeo().getDefined()) {
-            JSONObject geo = new JSONObject();
-            geo.put("lon", this.getGeo().getLon());
-            geo.put("lat", this.getGeo().getLat());
-            json.put("geo", geo);
-        }
-        json.put("id",          this.getId()                );
-        json.put("timestamp",   this.getTimestamp()         );
-        json.put("lang",        this.getLang()              );
-        json.put("text",        this.getText()              );
-        json.put("hashtags",    this.getHashtags().toArray());
-        json.put("city_names",  this.getCityNames()         );
-        return json;
     }
 
     /** Getter/Setter. */

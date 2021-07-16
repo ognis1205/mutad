@@ -49,14 +49,6 @@ public class LonLat implements Serializable {
         this.lat = lat;
     }
 
-    /** toArray. */
-    public List<Double> toArray() {
-        List<Double> array = new ArrayList<>();
-        array.add(lon);
-        array.add(lat);
-        return array;
-    }
-
     /** Getter/Setter. */
     public Double getLon() {
         return this.lon;
