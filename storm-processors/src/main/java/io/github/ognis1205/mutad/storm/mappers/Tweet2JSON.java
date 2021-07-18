@@ -36,7 +36,7 @@ public class Tweet2JSON {
         JSONObject json = new JSONObject();
 
         List<List<Double>> coodinates = tweet.getCityCoords().stream().map(l -> {
-            List<Double> ret = new ArrayList();
+            List<Double> ret = new ArrayList<>();
             ret.add(l.getLon());
             ret.add(l.getLat());
             return ret;

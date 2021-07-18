@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import { createStore, AnyAction, Store } from 'redux';
-import { createWrapper, Context        } from 'next-redux-wrapper';
+import { createWrapper, Context } from 'next-redux-wrapper';
 
 
 export interface State {

@@ -13,26 +13,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { FC                } from 'react';
-import        { AppProps          } from 'next/app';
-import        { MuiThemeProvider  } from '@material-ui/core/styles';
-import        { wrapper           } from '../store';
-import Head        from 'next/head'
+import React, { FC } from 'react';
+import { AppProps } from 'next/app';
+import Head from 'next/head';
+import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import theme       from '../themes/red';
+import { wrapper } from '../store';
+import GlobalStyle from '../styles/global';
+import theme from '../themes/red';
 
 
-const App: FC<AppProps> = ({Component, pageProps}) => (
-  <MuiThemeProvider theme={theme}>
-    <Head>
-      <meta charSet="utf-8" />
-      <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no" />
-      <meta name="theme-color" content={theme.palette.primary.main} />
-      <title>MutadUI</title>
-    </Head>
-    <CssBaseline />
-    <Component {...pageProps} />
-  </MuiThemeProvider>
-);
+const App: FC<AppProps> = ({Component, pageProps}) => {
+  React.useEffect(() => {
+    const jssStyles = document.querySelector('#jss-server-side');
+    if (jssStyles) jssStyles.parentElement!.removeChild(jssStyles);
+  }, []);
+
+  return (
+    <React.Fragment>
+      <Head>
+        <title>Mutad UI</title>
+        <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
+      </Head>
+      <ThemeProvider theme={ theme }>
+        <CssBaseline />
+        <GlobalStyle />
+        <Component {...pageProps} />
+      </ThemeProvider>
+    </React.Fragment>
+  );
+};
 
 export default wrapper.withRedux(App);

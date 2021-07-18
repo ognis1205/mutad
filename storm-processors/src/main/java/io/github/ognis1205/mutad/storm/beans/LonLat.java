@@ -15,8 +15,6 @@
  */
 package io.github.ognis1205.mutad.storm.beans;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.io.Serializable;
 
 /**

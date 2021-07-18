@@ -13,20 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React from 'react';
-import Typography from '@material-ui/core/Typography';
-import MuiLink from '@material-ui/core/Link';
+import styled, { css, createGlobalStyle } from 'styled-components';
 
 
-export default function Copyright(): JSX.Element {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      { "Copyright © " }
-      <MuiLink color="inherit" href="https://github.com/ognis1205/mutad">
-        ognis1205
-      </MuiLink>{ " " }
-      {new Date().getFullYear()}
-      { "." }
-    </Typography>
-  );
-}
+export const Container = styled.div`
+  min-height: 100vh;
+  position: relative;
+  width: 100%;
+`;
+
+export const leafletStyles = css`
+  .leaflet-container {
+    min-height: 100vh;
+    position: relative;
+    width: 100%;
+  }
+`;
+
+export const LeafletStyles = createGlobalStyle`${leafletStyles}`;
