@@ -13,8 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import styled, { css, createGlobalStyle } from 'styled-components';
-
+import styled, { css, createGlobalStyle } from "styled-components";
 
 export const Container = styled.div`
   min-height: 100vh;

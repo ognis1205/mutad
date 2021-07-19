@@ -13,21 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { createStore, AnyAction, Store } from 'redux';
-import { createWrapper, Context } from 'next-redux-wrapper';
-
+import { createStore, AnyAction, Store } from "redux";
+import { createWrapper, Context } from "next-redux-wrapper";
 
 export interface State {
-    // Placeholder.
+  // Placeholder.
 }
 
 const reducer = (state: State = {}, action: AnyAction) => {
-    switch (action.type) {
-        default:
-            return state;
-    }
+  switch (action.type) {
+    default:
+      return state;
+  }
 };
 
 const makeStore = (context: Context) => createStore(reducer);
 
-export const wrapper = createWrapper<Store<State>>(makeStore, {debug: true});
+export const wrapper = createWrapper<Store<State>>(makeStore, { debug: true });
