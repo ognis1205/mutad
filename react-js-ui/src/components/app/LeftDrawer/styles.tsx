@@ -17,28 +17,34 @@ import { createStyles } from "@material-ui/core/styles";
 
 export const styles = (theme: any) =>
   createStyles({
-    appBar: {
-      zIndex: theme.zIndex.drawer + 1,
-      transition: theme.transitions.create(["width", "margin"], {
+    drawerPaper: {
+      width: theme.drawer.width,
+      backgroundColor: "rgb(33, 33, 33)",
+      color: "white",
+      borderRight: "0px",
+      boxShadow:
+        "rgba(0, 0, 0, 0.16) 0px 3px 10px, rgba(0, 0, 0, 0.23) 0px 3px 10px",
+    },
+    drawerPaperClose: {
+      overflowX: "hidden",
+      transition: theme.transitions.create("width", {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
       }),
+      width: theme.drawer.miniWidth,
     },
-    appBarShift: {
-      width: `calc(100% - ${theme.drawer.width}px)`,
-      transition: theme.transitions.create(["width", "margin"], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
+    logo: {
+      cursor: "pointer",
+      fontSize: 22,
+      color: "white",
+      lineHeight: "64px",
+      fontWeight: 300,
+      backgroundColor: theme.palette.primary[500],
+      paddingLeft: 40,
+      height: 64,
     },
-    root: {
-      width: "100%",
-    },
-    grow: {
-      flexGrow: 1,
-    },
-    menuButton: {
-      marginLeft: -12,
-      marginRight: 20,
+    menuItem: {
+      color: "white",
+      fontSize: 14,
     },
   });

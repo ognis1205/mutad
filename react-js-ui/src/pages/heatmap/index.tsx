@@ -18,13 +18,13 @@ import dynamic from "next/dynamic";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import Copyright from "../../components/Copyright";
+import Copyright from "../../components/app/Copyright";
 import { NextPage } from "next";
 
 const Index: NextPage = () => {
   const Map = React.useMemo(
     () =>
-      dynamic(() => import("../../components/Map"), {
+      dynamic(() => import("../../components/tweet/Map"), {
         loading: () => <p>Loading a map...</p>,
         ssr: false,
       }),

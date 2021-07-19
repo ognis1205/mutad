@@ -19,9 +19,10 @@ import Head from "next/head";
 import { ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { wrapper } from "../store";
-import GlobalStyle from "../styles/global";
+import Data from "../data";
 import theme from "../theme";
-import Header from "../components/Header";
+import Header from "../components/app/Header";
+import LeftDrawer from "../components/app/LeftDrawer";
 
 const App: FC<AppProps> = ({ Component, pageProps }) => {
   const [navDrawerOpen, setNavDrawerOpen] = useState(false);
@@ -46,11 +47,16 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <GlobalStyle />
         <Header
-          title={"MUTAD"}
+          title={"mutad"}
+          github={"https://github.com/ognis1205/mutad"}
           handleChangeNavDrawer={handleChangeNavDrawer}
           navDrawerOpen={navDrawerOpen}
+        />
+        <LeftDrawer
+          navDrawerOpen={navDrawerOpen}
+          handleChangeNavDrawer={handleChangeNavDrawer}
+          menus={Data.menus}
         />
         <Component {...pageProps} />
       </ThemeProvider>
