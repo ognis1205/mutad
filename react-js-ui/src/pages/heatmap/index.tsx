@@ -13,28 +13,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React      from 'react';
-import dynamic    from 'next/dynamic'
-import Container  from '@material-ui/core/Container';
-import Typography from '@material-ui/core/Typography';
-import Box        from '@material-ui/core/Box';
-import Copyright  from '../../components/copyright';
-import { NextPage } from 'next';
-
+import React from "react";
+import dynamic from "next/dynamic";
+import Container from "@material-ui/core/Container";
+import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
+import Copyright from "../../components/Copyright";
+import { NextPage } from "next";
 
 const Index: NextPage = () => {
-  const Map = React.useMemo(() => dynamic(
-    () => import('../../components/Map'),
-    { loading: () => <p>A map is loading</p>, ssr: false }
-  ), []);
+  const Map = React.useMemo(
+    () =>
+      dynamic(() => import("../../components/Map"), {
+        loading: () => <p>Loading a map...</p>,
+        ssr: false,
+      }),
+    []
+  );
 
   return (
     <Container maxWidth="sm">
-      <Box my={ 4 }>
+      <Box my={4}>
         <Typography variant="h4" component="h1" gutterBottom>
           Next.js with TypeScript example
         </Typography>
-        <Map center={ [0.0, 0.0] } zoom={ 2 } minZoom={ 2 } maxBounds={ [[-90, -360], [90, 360]] }/>
+        <Map
+          center={[0.0, 0.0]}
+          zoom={2}
+          minZoom={2}
+          maxBounds={[
+            [-90, -360],
+            [90, 360],
+          ]}
+        />
         <Copyright />
       </Box>
     </Container>

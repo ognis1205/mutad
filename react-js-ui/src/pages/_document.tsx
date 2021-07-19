@@ -13,14 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { ReactElement } from 'react';
-import Document, { Html, Head, Main, NextScript, DocumentContext, DocumentInitialProps } from 'next/document';
-import { ServerStyleSheets } from '@material-ui/core/styles';
-import theme from '../themes/red';
-
+import React, { ReactElement } from "react";
+import Document, {
+  Html,
+  Head,
+  Main,
+  NextScript,
+  DocumentContext,
+  DocumentInitialProps,
+} from "next/document";
+import { ServerStyleSheets } from "@material-ui/core/styles";
+import theme from "../theme";
 
 export default class Doc extends Document {
-  static async getInitialProps(ctx: DocumentContext): Promise<DocumentInitialProps> {
+  static async getInitialProps(
+    ctx: DocumentContext
+  ): Promise<DocumentInitialProps> {
     const sheets = new ServerStyleSheets();
 
     const originalRenderPage = ctx.renderPage;
@@ -34,7 +42,10 @@ export default class Doc extends Document {
 
     return {
       ...initialProps,
-      styles: [...React.Children.toArray(initialProps.styles), sheets.getStyleElement()],
+      styles: [
+        ...React.Children.toArray(initialProps.styles),
+        sheets.getStyleElement(),
+      ],
     };
   }
 
@@ -43,11 +54,14 @@ export default class Doc extends Document {
       <Html lang="en">
         <Head>
           <meta name="theme-color" content={theme.palette.primary.main} />
-          <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"/>
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+          />
         </Head>
         <body>
-          <Main/>
-          <NextScript/>
+          <Main />
+          <NextScript />
         </body>
       </Html>
     );

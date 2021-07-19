@@ -13,11 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import 'leaflet/dist/leaflet.css';
-import React, { useState, useEffect } from 'react';
-import { MapContainer, MapContainerProps, TileLayer } from 'react-leaflet';
-import { Container, LeafletStyles } from './styles';
-
+import "leaflet/dist/leaflet.css";
+import React, { useState, useEffect } from "react";
+import { MapContainer, MapContainerProps, TileLayer } from "react-leaflet";
+import { Container, LeafletStyles } from "./styles";
 
 export default function Map(props: MapContainerProps): JSX.Element {
   const [isBrowser, setIsBrowser] = useState(false);
@@ -27,16 +26,16 @@ export default function Map(props: MapContainerProps): JSX.Element {
   }, []);
 
   if (!isBrowser) return null;
-  else return (
-    <Container>
-      <LeafletStyles />
-      <MapContainer {...props}>
-        <TileLayer
-          attribution="&copy; <a href='http://osm.org/copyright'>OpenStreetMap</a> contributors"
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        { /*Placeholder, we'll put our markers here*/ }
-      </MapContainer>
-    </Container>
-  )
-};
+  else
+    return (
+      <Container>
+        <LeafletStyles />
+        <MapContainer {...props}>
+          <TileLayer
+            attribution="&copy; <a href='http://osm.org/copyright'>OpenStreetMap</a> contributors"
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+        </MapContainer>
+      </Container>
+    );
+}
