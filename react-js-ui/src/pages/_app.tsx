@@ -23,6 +23,7 @@ import Data from "../data";
 import theme from "../theme";
 import Header from "../components/app/Header";
 import LeftDrawer from "../components/app/LeftDrawer";
+import Page from "../components/app/Page";
 
 const App: FC<AppProps> = ({ Component, pageProps }) => {
   const [navDrawerOpen, setNavDrawerOpen] = useState(false);
@@ -58,7 +59,9 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
           handleChangeNavDrawer={handleChangeNavDrawer}
           menus={Data.menus}
         />
-        <Component {...pageProps} />
+        <Page navDrawerOpen={navDrawerOpen}>
+          <Component {...pageProps} />
+        </Page>
       </ThemeProvider>
     </React.Fragment>
   );

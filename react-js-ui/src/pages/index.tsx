@@ -15,34 +15,26 @@
  */
 import React from "react";
 import { useTheme, makeStyles, Theme } from "@material-ui/core/styles";
-import { Card, Grid, Typography } from "@material-ui/core";
+import { Container, Typography } from "@material-ui/core";
 import { NextPage } from "next";
 
 const useStyle = makeStyles({
   root: (theme: Theme) => ({
     minWidth: "100%",
-    minHeight: "100vh",
-    display: "flex",
-    flexDirection: "column",
+    minHeight: "87vh",
+    paddingLeft: "0px",
+    paddingRight: "0px",
   }),
 });
 
 const Index: NextPage = () => {
   const classes = useStyle(useTheme());
   return (
-    <Grid
-      container
-      className={classes.root}
-      spacing={0}
-      alignItems="center"
-      justifyContent="center"
-    >
-      <Grid item>
-        <Typography variant="h2" align="center" gutterBottom={true}>
-          Mutad|datuM
-        </Typography>
-      </Grid>
-    </Grid>
+    <Container className={classes.root}>
+      <Typography variant="h2" align="center" gutterBottom={true}>
+        Mutad|datuM
+      </Typography>
+    </Container>
   );
 };
 

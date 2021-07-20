@@ -15,10 +15,27 @@
  */
 import "leaflet/dist/leaflet.css";
 import React, { useState, useEffect } from "react";
+import { useTheme, makeStyles, Theme } from "@material-ui/core/styles";
+import { Container } from "@material-ui/core";
+import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import { MapContainer, MapContainerProps, TileLayer } from "react-leaflet";
-import { Container, LeafletStyles } from "./styles";
+import { NextPage } from "next";
+import { styles } from "./styles";
 
-export default function Map(props: MapContainerProps): JSX.Element {
+const useStyle = makeStyles({
+  root: (theme: Theme) => ({
+    minWidth: "100%",
+    minHeight: "87vh",
+    paddingLeft: "0px",
+    paddingRight: "0px",
+  }),
+});
+
+interface Props extends WithStyles<typeof styles>, MapContainerProps {}
+
+const Index: NextPage = (props: Props) => {
+  const classes = useStyle(useTheme());
+
   const [isBrowser, setIsBrowser] = useState(false);
 
   useEffect(() => {
@@ -28,9 +45,8 @@ export default function Map(props: MapContainerProps): JSX.Element {
   if (!isBrowser) return null;
   else
     return (
-      <Container>
-        <LeafletStyles />
-        <MapContainer {...props}>
+      <Container className={classes.root}>
+        <MapContainer className={props.classes.leafletContainer} {...props}>
           <TileLayer
             attribution="&copy; <a href='http://osm.org/copyright'>OpenStreetMap</a> contributors"
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -38,4 +54,6 @@ export default function Map(props: MapContainerProps): JSX.Element {
         </MapContainer>
       </Container>
     );
-}
+};
+
+export default withStyles(styles)(Index);

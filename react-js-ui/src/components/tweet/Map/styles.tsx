@@ -13,20 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import styled, { css, createGlobalStyle } from "styled-components";
+import { createStyles } from "@material-ui/core/styles";
 
-export const Container = styled.div`
-  min-height: 100vh;
-  position: relative;
-  width: 100%;
-`;
-
-export const leafletStyles = css`
-  .leaflet-container {
-    min-height: 100vh;
-    position: relative;
-    width: 100%;
-  }
-`;
-
-export const LeafletStyles = createGlobalStyle`${leafletStyles}`;
+export const styles = (theme: any) =>
+  createStyles({
+    leafletContainer: {
+      minHeight: "87vh",
+      position: "relative",
+      width: "100%",
+    },
+  });

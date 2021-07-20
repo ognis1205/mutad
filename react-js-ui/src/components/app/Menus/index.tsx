@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { FC, useState } from "react";
+import React, { FC, useState, createRef, forwardRef } from "react";
 import Link from "next/link";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -38,16 +38,29 @@ interface ContentProps extends WithStyles<typeof styles> {
 }
 
 const MenuContent: FC<ContentProps> = (props: ContentProps) => {
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState<boolean>(false);
 
-  let anchor = null;
+  const divElem = createRef<null | HTMLDivElement>();
 
-  const handleClick = (e: any) => {
+  const Div = forwardRef<HTMLDivElement>((props, ref) => {
+    return (
+      <>
+        <div ref={ref} style={{ position: "absolute", right: 0 }} />
+      </>
+    );
+  });
+
+  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
-    setAnchorEl(anchor);
+    setAnchorEl(e.currentTarget);
     setOpen(!open);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+    setOpen(false);
   };
 
   const mini = () => {
@@ -72,16 +85,12 @@ const MenuContent: FC<ContentProps> = (props: ContentProps) => {
         <ListItemIcon className={props.classes.miniIcon}>
           {props.menu.icon}
         </ListItemIcon>
-        <div
-          ref={(el) => {
-            anchor = el;
-          }}
-          style={{ position: "absolute", right: 0 }}
-        />
+        <Div ref={divElem} />
         <Menu
+          anchorEl={divElem.current}
           classes={{ paper: props.classes.popupSubMenus }}
           open={open}
-          anchorEl={anchorEl}
+          onClose={handleClose}
         >
           {props.menu.subMenus.map((menu, index) => (
             <Link key={index} href={menu.link}>

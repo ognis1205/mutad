@@ -30,7 +30,7 @@ import {
 
 declare module "@material-ui/core/styles/createTheme" {
   interface ThemeOptions {
-    drawer?: object;
+    drawer?: any;
   }
 }
 
