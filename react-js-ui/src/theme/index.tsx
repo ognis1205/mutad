@@ -26,6 +26,7 @@ import {
   amber,
   lime,
   purple,
+  indigo,
 } from "@material-ui/core/colors";
 
 declare module "@material-ui/core/styles/createTheme" {
@@ -69,8 +70,8 @@ export const availableThemes = [
 
 const defaultTheme = {
   palette: {
-    primary: blue,
-    secondary: pink,
+    primary: indigo,
+    secondary: blue,
   },
   error: red,
   appBar: {

@@ -15,9 +15,22 @@
  */
 import React from "react";
 import dynamic from "next/dynamic";
+import { useTheme, makeStyles, Theme } from "@material-ui/core/styles";
+import { Container } from "@material-ui/core";
 import { NextPage } from "next";
 
+const useStyle = makeStyles({
+  root: (theme: Theme) => ({
+    minWidth: "100%",
+    minHeight: "87vh",
+    paddingLeft: "0px",
+    paddingRight: "0px",
+  }),
+});
+
 const Index: NextPage = () => {
+  const classes = useStyle(useTheme());
+
   const Map = React.useMemo(
     () =>
       dynamic(() => import("../../../components/tweet/Map"), {
@@ -28,15 +41,17 @@ const Index: NextPage = () => {
   );
 
   return (
-    <Map
-      center={[0.0, 0.0]}
-      zoom={2}
-      minZoom={2}
-      maxBounds={[
-        [-90, -360],
-        [90, 360],
-      ]}
-    />
+    <Container className={classes.root}>
+      <Map
+        center={[0.0, 0.0]}
+        zoom={3}
+        minZoom={3}
+        maxBounds={[
+          [-90, -180],
+          [90, 180],
+        ]}
+      />
+    </Container>
   );
 };
 

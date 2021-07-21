@@ -58,6 +58,7 @@ export default class Doc extends Document {
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
           />
+          <script src="//unpkg.com/react-globe.gl"></script>
         </Head>
         <body>
           <Main />

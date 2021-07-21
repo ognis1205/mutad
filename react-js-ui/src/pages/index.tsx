@@ -15,26 +15,35 @@
  */
 import React from "react";
 import { useTheme, makeStyles, Theme } from "@material-ui/core/styles";
-import { Container, Typography } from "@material-ui/core";
 import { NextPage } from "next";
+import Grid from '@material-ui/core/Grid';
+import Specs from "../specs";
+import Links from "../components/app/Links";
 
 const useStyle = makeStyles({
   root: (theme: Theme) => ({
     minWidth: "100%",
     minHeight: "87vh",
-    paddingLeft: "0px",
+    paddingTop: "5vh",
+    paddingLeft: "5vw",
     paddingRight: "0px",
+  }),
+  control: (theme: Theme) => ({
+    padding: theme.spacing(2),
   }),
 });
 
 const Index: NextPage = () => {
   const classes = useStyle(useTheme());
+
+  const menus = [].concat(...Specs.menus.map((menu, index) => {
+    return menu.hasOwnProperty("subMenus") && Array.isArray(menu.subMenus) ? menu.subMenus : [];
+  }));
+
   return (
-    <Container className={classes.root}>
-      <Typography variant="h2" align="center" gutterBottom={true}>
-        Mutad|datuM
-      </Typography>
-    </Container>
+    <Grid container className={classes.root} justifyContent="flex-start" spacing={2}>
+      <Links menus={menus} />
+    </Grid>
   );
 };
 

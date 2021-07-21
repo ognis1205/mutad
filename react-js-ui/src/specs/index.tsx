@@ -26,12 +26,16 @@ const data = {
       icon: <Assessment />,
       subMenus: [
         {
-          text: "Heat Map",
+          text: "Geoparsing Map",
+          description: "Visualization of Tweet Geoparsing",
+          image: "/geoparse.jpg",
           icon: <BorderClear />,
           link: "/tweet/map",
         },
         {
           text: "Trend Chart",
+          description: "Visualization of Tweet Trend",
+          image: "/trend.jpg",
           icon: <BorderOuter />,
           link: "/tweet/trend",
         },
