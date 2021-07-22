@@ -17,16 +17,36 @@ import { createStyles } from "@material-ui/core/styles";
 
 export const styles = (theme: any) =>
   createStyles({
-    card: {
-      top: 0,
-      width: 345,
-      height: 270,
-      position: "relative",
-      "&:hover, &:focus": {
-        top: -5,
-      },
+    menu: {
+      maxWidth: 345,
+      position: "absolute",
+      zIndex: 800,
+      top: 12,
+      right: 12,
+      boxShadow: "unset",
+      border: "2px solid rgba(0,0,0,0.2)",
     },
-    cardMedia: {
-      height: 140,
+    icon: {
+      padding: 0,
+    },
+    iconized: {
+      borderRadius: "50%",
+    },
+    expand: {
+      transform: "rotate(0deg)",
+      marginLeft: "auto",
+      transition: theme.transitions.create("transform", {
+        duration: theme.transitions.duration.shortest,
+      }),
+    },
+    expandOpen: {
+      transform: 'rotate(180deg)',
+    },
+    search: {
+      display: 'flex',
+      flexWrap: 'wrap',
+    },
+    textField: {
+      width: "100%",
     },
   });

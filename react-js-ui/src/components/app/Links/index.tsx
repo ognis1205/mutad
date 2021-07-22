@@ -38,27 +38,27 @@ interface ContentProps extends WithStyles<typeof styles> {
 const LinkContent: FC<ContentProps> = (props: ContentProps) => {
   return (
     <Card className={props.classes.card}>
-      <CardActionArea>
-        <CardMedia
-          className={props.classes.cardMedia}
-          image={props.menu.image}
-          title="Contemplative Reptile"
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            {props.menu.text}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            {props.menu.description}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
+      <Link href={props.menu.link} passHref>
+        <CardActionArea>
+          <CardMedia
+            className={props.classes.cardMedia}
+            image={props.menu.image}
+            title={props.menu.text}
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="h2">
+              {props.menu.text}
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component="p">
+              {props.menu.description}
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+      </Link>
       <CardActions>
-        <Link href={props.menu.link} passHref>
-          <Button size="small" color="primary">
-            Go to the page
-          </Button>
-        </Link>
+        <Button size="small" color="primary">
+          Reference
+        </Button>
       </CardActions>
     </Card>
   );

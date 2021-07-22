@@ -18,6 +18,7 @@ import dynamic from "next/dynamic";
 import { useTheme, makeStyles, Theme } from "@material-ui/core/styles";
 import { Container } from "@material-ui/core";
 import { NextPage } from "next";
+import MapMenu from "../../../components/tweet/MapMenu";
 
 const useStyle = makeStyles({
   root: (theme: Theme) => ({
@@ -25,6 +26,7 @@ const useStyle = makeStyles({
     minHeight: "87vh",
     paddingLeft: "0px",
     paddingRight: "0px",
+    position: "relative",
   }),
 });
 
@@ -51,6 +53,7 @@ const Index: NextPage = () => {
           [90, 180],
         ]}
       />
+      <MapMenu/>
     </Container>
   );
 };

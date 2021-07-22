@@ -15,8 +15,6 @@
  */
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-//import Globe from "react-globe.gl";
-//import dynamic from "next/dynamic";
 import "leaflet.heat";
 import React, { FC, useEffect, useState } from "react";
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
@@ -28,42 +26,27 @@ interface Props extends WithStyles<typeof styles>, MapContainerProps {}
 const Map: FC<Props> = (props: Props) => {
   const [places, setPlaces] = useState([]);
 
-  //const Globe = dynamic(import("react-globe.gl"), { ssr: false });
-
-  //  useEffect(() => {
-  //    fetch("./test.geojson")
-  //      .then((res) => res.json())
-  //      .then(({ features }) => setPlaces(features));
-  //  }, []);
-
-  //return (
-  //  <Globe
-  //    width={800}
-  //    globeImageUrl="//unpkg.com/three-globe/example/img/earth-night.jpg"
-  //    backgroundImageUrl="//unpkg.com/three-globe/example/img/night-sky.png"
-  //  />
-  //);
-    useEffect(() => {
-      const map = L.map("map", { ...props }).setView(props.center, props.zoom);
+  useEffect(() => {
+    const map = L.map("map", { ...props }).setView(props.center, props.zoom);
   
-      const addressPoints = [
-        [-37.8839, null, "571"],
-      ];
+    const addressPoints = [
+      [-37.8839, null, "571"],
+    ];
   
-      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        attribution:
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution:
           '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-      }).addTo(map);
+    }).addTo(map);
   
-      const points = addressPoints
-        ? addressPoints.map((p) => {
-            return [p[0], p[1]];
-          })
-        : [];
-      L.heatLayer(points).addTo(map);
-    }, []);
+    const points = addressPoints
+                 ? addressPoints.map((p) => {
+                   return [p[0], p[1]];
+                 })
+                 : [];
+    L.heatLayer(points).addTo(map);
+  }, []);
   
-    return <div id="map" className={props.classes.leafletContainer}></div>;
+  return <div id="map" className={props.classes.leafletContainer}></div>;
 };
 
 export default withStyles(styles)(Map);
