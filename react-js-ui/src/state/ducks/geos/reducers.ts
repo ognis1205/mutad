@@ -22,18 +22,8 @@ const initState = fromJS({
 });
 
 const onNewGeoPoints = (state, action) => {
-  const count = (geos, classifier) => {
-    classifier = classifier || String;
-    return geos.reduce((counter, geo) => {
-      let key = classifier(geo);
-      if (counter.hasOwnProperty(key)) counter[key][2] += 1;
-      else counter[key] = [geo.cityCoord.lat, geo.cityCoord.lon, 1];
-      return counter;
-    }, {})
-  };
-  let payload = count(action.payload, (geo) => { return geo.cityCoord.lat + "/" + geo.cityCoord.lon; });
   return fromJS({
-    stats: [...Object.keys(payload).map(k => payload[k])] || [],
+    stats: action.payload.map((e) => { return [e.cityCoord.lat, e.cityCoord.lon]; }),
   });
 };
 

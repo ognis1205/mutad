@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import "leaflet/dist/leaflet.css";
-import L from "leaflet";
+import L, { Map as LeafletMap } from "leaflet";
 import "leaflet.heat";
 import React, { FC, useEffect, useState } from "react";
 import { useSelector } from 'react-redux';
@@ -28,26 +28,30 @@ interface Props extends WithStyles<typeof styles>, MapContainerProps {}
 const Map: FC<Props> = (props: Props) => {
   const geos = useSelector(getGeos);
 
-  const [places, setPlaces] = useState([]);
+  const [map, setMap] = useState<LeafletMap>();
 
   useEffect(() => {
-    let map = L.map("map", { ...props }).setView(props.center, props.zoom);
+    const leafletMap = L.map("map", { ...props }).setView(props.center, props.zoom);
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    }).addTo(map);
+    }).addTo(leafletMap);
+    setMap(leafletMap);
+  }, []);
 
-    console.log(geos);
-  
-    const addressPoints = [
-      [-37.8839, null, "571"],
-    ];
-  
-    const points = addressPoints
-                 ? addressPoints.map((p) => {
-                   return [p[0], p[1]];
-                 })
-                 : [];
-    L.heatLayer(points).addTo(map);
+  useEffect(() => {
+    if (map) {
+      const addressPoints = [
+        [-37.8839, null, "571"],
+      ];
+      const points = geos
+                   ? [...geos].map((p) => {
+                     let lonLat = p.toArray();
+                     return [...p];
+                   })
+                   : [];
+      console.log(points);
+      L.heatLayer(points).addTo(map);
+    }
   }, [geos]);
   
   return <div id="map" className={props.classes.leafletContainer}></div>;
