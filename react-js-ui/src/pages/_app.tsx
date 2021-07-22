@@ -18,7 +18,7 @@ import { AppProps } from "next/app";
 import Head from "next/head";
 import { ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { wrapper } from "../store";
+import { wrapper } from "../state/store";
 import Specs from "../specs";
 import theme from "../theme";
 import Header from "../components/app/Header";

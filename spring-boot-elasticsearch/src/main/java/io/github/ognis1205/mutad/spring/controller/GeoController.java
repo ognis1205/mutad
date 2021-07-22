@@ -50,6 +50,7 @@ public class GeoController {
      * @return the all `GeoDTO` instances.
      */
     @GetMapping
+    @CrossOrigin
     @ResponseStatus(HttpStatus.OK)
     public List<GeoDTO> getAll() {
         List<Geo> geos = this.service.getAll();
@@ -63,6 +64,7 @@ public class GeoController {
      * @return the `GeoDTO` instances match the query condition.
      */
     @PostMapping("/hashtags")
+    @CrossOrigin
     @ResponseStatus(HttpStatus.OK)
     public List<GeoDTO> getByHashtags(@RequestBody GeoFilter filter) {
         List<Geo> geos = this.service.getByHashtags(
@@ -80,6 +82,7 @@ public class GeoController {
      * @return the `GeoDTO` instances match the query condition.
      */
     @PostMapping("/geo")
+    @CrossOrigin
     @ResponseStatus(HttpStatus.OK)
     public List<GeoDTO> getByGeolocation(@RequestBody GeoFilter filter) {
         List<Geo> geos = this.service.getByGeolocation(

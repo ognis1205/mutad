@@ -50,6 +50,7 @@ public class TweetController {
      * @return the all `TweetDTO` instances.
      */
     @GetMapping
+    @CrossOrigin
     @ResponseStatus(HttpStatus.OK)
     public List<TweetDTO> getAll() {
         List<Tweet> tweets = this.service.getAll();
@@ -63,6 +64,7 @@ public class TweetController {
      * @return the `TweetDTO` instances match the query condition.
      */
     @PostMapping("/hashtags")
+    @CrossOrigin
     @ResponseStatus(HttpStatus.OK)
     public List<TweetDTO> getByHashtags(@RequestBody TweetFilter filter) {
         List<Tweet> tweets = this.service.getByHashtags(
@@ -80,6 +82,7 @@ public class TweetController {
      * @return the `TweetDTO` instances match the query condition.
      */
     @PostMapping("/geo")
+    @CrossOrigin
     @ResponseStatus(HttpStatus.OK)
     public List<TweetDTO> getByGeolocation(@RequestBody TweetFilter filter) {
         List<Tweet> tweets = this.service.getByGeolocation(

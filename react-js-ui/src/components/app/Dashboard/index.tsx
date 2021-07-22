@@ -31,11 +31,10 @@ interface Props extends WithStyles<typeof styles> {
 }
 
 interface ContentProps extends WithStyles<typeof styles> {
-  key: string;
   menu: any;
 }
 
-const LinkContent: FC<ContentProps> = (props: ContentProps) => {
+const DashboardContent: FC<ContentProps> = (props: ContentProps) => {
   return (
     <Card className={props.classes.card}>
       <Link href={props.menu.link} passHref>
@@ -64,16 +63,15 @@ const LinkContent: FC<ContentProps> = (props: ContentProps) => {
   );
 };
 
-const StyledLinkContent = withStyles(styles, { withTheme: true })(LinkContent);
+const StyledDashboardContent = withStyles(styles, { withTheme: true })(DashboardContent);
 
-const Links = (props: Props) =>
+const Dashboard = (props: Props) =>
   props.menus.map((menu, index) => (
-    <Grid item>
-      <StyledLinkContent
-        key={index}
+    <Grid item key={index}>
+      <StyledDashboardContent
         menu={menu}
       />
     </Grid>
   ));
 
-export default Links;
+export default Dashboard;

@@ -17,26 +17,30 @@ import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import "leaflet.heat";
 import React, { FC, useEffect, useState } from "react";
+import { useSelector } from 'react-redux';
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import { MapContainerProps } from "react-leaflet";
 import { styles } from "./styles";
+import { getGeos } from "../../../state/ducks/geos/selectors";
 
 interface Props extends WithStyles<typeof styles>, MapContainerProps {}
 
 const Map: FC<Props> = (props: Props) => {
+  const geos = useSelector(getGeos);
+
   const [places, setPlaces] = useState([]);
 
   useEffect(() => {
-    const map = L.map("map", { ...props }).setView(props.center, props.zoom);
+    let map = L.map("map", { ...props }).setView(props.center, props.zoom);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    }).addTo(map);
+
+    console.log(geos);
   
     const addressPoints = [
       [-37.8839, null, "571"],
     ];
-  
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution:
-          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    }).addTo(map);
   
     const points = addressPoints
                  ? addressPoints.map((p) => {
@@ -44,7 +48,7 @@ const Map: FC<Props> = (props: Props) => {
                  })
                  : [];
     L.heatLayer(points).addTo(map);
-  }, []);
+  }, [geos]);
   
   return <div id="map" className={props.classes.leafletContainer}></div>;
 };

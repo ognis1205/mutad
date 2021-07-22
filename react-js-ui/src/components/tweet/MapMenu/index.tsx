@@ -14,8 +14,10 @@
  * limitations under the License.
  */
 import React, { FC, useState } from "react";
+import { useDispatch, useSelector } from 'react-redux';
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import clsx from 'clsx';
+import Button from "@material-ui/core/Button";
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
@@ -25,15 +27,56 @@ import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
 import LocationSearchingIcon from '@material-ui/icons/LocationSearching';
 import { styles } from "./styles";
+import { reqGeoPoints } from "../../../state/ducks/geos/actions";
+import { GeoQuery } from "../../../state/ducks/geos/geo.d";
 
 interface Props extends WithStyles<typeof styles> {}
 
 const MapMenu: FC<Props> = (props: Props) => {
+  const dispatch = useDispatch();
+
   const [expanded, setExpanded] = useState(false);
 
-  const handleExpandClick = () => {
+  const [inputs, setInputs] = useState<GeoQuery>({
+    "from": (new Date()).getTime(),
+    "to": (new Date()).getTime(),
+    "text": "",
+    "hashtags": [],
+  });
+
+  const handleExpand = () => {
     setExpanded(!expanded);
   };
+
+  const handlePost = async (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault()
+    dispatch(reqGeoPoints({
+      from: inputs?.from,
+      to: inputs?.to,
+      text: inputs?.text,
+      hashtags: inputs?.hashtags,
+    }));
+  }
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    switch (name) {
+      case "from":
+        setInputs(prev => ({ ...prev, [name]: (new Date(value)).getTime() }));
+        break;
+      case "to":
+        setInputs(prev => ({ ...prev, [name]: (new Date(value)).getTime() }));
+        break;
+      case "text":
+        setInputs(prev => ({ ...prev, [name]: value }));
+        break;
+      case "hashtags":
+        setInputs(prev => ({ ...prev, [name]: value.split(/\s+/) }));
+        break;
+      default:
+        break;
+    }
+  }
 
   return (
     <Card
@@ -43,7 +86,7 @@ const MapMenu: FC<Props> = (props: Props) => {
           className={clsx(props.classes.expand, {
             [props.classes.expandOpen]: expanded,
           })}
-          onClick={handleExpandClick}
+          onClick={handleExpand}
           aria-expanded={expanded}
           aria-label="show more"
         >
@@ -56,6 +99,7 @@ const MapMenu: FC<Props> = (props: Props) => {
             <Box mb={2} width={1}>
               <TextField
                 id="from"
+                name="from"
                 label="From"
                 type="date"
                 defaultValue={new Date().toISOString().slice(0, 10)}
@@ -64,11 +108,13 @@ const MapMenu: FC<Props> = (props: Props) => {
                 InputLabelProps={{
                   shrink: true,
                 }}
+                onChange={handleChange}
               />
             </Box>
             <Box mb={2} width={1}>
               <TextField
                 id="to"
+                name="to"
                 label="To"
                 type="date"
                 defaultValue={new Date().toISOString().slice(0, 10)}
@@ -77,25 +123,41 @@ const MapMenu: FC<Props> = (props: Props) => {
                 InputLabelProps={{
                   shrink: true,
                 }}
+                onChange={handleChange}
               />
             </Box>
             <Box mb={2} width={1}>
               <TextField
                 id="text"
+                name="text"
                 label="Text"
                 fullWidth={true}
                 className={props.classes.textField}
                 variant="outlined"
+                onChange={handleChange}
               />
             </Box>
-            <Box width={1}>
+            <Box mb={1} width={1}>
               <TextField
-                id="hashtag"
+                id="hashtags"
+                name="hashtags"
                 label="#Hashtag"
                 fullWidth={true}
                 className={props.classes.textField}
                 variant="outlined"
+                onChange={handleChange}
               />
+            </Box>
+            <Box width={1}>
+              <Button
+                id="search"
+                label="Search"
+                color="primary"
+                className={props.classes.textField}
+                onClick={handlePost}
+              >
+                Search
+              </Button>
             </Box>
           </form>
         </CardContent>

@@ -22,6 +22,7 @@
     "@types/styled-components": "^5.1.11",
     "classnames": "^2.2.6",
     "color": "^4.0.0",
+    "immutable": "^4.0.0-rc.14",
     "leaflet": "^1.7.1",
     "leaflet.heat": "^0.2.0",
     "next": "11.0.1",

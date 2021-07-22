@@ -18,7 +18,7 @@ import { useTheme, makeStyles, Theme } from "@material-ui/core/styles";
 import { NextPage } from "next";
 import Grid from '@material-ui/core/Grid';
 import Specs from "../specs";
-import Links from "../components/app/Links";
+import Dashboard from "../components/app/Dashboard";
 
 const useStyle = makeStyles({
   root: (theme: Theme) => ({
@@ -42,7 +42,7 @@ const Index: NextPage = () => {
 
   return (
     <Grid container className={classes.root} justifyContent="flex-start" spacing={2}>
-      <Links menus={menus} />
+      <Dashboard menus={menus} />
     </Grid>
   );
 };

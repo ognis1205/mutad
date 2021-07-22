@@ -57,9 +57,7 @@ public class EsTweetRepositoryImpl implements EsTweetRepository {
                 .must(QueryBuilders
                         .rangeQuery("timestamp")
                         .gte(from.getTime())
-                        .lte(to.getTime()))
-                .filter(QueryBuilders
-                        .termsQuery("hashtags", hashtags));
+                        .lte(to.getTime()));
         if (!text.isEmpty())
             builder.filter(QueryBuilders
                 .matchQuery("text", text)
@@ -67,6 +65,9 @@ public class EsTweetRepositoryImpl implements EsTweetRepository {
                 .fuzziness(Fuzziness.AUTO)
                 .prefixLength(3)
                 .maxExpansions(10));
+        if (!hashtags.isEmpty())
+            builder.filter(QueryBuilders
+                    .termsQuery("hashtags", hashtags));
         NativeSearchQuery query = new NativeSearchQueryBuilder()
                 .withQuery(builder)
                 .build();
