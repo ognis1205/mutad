@@ -8,8 +8,7 @@ First, make the shadow jar file of the project:
  $ ./gradlew :storm-collectors:shadowJar
 ```
 
-After copying the resulting jar file to the Storm cluster, run the following command inside the
-storm cluster:
+After copying the resulting jar file to the Storm cluster, run the following command inside:
 
 ```bash
  $ storm jar storm-collectors-1.0.0-SNAPSHOT.jar io.github.ognis1205.mutad.storm.CollectorTopology \
