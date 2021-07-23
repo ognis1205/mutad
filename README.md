@@ -29,7 +29,7 @@ This diagram illustrates the overall architecture of Mutad. The technology stack
  - [Next.js](https://nextjs.org/)
 
 ## Getting Started
-Launch services following the instructions below:
+Launch services by following the instructions below:
 
  - [Set up ELK Environment](https://github.com/ognis1205/mutad/tree/master/dev/elk)
  - [Set up Kafka Cluster](https://github.com/ognis1205/mutad/tree/master/dev/kafka)
