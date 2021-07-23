@@ -39,19 +39,12 @@ const Map: FC<Props> = (props: Props) => {
   }, []);
 
   useEffect(() => {
-    if (map) {
-      const addressPoints = [
-        [-37.8839, null, "571"],
-      ];
-      const points = geos
-                   ? [...geos].map((p) => {
-                     let lonLat = p.toArray();
-                     return [...p];
-                   })
-                   : [];
-      console.log(points);
-      L.heatLayer(points).addTo(map);
-    }
+    if (map) L.heatLayer(geos ? [...geos].map((p) => { return [...p]; }) : [], {
+      radius: 20,
+      blur: 15,
+      maxZoom: 7,
+      max: 4.0,
+    }).addTo(map);
   }, [geos]);
   
   return <div id="map" className={props.classes.leafletContainer}></div>;
