@@ -17,5 +17,16 @@ on [CLAVIN](https://github.com/Novetta/CLAVIN). Because of my poor implementatio
 ## Architecture
 <img src="./img/mutad.jpeg?raw=true">
 
+This diagram illustrates the overall architecture of Mutad. The technology stack is as follows:
+
+ - [Apache Storm](https://storm.apache.org/)
+ - [Apache Kafka](https://kafka.apache.org/)
+ - [CLAVIN](https://www.novetta.com/2020/06/clavin/)
+ - [My TRIE](https://github.com/ognis1205/mutad/tree/master/storm-trie)
+ - [Elasticsearch](https://www.elastic.co/elasticsearch/)
+ - [Spring Boot](https://spring.io/projects/spring-boot)
+ - [React](https://reactjs.org/)
+ - [Next.js](https://nextjs.org/)
+
 ## Getting Started
 First, run the development server:
