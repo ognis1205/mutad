@@ -29,4 +29,11 @@ This diagram illustrates the overall architecture of Mutad. The technology stack
  - [Next.js](https://nextjs.org/)
 
 ## Getting Started
-First, run the development server:
+Launch services following the instructions below:
+
+ - [Set up ELK Environment](https://github.com/ognis1205/mutad/tree/master/dev/elk)
+ - [Set up Kafka Cluster](https://github.com/ognis1205/mutad/tree/master/dev/kafka)
+ - [Set up Storm Cluster](https://github.com/ognis1205/mutad/tree/master/dev/storm)
+ - [Build Storm TRIE library](https://github.com/ognis1205/mutad/tree/master/storm-trie)
+ - [Deploy Storm Collectors Topology]()
+ - [Deploy Storm Processors Topology]()
