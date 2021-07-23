@@ -39,3 +39,6 @@ Launch services by following the instructions below:
  - [Deploy Storm Processors Topology](https://github.com/ognis1205/mutad/tree/master/storm-processors)
  - [Start Spring Boot Elasticsearch Backend](https://github.com/ognis1205/mutad/tree/master/spring-boot-elasticsearch)
  - [Start React User Interface](https://github.com/ognis1205/mutad/tree/master/react-js-ui)
+
+## Future Work
+The project is still WIP. See [Issues](https://github.com/ognis1205/mutad/issues).
