@@ -41,9 +41,9 @@ const Map: FC<Props> = (props: Props) => {
   useEffect(() => {
     if (map) L.heatLayer(geos ? [...geos].map((p) => { return [...p]; }) : [], {
       radius: 20,
-      blur: 15,
+      blur: 20,
       maxZoom: 7,
-      max: 4.0,
+      max: 10.0,
     }).addTo(map);
   }, [geos]);
   
