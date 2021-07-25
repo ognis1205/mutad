@@ -69,4 +69,14 @@ public class TweetServiceImpl implements TweetService {
             String radius) {
         return this.repository.findByGeolocation(from, to, text, hashtags, center, radius);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<Tweet> getLatests(
+            String text,
+            List<String> hashtags) {
+        return this.repository.findLatests(text, hashtags);
+    }
 }

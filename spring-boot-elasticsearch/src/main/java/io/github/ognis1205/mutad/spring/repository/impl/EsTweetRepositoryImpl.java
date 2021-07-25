@@ -22,6 +22,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.common.unit.Fuzziness;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
+import org.elasticsearch.search.sort.SortOrder;
+import org.elasticsearch.search.sort.SortBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
 import org.springframework.data.elasticsearch.core.SearchHit;
@@ -112,6 +115,34 @@ public class EsTweetRepositoryImpl implements EsTweetRepository {
                 .withQuery(builder)
                 .build();
         return this.template.search(query, Tweet.class)
+                .get()
+                .map(SearchHit::getContent)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<Tweet> findLatests(
+            String text,
+            List<String> hashtags) {
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder()
+                .withQuery(QueryBuilders.matchAllQuery())
+                .withSort(SortBuilders.fieldSort("timestamp").order(SortOrder.DESC))
+                .withPageable(new OffsetLimit(0, 0, 50));
+        if (!text.isEmpty())
+            queryBuilder.withFilter(QueryBuilders
+                    .matchQuery("text", text)
+                    .analyzer("rebuilt_english")
+                    .fuzziness(Fuzziness.AUTO)
+                    .prefixLength(3)
+                    .maxExpansions(10));
+        if (!hashtags.isEmpty())
+            queryBuilder.withFilter(QueryBuilders
+                    .termsQuery("hashtags", hashtags));
+        return this.template.search(queryBuilder.build(), Tweet.class)
                 .get()
                 .map(SearchHit::getContent)
                 .collect(Collectors.toList());

@@ -48,4 +48,12 @@ public interface EsTweetRepository {
      * @return the `Tweet` instances match the query condition.
      */
     public List<Tweet> findByGeolocation(Date from, Date to, String text, List<String> hashtags, GeoPoint center, String radius);
+
+    /**
+     * Finds the top 50 most recent tweet documents in 'tweet' index.
+     * @param text the text for full text search.
+     * @param hashtags the target hashtags.
+     * @return the `Tweet` instances match the query condition.
+     */
+    public List<Tweet> findLatests(String text, List<String> hashtags);
 }

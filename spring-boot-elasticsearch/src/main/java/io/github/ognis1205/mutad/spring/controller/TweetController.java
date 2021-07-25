@@ -18,6 +18,8 @@ package io.github.ognis1205.mutad.spring.controller;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import io.github.ognis1205.mutad.spring.model.Tweet;
@@ -92,6 +94,23 @@ public class TweetController {
                 filter.getHashtags(),
                 filter.getCenter(),
                 filter.getRadius());
+        return this.mapper.convert(tweets);
+    }
+
+    /**
+     * Returns the top 50 most recent tweet documents in 'tweet' index.
+     * within a given time period with a given geolocation.
+     * @param filter the search condition.
+     * @return the `TweetDTO` instances match the query condition.
+     */
+    @MessageMapping("/latest")
+    @CrossOrigin
+    @SendTo("/topic/latest")
+    public List<TweetDTO> getLatest(@RequestBody TweetFilter filter) throws Exception {
+        Thread.sleep(30000);
+        List<Tweet> tweets = this.service.getLatests(
+                filter.getText(),
+                filter.getHashtags());
         return this.mapper.convert(tweets);
     }
 }
