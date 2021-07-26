@@ -103,10 +103,26 @@ public class TweetController {
      * @param filter the search condition.
      * @return the `TweetDTO` instances match the query condition.
      */
-    @MessageMapping("/latest")
+    @PostMapping("/latest")
+    @CrossOrigin
+    @ResponseStatus(HttpStatus.OK)
+    public List<TweetDTO> getLatest(@RequestBody TweetFilter filter) throws Exception {
+        List<Tweet> tweets = this.service.getLatests(
+                filter.getText(),
+                filter.getHashtags());
+        return this.mapper.convert(tweets);
+    }
+
+    /**
+     * Returns the top 50 most recent tweet documents in 'tweet' index.
+     * within a given time period with a given geolocation.
+     * @param filter the search condition.
+     * @return the `TweetDTO` instances match the query condition.
+     */
+    @MessageMapping("/latest_socket")
     @CrossOrigin
     @SendTo("/topic/latest")
-    public List<TweetDTO> getLatest(@RequestBody TweetFilter filter) throws Exception {
+    public List<TweetDTO> getLatestSocket(@RequestBody TweetFilter filter) throws Exception {
         Thread.sleep(30000);
         List<Tweet> tweets = this.service.getLatests(
                 filter.getText(),

@@ -127,7 +127,6 @@ public class EsTweetRepositoryImpl implements EsTweetRepository {
     public List<Tweet> findLatests(
             String text,
             List<String> hashtags) {
-        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
         NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder()
                 .withQuery(QueryBuilders.matchAllQuery())
                 .withSort(SortBuilders.fieldSort("timestamp").order(SortOrder.DESC))
