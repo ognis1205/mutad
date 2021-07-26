@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import React, { FC, useState } from "react";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import clsx from 'clsx';
 import Button from "@material-ui/core/Button";

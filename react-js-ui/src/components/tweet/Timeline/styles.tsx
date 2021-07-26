@@ -13,19 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { createStore, applyMiddleware, Store, combineReducers } from "redux";
-import { createWrapper, Context } from "next-redux-wrapper";
-import { asyncFunctionMiddleware } from "./middlewares/async";
-import geos from './ducks/geos';
-import tweets from './ducks/tweets';
+import { createStyles } from "@material-ui/core/styles";
 
-const enhancer = applyMiddleware(asyncFunctionMiddleware)
-
-const reducer = combineReducers({
-  geo: geos,
-  tweet: tweets,
-});
-
-const makeStore = (context: Context) => createStore(reducer, enhancer);
-
-export const wrapper = createWrapper<Store>(makeStore, { debug: true });
+export const styles = (theme: any) =>
+  createStyles({
+    timelineContainer: {
+      width: "50%",
+      margin: 'auto',
+    },
+    date: {
+      marginBottom: '1em',
+    },
+    tweets: {
+      width: 600,
+    },
+    avatar: {
+      width: 50,
+      height: 50,
+    },
+    truncate: {
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+    },
+  });

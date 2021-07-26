@@ -18,27 +18,34 @@ import { fromJS } from "immutable";
 import * as types from "./types";
 
 const initState = fromJS({
-  stats: [],
+  latest: [],
 });
 
-const onNewGeoPoints = (state, action) => {
+const onNewLatestTweets = (state, action) => {
   return fromJS({
-    stats: action.payload.map((e) => { return [e.cityCoord.lat, e.cityCoord.lon]; }),
+    latest: action.payload.map((e) => { return {
+      user_id: e.userId,
+      user_name: e.userName,
+      image_url: e.imageUrl,
+      text: e.text,
+      hashtags: e.hashtags,
+      timestamp: e.timestamp,
+    }; }),
   });
 };
 
-const onClrGeoPoints = (state, action) => {
+const onClrLatestTweets = (state, action) => {
   return fromJS({
-    stats: [],
+    latest: [],
   });
 };
 
 const reducer = (state = initState, action: AnyAction) => {
   switch (action.type) {
-    case types.NEW_GEO_POINTS:
-      return onNewGeoPoints(state, action);
-    case types.CLR_GEO_POINTS:
-      return onClrGeoPoints(state, action);
+    case types.NEW_LATEST_TWEETS:
+      return onNewLatestTweets(state, action);
+    case types.CLR_LATEST_TWEETS:
+      return onClrLatestTweets(state, action);
     default:
       return state;
   }

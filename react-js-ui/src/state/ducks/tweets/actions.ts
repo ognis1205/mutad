@@ -13,34 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { GeoQuery } from "./geo.d";
-import { NEW_GEO_POINTS, CLR_GEO_POINTS } from "./types";
+import { TweetQuery } from "./tweet.d";
+import { NEW_LATEST_TWEETS, CLR_LATEST_TWEETS } from "./types";
 
-export const reqGeoPoints = (query: GeoQuery) => async (dispatch, getState) => {
+export const reqLatestTweets = (query: TweetQuery) => async (dispatch, getState) => {
     const opts = {
       method: "POST",
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(query),
     };
-    fetch(`${process.env.API_ENDPOINT}/geo/hashtags`, opts)
+    fetch(`${process.env.API_ENDPOINT}/tweet/latest`, opts)
     .then((res) => {
       if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
       return res.json();
     })
     .then((json) => {
-      dispatch(newGeoPoints(json))
+      dispatch(newLatestTweets(json))
     })
     .catch((reason) => {
       console.log(reason);
     });
 };
 
-export const newGeoPoints = (json) => ({
-  type: NEW_GEO_POINTS,
+export const newLatestTweets = (json) => ({
+  type: NEW_LATEST_TWEETS,
   payload: json,
 });
 
-export const clrGeoPoints = () => ({
-  type: CLR_GEO_POINTS,
+export const clrLatestTweets = () => ({
+  type: CLR_LATEST_TWEETS,
   payload: [],
 });

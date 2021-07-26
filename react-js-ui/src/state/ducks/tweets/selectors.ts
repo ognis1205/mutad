@@ -13,19 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { createStore, applyMiddleware, Store, combineReducers } from "redux";
-import { createWrapper, Context } from "next-redux-wrapper";
-import { asyncFunctionMiddleware } from "./middlewares/async";
-import geos from './ducks/geos';
-import tweets from './ducks/tweets';
+import { fromJS } from 'immutable';
 
-const enhancer = applyMiddleware(asyncFunctionMiddleware)
-
-const reducer = combineReducers({
-  geo: geos,
-  tweet: tweets,
-});
-
-const makeStore = (context: Context) => createStore(reducer, enhancer);
-
-export const wrapper = createWrapper<Store>(makeStore, { debug: true });
+export const getTweets = (state: any = fromJS({})) => {
+  return state.tweet.get("latest");
+};
