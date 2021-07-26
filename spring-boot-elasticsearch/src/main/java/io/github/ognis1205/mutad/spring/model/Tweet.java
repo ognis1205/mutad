@@ -40,6 +40,15 @@ public class Tweet {
     @Field(name = "lang", type = FieldType.Keyword)
     private String lang;
 
+    @Field(name = "user_name", type = FieldType.Keyword)
+    private String userName;
+
+    @Field(name = "user_id", type = FieldType.Keyword)
+    private String userId;
+
+    @Field(name = "image_url", type = FieldType.Keyword)
+    private String imageUrl;
+
     @Field(name = "text", type = FieldType.Text)
     private String text;
 
@@ -83,6 +92,36 @@ public class Tweet {
     /** Getter/Setter. */
     public void setLang(String lang) {
         this.lang = lang;
+    }
+
+    /** Getter/Setter. */
+    public String getUserName() {
+        return this.userName;
+    }
+
+    /** Getter/Setter. */
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    /** Getter/Setter. */
+    public String getUserId() {
+        return this.userId;
+    }
+
+    /** Getter/Setter. */
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    /** Getter/Setter. */
+    public String getImageUrl() {
+        return this.imageUrl;
+    }
+
+    /** Getter/Setter. */
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     /** Getter/Setter. */
