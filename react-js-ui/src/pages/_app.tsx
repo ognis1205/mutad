@@ -57,7 +57,7 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
         <LeftDrawer
           navDrawerOpen={navDrawerOpen}
           handleChangeNavDrawer={handleChangeNavDrawer}
-          menus={Specs.menus}
+          menu={Specs.menu}
         />
         <Page navDrawerOpen={navDrawerOpen}>
           <Component {...pageProps} />

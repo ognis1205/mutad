@@ -19,11 +19,11 @@ import Drawer from "@material-ui/core/Drawer";
 import Hidden from "@material-ui/core/Hidden";
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import { styles } from "./styles";
-import Menus from "../Menus";
+import Menu from "../Menu";
 
 interface Props extends WithStyles<typeof styles> {
   theme: any;
-  menus: any;
+  menu: any;
   navDrawerOpen: boolean;
   handleChangeNavDrawer: (e: any) => void;
 }
@@ -32,7 +32,7 @@ const LeftDrawer: FC<Props> = (props: Props) => {
   const drawerContent = () => (
     <div>
       <div className={props.classes.logo}></div>
-      <Menus menus={props.menus} navDrawerOpen={props.navDrawerOpen} />
+      <Menu menu={props.menu} navDrawerOpen={props.navDrawerOpen} />
     </div>
   );
 

@@ -36,6 +36,15 @@ public class Tweet implements Serializable {
     /** Tweet locale. */
     private String lang;
 
+    /** User name. */
+    private String userName;
+
+    /** User id. */
+    private String userId;
+
+    /** Image URL. */
+    private String imageUrl;
+
     /** Tweet text. */
     private String text;
 
@@ -84,6 +93,36 @@ public class Tweet implements Serializable {
     /** Getter/Setter. */
     public void setLang(String lang) {
         this.lang = lang;
+    }
+
+    /** Getter/Setter. */
+    public String getUserName() {
+        return this.userName;
+    }
+
+    /** Getter/Setter. */
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    /** Getter/Setter. */
+    public String getUserId() {
+        return this.userId;
+    }
+
+    /** Getter/Setter. */
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    /** Getter/Setter. */
+    public String getImageUrl() {
+        return this.imageUrl;
+    }
+
+    /** Getter/Setter. */
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     /** Getter/Setter. */

@@ -56,12 +56,15 @@ public class Tweet2JSON {
             json.put("geo", geo);
         }
 
-        json.put("id",          tweet.getId()                );
-        json.put("timestamp",   tweet.getTimestamp()         );
-        json.put("lang",        tweet.getLang()              );
-        json.put("text",        tweet.getText()              );
-        json.put("hashtags",    tweet.getHashtags().toArray());
-        json.put("city_names",  tweet.getCityNames()         );
+        json.put("id",         tweet.getId()                );
+        json.put("timestamp",  tweet.getTimestamp()         );
+        json.put("lang",       tweet.getLang()              );
+        json.put("user_name",  tweet.getUserName()          );
+        json.put("user_id",    tweet.getUserId()            );
+        json.put("image_url",  tweet.getImageUrl()          );
+        json.put("text",       tweet.getText()              );
+        json.put("hashtags",   tweet.getHashtags().toArray());
+        json.put("city_names", tweet.getCityNames()         );
 
         return json;
     }

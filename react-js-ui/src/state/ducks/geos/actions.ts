@@ -28,7 +28,7 @@ export const reqGeoPoints = (query: GeoQuery) => async (dispatch, getState) => {
       return res.json();
     })
     .then((json) => {
-      dispatch({ type: NEW_GEO_POINTS, payload: json })
+      dispatch(newGeoPoints(json))
     })
     .catch((reason) => {
       console.log(reason);

@@ -36,9 +36,12 @@ public class Tweet2Geo {
         List<Geo> geos = new ArrayList<>();
 
         Long id = tweet.getId();
-        Long timestamp = tweet.getTimestamp();
-        String lang    = tweet.getLang();
-        String text    = tweet.getText();
+        Long timestamp  = tweet.getTimestamp();
+        String lang     = tweet.getLang();
+        String userName = tweet.getUserName();
+        String userId   = tweet.getUserId();
+        String imageUrl = tweet.getImageUrl();
+        String text     = tweet.getText();
         List<String> hashtags   = tweet.getHashtags();
         List<String> cityNames  = tweet.getCityNames();
         List<LonLat> cityCoords = tweet.getCityCoords();
@@ -48,6 +51,9 @@ public class Tweet2Geo {
             geo.setId(id);
             geo.setTimestamp(timestamp);
             geo.setLang(lang);
+            geo.setUserName(userName);
+            geo.setUserId(userId);
+            geo.setImageUrl(imageUrl);
             geo.setText(text);
             geo.setHashtags(hashtags);
             geo.setCityName(cityNames.get(i));

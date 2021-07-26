@@ -18,9 +18,6 @@ import { createStyles } from "@material-ui/core/styles";
 export const styles = (theme: any) =>
   createStyles({
     card: {
-      top: 0,
-      width: 345,
-      height: 270,
       position: "relative",
       "&:hover, &:focus": {
         top: -5,

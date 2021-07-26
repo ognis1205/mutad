@@ -36,6 +36,9 @@ public class Geo2JSON {
         json.put("id",         geo.getId()                );
         json.put("timestamp",  geo.getTimestamp()         );
         json.put("lang",       geo.getLang()              );
+        json.put("user_name",  geo.getUserName()          );
+        json.put("user_id",    geo.getUserId()            );
+        json.put("image_url",  geo.getImageUrl()          );
         json.put("text",       geo.getText()              );
         json.put("hashtags",   geo.getHashtags().toArray());
         json.put("city_name",  geo.getCityName()          );

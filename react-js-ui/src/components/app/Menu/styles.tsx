@@ -22,10 +22,10 @@ export const styles = (theme: any) =>
       float: "right",
       marginLeft: "auto",
     },
-    subMenus: {
+    subMenu: {
       paddingLeft: 20,
     },
-    popupSubMenus: {
+    popupSubMenu: {
       backgroundColor: "rgb(33, 33, 33)",
       color: "white",
       boxShadow:

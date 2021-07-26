@@ -16,7 +16,7 @@
 import React, { FC } from 'react';
 import Link from 'next/link'
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
-import Grid, { GridSpacing } from '@material-ui/core/Grid';
+import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
@@ -27,7 +27,7 @@ import Typography from '@material-ui/core/Typography';
 import { styles } from "./styles";
 
 interface Props extends WithStyles<typeof styles> {
-  menus: any;
+  menu: any;
 }
 
 interface ContentProps extends WithStyles<typeof styles> {
@@ -65,13 +65,16 @@ const DashboardContent: FC<ContentProps> = (props: ContentProps) => {
 
 const StyledDashboardContent = withStyles(styles, { withTheme: true })(DashboardContent);
 
-const Dashboard = (props: Props) =>
-  props.menus.map((menu, index) => (
-    <Grid item key={index}>
-      <StyledDashboardContent
-        menu={menu}
-      />
-    </Grid>
-  ));
+const Dashboard = (props: Props) => (
+  <Grid container justifyContent="flex-start" spacing={2}>
+    {props.menu.map((item, index) => (
+      <Grid item xs={4} key={index}>
+        <StyledDashboardContent
+          menu={item}
+        />
+      </Grid>
+    ))}
+  </Grid>
+  );
 
 export default Dashboard;

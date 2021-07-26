@@ -16,7 +16,7 @@
 import React from "react";
 import { useTheme, makeStyles, Theme } from "@material-ui/core/styles";
 import { NextPage } from "next";
-import Grid from '@material-ui/core/Grid';
+import { Container } from "@material-ui/core";
 import Specs from "../specs";
 import Dashboard from "../components/app/Dashboard";
 
@@ -25,8 +25,6 @@ const useStyle = makeStyles({
     minWidth: "100%",
     minHeight: "87vh",
     paddingTop: "5vh",
-    paddingLeft: "5vw",
-    paddingRight: "0px",
   }),
   control: (theme: Theme) => ({
     padding: theme.spacing(2),
@@ -36,14 +34,14 @@ const useStyle = makeStyles({
 const Index: NextPage = () => {
   const classes = useStyle(useTheme());
 
-  const menus = [].concat(...Specs.menus.map((menu, index) => {
-    return menu.hasOwnProperty("subMenus") && Array.isArray(menu.subMenus) ? menu.subMenus : [];
+  const menu = [].concat(...Specs.menu.map((item, index) => {
+    return item.hasOwnProperty("subMenu") && Array.isArray(item.subMenu) ? item.subMenu : [];
   }));
 
   return (
-    <Grid container className={classes.root} justifyContent="flex-start" spacing={2}>
-      <Dashboard menus={menus} />
-    </Grid>
+    <Container className={classes.root}>
+      <Dashboard menu={menu} />
+    </Container>
   );
 };
 

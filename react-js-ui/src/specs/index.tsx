@@ -16,20 +16,28 @@
 import React from "react";
 import Assessment from "@material-ui/icons/Assessment";
 import BorderClear from "@material-ui/icons/BorderClear";
+import BorderInner from "@material-ui/icons/BorderInner";
 import BorderOuter from "@material-ui/icons/BorderOuter";
 import HomeIcon from "@material-ui/icons/Home";
 
 const data = {
-  menus: [
+  menu: [
     {
       text: "Twitter Data",
       icon: <Assessment />,
-      subMenus: [
+      subMenu: [
+        {
+          text: "Tweet Timeline",
+          description: "Show Most Recent Tweets",
+          image: "/tweet.jpg",
+          icon: <BorderClear />,
+          link: "/tweet/timeline",
+        },
         {
           text: "Geoparsing Map",
           description: "Visualization of Tweet Geoparsing",
           image: "/geoparse.jpg",
-          icon: <BorderClear />,
+          icon: <BorderInner />,
           link: "/tweet/map",
         },
         {

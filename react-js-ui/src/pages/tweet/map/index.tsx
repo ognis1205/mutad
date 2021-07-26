@@ -18,7 +18,7 @@ import dynamic from "next/dynamic";
 import { useTheme, makeStyles, Theme } from "@material-ui/core/styles";
 import { Container } from "@material-ui/core";
 import { NextPage } from "next";
-import MapMenu from "../../../components/tweet/MapMenu";
+import HeatMapSearch from "../../../components/tweet/HeatMapSearch";
 
 const useStyle = makeStyles({
   root: (theme: Theme) => ({
@@ -33,9 +33,9 @@ const useStyle = makeStyles({
 const Index: NextPage = () => {
   const classes = useStyle(useTheme());
 
-  const Map = React.useMemo(
+  const HeatMap = React.useMemo(
     () =>
-      dynamic(() => import("../../../components/tweet/Map"), {
+      dynamic(() => import("../../../components/tweet/HeatMap"), {
         loading: () => <p>Loading a map...</p>,
         ssr: false,
       }),
@@ -44,7 +44,7 @@ const Index: NextPage = () => {
 
   return (
     <Container className={classes.root}>
-      <Map
+      <HeatMap
         center={[0.0, 0.0]}
         zoom={3}
         minZoom={3}
@@ -53,7 +53,7 @@ const Index: NextPage = () => {
           [90, 180],
         ]}
       />
-      <MapMenu/>
+      <HeatMapSearch/>
     </Container>
   );
 };

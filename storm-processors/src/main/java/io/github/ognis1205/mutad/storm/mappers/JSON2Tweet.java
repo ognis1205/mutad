@@ -64,6 +64,24 @@ public class JSON2Tweet {
         }
 
         try {
+            tweet.setUserName(json.getJSONObject("user").getString("name"));
+        } catch (Exception e) {
+            tweet.setUserName("");
+        }
+
+        try {
+            tweet.setUserId(json.getJSONObject("user").getString("screen_name"));
+        } catch (Exception e) {
+            tweet.setUserId("");
+        }
+
+        try {
+            tweet.setImageUrl(json.getJSONObject("user").getString("profile_image_url_https"));
+        } catch (Exception e) {
+            tweet.setImageUrl("");
+        }
+
+        try {
             tweet.setText(Texts.removeEmoji(Texts.removeUrl(json.getString("text"))));
         } catch (Exception e) {
             tweet.setText("");
