@@ -25,7 +25,7 @@ import { getGeos, getGeoRadius, getGeoBlur, getGeoZoom } from "../../../state/du
 
 interface Props extends WithStyles<typeof styles>, MapContainerProps {}
 
-const Map: FC<Props> = (props: Props) => {
+const HeatMap: FC<Props> = (props: Props) => {
   const geos = useSelector(getGeos);
 
   const radius = useSelector(getGeoRadius);
@@ -59,7 +59,7 @@ const Map: FC<Props> = (props: Props) => {
     }
   }, [geos]);
   
-  return <div id="map" className={props.classes.leafletContainer}></div>;
+  return <div id="map" className={props.classes.leaflet}></div>;
 };
 
-export default withStyles(styles)(Map);
+export default withStyles(styles)(HeatMap);

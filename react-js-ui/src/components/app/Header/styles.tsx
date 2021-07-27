@@ -31,15 +31,12 @@ export const styles = (theme: any) =>
         duration: theme.transitions.duration.enteringScreen,
       }),
     },
-    root: {
-      width: "100%",
+    iconButton: {
+      marginLeft: -12,
+      marginRight: 20,
     },
     grow: {
       flexGrow: 1,
-    },
-    menuButton: {
-      marginLeft: -12,
-      marginRight: 20,
     },
     links: {
       display: "none",

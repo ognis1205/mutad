@@ -17,23 +17,17 @@ import { createStyles } from "@material-ui/core/styles";
 
 export const styles = (theme: any) =>
   createStyles({
-    container: {
+    page: {
       margin: "80px 20px 20px 15px",
       paddingLeft: theme.drawer.width,
       [theme.breakpoints.down("sm")]: {
         paddingLeft: 0,
       },
     },
-    containerFull: {
+    pageFull: {
       paddingLeft: theme.drawer.miniWidth,
       [theme.breakpoints.down("sm")]: {
         paddingLeft: 0,
       },
-    },
-    paper: {
-      padding: 30,
-    },
-    clear: {
-      clear: "both",
     },
   });

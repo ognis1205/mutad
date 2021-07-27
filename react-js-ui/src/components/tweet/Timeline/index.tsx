@@ -16,6 +16,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
+import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -53,13 +54,13 @@ const TweetsByDate: FC<TweetProps> = (props: TweetProps) => {
           <ListItem key={index}>
             <ListItemAvatar>
               <MuiAvatar
-                className={props.classes.avatar}
+                className={props.classes.muiAvatar}
                 src={item.get("image_url")}
               />
             </ListItemAvatar>
             <ListItemText
               primary={
-                <div className={props.classes.truncate}>
+                <div className={props.classes.listItemText}>
                   <strong>{ item.get("user_name") }</strong>{ "@" }{ item.get("user_id") }
                   <Divider/>
                   { withLink(item.get("text")) }
@@ -118,17 +119,13 @@ const Timeline: FC<Props> = (props: Props) => {
 
   const [ tweetsByDate, setTweetsByDate ] = useState({});
 
+  const [isFadeIn, setIsFadeIn] = useState(false);
+
   useEffect(() => {
     dispatch(reqLatestTweets({
       text: "",
       hashtags: [],
     }));
-    setInterval(() => {
-      dispatch(reqLatestTweets({
-        text: "",
-        hashtags: [],
-      }));
-    }, 30000);
   }, []);
 
   useEffect(() => {
@@ -138,7 +135,7 @@ const Timeline: FC<Props> = (props: Props) => {
   }, [tweets]);
 
   return (
-    <div className={props.classes.timelineContainer}>
+    <div className={clsx(props.classes.timeline)}>
       {dates.map(date => (
         <div key={date} className={props.classes.date}>
           <Typography gutterBottom>

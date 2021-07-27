@@ -18,31 +18,7 @@ import Color from "color";
 
 export const styles = (theme: any) =>
   createStyles({
-    chevronIcon: {
-      float: "right",
-      marginLeft: "auto",
-    },
-    subMenu: {
-      paddingLeft: 20,
-    },
-    popupSubMenu: {
-      backgroundColor: "rgb(33, 33, 33)",
-      color: "white",
-      boxShadow:
-        "rgba(0, 0, 0, 0.16) 0px 3px 10px, rgba(0, 0, 0, 0.23) 0px 3px 10px",
-    },
-    menuItem: {
-      padding: "10px 16px",
-      color: "white",
-      fontSize: 14,
-      "&:focus": {
-        backgroundColor: theme.palette.primary.main,
-        "& .MuiListItemIcon-root, & .MuiListItemText-primary": {
-          color: theme.palette.common.white,
-        },
-      },
-    },
-    miniMenuItem: {
+    muMenuItem: {
       color: "white",
       margin: "10px 0",
       fontSize: 14,
@@ -53,12 +29,36 @@ export const styles = (theme: any) =>
         },
       },
     },
-    miniIcon: {
+    listItemIcon: {
       margin: "0 auto",
       color: "white",
       "&:hover": {
         backgroundColor: Color(theme.palette.common.white).alpha(0.5).string(),
       },
       minWidth: "24px",
+    },
+    muMenu: {
+      backgroundColor: "rgb(33, 33, 33)",
+      color: "white",
+      boxShadow:
+        "rgba(0, 0, 0, 0.16) 0px 3px 10px, rgba(0, 0, 0, 0.23) 0px 3px 10px",
+    },
+    subMuMenuItem: {
+      padding: "10px 16px",
+      color: "white",
+      fontSize: 14,
+      "&:focus": {
+        backgroundColor: theme.palette.primary.main,
+        "& .MuiListItemIcon-root, & .MuiListItemText-primary": {
+          color: theme.palette.common.white,
+        },
+      },
+    },
+    chevronIcon: {
+      float: "right",
+      marginLeft: "auto",
+    },
+    subMenuItem: {
+      paddingLeft: 20,
     },
   });

@@ -45,7 +45,7 @@ const LeftDrawer: FC<Props> = (props: Props) => {
           open={props.navDrawerOpen}
           onClose={props.handleChangeNavDrawer}
           classes={{
-            paper: props.classes.drawerPaper,
+            paper: props.classes.drawer,
           }}
           ModalProps={{
             keepMounted: true,
@@ -60,8 +60,8 @@ const LeftDrawer: FC<Props> = (props: Props) => {
           variant="permanent"
           classes={{
             paper: classNames(
-              props.classes.drawerPaper,
-              !props.navDrawerOpen && props.classes.drawerPaperClose
+              props.classes.drawer,
+              !props.navDrawerOpen && props.classes.drawerClose
             ),
           }}
         >

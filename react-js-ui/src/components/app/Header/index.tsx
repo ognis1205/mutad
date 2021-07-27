@@ -40,7 +40,7 @@ const Header: FC<Props> = (props: Props) => {
       >
         <Toolbar>
           <IconButton
-            className={props.classes.menuButton}
+            className={props.classes.iconButton}
             color="inherit"
             aria-label="Open drawer"
             onClick={props.handleChangeNavDrawer}

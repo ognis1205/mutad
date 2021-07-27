@@ -30,12 +30,12 @@ import Typography from '@material-ui/core/Typography';
 import LocationSearchingIcon from '@material-ui/icons/LocationSearching';
 import { styles } from "./styles";
 import { reqGeoPoints, newGeoRadius, newGeoBlur, newGeoZoom } from "../../../state/ducks/geos/actions";
-import { GeoQuery, GeoConfig } from "../../../state/ducks/geos/geo.d";
+import { GeoQuery } from "../../../state/ducks/geos/geo.d";
 import { getGeoRadius, getGeoBlur, getGeoZoom } from "../../../state/ducks/geos/selectors";
 
 interface Props extends WithStyles<typeof styles> {}
 
-const MapMenu: FC<Props> = (props: Props) => {
+const HeatMapSearch: FC<Props> = (props: Props) => {
   const dispatch = useDispatch();
 
   const [expanded, setExpanded] = useState(false);
@@ -110,11 +110,11 @@ const MapMenu: FC<Props> = (props: Props) => {
 
   return (
     <Card
-      className={props.classes.menu}>
-      <CardActions className={props.classes.icon} disableSpacing>
+      className={props.classes.card}>
+      <CardActions className={props.classes.cardActions} disableSpacing>
         <IconButton
-          className={clsx(props.classes.expand, {
-            [props.classes.expandOpen]: expanded,
+          className={clsx(props.classes.iconButton, {
+            [props.classes.iconButtonOpen]: expanded,
           })}
           onClick={handleExpand}
           aria-expanded={expanded}
@@ -125,7 +125,7 @@ const MapMenu: FC<Props> = (props: Props) => {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <form className={props.classes.search} noValidate>
+          <form className={props.classes.form} noValidate>
             <Box mb={2} width={1}>
               <TextField
                 id="from"
@@ -247,4 +247,4 @@ const MapMenu: FC<Props> = (props: Props) => {
   );
 };
 
-export default withStyles(styles)(MapMenu);
+export default withStyles(styles)(HeatMapSearch);

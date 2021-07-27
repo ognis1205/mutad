@@ -29,8 +29,8 @@ const Page: FC<Props> = (props: Props) => {
   return (
     <div
       className={classNames(
-        props.classes.container,
-        !props.navDrawerOpen && props.classes.containerFull
+        props.classes.page,
+        !props.navDrawerOpen && props.classes.pageFull
       )}
     >
       <Paper>

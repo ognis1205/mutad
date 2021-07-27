@@ -17,7 +17,7 @@ import { createStyles } from "@material-ui/core/styles";
 
 export const styles = (theme: any) =>
   createStyles({
-    menu: {
+    card: {
       maxWidth: 345,
       position: "absolute",
       zIndex: 800,
@@ -26,23 +26,20 @@ export const styles = (theme: any) =>
       boxShadow: "unset",
       border: "2px solid rgba(0,0,0,0.2)",
     },
-    icon: {
+    cardActions: {
       padding: 0,
     },
-    iconized: {
-      borderRadius: "50%",
-    },
-    expand: {
+    iconButton: {
       transform: "rotate(0deg)",
       marginLeft: "auto",
       transition: theme.transitions.create("transform", {
         duration: theme.transitions.duration.shortest,
       }),
     },
-    expandOpen: {
+    iconButtonOpen: {
       transform: 'rotate(180deg)',
     },
-    search: {
+    form: {
       display: 'flex',
       flexWrap: 'wrap',
     },

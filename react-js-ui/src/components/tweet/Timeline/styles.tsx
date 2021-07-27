@@ -17,21 +17,28 @@ import { createStyles } from "@material-ui/core/styles";
 
 export const styles = (theme: any) =>
   createStyles({
-    timelineContainer: {
-      width: "50%",
-      margin: 'auto',
+    timeline: {
+      paddingLeft: '16px',
+      paddingRight: '16px',
+//      maxHeight: '100%',
+//      overflow: 'scroll',
+      //      margin: 'auto',
+      position:'absolute',
+//    top: '5%',
+//    left: '5%',
+      overflow: 'scroll',
+      height: '100%',
+//      width: '100%',
+      display:'block'
     },
     date: {
       marginBottom: '1em',
     },
-    tweets: {
-      width: 600,
-    },
-    avatar: {
+    muiAvatar: {
       width: 50,
       height: 50,
     },
-    truncate: {
+    listItemText: {
       whiteSpace: 'nowrap',
       overflow: 'hidden',
       textOverflow: 'ellipsis',

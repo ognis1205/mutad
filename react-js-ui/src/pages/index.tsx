@@ -26,9 +26,6 @@ const useStyle = makeStyles({
     minHeight: "87vh",
     paddingTop: "5vh",
   }),
-  control: (theme: Theme) => ({
-    padding: theme.spacing(2),
-  }),
 });
 
 const Index: NextPage = () => {

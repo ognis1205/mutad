@@ -16,8 +16,10 @@
 import React from "react";
 import { useTheme, makeStyles, Theme } from "@material-ui/core/styles";
 import { Container } from "@material-ui/core";
+import Grid from '@material-ui/core/Grid';
 import { NextPage } from "next";
 import Timeline from "../../../components/tweet/Timeline";
+import TimelineSearch from "../../../components/tweet/TimelineSearch";
 
 const useStyle = makeStyles({
   root: (theme: Theme) => ({
@@ -26,9 +28,6 @@ const useStyle = makeStyles({
     paddingTop: "5vh",
     paddingBottom: "5vh",
   }),
-  control: (theme: Theme) => ({
-    padding: theme.spacing(2),
-  }),
 });
 
 const Index: NextPage = () => {
@@ -36,6 +35,7 @@ const Index: NextPage = () => {
 
   return (
     <Container className={classes.root}>
+      <TimelineSearch />
       <Timeline />
     </Container>
   );

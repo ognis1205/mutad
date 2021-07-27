@@ -17,7 +17,7 @@ import { createStyles } from "@material-ui/core/styles";
 
 export const styles = (theme: any) =>
   createStyles({
-    leafletContainer: {
+    leaflet: {
       minHeight: "87vh",
       position: "relative",
       width: "100%",

@@ -67,8 +67,8 @@ const MenuItem: FC<ContentProps> = (props: ContentProps) => {
     if (!props.menu.subMenu || !props.menu.subMenu.length) {
       return (
         <Link key={props.key} href={props.menu.link}>
-          <MUMenuItem classes={{ root: props.classes.miniMenuItem }}>
-            <ListItemIcon className={props.classes.miniIcon}>
+          <MUMenuItem classes={{ root: props.classes.muMenuItem }}>
+            <ListItemIcon className={props.classes.listItemIcon}>
               {props.menu.icon}
             </ListItemIcon>
           </MUMenuItem>
@@ -79,22 +79,22 @@ const MenuItem: FC<ContentProps> = (props: ContentProps) => {
     return (
       <MUMenuItem
         key={props.key}
-        classes={{ root: props.classes.miniMenuItem }}
+        classes={{ root: props.classes.muMenuItem }}
         onClick={handleClick}
       >
-        <ListItemIcon className={props.classes.miniIcon}>
+        <ListItemIcon className={props.classes.listItemIcon}>
           {props.menu.icon}
         </ListItemIcon>
         <Div ref={divElem} />
         <MUMenu
           anchorEl={divElem.current}
-          classes={{ paper: props.classes.popupSubMenu }}
+          classes={{ paper: props.classes.muMenu }}
           open={open}
           onClose={handleClose}
         >
           {props.menu.subMenu.map((item, index) => (
             <Link key={index} href={item.link}>
-              <MUMenuItem key={index} classes={{ root: props.classes.menuItem }}>
+              <MUMenuItem key={index} classes={{ root: props.classes.subMuMenuItem }}>
                 <ListItemIcon style={{ color: "white" }}>
                   {item.icon}
                 </ListItemIcon>
@@ -111,7 +111,7 @@ const MenuItem: FC<ContentProps> = (props: ContentProps) => {
     if (!props.menu.subMenu || !props.menu.subMenu.length) {
       return (
         <Link key={props.key} href={props.menu.link}>
-          <MUMenuItem classes={{ root: props.classes.menuItem }}>
+          <MUMenuItem classes={{ root: props.classes.subMuMenuItem }}>
             <ListItemIcon style={{ color: "white" }}>
               {props.menu.icon}
             </ListItemIcon>
@@ -125,7 +125,7 @@ const MenuItem: FC<ContentProps> = (props: ContentProps) => {
       <div>
         <ListItem
           key={props.key}
-          classes={{ root: props.classes.menuItem }}
+          classes={{ root: props.classes.subMuMenuItem }}
           onClick={handleClick}
         >
           <ListItemIcon style={{ color: "white" }}>
@@ -142,13 +142,13 @@ const MenuItem: FC<ContentProps> = (props: ContentProps) => {
           <List
             component="div"
             disablePadding
-            classes={{ root: props.classes.subMenu }}
+            classes={{ root: props.classes.subMenuItem }}
           >
             {props.menu.subMenu.map((item, index) => (
               <Link key={index} href={item.link}>
                 <MUMenuItem
                   key={index}
-                  classes={{ root: props.classes.menuItem }}
+                  classes={{ root: props.classes.subMuMenuItem }}
                 >
                   <ListItemIcon style={{ color: "white" }}>
                     {item.icon}
