@@ -21,14 +21,22 @@ import { useSelector } from 'react-redux';
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import { MapContainerProps } from "react-leaflet";
 import { styles } from "./styles";
-import { getGeos } from "../../../state/ducks/geos/selectors";
+import { getGeos, getGeoRadius, getGeoBlur, getGeoZoom } from "../../../state/ducks/geos/selectors";
 
 interface Props extends WithStyles<typeof styles>, MapContainerProps {}
 
 const Map: FC<Props> = (props: Props) => {
   const geos = useSelector(getGeos);
 
+  const radius = useSelector(getGeoRadius);
+
+  const blur = useSelector(getGeoBlur);
+
+  const zoom = useSelector(getGeoZoom);
+
   const [map, setMap] = useState<LeafletMap>();
+
+  const [heat, setHeat] = useState();
 
   useEffect(() => {
     const leafletMap = L.map("map", { ...props }).setView(props.center, props.zoom);
@@ -39,12 +47,16 @@ const Map: FC<Props> = (props: Props) => {
   }, []);
 
   useEffect(() => {
-    if (map) L.heatLayer(geos ? [...geos].map((p) => { return [...p]; }) : [], {
-      radius: 20,
-      blur: 20,
-      maxZoom: 7,
-      max: 10.0,
-    }).addTo(map);
+    if (map) {
+      const layer = L.heatLayer(geos ? [...geos].map((p) => { return [...p]; }) : [], {
+        radius: radius,
+        blur: blur,
+        maxZoom: zoom,
+      });
+      if (heat) map.removeLayer(heat);
+      map.addLayer(layer);
+      setHeat(layer);
+    }
   }, [geos]);
   
   return <div id="map" className={props.classes.leafletContainer}></div>;

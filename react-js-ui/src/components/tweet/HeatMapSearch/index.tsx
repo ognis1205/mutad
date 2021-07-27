@@ -25,10 +25,12 @@ import Collapse from '@material-ui/core/Collapse';
 import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
+import Slider from '@material-ui/core/Slider';
+import Typography from '@material-ui/core/Typography';
 import LocationSearchingIcon from '@material-ui/icons/LocationSearching';
 import { styles } from "./styles";
-import { reqGeoPoints } from "../../../state/ducks/geos/actions";
-import { GeoQuery } from "../../../state/ducks/geos/geo.d";
+import { reqGeoPoints, newGeoRadius, newGeoBlur, newGeoZoom } from "../../../state/ducks/geos/actions";
+import { GeoQuery, GeoConfig } from "../../../state/ducks/geos/geo.d";
 
 interface Props extends WithStyles<typeof styles> {}
 
@@ -44,12 +46,27 @@ const MapMenu: FC<Props> = (props: Props) => {
     "hashtags": [],
   });
 
+  const defaultRadius = 10;
+
+  const defaultBlur = 10;
+
+  const defaultZoom = 8;
+
+  const [config, setConfig] = useState<GeoConfig>({
+    "radius": defaultRadius,
+    "blur": defaultBlur,
+    "zoom": defaultZoom,
+  });
+
   const handleExpand = () => {
     setExpanded(!expanded);
   };
 
   const handlePost = async (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault()
+    dispatch(newGeoRadius(config.radius));
+    dispatch(newGeoBlur(config.blur));
+    dispatch(newGeoZoom(config.zoom));
     dispatch(reqGeoPoints({
       from: inputs?.from,
       to: inputs?.to,
@@ -77,6 +94,36 @@ const MapMenu: FC<Props> = (props: Props) => {
         break;
     }
   }
+
+  const handleSlide = (e: React.ChangeEvent<HTMLSpanElement>, v: number | number[]) => {
+    const { id } = e.target.parentElement;
+    switch (id) {
+      case "radius":
+        if (typeof v === 'number') {
+          setConfig(prev => ({ ...prev, [id]: v }));
+          dispatch(newGeoRadius(v));
+        }
+        break;
+      case "blur":
+        if (typeof v === 'number') {
+          setConfig(prev => ({ ...prev, [id]: v }));
+          dispatch(newGeoBlur(v));
+        }
+        break;
+      case "maxZoom":
+        if (typeof v === 'number') {
+          setConfig(prev => ({ ...prev, [id]: v }));
+          dispatch(newGeoZoom(v));
+        }
+        break;
+      default:
+        break;
+    }
+  }
+
+  const valuetext = (value: number) => {
+    return `${value}`;
+  };
 
   return (
     <Card
@@ -146,6 +193,57 @@ const MapMenu: FC<Props> = (props: Props) => {
                 className={props.classes.textField}
                 variant="outlined"
                 onChange={handleChange}
+              />
+            </Box>
+            <Box mb={1} width={1}>
+              <Typography variant="caption" align="center" gutterBottom>
+                Radius
+              </Typography>
+              <Slider
+                id="radius"
+                defaultValue={defaultRadius}
+                getAriaValueText={valuetext}
+                aria-labelledby="discrete-slider"
+                valueLabelDisplay="auto"
+                step={1}
+                marks
+                min={1}
+                max={20}
+                onChange={handleSlide}
+              />
+            </Box>
+            <Box mb={1} width={1}>
+              <Typography variant="caption" align="center" gutterBottom>
+                Blur
+              </Typography>
+              <Slider
+                id="blur"
+                defaultValue={defaultBlur}
+                getAriaValueText={valuetext}
+                aria-labelledby="discrete-slider"
+                valueLabelDisplay="auto"
+                step={1}
+                marks
+                min={1}
+                max={20}
+                onChange={handleSlide}
+              />
+            </Box>
+            <Box mb={1} width={1}>
+              <Typography variant="caption" align="center" gutterBottom>
+                Max Zoom
+              </Typography>
+              <Slider
+                id="maxZoom"
+                defaultValue={defaultZoom}
+                getAriaValueText={valuetext}
+                aria-labelledby="discrete-slider"
+                valueLabelDisplay="auto"
+                step={1}
+                marks
+                min={2}
+                max={15}
+                onChange={handleSlide}
               />
             </Box>
             <Box width={1}>

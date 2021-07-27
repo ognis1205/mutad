@@ -32,3 +32,9 @@ interface GeoStat {
   1: number,
   2: string,
 }
+
+export interface GeoConfig {
+  radius: number,
+  blur: number,
+  zoom: number,
+}

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import { GeoQuery } from "./geo.d";
-import { NEW_GEO_POINTS, CLR_GEO_POINTS } from "./types";
+import { NEW_GEO_POINTS, CLR_GEO_POINTS, NEW_GEO_RADIUS, NEW_GEO_BLUR, NEW_GEO_ZOOM } from "./types";
 
 export const reqGeoPoints = (query: GeoQuery) => async (dispatch, getState) => {
     const opts = {
@@ -43,4 +43,19 @@ export const newGeoPoints = (json) => ({
 export const clrGeoPoints = () => ({
   type: CLR_GEO_POINTS,
   payload: [],
+});
+
+export const newGeoRadius = (value: number) => ({
+  type: NEW_GEO_RADIUS,
+  payload: value,
+});
+
+export const newGeoBlur = (value: number) => ({
+  type: NEW_GEO_BLUR,
+  payload: value,
+});
+
+export const newGeoZoom = (value: number) => ({
+  type: NEW_GEO_ZOOM,
+  payload: value,
 });

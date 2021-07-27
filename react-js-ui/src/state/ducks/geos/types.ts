@@ -15,3 +15,6 @@
  */
 export const NEW_GEO_POINTS = 'geo/NEW_GEO_POINTS';
 export const CLR_GEO_POINTS = 'geo/CLR_GEO_POINTS';
+export const NEW_GEO_RADIUS = 'geo/NEW_GEO_RADIUS';
+export const NEW_GEO_BLUR   = 'geo/NEW_GEO_BLUR';
+export const NEW_GEO_ZOOM   = 'geo/NEW_GEO_ZOOM';

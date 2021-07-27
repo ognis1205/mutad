@@ -18,3 +18,15 @@ import { fromJS } from 'immutable';
 export const getGeos = (state: any = fromJS({})) => {
   return state.geo.get("stats");
 };
+
+export const getGeoRadius = (state: any = fromJS({})) => {
+  return state.geo.get("radius");
+};
+
+export const getGeoBlur = (state: any = fromJS({})) => {
+  return state.geo.get("blur");
+};
+
+export const getGeoZoom = (state: any = fromJS({})) => {
+  return state.geo.get("zoom");
+};

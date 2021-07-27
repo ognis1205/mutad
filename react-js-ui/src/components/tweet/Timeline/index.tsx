@@ -123,14 +123,18 @@ const Timeline: FC<Props> = (props: Props) => {
       text: "",
       hashtags: [],
     }));
+    setInterval(() => {
+      dispatch(reqLatestTweets({
+        text: "",
+        hashtags: [],
+      }));
+    }, 30000);
   }, []);
 
   useEffect(() => {
     const { dates, tweetsByDate } = groupByDate(tweets);
     setDates(dates);
     setTweetsByDate(tweetsByDate);
-    console.log(dates);
-    console.log(tweetsByDate);
   }, [tweets]);
 
   return (
