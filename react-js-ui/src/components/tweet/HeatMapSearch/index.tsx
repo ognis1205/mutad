@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import React, { FC, useState } from "react";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import clsx from 'clsx';
 import Button from "@material-ui/core/Button";
@@ -31,6 +31,7 @@ import LocationSearchingIcon from '@material-ui/icons/LocationSearching';
 import { styles } from "./styles";
 import { reqGeoPoints, newGeoRadius, newGeoBlur, newGeoZoom } from "../../../state/ducks/geos/actions";
 import { GeoQuery, GeoConfig } from "../../../state/ducks/geos/geo.d";
+import { getGeoRadius, getGeoBlur, getGeoZoom } from "../../../state/ducks/geos/selectors";
 
 interface Props extends WithStyles<typeof styles> {}
 
@@ -46,17 +47,11 @@ const MapMenu: FC<Props> = (props: Props) => {
     "hashtags": [],
   });
 
-  const defaultRadius = 10;
+  const radius = useSelector(getGeoRadius);
 
-  const defaultBlur = 10;
+  const blur = useSelector(getGeoBlur);
 
-  const defaultZoom = 8;
-
-  const [config, setConfig] = useState<GeoConfig>({
-    "radius": defaultRadius,
-    "blur": defaultBlur,
-    "zoom": defaultZoom,
-  });
+  const zoom = useSelector(getGeoZoom);
 
   const handleExpand = () => {
     setExpanded(!expanded);
@@ -64,9 +59,6 @@ const MapMenu: FC<Props> = (props: Props) => {
 
   const handlePost = async (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault()
-    dispatch(newGeoRadius(config.radius));
-    dispatch(newGeoBlur(config.blur));
-    dispatch(newGeoZoom(config.zoom));
     dispatch(reqGeoPoints({
       from: inputs?.from,
       to: inputs?.to,
@@ -99,22 +91,13 @@ const MapMenu: FC<Props> = (props: Props) => {
     const { id } = e.target.parentElement;
     switch (id) {
       case "radius":
-        if (typeof v === 'number') {
-          setConfig(prev => ({ ...prev, [id]: v }));
-          dispatch(newGeoRadius(v));
-        }
+        if (typeof v === 'number') dispatch(newGeoRadius(v));
         break;
       case "blur":
-        if (typeof v === 'number') {
-          setConfig(prev => ({ ...prev, [id]: v }));
-          dispatch(newGeoBlur(v));
-        }
+        if (typeof v === 'number') dispatch(newGeoBlur(v));
         break;
       case "maxZoom":
-        if (typeof v === 'number') {
-          setConfig(prev => ({ ...prev, [id]: v }));
-          dispatch(newGeoZoom(v));
-        }
+        if (typeof v === 'number') dispatch(newGeoZoom(v));
         break;
       default:
         break;
@@ -201,7 +184,7 @@ const MapMenu: FC<Props> = (props: Props) => {
               </Typography>
               <Slider
                 id="radius"
-                defaultValue={defaultRadius}
+                value={radius}
                 getAriaValueText={valuetext}
                 aria-labelledby="discrete-slider"
                 valueLabelDisplay="auto"
@@ -218,7 +201,7 @@ const MapMenu: FC<Props> = (props: Props) => {
               </Typography>
               <Slider
                 id="blur"
-                defaultValue={defaultBlur}
+                value={blur}
                 getAriaValueText={valuetext}
                 aria-labelledby="discrete-slider"
                 valueLabelDisplay="auto"
@@ -235,7 +218,7 @@ const MapMenu: FC<Props> = (props: Props) => {
               </Typography>
               <Slider
                 id="maxZoom"
-                defaultValue={defaultZoom}
+                value={zoom}
                 getAriaValueText={valuetext}
                 aria-labelledby="discrete-slider"
                 valueLabelDisplay="auto"

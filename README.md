@@ -5,7 +5,7 @@ The name Mutad is a reverse spelling of datum.
 An end-to-end implementation of a real-time data platform/search engine based on various technology
 stack. The implementation is rather for my own learning purpose.
 
-<img src="./img/mutad.gif?raw=true">
+<img src="./img/heatmap.gif?raw=true">
 
 The above gif image demonstrates a real-time visualization of the tweet [geoparsing](https://en.wikipedia.org/wiki/Toponym_resolution) of Mutad.
 According to my proceeding research, the amount of tweets with geospatial metadata

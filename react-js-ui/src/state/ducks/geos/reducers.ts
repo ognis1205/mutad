@@ -19,9 +19,9 @@ import * as types from "./types";
 
 const initState = fromJS({
   stats: [],
-  radias: 0,
-  blur: 0,
-  maxZoom: 0,
+  radius: 10,
+  blur: 10,
+  zoom: 8,
 });
 
 const onNewGeoPoints = (state, action) => {
