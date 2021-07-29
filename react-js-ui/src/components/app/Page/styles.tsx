@@ -23,6 +23,7 @@ export const styles = (theme: any) =>
       [theme.breakpoints.down("sm")]: {
         paddingLeft: 0,
       },
+      position: "relative",
     },
     pageFull: {
       paddingLeft: theme.drawer.miniWidth,

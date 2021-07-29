@@ -13,69 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { FC, useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { FC, useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
-import clsx from 'clsx';
-import Card from '@material-ui/core/Card';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import IconButton from "@material-ui/core/IconButton";
+import Paper from "@material-ui/core/Paper";
+import Fab from "@material-ui/core/Fab";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import ListItemText from "@material-ui/core/ListItemText";
+import ListSubheader from "@material-ui/core/ListSubheader";
+import Avatar from "@material-ui/core/Avatar";
+import RefreshIcon from "@material-ui/icons/Refresh";
+import SearchIcon from "@material-ui/icons/Search";
 import Link from '@material-ui/core/Link';
-import MuiAvatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
-import Typography from '@material-ui/core/Typography';
 import { styles } from "./styles";
 import { getTweets } from "../../../state/ducks/tweets/selectors";
 import { reqLatestTweets } from "../../../state/ducks/tweets/actions";
-
-interface Props extends WithStyles<typeof styles> {
-}
-
-interface TweetProps extends WithStyles<typeof styles> {
-  tweets: any;
-}
-
-const TweetsByDate: FC<TweetProps> = (props: TweetProps) => {
-  const withLink = (text) => (
-    text
-      .split(/\s+/)
-      .map(t =>
-        /#\w+/.test(t) ? (<Link component="button" variant="body2" onClick={() => { }}>{t}</Link>) : t
-      )
-      .reduce((r, a) => r.concat(a, " "), [" "])
-  );
-
-  return (
-    <Card>
-      <List>
-        {props.tweets.map((item, index) => (
-          <ListItem key={index}>
-            <ListItemAvatar>
-              <MuiAvatar
-                className={props.classes.muiAvatar}
-                src={item.get("image_url")}
-              />
-            </ListItemAvatar>
-            <ListItemText
-              primary={
-                <div className={props.classes.listItemText}>
-                  <strong>{ item.get("user_name") }</strong>{ "@" }{ item.get("user_id") }
-                  <Divider/>
-                  { withLink(item.get("text")) }
-                </div>
-              }
-              secondary={ new Date(item.get("timestamp")).toLocaleString() }
-            />
-          </ListItem>
-        ))}
-      </List>
-    </Card>
-  );
-};
-
-const StyledTweetsByDate = withStyles(styles, { withTheme: true })(TweetsByDate);
 
 const sortByDate = (a: string, b: string) =>
   new Date(b).valueOf() - new Date(a).valueOf();
@@ -91,10 +50,10 @@ const getDateOf = (tweet) => {
 
 const getDateString = (date) =>
   new Date(date).toLocaleDateString(undefined, {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   });
 
 const groupByDate = (tweets) => {
@@ -109,6 +68,9 @@ const groupByDate = (tweets) => {
     tweetsByDate: groups,
   };
 };
+
+interface Props extends WithStyles<typeof styles> {
+}
 
 const Timeline: FC<Props> = (props: Props) => {
   const dispatch = useDispatch();
@@ -134,16 +96,54 @@ const Timeline: FC<Props> = (props: Props) => {
     setTweetsByDate(tweetsByDate);
   }, [tweets]);
 
+  const withLink = (text) => (
+    text
+      .split(/\s+/)
+      .map(t =>
+        /#\w+/.test(t) ? (<Link component="button" variant="body2" onClick={() => { }}>{t}</Link>) : t
+      )
+      .reduce((r, a) => r.concat(a, " "), [" "])
+  );
+
   return (
-    <div className={clsx(props.classes.timeline)}>
-      {dates.map(date => (
-        <div key={date} className={props.classes.date}>
-          <Typography gutterBottom>
-            {getDateString(date)}
-          </Typography>
-          <StyledTweetsByDate tweets={tweetsByDate[date]}/>
-        </div>
-      ))}
+    <div className={props.classes.container}>
+      <Paper square className={props.classes.paper}>
+        <Typography className={props.classes.text} variant="h5" gutterBottom>
+          Timeline
+        </Typography>
+        <List className={props.classes.list}>
+          {Object.entries(tweetsByDate).map(([key, value], index) => (
+            <React.Fragment key={index}>
+              <ListSubheader className={props.classes.subheader}>{getDateString(key)}</ListSubheader>
+              {value.map((tweet, index) => (
+              <ListItem button>
+                <ListItemAvatar>
+                  <Avatar alt="Profile Picture" src={tweet.get("image_url")} />
+                </ListItemAvatar>
+                <ListItemText primary={
+                  <div className={props.classes.listItemText}>
+                    <strong>{ tweet.get("user_name") }</strong>{ "@" }{ tweet.get("user_id") }
+                    <Divider/>
+                    { withLink(tweet.get("text")) }
+                  </div>
+                  } secondary={tweet.get("timestamp")} />
+              </ListItem>
+              ))}
+            </React.Fragment>
+          ))}
+        </List>
+      </Paper>
+      <AppBar position="fixed" color="primary" className={props.classes.appBar}>
+        <Toolbar>
+          <Fab color="secondary" aria-label="add" className={props.classes.fabButton}>
+            <RefreshIcon />
+          </Fab>
+          <div className={props.classes.grow} />
+          <IconButton color="inherit">
+            <SearchIcon />
+          </IconButton>
+        </Toolbar>
+      </AppBar>
     </div>
   );
 };

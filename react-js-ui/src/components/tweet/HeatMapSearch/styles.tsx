@@ -37,11 +37,11 @@ export const styles = (theme: any) =>
       }),
     },
     iconButtonOpen: {
-      transform: 'rotate(180deg)',
+      transform: "rotate(180deg)",
     },
     form: {
-      display: 'flex',
-      flexWrap: 'wrap',
+      display: "flex",
+      flexWrap: "wrap",
     },
     textField: {
       width: "100%",

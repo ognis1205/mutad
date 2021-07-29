@@ -14,31 +14,17 @@
  * limitations under the License.
  */
 import React from "react";
-import { useTheme, makeStyles, Theme } from "@material-ui/core/styles";
 import { NextPage } from "next";
-import { Container } from "@material-ui/core";
 import Specs from "../specs";
 import Dashboard from "../components/app/Dashboard";
 
-const useStyle = makeStyles({
-  root: (theme: Theme) => ({
-    minWidth: "100%",
-    minHeight: "87vh",
-    paddingTop: "5vh",
-  }),
-});
-
 const Index: NextPage = () => {
-  const classes = useStyle(useTheme());
-
   const menu = [].concat(...Specs.menu.map((item, index) => {
     return item.hasOwnProperty("subMenu") && Array.isArray(item.subMenu) ? item.subMenu : [];
   }));
 
   return (
-    <Container className={classes.root}>
-      <Dashboard menu={menu} />
-    </Container>
+    <Dashboard menu={menu} />
   );
 };
 

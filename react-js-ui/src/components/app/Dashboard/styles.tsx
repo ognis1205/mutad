@@ -17,6 +17,11 @@ import { createStyles } from "@material-ui/core/styles";
 
 export const styles = (theme: any) =>
   createStyles({
+    grid: {
+      height: "87vh",
+      justifyContent: "flex-start",
+      padding: "15px",
+    },
     card: {
       position: "relative",
       "&:hover, &:focus": {

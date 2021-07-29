@@ -14,20 +14,20 @@
  * limitations under the License.
  */
 import React, { FC, useState } from "react";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
-import clsx from 'clsx';
+import clsx from "clsx";
 import Button from "@material-ui/core/Button";
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
-import Box from '@material-ui/core/Box';
-import IconButton from '@material-ui/core/IconButton';
-import TextField from '@material-ui/core/TextField';
-import Slider from '@material-ui/core/Slider';
-import Typography from '@material-ui/core/Typography';
-import LocationSearchingIcon from '@material-ui/icons/LocationSearching';
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import CardActions from "@material-ui/core/CardActions";
+import Collapse from "@material-ui/core/Collapse";
+import Box from "@material-ui/core/Box";
+import IconButton from "@material-ui/core/IconButton";
+import TextField from "@material-ui/core/TextField";
+import Slider from "@material-ui/core/Slider";
+import Typography from "@material-ui/core/Typography";
+import LocationSearchingIcon from "@material-ui/icons/LocationSearching";
 import { styles } from "./styles";
 import { reqGeoPoints, newGeoRadius, newGeoBlur, newGeoZoom } from "../../../state/ducks/geos/actions";
 import { GeoQuery } from "../../../state/ducks/geos/geo.d";
@@ -91,13 +91,13 @@ const HeatMapSearch: FC<Props> = (props: Props) => {
     const { id } = e.target.parentElement;
     switch (id) {
       case "radius":
-        if (typeof v === 'number') dispatch(newGeoRadius(v));
+        if (typeof v === "number") dispatch(newGeoRadius(v));
         break;
       case "blur":
-        if (typeof v === 'number') dispatch(newGeoBlur(v));
+        if (typeof v === "number") dispatch(newGeoBlur(v));
         break;
       case "maxZoom":
-        if (typeof v === 'number') dispatch(newGeoZoom(v));
+        if (typeof v === "number") dispatch(newGeoZoom(v));
         break;
       default:
         break;

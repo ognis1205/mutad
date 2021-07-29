@@ -17,30 +17,42 @@ import { createStyles } from "@material-ui/core/styles";
 
 export const styles = (theme: any) =>
   createStyles({
-    timeline: {
-      paddingLeft: '16px',
-      paddingRight: '16px',
-//      maxHeight: '100%',
-//      overflow: 'scroll',
-      //      margin: 'auto',
-      position:'absolute',
-//    top: '5%',
-//    left: '5%',
-      overflow: 'scroll',
-      height: '100%',
-//      width: '100%',
-      display:'block'
-    },
-    date: {
-      marginBottom: '1em',
-    },
-    muiAvatar: {
-      width: 50,
-      height: 50,
+    container: {
+      position: "relative",
     },
     listItemText: {
       whiteSpace: 'nowrap',
       overflow: 'hidden',
       textOverflow: 'ellipsis',
+    },
+    text: {
+      padding: theme.spacing(2, 2, 0),
+    },
+    paper: {
+      overflow: "auto",
+      height: "87vh",
+      paddingBottom: 50,
+    },
+    list: {
+      marginBottom: theme.spacing(2),
+    },
+    subheader: {
+      backgroundColor: theme.palette.background.paper,
+    },
+    appBar: {
+      position: "absolute",
+      top: "auto",
+      bottom: 0,
+    },
+    grow: {
+      flexGrow: 1,
+    },
+    fabButton: {
+      position: "absolute",
+      zIndex: 1,
+      top: -30,
+      left: 0,
+      right: 0,
+      margin: "0 auto",
     },
   });

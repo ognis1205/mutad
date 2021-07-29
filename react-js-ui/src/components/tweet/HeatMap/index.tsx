@@ -17,7 +17,7 @@ import "leaflet/dist/leaflet.css";
 import L, { Map as LeafletMap } from "leaflet";
 import "leaflet.heat";
 import React, { FC, useEffect, useState } from "react";
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import { MapContainerProps } from "react-leaflet";
 import { styles } from "./styles";

@@ -33,7 +33,7 @@ const Page: FC<Props> = (props: Props) => {
         !props.navDrawerOpen && props.classes.pageFull
       )}
     >
-      <Paper>
+      <Paper variant="outlined" square>
         <Divider />
         {props.children}
         <div />

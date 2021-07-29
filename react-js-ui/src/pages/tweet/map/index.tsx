@@ -15,24 +15,10 @@
  */
 import React from "react";
 import dynamic from "next/dynamic";
-import { useTheme, makeStyles, Theme } from "@material-ui/core/styles";
-import { Container } from "@material-ui/core";
 import { NextPage } from "next";
 import HeatMapSearch from "../../../components/tweet/HeatMapSearch";
 
-const useStyle = makeStyles({
-  root: (theme: Theme) => ({
-    minWidth: "100%",
-    minHeight: "87vh",
-    paddingLeft: "0px",
-    paddingRight: "0px",
-    position: "relative",
-  }),
-});
-
 const Index: NextPage = () => {
-  const classes = useStyle(useTheme());
-
   const HeatMap = React.useMemo(
     () =>
       dynamic(() => import("../../../components/tweet/HeatMap"), {
@@ -43,7 +29,7 @@ const Index: NextPage = () => {
   );
 
   return (
-    <Container className={classes.root}>
+    <>
       <HeatMap
         center={[0.0, 0.0]}
         zoom={3}
@@ -54,7 +40,7 @@ const Index: NextPage = () => {
         ]}
       />
       <HeatMapSearch/>
-    </Container>
+    </>
   );
 };
 

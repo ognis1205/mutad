@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { FC } from 'react';
-import Link from 'next/link'
+import React, { FC } from "react";
+import Link from "next/link";
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
-import Grid from '@material-ui/core/Grid';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import Grid from "@material-ui/core/Grid";
+import Card from "@material-ui/core/Card";
+import CardActionArea from "@material-ui/core/CardActionArea";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import CardMedia from "@material-ui/core/CardMedia";
+import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
 import { styles } from "./styles";
 
 interface Props extends WithStyles<typeof styles> {
@@ -66,7 +66,7 @@ const DashboardContent: FC<ContentProps> = (props: ContentProps) => {
 const StyledDashboardContent = withStyles(styles, { withTheme: true })(DashboardContent);
 
 const Dashboard = (props: Props) => (
-  <Grid container justifyContent="flex-start" spacing={2}>
+  <Grid container className={props.classes.grid} spacing={2}>
     {props.menu.map((item, index) => (
       <Grid item xs={4} key={index}>
         <StyledDashboardContent
@@ -77,4 +77,4 @@ const Dashboard = (props: Props) => (
   </Grid>
   );
 
-export default Dashboard;
+export default withStyles(styles, { withTheme: true })(Dashboard);
