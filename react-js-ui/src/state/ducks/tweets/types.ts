@@ -14,4 +14,5 @@
  * limitations under the License.
  */
 export const NEW_LATEST_TWEETS = 'tweet/NEW_LATEST_TWEETS';
+export const ADD_LATEST_TWEETS = 'tweet/ADD_LATEST_TWEETS';
 export const CLR_LATEST_TWEETS = 'tweet/CLR_LATEST_TWEETS';

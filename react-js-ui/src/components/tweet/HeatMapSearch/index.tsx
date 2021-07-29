@@ -58,7 +58,7 @@ const HeatMapSearch: FC<Props> = (props: Props) => {
   };
 
   const handlePost = async (e: React.MouseEvent<HTMLElement>) => {
-    e.preventDefault()
+    e.preventDefault();
     dispatch(reqGeoPoints({
       from: inputs?.from,
       to: inputs?.to,

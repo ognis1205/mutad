@@ -34,7 +34,7 @@ import Link from '@material-ui/core/Link';
 import Divider from '@material-ui/core/Divider';
 import { styles } from "./styles";
 import { getTweets } from "../../../state/ducks/tweets/selectors";
-import { reqLatestTweets } from "../../../state/ducks/tweets/actions";
+import { reqLatestTweets, updLatestTweets } from "../../../state/ducks/tweets/actions";
 
 const sortByDate = (a: string, b: string) =>
   new Date(b).valueOf() - new Date(a).valueOf();
@@ -57,16 +57,12 @@ const getDateString = (date) =>
   });
 
 const groupByDate = (tweets) => {
-  const groups = tweets.reduce((dates, tweet) => {
+  return tweets.reduce((dates, tweet) => {
     const date = getDateOf(tweet);
     if (!dates[date]) dates[date] = [];
     dates[date] = dates[date].concat(tweet);
     return dates;
   }, {});
-  return {
-    dates: Object.keys(groups).sort(sortByDate),
-    tweetsByDate: groups,
-  };
 };
 
 interface Props extends WithStyles<typeof styles> {
@@ -77,24 +73,57 @@ const Timeline: FC<Props> = (props: Props) => {
 
   const tweets = useSelector(getTweets);
 
-  const [ dates, setDates ] = useState<string[]>([]);
+  const [tweetsByDate, setTweetsByDate] = useState({});
 
-  const [ tweetsByDate, setTweetsByDate ] = useState({});
+  const [text, setText] = useState("");
 
-  const [isFadeIn, setIsFadeIn] = useState(false);
+  const [hashtags, setHashtags] = useState([]);
+
+  const [now, setNow] = useState((new Date()).toISOString());
+
+  const [page, setPage] = useState(0);
 
   useEffect(() => {
     dispatch(reqLatestTweets({
-      text: "",
-      hashtags: [],
+      before: now,
+      text: text,
+      hashtags: hashtags,
+      page: page,
+      size: 50,
     }));
   }, []);
 
   useEffect(() => {
-    const { dates, tweetsByDate } = groupByDate(tweets);
-    setDates(dates);
-    setTweetsByDate(tweetsByDate);
+    setTweetsByDate(groupByDate(tweets));
   }, [tweets]);
+
+  const handleScroll = (e: any) => {
+    e.preventDefault();
+    const bottom = e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
+    if (bottom) {
+      setPage(page + 1);
+      dispatch(updLatestTweets({
+        before: now,
+        text: text,
+        hashtags: hashtags,
+        page: page,
+        size: 50,
+      }));
+    }
+  };
+
+  const handleRefresh = (e: any) => {
+    e.preventDefault();
+    setNow((new Date()).toISOString());
+    setPage(0);
+    dispatch(reqLatestTweets({
+      before: now,
+      text: text,
+      hashtags: hashtags,
+      page: 0,
+      size: 50,
+    }));
+  };
 
   const withLink = (text) => (
     text
@@ -107,7 +136,7 @@ const Timeline: FC<Props> = (props: Props) => {
 
   return (
     <div className={props.classes.container}>
-      <Paper square className={props.classes.paper}>
+      <Paper square className={props.classes.paper} onScroll={handleScroll}>
         <Typography className={props.classes.text} variant="h5" gutterBottom>
           Timeline
         </Typography>
@@ -126,7 +155,7 @@ const Timeline: FC<Props> = (props: Props) => {
                     <Divider/>
                     { withLink(tweet.get("text")) }
                   </div>
-                  } secondary={tweet.get("timestamp")} />
+                  } secondary={ tweet.get("timestamp") } />
               </ListItem>
               ))}
             </React.Fragment>
@@ -136,7 +165,7 @@ const Timeline: FC<Props> = (props: Props) => {
       <AppBar position="fixed" color="primary" className={props.classes.appBar}>
         <Toolbar>
           <Fab color="secondary" aria-label="add" className={props.classes.fabButton}>
-            <RefreshIcon />
+            <RefreshIcon onClick={handleRefresh}/>
           </Fab>
           <div className={props.classes.grow} />
           <IconButton color="inherit">

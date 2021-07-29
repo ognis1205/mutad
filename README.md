@@ -2,7 +2,7 @@
 The name Mutad is a reverse spelling of datum.
 
 ## Overview
-An end-to-end implementation of a real-time data platform/search engine based on various technology
+An implementation of a real-time data platform/search engine based on various technology
 stack. The implementation is rather for my own learning purpose.
 
 <img src="./img/heatmap.gif?raw=true">
@@ -13,6 +13,10 @@ is quite a few, say 10 per 10,000 tweets, from the Hosebird data feed. Thus I to
 strategy to extract geospatial data from the tweet. Mutad implements real-time geoparsing based
 on [CLAVIN](https://github.com/Novetta/CLAVIN). Because of my poor implementation, the accuracy is not that high yet.
 
+<img src="./img/timeline.gif?raw=true">
+
+The above gif image demonstrates a list timeline displays the latest Tweets ordered from newest to oldest from a curated 
+public list of Twitter accounts.
 
 ## Architecture
 <img src="./img/mutad.jpeg?raw=true">

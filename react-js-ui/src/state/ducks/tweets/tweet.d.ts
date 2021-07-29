@@ -23,6 +23,9 @@ export interface Tweet {
 }
 
 export interface TweetQuery {
+  before: string,
   text: string,
   hashtags: string[],
+  page: number,
+  size: number,
 }

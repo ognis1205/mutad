@@ -22,7 +22,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.common.unit.Fuzziness;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.sort.SortOrder;
 import org.elasticsearch.search.sort.SortBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -125,12 +124,15 @@ public class EsTweetRepositoryImpl implements EsTweetRepository {
      */
     @Override
     public List<Tweet> findLatests(
+            Date before,
             String text,
-            List<String> hashtags) {
+            List<String> hashtags,
+            int page,
+            int size) {
         NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder()
-                .withQuery(QueryBuilders.matchAllQuery())
+                .withQuery(QueryBuilders.boolQuery().must(QueryBuilders.rangeQuery("timestamp").lte(before.getTime())))
                 .withSort(SortBuilders.fieldSort("timestamp").order(SortOrder.DESC))
-                .withPageable(new OffsetLimit(0, 0, 50));
+                .withPageable(new OffsetLimit(0, page, size));
         if (!text.isEmpty())
             queryBuilder.withFilter(QueryBuilders
                     .matchQuery("text", text)

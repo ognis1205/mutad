@@ -34,6 +34,19 @@ const onNewLatestTweets = (state, action) => {
   });
 };
 
+const onAddLatestTweets = (state, action) => {
+  return fromJS({
+    latest: [...state.get("latest"), ...action.payload.map((e) => { return {
+      user_id: e.userId,
+      user_name: e.userName,
+      image_url: e.imageUrl,
+      text: e.text,
+      hashtags: e.hashtags,
+      timestamp: e.timestamp,
+    };})],
+  });
+};
+
 const onClrLatestTweets = (state, action) => {
   return fromJS({
     latest: [],
@@ -44,6 +57,8 @@ const reducer = (state = initState, action: AnyAction) => {
   switch (action.type) {
     case types.NEW_LATEST_TWEETS:
       return onNewLatestTweets(state, action);
+    case types.ADD_LATEST_TWEETS:
+      return onAddLatestTweets(state, action);
     case types.CLR_LATEST_TWEETS:
       return onClrLatestTweets(state, action);
     default:

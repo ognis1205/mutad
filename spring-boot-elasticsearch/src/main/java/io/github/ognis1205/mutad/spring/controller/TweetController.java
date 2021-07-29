@@ -108,8 +108,11 @@ public class TweetController {
     @ResponseStatus(HttpStatus.OK)
     public List<TweetDTO> getLatest(@RequestBody TweetFilter filter) throws Exception {
         List<Tweet> tweets = this.service.getLatests(
+                filter.getBefore(),
                 filter.getText(),
-                filter.getHashtags());
+                filter.getHashtags(),
+                filter.getPage(),
+                filter.getSize());
         return this.mapper.convert(tweets);
     }
 }

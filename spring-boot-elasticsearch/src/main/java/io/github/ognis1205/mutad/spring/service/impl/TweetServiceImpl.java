@@ -75,8 +75,11 @@ public class TweetServiceImpl implements TweetService {
      */
     @Override
     public List<Tweet> getLatests(
+            Date before,
             String text,
-            List<String> hashtags) {
-        return this.repository.findLatests(text, hashtags);
+            List<String> hashtags,
+            int page,
+            int size) {
+        return this.repository.findLatests(before, text, hashtags, page, size);
     }
 }

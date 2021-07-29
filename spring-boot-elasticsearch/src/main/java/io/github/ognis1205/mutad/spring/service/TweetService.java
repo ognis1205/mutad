@@ -57,9 +57,12 @@ public interface TweetService {
 
     /**
      * Returns the top 50 most recent tweet documents in 'tweet' index.
+     * @param before the start date of a given period.
      * @param text the text for full text search.
      * @param hashtags the target hashtags.
+     * @param page the page to show.
+     * @param size the page size.
      * @return the `Tweet` instances match the query condition.
      */
-    public List<Tweet> getLatests(String text, List<String> hashtags);
+    public List<Tweet> getLatests(Date before, String text, List<String> hashtags, int page, int size);
 }

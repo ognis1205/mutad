@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import { TweetQuery } from "./tweet.d";
-import { NEW_LATEST_TWEETS, CLR_LATEST_TWEETS } from "./types";
+import { NEW_LATEST_TWEETS, ADD_LATEST_TWEETS, CLR_LATEST_TWEETS } from "./types";
 
 export const reqLatestTweets = (query: TweetQuery) => async (dispatch, getState) => {
     const opts = {
@@ -35,8 +35,32 @@ export const reqLatestTweets = (query: TweetQuery) => async (dispatch, getState)
     });
 };
 
+export const updLatestTweets = (query: TweetQuery) => async (dispatch, getState) => {
+    const opts = {
+      method: "POST",
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(query),
+    };
+    fetch(`${process.env.API_ENDPOINT}/tweet/latest`, opts)
+    .then((res) => {
+      if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+      return res.json();
+    })
+    .then((json) => {
+      dispatch(addLatestTweets(json))
+    })
+    .catch((reason) => {
+      console.log(reason);
+    });
+};
+
 export const newLatestTweets = (json) => ({
   type: NEW_LATEST_TWEETS,
+  payload: json,
+});
+
+export const addLatestTweets = (json) => ({
+  type: ADD_LATEST_TWEETS,
   payload: json,
 });
 
