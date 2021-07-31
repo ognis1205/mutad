@@ -17,7 +17,6 @@ import React, { FC } from "react";
 import classNames from "classnames";
 import {
   Paper,
-  Divider,
 } from "@material-ui/core";
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import styles from "./styles";
@@ -36,9 +35,7 @@ export default withStyles(styles, { withTheme: true })((props: Props) => {
       )}
     >
       <Paper variant="outlined" square>
-        <Divider />
         {props.children}
-        <div />
       </Paper>
     </div>
   );
