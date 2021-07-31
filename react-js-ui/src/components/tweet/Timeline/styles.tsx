@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 import { createStyles } from "@material-ui/core/styles";
+import { CustomTheme } from "../../../theme";
 
-export const styles = (theme: any) =>
+const styles = (theme: CustomTheme) =>
   createStyles({
     container: {
       position: "relative",
@@ -56,3 +57,5 @@ export const styles = (theme: any) =>
       margin: "0 auto",
     },
   });
+
+export default styles;

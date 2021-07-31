@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 import { createStyles } from "@material-ui/core/styles";
+import { CustomTheme } from "../../../theme";
 
-export const styles = (theme: any) =>
+const styles = (_: CustomTheme) =>
   createStyles({
     leaflet: {
       height: "85vh",
@@ -23,3 +24,5 @@ export const styles = (theme: any) =>
       width: "100%",
     },
   });
+
+export default styles;

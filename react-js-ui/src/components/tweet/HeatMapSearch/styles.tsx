@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 import { createStyles } from "@material-ui/core/styles";
+import { CustomTheme } from "../../../theme";
 
-export const styles = (theme: any) =>
+const styles = (theme: CustomTheme) =>
   createStyles({
     card: {
       maxWidth: 345,
@@ -47,3 +48,5 @@ export const styles = (theme: any) =>
       width: "100%",
     },
   });
+
+export default styles;

@@ -16,27 +16,27 @@
 import "leaflet/dist/leaflet.css";
 import L, { Map as LeafletMap } from "leaflet";
 import "leaflet.heat";
-import React, { FC, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { MapContainerProps } from "react-leaflet";
 import { useSelector } from "react-redux";
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
-import { MapContainerProps } from "react-leaflet";
-import { styles } from "./styles";
-import { getGeos, getGeoRadius, getGeoBlur, getGeoZoom } from "../../../state/ducks/geos/selectors";
+import styles from "./styles";
+import { Selectors } from "../../../state/ducks/geos";
 
 interface Props extends WithStyles<typeof styles>, MapContainerProps {}
 
-const HeatMap: FC<Props> = (props: Props) => {
-  const geos = useSelector(getGeos);
+export default withStyles(styles)((props: Props) => {
+  const geos = useSelector(Selectors.getGeos);
 
-  const radius = useSelector(getGeoRadius);
+  const r = useSelector(Selectors.getGeoRadius);
 
-  const blur = useSelector(getGeoBlur);
+  const b = useSelector(Selectors.getGeoBlur);
 
-  const zoom = useSelector(getGeoZoom);
+  const z = useSelector(Selectors.getGeoZoom);
 
   const [map, setMap] = useState<LeafletMap>();
 
-  const [heat, setHeat] = useState();
+  const [heat, setHeat] = useState<L.Layer>();
 
   useEffect(() => {
     const leafletMap = L.map("map", { ...props }).setView(props.center, props.zoom);
@@ -48,18 +48,16 @@ const HeatMap: FC<Props> = (props: Props) => {
 
   useEffect(() => {
     if (map) {
-      const layer = L.heatLayer(geos ? [...geos].map((p) => { return [...p]; }) : [], {
-        radius: radius,
-        blur: blur,
-        maxZoom: zoom,
+      const layer = L.heatLayer(geos, {
+        radius: r,
+        blur: b,
+        maxZoom: z,
       });
       if (heat) map.removeLayer(heat);
       map.addLayer(layer);
       setHeat(layer);
     }
-  }, [geos]);
+  }, [geos, r, b, z]);
   
   return <div id="map" className={props.classes.leaflet}></div>;
-};
-
-export default withStyles(styles)(HeatMap);
+});

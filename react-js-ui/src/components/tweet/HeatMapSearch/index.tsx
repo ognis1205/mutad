@@ -13,45 +13,49 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { FC, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import clsx from "clsx";
-import Button from "@material-ui/core/Button";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import CardActions from "@material-ui/core/CardActions";
-import Collapse from "@material-ui/core/Collapse";
-import Box from "@material-ui/core/Box";
-import IconButton from "@material-ui/core/IconButton";
-import TextField from "@material-ui/core/TextField";
-import Slider from "@material-ui/core/Slider";
-import Typography from "@material-ui/core/Typography";
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  CardActions,
+  Collapse,
+  IconButton,
+  Slider,
+  TextField,
+  Typography,
+} from "@material-ui/core";
 import LocationSearchingIcon from "@material-ui/icons/LocationSearching";
-import { styles } from "./styles";
-import { reqGeoPoints, newGeoRadius, newGeoBlur, newGeoZoom } from "../../../state/ducks/geos/actions";
-import { GeoQuery } from "../../../state/ducks/geos/geo.d";
-import { getGeoRadius, getGeoBlur, getGeoZoom } from "../../../state/ducks/geos/selectors";
+import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
+import styles from "./styles";
+import {
+  Actions,
+  Selectors,
+  Types
+} from "../../../state/ducks/geos";
 
 interface Props extends WithStyles<typeof styles> {}
 
-const HeatMapSearch: FC<Props> = (props: Props) => {
+export default withStyles(styles)((props: Props) => {
   const dispatch = useDispatch();
 
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState<boolean>(false);
 
-  const [inputs, setInputs] = useState<GeoQuery>({
+  const [inputs, setInputs] = useState<Types.GeoQuery>({
     "from": (new Date()).getTime(),
     "to": (new Date()).getTime(),
     "text": "",
     "hashtags": [],
   });
 
-  const radius = useSelector(getGeoRadius);
+  const r = useSelector(Selectors.getGeoRadius);
 
-  const blur = useSelector(getGeoBlur);
+  const b = useSelector(Selectors.getGeoBlur);
 
-  const zoom = useSelector(getGeoZoom);
+  const z = useSelector(Selectors.getGeoZoom);
 
   const handleExpand = () => {
     setExpanded(!expanded);
@@ -59,7 +63,7 @@ const HeatMapSearch: FC<Props> = (props: Props) => {
 
   const handlePost = async (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
-    dispatch(reqGeoPoints({
+    dispatch(Actions.reqGeoPoints({
       from: inputs?.from,
       to: inputs?.to,
       text: inputs?.text,
@@ -91,13 +95,13 @@ const HeatMapSearch: FC<Props> = (props: Props) => {
     const { id } = e.target.parentElement;
     switch (id) {
       case "radius":
-        if (typeof v === "number") dispatch(newGeoRadius(v));
+        if (typeof v === "number") dispatch(Actions.newGeoRadius(v));
         break;
       case "blur":
-        if (typeof v === "number") dispatch(newGeoBlur(v));
+        if (typeof v === "number") dispatch(Actions.newGeoBlur(v));
         break;
       case "maxZoom":
-        if (typeof v === "number") dispatch(newGeoZoom(v));
+        if (typeof v === "number") dispatch(Actions.newGeoZoom(v));
         break;
       default:
         break;
@@ -184,7 +188,7 @@ const HeatMapSearch: FC<Props> = (props: Props) => {
               </Typography>
               <Slider
                 id="radius"
-                value={radius}
+                value={r}
                 getAriaValueText={valuetext}
                 aria-labelledby="discrete-slider"
                 valueLabelDisplay="auto"
@@ -201,7 +205,7 @@ const HeatMapSearch: FC<Props> = (props: Props) => {
               </Typography>
               <Slider
                 id="blur"
-                value={blur}
+                value={b}
                 getAriaValueText={valuetext}
                 aria-labelledby="discrete-slider"
                 valueLabelDisplay="auto"
@@ -218,7 +222,7 @@ const HeatMapSearch: FC<Props> = (props: Props) => {
               </Typography>
               <Slider
                 id="maxZoom"
-                value={zoom}
+                value={z}
                 getAriaValueText={valuetext}
                 aria-labelledby="discrete-slider"
                 valueLabelDisplay="auto"
@@ -245,6 +249,4 @@ const HeatMapSearch: FC<Props> = (props: Props) => {
       </Collapse>
     </Card>
   );
-};
-
-export default withStyles(styles)(HeatMapSearch);
+});

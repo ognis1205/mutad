@@ -27,10 +27,11 @@ export interface GeoQuery {
   hashtags: string[],
 }
 
-interface GeoStat {
-  0: number,
-  1: number,
-  2: string,
+export interface GeoResponse {
+  cityCoord: {
+    lon: number,
+    lat: number,
+  },
 }
 
 export interface GeoConfig {

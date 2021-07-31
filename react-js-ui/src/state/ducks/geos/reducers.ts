@@ -13,53 +13,60 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { AnyAction } from "redux";
-import { fromJS } from "immutable";
+import { PayloadAction } from '@reduxjs/toolkit';
+import { GeoResponse } from "./geo.d";
 import * as types from "./types";
 
-const initState = fromJS({
+export type GeoState = {
+  stats: number[][];
+  radius: number;
+  blur: number;
+  zoom: number;
+};
+
+const initState: GeoState = {
   stats: [],
   radius: 10,
   blur: 10,
   zoom: 8,
-});
+};
 
-const onNewGeoPoints = (state, action) => {
-  return fromJS({
-    ...state.toJS(),
+const onNewGeoPoints = (state: GeoState, action: PayloadAction<GeoResponse[]>) => {
+  return {
+    ...state,
     stats: action.payload.map((e) => { return [e.cityCoord.lat, e.cityCoord.lon]; }),
-  });
+  };
 };
 
-const onClrGeoPoints = (state, action) => {
-  return fromJS({
-    ...state.toJS(),
+const onClrGeoPoints = (state: GeoState, action: PayloadAction<any>) => {
+  return {
+    ...state,
     stats: [],
-  });
+  };
 };
 
-const onNewGeoRadius = (state, action) => {
-  return fromJS({
-    ...state.toJS(),
+const onNewGeoRadius = (state: GeoState, action: PayloadAction<number>) => {
+  return {
+    ...state,
     radius: action.payload,
-  });
+  };
 };
 
-const onNewGeoBlur = (state, action) => {
-  return fromJS({
-    ...state.toJS(),
+const onNewGeoBlur = (state: GeoState, action: PayloadAction<number>) => {
+  return {
+    ...state,
     blur: action.payload,
-  });
+  };
 };
 
-const onNewGeoZoom = (state, action) => {
-  return fromJS({
-    ...state.toJS(),
+const onNewGeoZoom = (state: GeoState, action: PayloadAction<number>) => {
+  return {
+    ...state,
     zoom: action.payload,
-  });
+  };
 };
 
-const reducer = (state = initState, action: AnyAction) => {
+const reducer = (state = initState, action: PayloadAction<any | number | GeoResponse[]>) => {
   switch (action.type) {
     case types.NEW_GEO_POINTS:
       return onNewGeoPoints(state, action);

@@ -13,33 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { FC, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import IconButton from "@material-ui/core/IconButton";
-import Paper from "@material-ui/core/Paper";
-import Fab from "@material-ui/core/Fab";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListSubheader from "@material-ui/core/ListSubheader";
-import Avatar from "@material-ui/core/Avatar";
+import Immutable from "immutable";
+import {
+  AppBar,
+  Avatar,
+  Divider,
+  Fab,
+  IconButton,
+  Link,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  ListSubheader,
+  Paper,
+  Toolbar,
+  Typography,
+} from "@material-ui/core";
 import RefreshIcon from "@material-ui/icons/Refresh";
 import SearchIcon from "@material-ui/icons/Search";
-import Link from '@material-ui/core/Link';
-import Divider from '@material-ui/core/Divider';
-import { styles } from "./styles";
+import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
+import styles from "./styles";
 import { getTweets } from "../../../state/ducks/tweets/selectors";
 import { reqLatestTweets, updLatestTweets } from "../../../state/ducks/tweets/actions";
 
-const sortByDate = (a: string, b: string) =>
-  new Date(b).valueOf() - new Date(a).valueOf();
-
-const getDateOf = (tweet) => {
+const getDateOf = (tweet: Immutable.Map<string, any>) => {
   const date = new Date(tweet.get("timestamp"));
   date.setMilliseconds(0);
   date.setSeconds(0);
@@ -48,7 +48,7 @@ const getDateOf = (tweet) => {
   return date.toISOString();
 };
 
-const getDateString = (date) =>
+const getDateString = (date: string) =>
   new Date(date).toLocaleDateString(undefined, {
     weekday: "long",
     year: "numeric",
@@ -56,7 +56,7 @@ const getDateString = (date) =>
     day: "numeric",
   });
 
-const groupByDate = (tweets) => {
+const groupByDate = (tweets: Immutable.List<Immutable.Map<string, any>>) => {
   return tweets.reduce((dates, tweet) => {
     const date = getDateOf(tweet);
     if (!dates[date]) dates[date] = [];
@@ -68,20 +68,20 @@ const groupByDate = (tweets) => {
 interface Props extends WithStyles<typeof styles> {
 }
 
-const Timeline: FC<Props> = (props: Props) => {
+export default withStyles(styles, { withTheme: true })((props: Props) => {
   const dispatch = useDispatch();
 
   const tweets = useSelector(getTweets);
 
   const [tweetsByDate, setTweetsByDate] = useState({});
 
-  const [text, setText] = useState("");
+  const [text, setText] = useState<string>("");
 
-  const [hashtags, setHashtags] = useState([]);
+  const [hashtags, setHashtags] = useState<string[]>([]);
 
-  const [now, setNow] = useState((new Date()).toISOString());
+  const [now, setNow] = useState<string>((new Date()).toISOString());
 
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState<number>(0);
 
   useEffect(() => {
     dispatch(reqLatestTweets({
@@ -125,13 +125,13 @@ const Timeline: FC<Props> = (props: Props) => {
     }));
   };
 
-  const withLink = (text) => (
+  const withLink = (text: string) => (
     text
       .split(/\s+/)
       .map(t =>
         /#\w+/.test(t) ? (<Link component="button" variant="body2" onClick={() => { }}>{t}</Link>) : t
       )
-      .reduce((r, a) => r.concat(a, " "), [" "])
+      .reduce((r: any[], a: any) => r.concat(a, " "), [" "])
   );
 
   return (
@@ -141,10 +141,10 @@ const Timeline: FC<Props> = (props: Props) => {
           Timeline
         </Typography>
         <List className={props.classes.list}>
-          {Object.entries(tweetsByDate).map(([key, value], index) => (
+          {Object.entries(tweetsByDate).map(([key, value]: [string, Immutable.Map<string, any>[]], index: number) => (
             <React.Fragment key={index}>
               <ListSubheader className={props.classes.subheader}>{getDateString(key)}</ListSubheader>
-              {value.map((tweet, index) => (
+              {value.map((tweet: Immutable.Map<string, any>, _: number) => (
               <ListItem button>
                 <ListItemAvatar>
                   <Avatar alt="Profile Picture" src={tweet.get("image_url")} />
@@ -175,6 +175,4 @@ const Timeline: FC<Props> = (props: Props) => {
       </AppBar>
     </div>
   );
-};
-
-export default withStyles(styles, { withTheme: true })(Timeline);
+});

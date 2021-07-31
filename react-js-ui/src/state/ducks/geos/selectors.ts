@@ -13,20 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { fromJS } from 'immutable';
-
-export const getGeos = (state: any = fromJS({})) => {
-  return state.geo.get("stats");
+export const getGeos = (state: any = {}) => {
+  return state.geo.stats;
 };
 
-export const getGeoRadius = (state: any = fromJS({})) => {
-  return state.geo.get("radius");
+export const getGeoRadius = (state: any = {}) => {
+  return state.geo.radius;
 };
 
-export const getGeoBlur = (state: any = fromJS({})) => {
-  return state.geo.get("blur");
+export const getGeoBlur = (state: any = {}) => {
+  return state.geo.blur;
 };
 
-export const getGeoZoom = (state: any = fromJS({})) => {
-  return state.geo.get("zoom");
+export const getGeoZoom = (state: any = {}) => {
+  return state.geo.zoom;
 };

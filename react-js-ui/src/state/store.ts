@@ -26,6 +26,6 @@ const reducer = combineReducers({
   tweet: tweets,
 });
 
-const makeStore = (context: Context) => createStore(reducer, enhancer);
+const makeStore = (_: Context) => createStore(reducer, enhancer);
 
 export const wrapper = createWrapper<Store>(makeStore, { debug: true });
