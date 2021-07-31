@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 import { createStyles } from "@material-ui/core/styles";
+import { CustomTheme } from "../../../theme";
 
-export const styles = (theme: any) =>
+const styles = (_: CustomTheme) =>
   createStyles({
     grid: {
       height: "87vh",
@@ -32,3 +33,5 @@ export const styles = (theme: any) =>
       height: 140,
     },
   });
+
+export default styles;

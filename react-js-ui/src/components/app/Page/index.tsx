@@ -15,10 +15,12 @@
  */
 import React, { FC } from "react";
 import classNames from "classnames";
-import Paper from "@material-ui/core/Paper";
-import Divider from "@material-ui/core/Divider";
+import {
+  Paper,
+  Divider,
+} from "@material-ui/core";
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
-import { styles } from "./styles";
+import styles from "./styles";
 
 interface Props extends WithStyles<typeof styles> {
   children: FC;
@@ -42,4 +44,4 @@ const Page: FC<Props> = (props: Props) => {
   );
 };
 
-export default withStyles(styles)(Page);
+export default withStyles(styles, { withTheme: true })(Page);

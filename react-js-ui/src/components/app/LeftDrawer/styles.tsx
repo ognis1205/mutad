@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 import { createStyles } from "@material-ui/core/styles";
+import { CustomTheme } from "../../../theme";
 
-export const styles = (theme: any) =>
+const styles = (theme: CustomTheme) =>
   createStyles({
     logo: {
       cursor: "pointer",
@@ -44,3 +45,5 @@ export const styles = (theme: any) =>
       width: theme.drawer.miniWidth,
     },
   });
+
+export default styles;

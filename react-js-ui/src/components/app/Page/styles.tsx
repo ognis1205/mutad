@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 import { createStyles } from "@material-ui/core/styles";
+import { CustomTheme } from "../../../theme";
 
-export const styles = (theme: any) =>
+const styles = (theme: CustomTheme) =>
   createStyles({
     page: {
       margin: "80px 20px 20px 15px",
@@ -32,3 +33,5 @@ export const styles = (theme: any) =>
       },
     },
   });
+
+export default styles;

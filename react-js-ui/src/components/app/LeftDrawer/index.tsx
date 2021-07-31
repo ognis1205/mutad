@@ -15,15 +15,19 @@
  */
 import React, { FC } from "react";
 import classNames from "classnames";
-import Drawer from "@material-ui/core/Drawer";
-import Hidden from "@material-ui/core/Hidden";
+import {
+  Drawer,
+  Hidden,
+} from "@material-ui/core";
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
-import { styles } from "./styles";
+import styles from "./styles";
 import Menu from "../Menu";
+import { MenuDef } from "../../../specs";
+import { CustomTheme } from "../../../theme";
 
 interface Props extends WithStyles<typeof styles> {
-  theme: any;
-  menu: any;
+  theme: CustomTheme;
+  menu: MenuDef[];
   navDrawerOpen: boolean;
   handleChangeNavDrawer: (e: any) => void;
 }

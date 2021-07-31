@@ -13,43 +13,48 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { FC } from "react";
+import React from "react";
+import { FC } from "react";
 import Link from "next/link";
-import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
-import Grid from "@material-ui/core/Grid";
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
-import { styles } from "./styles";
+import {
+  Button,
+  Card,
+  CardActionArea,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Grid,
+  Typography
+} from "@material-ui/core";
+import withStyles from "@material-ui/core/styles/withStyles";
+import { WithStyles } from "@material-ui/core/styles/withStyles";
+import styles from "./styles";
+import { SubMenuDef } from "../../../specs";
 
 interface Props extends WithStyles<typeof styles> {
-  menu: any;
+  menu: SubMenuDef[];
 }
 
 interface ContentProps extends WithStyles<typeof styles> {
-  menu: any;
+  def: SubMenuDef;
 }
 
 const DashboardContent: FC<ContentProps> = (props: ContentProps) => {
   return (
     <Card className={props.classes.card}>
-      <Link href={props.menu.link} passHref>
+      <Link href={props.def.link} passHref>
         <CardActionArea>
           <CardMedia
             className={props.classes.cardMedia}
-            image={props.menu.image}
-            title={props.menu.text}
+            image={props.def.image}
+            title={props.def.text}
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">
-              {props.menu.text}
+              {props.def.text}
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
-              {props.menu.description}
+              {props.def.description}
             </Typography>
           </CardContent>
         </CardActionArea>
@@ -67,10 +72,10 @@ const StyledDashboardContent = withStyles(styles, { withTheme: true })(Dashboard
 
 const Dashboard = (props: Props) => (
   <Grid container className={props.classes.grid} spacing={2}>
-    {props.menu.map((item, index) => (
+    {props.menu.map((def: SubMenuDef, index: number) => (
       <Grid item xs={4} key={index}>
         <StyledDashboardContent
-          menu={item}
+          def={def}
         />
       </Grid>
     ))}

@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 import { createStyles } from "@material-ui/core/styles";
+import { CustomTheme } from "../../../theme";
 
-export const styles = (theme: any) =>
+const styles = (theme: CustomTheme) =>
   createStyles({
     appBar: {
       zIndex: theme.zIndex.drawer + 1,
@@ -45,3 +46,5 @@ export const styles = (theme: any) =>
       },
     }
   });
+
+export default styles;

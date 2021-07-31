@@ -15,13 +15,18 @@
  */
 import React, { FC } from "react";
 import classNames from "classnames";
-import AppBar from "@material-ui/core/AppBar";
-import IconButton from "@material-ui/core/IconButton";
-import GitHub from "@material-ui/icons/GitHub";
-import MenuIcon from "@material-ui/icons/Menu";
-import { Toolbar, Typography } from "@material-ui/core";
+import {
+  AppBar,
+  IconButton,
+  Toolbar,
+  Typography,
+} from "@material-ui/core";
+import {
+  GitHub,
+  Menu as MenuIcon,
+} from "@material-ui/icons/";
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
-import { styles } from "./styles";
+import styles from "./styles";
 
 interface Props extends WithStyles<typeof styles> {
   title: string;
@@ -69,4 +74,4 @@ const Header: FC<Props> = (props: Props) => {
   );
 };
 
-export default withStyles(styles)(Header);
+export default withStyles(styles, { withTheme: true })(Header);

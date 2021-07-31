@@ -15,8 +15,9 @@
  */
 import { createStyles } from "@material-ui/core/styles";
 import Color from "color";
+import { CustomTheme } from "../../../theme";
 
-export const styles = (theme: any) =>
+const styles = (theme: CustomTheme) =>
   createStyles({
     muMenuItem: {
       color: "white",
@@ -62,3 +63,5 @@ export const styles = (theme: any) =>
       paddingLeft: 20,
     },
   });
+
+export default styles;

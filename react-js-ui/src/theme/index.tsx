@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { Theme } from "@material-ui/core";
 import { createTheme } from "@material-ui/core/styles";
 import {
   blue,
@@ -33,6 +34,10 @@ declare module "@material-ui/core/styles/createTheme" {
   interface ThemeOptions {
     drawer?: any;
   }
+}
+
+export interface CustomTheme extends Theme {
+  drawer?: any;
 }
 
 export const availableThemes = [

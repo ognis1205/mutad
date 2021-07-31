@@ -13,22 +13,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React from "react";
-import Assessment from "@material-ui/icons/Assessment";
-import BorderClear from "@material-ui/icons/BorderClear";
-import BorderInner from "@material-ui/icons/BorderInner";
-import BorderOuter from "@material-ui/icons/BorderOuter";
-import HomeIcon from "@material-ui/icons/Home";
+import React, { FC } from "react";
+import {
+  Assessment,
+  BorderClear,
+  BorderInner,
+  BorderOuter,
+  Home,
+} from "@material-ui/icons";
 
-const data = {
+export interface MenuDef {
+  text: string,
+  icon: FC,
+  link?: string,
+  subMenu?: SubMenuDef[],
+}
+
+export interface SubMenuDef {
+  text: string,
+  description: string,
+  image: string,
+  icon: FC,
+  link: string,
+}
+
+const specs = {
   menu: [
     {
       text: "Twitter Data",
       icon: <Assessment />,
       subMenu: [
         {
-          text: "Tweet Timeline",
-          description: "Show Most Recent Tweets",
+          text: "Timeline",
+          description: "A List Timeline Displays the Latest Tweets",
           image: "/tweet.jpg",
           icon: <BorderClear />,
           link: "/tweet/timeline",
@@ -51,10 +68,10 @@ const data = {
     },
     {
       text: "Home",
-      icon: <HomeIcon />,
+      icon: <Home />,
       link: "/",
     },
   ],
 };
 
-export default data;
+export default specs;
