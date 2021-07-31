@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 import React from "react";
-import { FC } from "react";
 import Link from "next/link";
 import {
   Button,
@@ -26,20 +25,15 @@ import {
   Grid,
   Typography
 } from "@material-ui/core";
-import withStyles from "@material-ui/core/styles/withStyles";
-import { WithStyles } from "@material-ui/core/styles/withStyles";
+import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import styles from "./styles";
 import { SubMenuDef } from "../../../specs";
 
-interface Props extends WithStyles<typeof styles> {
-  menu: SubMenuDef[];
-}
-
-interface ContentProps extends WithStyles<typeof styles> {
+interface ItemProps extends WithStyles<typeof styles> {
   def: SubMenuDef;
 }
 
-const DashboardContent: FC<ContentProps> = (props: ContentProps) => {
+const Item = withStyles(styles, { withTheme: true })((props: ItemProps) => {
   return (
     <Card className={props.classes.card}>
       <Link href={props.def.link} passHref>
@@ -66,20 +60,18 @@ const DashboardContent: FC<ContentProps> = (props: ContentProps) => {
       </CardActions>
     </Card>
   );
-};
+});
 
-const StyledDashboardContent = withStyles(styles, { withTheme: true })(DashboardContent);
+interface Props extends WithStyles<typeof styles> {
+  menu: SubMenuDef[];
+}
 
-const Dashboard = (props: Props) => (
+export default withStyles(styles, { withTheme: true })((props: Props) => (
   <Grid container className={props.classes.grid} spacing={2}>
     {props.menu.map((def: SubMenuDef, index: number) => (
       <Grid item xs={4} key={index}>
-        <StyledDashboardContent
-          def={def}
-        />
+        <Item def={def}/>
       </Grid>
     ))}
   </Grid>
-  );
-
-export default withStyles(styles, { withTheme: true })(Dashboard);
+  ));

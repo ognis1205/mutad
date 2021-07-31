@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { FC } from "react";
+import React from "react";
 import classNames from "classnames";
 import {
   Drawer,
@@ -32,7 +32,7 @@ interface Props extends WithStyles<typeof styles> {
   handleChangeNavDrawer: (e: any) => void;
 }
 
-const LeftDrawer: FC<Props> = (props: Props) => {
+export default withStyles(styles, { withTheme: true })((props: Props) => {
   const drawerContent = () => (
     <div>
       <div className={props.classes.logo}></div>
@@ -74,6 +74,4 @@ const LeftDrawer: FC<Props> = (props: Props) => {
       </Hidden>
     </div>
   );
-};
-
-export default withStyles(styles, { withTheme: true })(LeftDrawer);
+});

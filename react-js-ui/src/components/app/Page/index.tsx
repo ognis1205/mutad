@@ -27,7 +27,7 @@ interface Props extends WithStyles<typeof styles> {
   navDrawerOpen: boolean;
 }
 
-const Page: FC<Props> = (props: Props) => {
+export default withStyles(styles, { withTheme: true })((props: Props) => {
   return (
     <div
       className={classNames(
@@ -42,6 +42,4 @@ const Page: FC<Props> = (props: Props) => {
       </Paper>
     </div>
   );
-};
-
-export default withStyles(styles, { withTheme: true })(Page);
+});

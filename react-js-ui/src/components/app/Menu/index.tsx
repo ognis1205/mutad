@@ -13,54 +13,47 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { FC, useState, createRef, forwardRef } from "react";
+import React, { useState, createRef, forwardRef } from "react";
 import Link from "next/link";
-import { Menu as MUMenu } from "@material-ui/core";
-import { MenuItem as MUMenuItem } from "@material-ui/core";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import Collapse from "@material-ui/core/Collapse";
-import List from "@material-ui/core/List";
-import ExpandMore from "@material-ui/icons/ExpandMore";
-import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
+import {
+  Collapse,
+  List,
+  ListItem,
+  ListItemIcon,
+  Menu as MUMenu,
+  MenuItem as MUMenuItem,
+} from "@material-ui/core";
+import {
+  ExpandMore,
+  KeyboardArrowRight,
+} from "@material-ui/icons";
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import styles from "./styles";
 import { MenuDef } from "../../../specs";
 
-interface Props extends WithStyles<typeof styles> {
-  menu: MenuDef[];
-  navDrawerOpen: boolean;
-}
-
-interface ContentProps extends WithStyles<typeof styles> {
+interface ItemProps extends WithStyles<typeof styles> {
   key: number;
   menu: MenuDef;
   navDrawerOpen: boolean;
 }
 
-const MenuItem: FC<ContentProps> = (props: ContentProps) => {
-//  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-
+const Item = withStyles(styles, { withTheme: true })((props: ItemProps) => {
   const [open, setOpen] = useState<boolean>(false);
 
   const divElem = createRef<null | HTMLDivElement>();
 
-  const Div = forwardRef<HTMLDivElement>((props, ref) => {
+  const Div = forwardRef<HTMLDivElement>((_, ref) => {
     return (
-      <>
-        <div ref={ref} style={{ position: "absolute", right: 0 }} />
-      </>
+      <div ref={ref} style={{ position: "absolute", right: 0 }} />
     );
   });
 
   const handleClick = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
-//    setAnchorEl(e.currentTarget);
     setOpen(!open);
   };
 
   const handleClose = () => {
-//    setAnchorEl(null);
     setOpen(false);
   };
 
@@ -166,20 +159,19 @@ const MenuItem: FC<ContentProps> = (props: ContentProps) => {
 
   if (props.navDrawerOpen) return large();
   else return mini();
-};
+});
 
-const StyledMenuItem = withStyles(styles, { withTheme: true })(MenuItem);
+interface Props extends WithStyles<typeof styles> {
+  menu: MenuDef[];
+  navDrawerOpen: boolean;
+}
 
-const Menu = (props: Props) => (
-  <>
-    {props.menu.map((item: MenuDef, index: number) => (
-      <StyledMenuItem
-        key={index}
-        menu={item}
-        navDrawerOpen={props.navDrawerOpen}
-      />
-    ))}
-  </>
-);
-
-export default withStyles(styles, { withTheme: true })(Menu);
+export default withStyles(styles, { withTheme: true })((props: Props) => {
+  return (
+    <>
+      {props.menu.map((item: MenuDef, index: number) => (
+        <Item key={index} menu={item} navDrawerOpen={props.navDrawerOpen} />
+      ))}
+    </>
+  );
+});

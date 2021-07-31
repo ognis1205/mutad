@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { FC } from "react";
+import React from "react";
 import classNames from "classnames";
 import {
   AppBar,
@@ -35,7 +35,7 @@ interface Props extends WithStyles<typeof styles> {
   navDrawerOpen: boolean;
 }
 
-const Header: FC<Props> = (props: Props) => {
+export default withStyles(styles, { withTheme: true })((props: Props) => {
   return (
     <div>
       <AppBar
@@ -72,6 +72,4 @@ const Header: FC<Props> = (props: Props) => {
       </AppBar>
     </div>
   );
-};
-
-export default withStyles(styles, { withTheme: true })(Header);
+});
