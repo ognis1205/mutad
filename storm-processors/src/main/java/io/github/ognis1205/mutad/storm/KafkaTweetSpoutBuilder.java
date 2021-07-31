@@ -18,6 +18,7 @@ package io.github.ognis1205.mutad.storm;
 import java.util.Properties;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
+import org.apache.storm.kafka.spout.FirstPollOffsetStrategy;
 import org.apache.storm.kafka.spout.KafkaSpout;
 import org.apache.storm.kafka.spout.KafkaSpoutConfig;
 import org.apache.storm.tuple.Fields;
@@ -47,6 +48,7 @@ public class KafkaTweetSpoutBuilder {
         KafkaSpoutConfig<String, String> kafkaSpoutConfig = KafkaSpoutConfig
                 .builder(bootstrapServers, topic)
                 .setProp(props)
+                .setFirstPollOffsetStrategy(FirstPollOffsetStrategy.UNCOMMITTED_EARLIEST)
                 .setRecordTranslator((r) -> new Values(r.value()), new Fields(FIELD))
                 .build();
 
