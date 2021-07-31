@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { FC } from "react";
+import React from "react";
 import classNames from "classnames";
 import {
   Paper,
@@ -22,7 +22,7 @@ import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import styles from "./styles";
 
 interface Props extends WithStyles<typeof styles> {
-  children: FC;
+  children: JSX.Element;
   navDrawerOpen: boolean;
 }
 

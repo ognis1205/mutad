@@ -15,7 +15,6 @@
  */
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import Immutable from "immutable";
 import {
   AppBar,
   Avatar,
@@ -36,11 +35,14 @@ import RefreshIcon from "@material-ui/icons/Refresh";
 import SearchIcon from "@material-ui/icons/Search";
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import styles from "./styles";
-import { getTweets } from "../../../state/ducks/tweets/selectors";
-import { reqLatestTweets, updLatestTweets } from "../../../state/ducks/tweets/actions";
+import {
+  Actions,
+  Selectors,
+  Types,
+} from "../../../state/ducks/tweets";
 
-const getDateOf = (tweet: Immutable.Map<string, any>) => {
-  const date = new Date(tweet.get("timestamp"));
+const getDateOf = (tweet: Types.Tweet) => {
+  const date = new Date(tweet.timestamp);
   date.setMilliseconds(0);
   date.setSeconds(0);
   date.setMinutes(0);
@@ -56,7 +58,7 @@ const getDateString = (date: string) =>
     day: "numeric",
   });
 
-const groupByDate = (tweets: Immutable.List<Immutable.Map<string, any>>) => {
+const groupByDate = (tweets: Types.Tweet[]) => {
   return tweets.reduce((dates, tweet) => {
     const date = getDateOf(tweet);
     if (!dates[date]) dates[date] = [];
@@ -71,7 +73,7 @@ interface Props extends WithStyles<typeof styles> {
 export default withStyles(styles, { withTheme: true })((props: Props) => {
   const dispatch = useDispatch();
 
-  const tweets = useSelector(getTweets);
+  const tweets = useSelector(Selectors.getTweets);
 
   const [tweetsByDate, setTweetsByDate] = useState({});
 
@@ -84,7 +86,7 @@ export default withStyles(styles, { withTheme: true })((props: Props) => {
   const [page, setPage] = useState<number>(0);
 
   useEffect(() => {
-    dispatch(reqLatestTweets({
+    dispatch(Actions.reqLatestTweets({
       before: now,
       text: text,
       hashtags: hashtags,
@@ -97,12 +99,12 @@ export default withStyles(styles, { withTheme: true })((props: Props) => {
     setTweetsByDate(groupByDate(tweets));
   }, [tweets]);
 
-  const handleScroll = (e: any) => {
+  const handleScroll = (e: React.UIEvent<HTMLElement>) => {
     e.preventDefault();
-    const bottom = e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
+    const bottom = e.currentTarget.scrollHeight - e.currentTarget.scrollTop === e.currentTarget.clientHeight;
     if (bottom) {
       setPage(page + 1);
-      dispatch(updLatestTweets({
+      dispatch(Actions.updLatestTweets({
         before: now,
         text: text,
         hashtags: hashtags,
@@ -112,11 +114,11 @@ export default withStyles(styles, { withTheme: true })((props: Props) => {
     }
   };
 
-  const handleRefresh = (e: any) => {
+  const handleRefresh = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     setNow((new Date()).toISOString());
     setPage(0);
-    dispatch(reqLatestTweets({
+    dispatch(Actions.reqLatestTweets({
       before: now,
       text: text,
       hashtags: hashtags,
@@ -141,21 +143,21 @@ export default withStyles(styles, { withTheme: true })((props: Props) => {
           Timeline
         </Typography>
         <List className={props.classes.list}>
-          {Object.entries(tweetsByDate).map(([key, value]: [string, Immutable.Map<string, any>[]], index: number) => (
+          {Object.entries(tweetsByDate).map(([key, value]: [string, Types.Tweet[]], index: number) => (
             <React.Fragment key={index}>
               <ListSubheader className={props.classes.subheader}>{getDateString(key)}</ListSubheader>
-              {value.map((tweet: Immutable.Map<string, any>, _: number) => (
+              {value.map((tweet: Types.Tweet, _: number) => (
               <ListItem button>
                 <ListItemAvatar>
-                  <Avatar alt="Profile Picture" src={tweet.get("image_url")} />
+                  <Avatar alt="Profile Picture" src={tweet.image_url} />
                 </ListItemAvatar>
                 <ListItemText primary={
                   <div className={props.classes.listItemText}>
-                    <strong>{ tweet.get("user_name") }</strong>{ "@" }{ tweet.get("user_id") }
+                    <strong>{ tweet.user_name }</strong>{ "@" }{ tweet.user_id }
                     <Divider/>
-                    { withLink(tweet.get("text")) }
+                    { withLink(tweet.text) }
                   </div>
-                  } secondary={ tweet.get("timestamp") } />
+                  } secondary={ tweet.timestamp } />
               </ListItem>
               ))}
             </React.Fragment>

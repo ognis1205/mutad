@@ -16,6 +16,7 @@
 import reducer from './reducers';
 import * as Actions from './actions';
 import * as Selectors from './selectors';
+import * as Types from './tweet.d';
 
-export { Selectors, Actions };
+export { Selectors, Actions, Types };
 export default reducer;

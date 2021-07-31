@@ -13,8 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { fromJS } from 'immutable';
-
-export const getTweets = (state: any = fromJS({})) => {
-  return state.tweet.get("latest");
+export const getTweets = (state: any = {}) => {
+  return state.tweet.latest;
 };

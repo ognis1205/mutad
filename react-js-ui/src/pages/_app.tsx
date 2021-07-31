@@ -13,8 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { FC, useState } from "react";
-import { AppProps } from "next/app";
+import React, { useState } from "react";
 import Head from "next/head";
 import { ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -25,7 +24,7 @@ import Header from "../components/app/Header";
 import LeftDrawer from "../components/app/LeftDrawer";
 import Page from "../components/app/Page";
 
-const App: FC<AppProps> = ({ Component, pageProps }) => {
+export default wrapper.withRedux(({ Component, pageProps }) => {
   const [navDrawerOpen, setNavDrawerOpen] = useState(false);
 
   React.useEffect(() => {
@@ -65,6 +64,4 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
       </ThemeProvider>
     </React.Fragment>
   );
-};
-
-export default wrapper.withRedux(App);
+});

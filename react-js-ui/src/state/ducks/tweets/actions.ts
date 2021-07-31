@@ -13,10 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { TweetQuery } from "./tweet.d";
-import { NEW_LATEST_TWEETS, ADD_LATEST_TWEETS, CLR_LATEST_TWEETS } from "./types";
+import { Dispatch } from 'redux';
+import {
+  TweetQuery,
+  TweetResponse,
+} from "./tweet.d";
+import {
+  NEW_LATEST_TWEETS,
+  ADD_LATEST_TWEETS,
+  CLR_LATEST_TWEETS,
+} from "./types";
+import {
+  TweetState,
+} from "./reducers";
 
-export const reqLatestTweets = (query: TweetQuery) => async (dispatch, getState) => {
+export const reqLatestTweets = (query: TweetQuery) => async (dispatch: Dispatch, getState: () => TweetState) => {
     const opts = {
       method: "POST",
       headers: { 'Content-Type': 'application/json' },
@@ -35,7 +46,7 @@ export const reqLatestTweets = (query: TweetQuery) => async (dispatch, getState)
     });
 };
 
-export const updLatestTweets = (query: TweetQuery) => async (dispatch, getState) => {
+export const updLatestTweets = (query: TweetQuery) => async (dispatch: Dispatch, getState: () => TweetState) => {
     const opts = {
       method: "POST",
       headers: { 'Content-Type': 'application/json' },
@@ -54,12 +65,12 @@ export const updLatestTweets = (query: TweetQuery) => async (dispatch, getState)
     });
 };
 
-export const newLatestTweets = (json) => ({
+export const newLatestTweets = (json: TweetResponse[]) => ({
   type: NEW_LATEST_TWEETS,
   payload: json,
 });
 
-export const addLatestTweets = (json) => ({
+export const addLatestTweets = (json: TweetResponse[]) => ({
   type: ADD_LATEST_TWEETS,
   payload: json,
 });

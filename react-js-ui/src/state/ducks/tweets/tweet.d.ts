@@ -29,3 +29,12 @@ export interface TweetQuery {
   page: number,
   size: number,
 }
+
+export interface TweetResponse {
+  userId: string,
+  userName: string,
+  imageUrl: string,
+  text: string,
+  hashtags: string[],
+  timestamp: number,
+}

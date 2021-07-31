@@ -48,7 +48,7 @@ export const reqGeoPoints = (query: GeoQuery) => async (dispatch: Dispatch, getS
     });
 };
 
-export const newGeoPoints = (json: GeoResponse) => ({
+export const newGeoPoints = (json: GeoResponse[]) => ({
   type: NEW_GEO_POINTS,
   payload: json,
 });

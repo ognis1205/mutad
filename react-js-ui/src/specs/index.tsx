@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { FC } from "react";
+import React from "react";
 import {
   Assessment,
   BorderClear,
@@ -24,7 +24,7 @@ import {
 
 export interface MenuDef {
   text: string,
-  icon: FC,
+  icon: JSX.Element,
   link?: string,
   subMenu?: SubMenuDef[],
 }
@@ -33,7 +33,7 @@ export interface SubMenuDef {
   text: string,
   description: string,
   image: string,
-  icon: FC,
+  icon: JSX.Element,
   link: string,
 }
 

@@ -13,30 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { AnyAction } from "redux";
-import { fromJS } from "immutable";
+import { PayloadAction } from '@reduxjs/toolkit';
+import { Tweet, TweetResponse } from "./tweet.d";
 import * as types from "./types";
 
-const initState = fromJS({
-  latest: [],
-});
+export type TweetState = {
+  latest: Tweet[];
+};
 
-const onNewLatestTweets = (state, action) => {
-  return fromJS({
-    latest: action.payload.map((e) => { return {
+const initState = {
+  latest: [],
+};
+
+const onNewLatestTweets = (state: TweetState, action: PayloadAction<TweetResponse[]>) => {
+  return {
+    latest: action.payload.map((e) => ({
       user_id: e.userId,
       user_name: e.userName,
       image_url: e.imageUrl,
       text: e.text,
       hashtags: e.hashtags,
       timestamp: e.timestamp,
-    }; }),
-  });
+    })),
+  };
 };
 
-const onAddLatestTweets = (state, action) => {
-  return fromJS({
-    latest: [...state.get("latest"), ...action.payload.map((e) => { return {
+const onAddLatestTweets = (state: TweetState, action: PayloadAction<TweetResponse[]>) => {
+  return {
+    latest: [...state.latest, ...action.payload.map((e) => { return {
       user_id: e.userId,
       user_name: e.userName,
       image_url: e.imageUrl,
@@ -44,16 +48,16 @@ const onAddLatestTweets = (state, action) => {
       hashtags: e.hashtags,
       timestamp: e.timestamp,
     };})],
-  });
+  };
 };
 
-const onClrLatestTweets = (state, action) => {
-  return fromJS({
+const onClrLatestTweets = (state: TweetState, action: PayloadAction<any>) => {
+  return {
     latest: [],
-  });
+  };
 };
 
-const reducer = (state = initState, action: AnyAction) => {
+const reducer = (state = initState, action: PayloadAction<any | TweetResponse[]>) => {
   switch (action.type) {
     case types.NEW_LATEST_TWEETS:
       return onNewLatestTweets(state, action);
