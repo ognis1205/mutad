@@ -16,6 +16,7 @@
 import React from "react";
 import classNames from "classnames";
 import {
+  Box,
   Drawer,
   Hidden,
 } from "@material-ui/core";
@@ -34,14 +35,14 @@ interface Props extends WithStyles<typeof styles> {
 
 export default withStyles(styles, { withTheme: true })((props: Props) => {
   const drawerContent = () => (
-    <div>
-      <div className={props.classes.logo}></div>
+    <React.Fragment>
+      <Box className={props.classes.logo}></Box>
       <Menu menu={props.menu} navDrawerOpen={props.navDrawerOpen} />
-    </div>
+    </React.Fragment>
   );
 
   return (
-    <div>
+    <React.Fragment>
       <Hidden mdUp>
         <Drawer
           variant="temporary"
@@ -72,6 +73,6 @@ export default withStyles(styles, { withTheme: true })((props: Props) => {
           {drawerContent()}
         </Drawer>
       </Hidden>
-    </div>
+    </React.Fragment>
   );
 });

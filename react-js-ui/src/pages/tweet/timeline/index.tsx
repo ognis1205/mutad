@@ -19,7 +19,9 @@ import Timeline from "../../../components/tweet/Timeline";
 
 const Index: NextPage = () => {
   return (
-    <Timeline />
+    <React.Fragment>
+      <Timeline />
+    </React.Fragment>
   );
 };
 

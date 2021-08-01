@@ -40,9 +40,9 @@ interface ItemProps extends WithStyles<typeof styles> {
 const Item = withStyles(styles, { withTheme: true })((props: ItemProps) => {
   const [open, setOpen] = useState<boolean>(false);
 
-  const divElem = createRef<null | HTMLDivElement>();
+  const anchor = createRef<null | HTMLDivElement>();
 
-  const Div = forwardRef<HTMLDivElement>((_, ref) => {
+  const Anchor = forwardRef<HTMLDivElement>((_, ref) => {
     return (
       <div ref={ref} style={{ position: "absolute", right: 0 }} />
     );
@@ -79,9 +79,9 @@ const Item = withStyles(styles, { withTheme: true })((props: ItemProps) => {
         <ListItemIcon className={props.classes.listItemIcon}>
           {props.menu.icon}
         </ListItemIcon>
-        <Div ref={divElem} />
+        <Anchor ref={anchor} />
         <MUMenu
-          anchorEl={divElem.current}
+          anchorEl={anchor.current}
           classes={{ paper: props.classes.muMenu }}
           open={open}
           onClose={handleClose}
@@ -116,7 +116,7 @@ const Item = withStyles(styles, { withTheme: true })((props: ItemProps) => {
     }
 
     return (
-      <div>
+      <React.Fragment>
         <ListItem
           key={props.key}
           classes={{ root: props.classes.subMuMenuItem }}
@@ -153,7 +153,7 @@ const Item = withStyles(styles, { withTheme: true })((props: ItemProps) => {
             ))}
           </List>
         </Collapse>
-      </div>
+      </React.Fragment>
     );
   };
 
@@ -168,10 +168,10 @@ interface Props extends WithStyles<typeof styles> {
 
 export default withStyles(styles, { withTheme: true })((props: Props) => {
   return (
-    <>
+    <List>
       {props.menu.map((item: MenuDef, index: number) => (
         <Item key={index} menu={item} navDrawerOpen={props.navDrawerOpen} />
       ))}
-    </>
+    </List>
   );
 });

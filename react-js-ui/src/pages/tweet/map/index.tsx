@@ -29,7 +29,7 @@ const Index: NextPage = () => {
   );
 
   return (
-    <>
+    <React.Fragment>
       <HeatMap
         center={[0.0, 0.0]}
         zoom={3}
@@ -40,7 +40,7 @@ const Index: NextPage = () => {
         ]}
       />
       <HeatMapSearch/>
-    </>
+    </React.Fragment>
   );
 };
 

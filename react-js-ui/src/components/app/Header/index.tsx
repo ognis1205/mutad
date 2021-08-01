@@ -17,6 +17,7 @@ import React from "react";
 import classNames from "classnames";
 import {
   AppBar,
+  Box,
   IconButton,
   Toolbar,
   Typography,
@@ -37,39 +38,37 @@ interface Props extends WithStyles<typeof styles> {
 
 export default withStyles(styles, { withTheme: true })((props: Props) => {
   return (
-    <div>
-      <AppBar
-        className={classNames(props.classes.appBar, {
-          [props.classes.appBarShift]: props.navDrawerOpen,
-        })}
-      >
-        <Toolbar>
+    <AppBar
+      className={classNames(props.classes.appBar, {
+        [props.classes.appBarShift]: props.navDrawerOpen,
+      })}
+    >
+      <Toolbar>
+        <IconButton
+          className={props.classes.iconButton}
+          color="inherit"
+          aria-label="Open drawer"
+          onClick={props.handleChangeNavDrawer}
+        >
+          <MenuIcon />
+        </IconButton>
+        <Box className={props.classes.grow}>
+          <Typography variant="h5" color="inherit">
+            {props.title}
+          </Typography>
+        </Box>
+        <Box className={props.classes.links}>
           <IconButton
-            className={props.classes.iconButton}
+            aria-haspopup="true"
+            onClick={() => {
+              window.open(props.github);
+            }}
             color="inherit"
-            aria-label="Open drawer"
-            onClick={props.handleChangeNavDrawer}
           >
-            <MenuIcon />
+            <GitHub />
           </IconButton>
-          <div className={props.classes.grow}>
-            <Typography variant="h5" color="inherit">
-              {props.title}
-            </Typography>
-          </div>
-          <div className={props.classes.links}>
-            <IconButton
-              aria-haspopup="true"
-              onClick={() => {
-                window.open(props.github);
-              }}
-              color="inherit"
-            >
-              <GitHub />
-            </IconButton>
-          </div>
-        </Toolbar>
-      </AppBar>
-    </div>
+        </Box>
+      </Toolbar>
+    </AppBar>
   );
 });

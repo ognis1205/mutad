@@ -24,7 +24,9 @@ const Index: NextPage = () => {
   }));
 
   return (
-    <Dashboard menu={menu} />
+    <React.Fragment>
+      <Dashboard menu={menu} />
+    </React.Fragment>
   );
 };
 

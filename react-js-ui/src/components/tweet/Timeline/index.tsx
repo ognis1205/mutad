@@ -18,6 +18,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   AppBar,
   Avatar,
+  Box,
   Divider,
   Fab,
   IconButton,
@@ -114,7 +115,7 @@ export default withStyles(styles, { withTheme: true })((props: Props) => {
     }
   };
 
-  const handleRefresh = (e: React.MouseEvent<HTMLElement>) => {
+  const handleRefresh = (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
     e.preventDefault();
     setNow((new Date()).toISOString());
     setPage(0);
@@ -137,7 +138,7 @@ export default withStyles(styles, { withTheme: true })((props: Props) => {
   );
 
   return (
-    <div className={props.classes.container}>
+    <Box className={props.classes.container}>
       <Paper square className={props.classes.paper} onScroll={handleScroll}>
         <Typography className={props.classes.text} variant="h5" gutterBottom>
           Timeline
@@ -152,11 +153,11 @@ export default withStyles(styles, { withTheme: true })((props: Props) => {
                   <Avatar alt="Profile Picture" src={tweet.image_url} />
                 </ListItemAvatar>
                 <ListItemText primary={
-                  <div className={props.classes.listItemText}>
+                  <Box className={props.classes.listItemText}>
                     <strong>{ tweet.user_name }</strong>{ "@" }{ tweet.user_id }
                     <Divider/>
                     { withLink(tweet.text) }
-                  </div>
+                  </Box>
                   } secondary={ tweet.timestamp } />
               </ListItem>
               ))}
@@ -169,12 +170,12 @@ export default withStyles(styles, { withTheme: true })((props: Props) => {
           <Fab color="secondary" aria-label="add" className={props.classes.fabButton}>
             <RefreshIcon onClick={handleRefresh}/>
           </Fab>
-          <div className={props.classes.grow} />
+          <Box className={props.classes.grow} />
           <IconButton color="inherit">
             <SearchIcon />
           </IconButton>
         </Toolbar>
       </AppBar>
-    </div>
+    </Box>
   );
 });

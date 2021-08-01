@@ -19,6 +19,7 @@ import "leaflet.heat";
 import React, { useEffect, useState } from "react";
 import { MapContainerProps } from "react-leaflet";
 import { useSelector } from "react-redux";
+import { Box } from "@material-ui/core";
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import styles from "./styles";
 import { Selectors } from "../../../state/ducks/geos";
@@ -59,5 +60,5 @@ export default withStyles(styles)((props: Props) => {
     }
   }, [geos, r, b, z]);
   
-  return <div id="map" className={props.classes.leaflet}></div>;
+  return <Box id="map" className={props.classes.leaflet}></Box>;
 });
