@@ -138,7 +138,7 @@ export default withStyles(styles, { withTheme: true })((props: Props) => {
   );
 
   return (
-    <Box className={props.classes.container}>
+    <Box className={props.classes.box}>
       <Paper square className={props.classes.paper} onScroll={handleScroll}>
         <Typography className={props.classes.text} variant="h5" gutterBottom>
           Timeline

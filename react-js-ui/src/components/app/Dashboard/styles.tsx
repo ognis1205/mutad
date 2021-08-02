@@ -16,10 +16,10 @@
 import { createStyles } from "@material-ui/core/styles";
 import { CustomTheme } from "../../../theme";
 
-const styles = (_: CustomTheme) =>
+const styles = (theme: CustomTheme) =>
   createStyles({
     grid: {
-      height: "87vh",
+      height: theme.pageHeight,
       justifyContent: "flex-start",
       padding: "15px",
     },

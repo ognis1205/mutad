@@ -16,12 +16,12 @@
 import { createStyles } from "@material-ui/core/styles";
 import { CustomTheme } from "../../../theme";
 
-const styles = (_: CustomTheme) =>
+const styles = (theme: CustomTheme) =>
   createStyles({
     leaflet: {
-      height: "85vh",
-      position: "relative",
-      width: "100%",
+      height: theme.pageHeight,
+      width: theme.pagePosition,
+      position: theme.pagePosition,
     },
   });
 

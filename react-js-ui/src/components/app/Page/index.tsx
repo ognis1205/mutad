@@ -31,11 +31,11 @@ export default withStyles(styles, { withTheme: true })((props: Props) => {
   return (
     <Box
       className={classNames(
-        props.classes.page,
-        !props.navDrawerOpen && props.classes.pageFull
+        props.classes.box,
+        !props.navDrawerOpen && props.classes.boxFull
       )}
     >
-      <Paper variant="outlined" square>
+      <Paper variant="outlined" square className={props.classes.paper}>
         {props.children}
       </Paper>
     </Box>

@@ -38,6 +38,9 @@ declare module "@material-ui/core/styles/createTheme" {
 
 export interface CustomTheme extends Theme {
   drawer?: any;
+  pageHeight?: string | number;
+  pageWidth?: string | number;
+  pagePosition?: "relative" | "absolute";
 }
 
 export const availableThemes = [
@@ -93,8 +96,11 @@ const defaultTheme = {
     primaryColor: blue[600],
   },
   typography: {
-    // useNextVariants: true
+    //useNextVariants: true
   },
+  pageHeight: "87vh",
+  pageWidth: "100%",
+  pagePosition: "relative",
 };
 
 const theme = createTheme(defaultTheme);

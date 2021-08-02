@@ -18,8 +18,8 @@ import { CustomTheme } from "../../../theme";
 
 const styles = (theme: CustomTheme) =>
   createStyles({
-    container: {
-      position: "relative",
+    box: {
+      position: theme.pagePosition,
     },
     listItemText: {
       whiteSpace: 'nowrap',
@@ -31,7 +31,7 @@ const styles = (theme: CustomTheme) =>
     },
     paper: {
       overflow: "auto",
-      height: "87vh",
+      height: theme.pageHeight,
       paddingBottom: 50,
     },
     list: {

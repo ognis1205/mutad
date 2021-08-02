@@ -18,19 +18,23 @@ import { CustomTheme } from "../../../theme";
 
 const styles = (theme: CustomTheme) =>
   createStyles({
-    page: {
+    box: {
       margin: "80px 20px 20px 15px",
       paddingLeft: theme.drawer.width,
       [theme.breakpoints.down("sm")]: {
         paddingLeft: 0,
       },
-      position: "relative",
     },
-    pageFull: {
+    boxFull: {
       paddingLeft: theme.drawer.miniWidth,
       [theme.breakpoints.down("sm")]: {
         paddingLeft: 0,
       },
+    },
+    paper: {
+      height: theme.pageHeight,
+      width: theme.pageWidth,
+      position: theme.pagePosition,
     },
   });
 
