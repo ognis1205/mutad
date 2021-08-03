@@ -25,31 +25,31 @@ import {
 const Index: NextPage = () => {
   const dispatch = Redux.useDispatch();
 
+  const scrollRef = React.createRef<HTMLUListElement>();
+
   const [dialogOpen, setDialogOpen] = React.useState<boolean>(false);
 
   const [text, setText] = React.useState<string>("");
 
   const [hashtags, setHashtags] = React.useState<string>("");
 
-  const [now, setNow] = React.useState<string>((new Date()).toISOString());
+  const [now, setNow] = React.useState<number>((new Date()).getTime());
 
   const [page, setPage] = React.useState<number>(0);
 
-  const handleDialogOpen = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+  const handleOpen = () => {
     setDialogOpen(true);
   };
 
-  const handleDialogClose = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+  const handleClose = () => {
     setDialogOpen(false);
   };
 
-  const handleNewText = (text: string) => {
+  const handleText = (text: string) => {
     setText(text);
   };
 
-  const handleNewHashtags = (hashtags: string) => {
+  const handleHashtags = (hashtags: string) => {
     setHashtags(hashtags);
   };
 
@@ -57,7 +57,7 @@ const Index: NextPage = () => {
     /\S/.test(hashtags) ? hashtags.split(/\s+/) : []
   );
 
-  const handleNewPage = () => {
+  const handleScroll = () => {
     setPage(page + 1);
     dispatch(Actions.updLatestTweets({
       before: now,
@@ -68,8 +68,9 @@ const Index: NextPage = () => {
     }));
   };
 
-  const handleNewResult = () => {
-    setNow((new Date()).toISOString());
+  const handleSearch = () => {
+    scrollRef.current.scrollTo({top: 0});
+    setNow((new Date()).getTime());
     setPage(0);
     dispatch(Actions.reqLatestTweets({
       before: now,
@@ -93,19 +94,20 @@ const Index: NextPage = () => {
   return (
     <React.Fragment>
       <Timeline
+        ref={scrollRef}
         text={text}
         hashtags={hashtags}
-        handleDialogOpen={handleDialogOpen}
-        handleNewPage={handleNewPage}
-        handleNewResult={handleNewResult}/>
-    <TimelineSearch
-      text={text}
-      hashtags={hashtags}
-      dialogOpen={dialogOpen}
-      handleDialogClose={handleDialogClose}
-      handleNewText={handleNewText}
-      handleNewHashtags={handleNewHashtags}
-      handleNewResult={handleNewResult}/>
+        onDialog={handleOpen}
+        onScroll={handleScroll}
+        onSearch={handleSearch}/>
+      <TimelineSearch
+        text={text}
+        hashtags={hashtags}
+        dialogOpen={dialogOpen}
+        onDialog={handleClose}
+        onText={handleText}
+        onHashtags={handleHashtags}
+        onSearch={handleSearch}/>
     </React.Fragment>
   );
 };

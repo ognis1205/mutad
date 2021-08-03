@@ -38,7 +38,8 @@ const styles = (theme: CustomTheme) =>
       marginBottom: theme.spacing(2),
     },
     subheader: {
-      backgroundColor: theme.palette.background.paper,
+//      backgroundColor: theme.palette.background.paper,
+      backgroundColor: theme.drawer.backgroundColor.light,
     },
     appBar: {
       position: "absolute",

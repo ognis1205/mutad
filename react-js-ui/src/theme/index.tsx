@@ -91,7 +91,7 @@ const defaultTheme = {
     color: grey[900],
     backgroundColor: {
       main: grey[900],
-      light: grey[500],
+      light: grey[300],
     },
     miniWidth: 56,
   },

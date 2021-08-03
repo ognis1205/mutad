@@ -30,25 +30,25 @@ import styles from "./styles";
 import { SubMenuDef } from "../../../specs";
 
 interface ItemProps extends WithStyles<typeof styles> {
-  def: SubMenuDef;
+  subMenu: SubMenuDef;
 }
 
 const Item = withStyles(styles, { withTheme: true })((props: ItemProps) => {
   return (
     <Card className={props.classes.card}>
-      <Link href={props.def.link} passHref>
+      <Link href={props.subMenu.link} passHref>
         <CardActionArea>
           <CardMedia
             className={props.classes.cardMedia}
-            image={props.def.image}
-            title={props.def.text}
+            image={props.subMenu.image}
+            title={props.subMenu.text}
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">
-              {props.def.text}
+              {props.subMenu.text}
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
-              {props.def.description}
+              {props.subMenu.description}
             </Typography>
           </CardContent>
         </CardActionArea>
@@ -67,10 +67,10 @@ interface Props extends WithStyles<typeof styles> {
 }
 
 export default withStyles(styles, { withTheme: true })((props: Props) => (
-  <Grid container className={props.classes.grid} spacing={2}>
-    {props.menu.map((def: SubMenuDef, index: number) => (
+  <Grid container spacing={2} className={props.classes.grid}>
+    {props.menu.map((subMenu: SubMenuDef, index: number) => (
       <Grid item xs={4} key={index}>
-        <Item def={def}/>
+        <Item subMenu={subMenu}/>
       </Grid>
     ))}
   </Grid>

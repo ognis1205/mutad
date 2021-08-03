@@ -20,7 +20,6 @@ import {
   Avatar,
   Box,
   Divider,
-  Fab,
   IconButton,
   Link,
   List,
@@ -70,15 +69,13 @@ const groupByDate = (tweets: Types.Tweet[]) => {
 interface Props extends WithStyles<typeof styles> {
   text: string;
   hashtags: string;
-  handleDialogOpen: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  handleNewPage: () => void;
-  handleNewResult: () => void;
+  onDialog: () => void;
+  onScroll: () => void;
+  onSearch: () => void;
 }
 
-export default withStyles(styles, { withTheme: true })((props: Props) => {
+export default withStyles(styles, { withTheme: true })(React.forwardRef<HTMLUListElement, Props>((props, scrollRef) => {
   const tweets = Redux.useSelector(Selectors.getTweets);
-
-  const scrollRef = React.createRef<HTMLUListElement>();
 
   const [tweetsByDate, setTweetsByDate] = React.useState({});
 
@@ -86,16 +83,20 @@ export default withStyles(styles, { withTheme: true })((props: Props) => {
     setTweetsByDate(groupByDate(tweets));
   }, [tweets]);
 
+  const handleDialog = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    props.onDialog();
+  };
+
   const handleScroll = (e: React.UIEvent<HTMLElement>) => {
     e.preventDefault();
     const bottom = e.currentTarget.scrollHeight - e.currentTarget.scrollTop === e.currentTarget.clientHeight;
-    if (bottom) props.handleNewPage();
+    if (bottom) props.onScroll();
   };
 
-  const handleRefresh = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSearch = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    scrollRef.current.scrollTo({top: 0});
-    props.handleNewResult();
+    props.onSearch();
   };
 
   const withLink = (text: string, tweetIndex: number) => (
@@ -140,14 +141,14 @@ export default withStyles(styles, { withTheme: true })((props: Props) => {
       <AppBar className={props.classes.appBar}>
         <Toolbar>
           <Box className={props.classes.grow} />
-          <IconButton color="inherit" onClick={props.handleDialogOpen}>
+          <IconButton color="inherit" onClick={handleDialog}>
             <SearchIcon/>
           </IconButton>
-          <IconButton color="inherit" onClick={handleRefresh}>
+          <IconButton color="inherit" onClick={handleSearch}>
             <RefreshIcon/>
           </IconButton>
         </Toolbar>
       </AppBar>
     </Box>
   );
-});
+}));

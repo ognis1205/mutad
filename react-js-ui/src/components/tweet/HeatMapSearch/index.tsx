@@ -34,22 +34,20 @@ import styles from "./styles";
 import {
   Actions,
   Selectors,
-  Types
 } from "../../../state/ducks/geos";
 
-interface Props extends WithStyles<typeof styles> {}
+interface Props extends WithStyles<typeof styles> {
+  onText: (text: string) => void;
+  onHashtags: (hashtags: string) => void;
+  onFrom: (from: number) => void;
+  onTo: (from: number) => void;
+  onPost: () => void;
+}
 
 export default withStyles(styles)((props: Props) => {
   const dispatch = Redux.useDispatch();
 
   const [expanded, setExpanded] = React.useState<boolean>(false);
-
-  const [inputs, setInputs] = React.useState<Types.GeoQuery>({
-    "from": (new Date()).getTime(),
-    "to": (new Date()).getTime(),
-    "text": "",
-    "hashtags": [],
-  });
 
   const r = Redux.useSelector(Selectors.getGeoRadius);
 
@@ -63,28 +61,24 @@ export default withStyles(styles)((props: Props) => {
 
   const handlePost = async (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
-    dispatch(Actions.reqGeoPoints({
-      from: inputs?.from,
-      to: inputs?.to,
-      text: inputs?.text,
-      hashtags: inputs?.hashtags,
-    }));
+    props.onPost();
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
     const { name, value } = e.target;
     switch (name) {
       case "from":
-        setInputs(prev => ({ ...prev, [name]: (new Date(value)).getTime() }));
+        props.onFrom((new Date(value)).getTime());
         break;
       case "to":
-        setInputs(prev => ({ ...prev, [name]: (new Date(value)).getTime() }));
+        props.onTo((new Date(value)).getTime());
         break;
       case "text":
-        setInputs(prev => ({ ...prev, [name]: value }));
+        props.onText(value);
         break;
       case "hashtags":
-        setInputs(prev => ({ ...prev, [name]: value.split(/\s+/) }));
+        props.onHashtags(value);
         break;
       default:
         break;
@@ -92,6 +86,7 @@ export default withStyles(styles)((props: Props) => {
   }
 
   const handleSlide = (e: React.ChangeEvent<HTMLSpanElement>, v: number | number[]) => {
+    e.preventDefault();
     const { id } = e.target.parentElement;
     switch (id) {
       case "radius":

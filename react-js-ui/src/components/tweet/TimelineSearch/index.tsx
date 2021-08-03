@@ -46,10 +46,10 @@ interface Props extends WithStyles<typeof styles> {
   text: string;
   hashtags: string;
   dialogOpen: boolean;
-  handleDialogClose: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  handleNewText: (text: string) => void;
-  handleNewHashtags: (hashtags: string) => void;
-  handleNewResult: () => void;
+  onDialog: () => void;
+  onText: (text: string) => void;
+  onHashtags: (hashtags: string) => void;
+  onSearch: () => void;
 }
 
 export default withStyles(styles, { withTheme: true })((props: Props) => {
@@ -58,10 +58,10 @@ export default withStyles(styles, { withTheme: true })((props: Props) => {
     const { name, value } = e.target;
     switch (name) {
       case "text":
-        props.handleNewText(value);
+        props.onText(value);
         break;
       case "hashtags":
-        props.handleNewHashtags(value);
+        props.onHashtags(value);
         break;
       default:
         break;
@@ -70,13 +70,13 @@ export default withStyles(styles, { withTheme: true })((props: Props) => {
 
   const handleClose = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    props.handleDialogClose(e);
+    props.onDialog();
   }
 
   const handleSearch = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    props.handleNewResult();
-    props.handleDialogClose(e);
+    props.onSearch();
+    props.onDialog();
   }
 
   return (
