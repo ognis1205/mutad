@@ -89,7 +89,10 @@ const defaultTheme = {
   drawer: {
     width: 240,
     color: grey[900],
-    backgroundColor: grey[900],
+    backgroundColor: {
+      main: grey[900],
+      light: grey[500],
+    },
     miniWidth: 56,
   },
   raisedButton: {

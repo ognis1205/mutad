@@ -44,17 +44,20 @@ const styles = (theme: CustomTheme) =>
       position: "absolute",
       top: "auto",
       bottom: 0,
+      backgroundColor: theme.drawer.backgroundColor.main,
     },
     grow: {
       flexGrow: 1,
     },
     fabButton: {
+      ariaLabel: "add",
       position: "absolute",
       zIndex: 1,
       top: -30,
       left: 0,
       right: 0,
       margin: "0 auto",
+      backgroundColor: theme.drawer.backgroundColor.light,
     },
   });
 

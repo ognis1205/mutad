@@ -15,8 +15,7 @@ on [CLAVIN](https://github.com/Novetta/CLAVIN). Because of my poor implementatio
 
 <img src="./img/timeline.gif?raw=true">
 
-The above gif image demonstrates a list timeline displays the latest Tweets ordered from newest to oldest from a curated 
-public list of Twitter accounts.
+The above gif image demonstrates a list timeline displaying the latest Tweets ordered from newest to oldest with a specified search query.
 
 ## Architecture
 <img src="./img/mutad.jpeg?raw=true">

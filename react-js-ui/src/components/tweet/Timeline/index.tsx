@@ -92,23 +92,19 @@ export default withStyles(styles, { withTheme: true })((props: Props) => {
     if (bottom) props.handleNewPage();
   };
 
-  const handleRefresh = (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
+  const handleRefresh = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     scrollRef.current.scrollTo({top: 0});
     props.handleNewResult();
   };
 
-  const withLink = (text: string) => (
+  const withLink = (text: string, tweetIndex: number) => (
     text
       .split(/\s+/)
-      .map(t =>
-        /#\w+/.test(t) ? (<Link key={t} component="button" variant="body2" onClick={() => { }}>{t}</Link>) : t
+      .map((text, index) =>
+        /#\w+/.test(text) ? (<Link key={tweetIndex + "-" + index} component="button" variant="body2" onClick={() => { }}>{text}</Link>) : text
       )
       .reduce((r: any[], a: any) => r.concat(a, " "), [" "])
-  );
-
-  const isEmpty = (text: string) => (
-    !/\S/.test(text)
   );
 
   return (
@@ -132,7 +128,7 @@ export default withStyles(styles, { withTheme: true })((props: Props) => {
                     <Box className={props.classes.listItemText}>
                       <strong>{tweet.user_name}</strong>{ "@" }{tweet.user_id}
                       <Divider/>
-                      {withLink(tweet.text)}
+                      {withLink(tweet.text, tweetIndex)}
                     </Box>
                   } secondary={tweet.timestamp} />
                 </ListItem>
@@ -141,14 +137,14 @@ export default withStyles(styles, { withTheme: true })((props: Props) => {
           ))}
         </List>
       </Paper>
-      <AppBar position="fixed" color="primary" className={props.classes.appBar}>
+      <AppBar className={props.classes.appBar}>
         <Toolbar>
-          <Fab color="secondary" aria-label="add" className={props.classes.fabButton}>
-            <RefreshIcon onClick={handleRefresh}/>
-          </Fab>
           <Box className={props.classes.grow} />
           <IconButton color="inherit" onClick={props.handleDialogOpen}>
             <SearchIcon/>
+          </IconButton>
+          <IconButton color="inherit" onClick={handleRefresh}>
+            <RefreshIcon/>
           </IconButton>
         </Toolbar>
       </AppBar>

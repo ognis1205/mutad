@@ -30,7 +30,7 @@ const styles = (theme: CustomTheme) =>
     },
     drawer: {
       width: theme.drawer.width,
-      backgroundColor: "rgb(33, 33, 33)",
+      backgroundColor: theme.drawer.backgroundColor.main,
       color: "white",
       borderRight: "0px",
       boxShadow:
