@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { useState, createRef, forwardRef } from "react";
+import React from "react";
 import Link from "next/link";
 import {
   Collapse,
   List,
   ListItem,
   ListItemIcon,
-  Menu as MUMenu,
-  MenuItem as MUMenuItem,
+  Menu,
+  MenuItem,
 } from "@material-ui/core";
 import {
   ExpandMore,
@@ -38,11 +38,11 @@ interface ItemProps extends WithStyles<typeof styles> {
 }
 
 const Item = withStyles(styles, { withTheme: true })((props: ItemProps) => {
-  const [open, setOpen] = useState<boolean>(false);
+  const [open, setOpen] = React.useState<boolean>(false);
 
-  const anchor = createRef<null | HTMLDivElement>();
+  const anchor = React.createRef<HTMLDivElement>();
 
-  const Anchor = forwardRef<HTMLDivElement>((_, ref) => {
+  const Anchor = React.forwardRef<HTMLDivElement>((_, ref) => {
     return (
       <div ref={ref} style={{ position: "absolute", right: 0 }} />
     );
@@ -61,17 +61,17 @@ const Item = withStyles(styles, { withTheme: true })((props: ItemProps) => {
     if (!props.menu.subMenu || !props.menu.subMenu.length) {
       return (
         <Link key={props.key} href={props.menu.link}>
-          <MUMenuItem classes={{ root: props.classes.muMenuItem }}>
+          <MenuItem classes={{ root: props.classes.muMenuItem }}>
             <ListItemIcon className={props.classes.listItemIcon}>
               {props.menu.icon}
             </ListItemIcon>
-          </MUMenuItem>
+          </MenuItem>
         </Link>
       );
     }
 
     return (
-      <MUMenuItem
+      <MenuItem
         key={props.key}
         classes={{ root: props.classes.muMenuItem }}
         onClick={handleClick}
@@ -80,7 +80,7 @@ const Item = withStyles(styles, { withTheme: true })((props: ItemProps) => {
           {props.menu.icon}
         </ListItemIcon>
         <Anchor ref={anchor} />
-        <MUMenu
+        <Menu
           anchorEl={anchor.current}
           classes={{ paper: props.classes.muMenu }}
           open={open}
@@ -88,16 +88,16 @@ const Item = withStyles(styles, { withTheme: true })((props: ItemProps) => {
         >
           {props.menu.subMenu.map((item, index) => (
             <Link key={index} href={item.link}>
-              <MUMenuItem key={index} classes={{ root: props.classes.subMuMenuItem }}>
+              <MenuItem key={index} classes={{ root: props.classes.subMuMenuItem }}>
                 <ListItemIcon style={{ color: "white" }}>
                   {item.icon}
                 </ListItemIcon>
                 <span>{item.text}</span>
-              </MUMenuItem>
+              </MenuItem>
             </Link>
           ))}
-        </MUMenu>
-      </MUMenuItem>
+        </Menu>
+      </MenuItem>
     );
   };
 
@@ -105,12 +105,12 @@ const Item = withStyles(styles, { withTheme: true })((props: ItemProps) => {
     if (!props.menu.subMenu || !props.menu.subMenu.length) {
       return (
         <Link key={props.key} href={props.menu.link}>
-          <MUMenuItem classes={{ root: props.classes.subMuMenuItem }}>
+          <MenuItem classes={{ root: props.classes.subMuMenuItem }}>
             <ListItemIcon style={{ color: "white" }}>
               {props.menu.icon}
             </ListItemIcon>
             <span>{props.menu.text}</span>
-          </MUMenuItem>
+          </MenuItem>
         </Link>
       );
     }
@@ -140,7 +140,7 @@ const Item = withStyles(styles, { withTheme: true })((props: ItemProps) => {
           >
             {props.menu.subMenu.map((item, index) => (
               <Link key={index} href={item.link}>
-                <MUMenuItem
+                <MenuItem
                   key={index}
                   classes={{ root: props.classes.subMuMenuItem }}
                 >
@@ -148,7 +148,7 @@ const Item = withStyles(styles, { withTheme: true })((props: ItemProps) => {
                     {item.icon}
                   </ListItemIcon>
                   <span>{item.text}</span>
-                </MUMenuItem>
+                </MenuItem>
               </Link>
             ))}
           </List>

@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import * as Redux from "react-redux";
 import clsx from "clsx";
 import {
   Box,
@@ -40,22 +40,22 @@ import {
 interface Props extends WithStyles<typeof styles> {}
 
 export default withStyles(styles)((props: Props) => {
-  const dispatch = useDispatch();
+  const dispatch = Redux.useDispatch();
 
-  const [expanded, setExpanded] = useState<boolean>(false);
+  const [expanded, setExpanded] = React.useState<boolean>(false);
 
-  const [inputs, setInputs] = useState<Types.GeoQuery>({
+  const [inputs, setInputs] = React.useState<Types.GeoQuery>({
     "from": (new Date()).getTime(),
     "to": (new Date()).getTime(),
     "text": "",
     "hashtags": [],
   });
 
-  const r = useSelector(Selectors.getGeoRadius);
+  const r = Redux.useSelector(Selectors.getGeoRadius);
 
-  const b = useSelector(Selectors.getGeoBlur);
+  const b = Redux.useSelector(Selectors.getGeoBlur);
 
-  const z = useSelector(Selectors.getGeoZoom);
+  const z = Redux.useSelector(Selectors.getGeoZoom);
 
   const handleExpand = () => {
     setExpanded(!expanded);

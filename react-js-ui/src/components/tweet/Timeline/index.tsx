@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React from "react";
+import * as Redux from "react-redux";
 import {
   AppBar,
   Avatar,
@@ -37,7 +37,6 @@ import SearchIcon from "@material-ui/icons/Search";
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import styles from "./styles";
 import {
-  Actions,
   Selectors,
   Types,
 } from "../../../state/ducks/tweets";
@@ -69,97 +68,74 @@ const groupByDate = (tweets: Types.Tweet[]) => {
 };
 
 interface Props extends WithStyles<typeof styles> {
+  text: string;
+  hashtags: string;
+  handleDialogOpen: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  handleNewPage: () => void;
+  handleNewResult: () => void;
 }
 
 export default withStyles(styles, { withTheme: true })((props: Props) => {
-  const dispatch = useDispatch();
+  const tweets = Redux.useSelector(Selectors.getTweets);
 
-  const tweets = useSelector(Selectors.getTweets);
+  const scrollRef = React.createRef<HTMLUListElement>();
 
-  const [tweetsByDate, setTweetsByDate] = useState({});
+  const [tweetsByDate, setTweetsByDate] = React.useState({});
 
-  const [text, setText] = useState<string>("");
-
-  const [hashtags, setHashtags] = useState<string[]>([]);
-
-  const [now, setNow] = useState<string>((new Date()).toISOString());
-
-  const [page, setPage] = useState<number>(0);
-
-  useEffect(() => {
-    dispatch(Actions.reqLatestTweets({
-      before: now,
-      text: text,
-      hashtags: hashtags,
-      page: page,
-      size: 50,
-    }));
-  }, []);
-
-  useEffect(() => {
+  React.useEffect(() => {
     setTweetsByDate(groupByDate(tweets));
   }, [tweets]);
 
   const handleScroll = (e: React.UIEvent<HTMLElement>) => {
     e.preventDefault();
     const bottom = e.currentTarget.scrollHeight - e.currentTarget.scrollTop === e.currentTarget.clientHeight;
-    if (bottom) {
-      setPage(page + 1);
-      dispatch(Actions.updLatestTweets({
-        before: now,
-        text: text,
-        hashtags: hashtags,
-        page: page,
-        size: 50,
-      }));
-    }
+    if (bottom) props.handleNewPage();
   };
 
   const handleRefresh = (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
     e.preventDefault();
-    setNow((new Date()).toISOString());
-    setPage(0);
-    dispatch(Actions.reqLatestTweets({
-      before: now,
-      text: text,
-      hashtags: hashtags,
-      page: 0,
-      size: 50,
-    }));
+    scrollRef.current.scrollTo({top: 0});
+    props.handleNewResult();
   };
 
   const withLink = (text: string) => (
     text
       .split(/\s+/)
       .map(t =>
-        /#\w+/.test(t) ? (<Link component="button" variant="body2" onClick={() => { }}>{t}</Link>) : t
+        /#\w+/.test(t) ? (<Link key={t} component="button" variant="body2" onClick={() => { }}>{t}</Link>) : t
       )
       .reduce((r: any[], a: any) => r.concat(a, " "), [" "])
   );
 
+  const isEmpty = (text: string) => (
+    !/\S/.test(text)
+  );
+
   return (
     <Box className={props.classes.box}>
-      <Paper square className={props.classes.paper} onScroll={handleScroll}>
+      <Paper square className={props.classes.paper} onScroll={handleScroll} ref={scrollRef}>
         <Typography className={props.classes.text} variant="h5" gutterBottom>
           Timeline
         </Typography>
         <List className={props.classes.list}>
-          {Object.entries(tweetsByDate).map(([key, value]: [string, Types.Tweet[]], index: number) => (
-            <React.Fragment key={index}>
-              <ListSubheader className={props.classes.subheader}>{getDateString(key)}</ListSubheader>
-              {value.map((tweet: Types.Tweet, _: number) => (
-              <ListItem button>
-                <ListItemAvatar>
-                  <Avatar alt="Profile Picture" src={tweet.image_url} />
-                </ListItemAvatar>
-                <ListItemText primary={
-                  <Box className={props.classes.listItemText}>
-                    <strong>{ tweet.user_name }</strong>{ "@" }{ tweet.user_id }
-                    <Divider/>
-                    { withLink(tweet.text) }
-                  </Box>
-                  } secondary={ tweet.timestamp } />
-              </ListItem>
+          {Object.entries(tweetsByDate).map(([key, value]: [string, Types.Tweet[]], dateIndex: number) => (
+            <React.Fragment key={dateIndex}>
+              <ListSubheader className={props.classes.subheader}>
+                {getDateString(key)}
+              </ListSubheader>
+              {value.map((tweet: Types.Tweet, tweetIndex: number) => (
+                <ListItem button key={tweetIndex}>
+                  <ListItemAvatar>
+                    <Avatar alt="Profile Picture" src={tweet.image_url} />
+                  </ListItemAvatar>
+                  <ListItemText primary={
+                    <Box className={props.classes.listItemText}>
+                      <strong>{tweet.user_name}</strong>{ "@" }{tweet.user_id}
+                      <Divider/>
+                      {withLink(tweet.text)}
+                    </Box>
+                  } secondary={tweet.timestamp} />
+                </ListItem>
               ))}
             </React.Fragment>
           ))}
@@ -171,8 +147,8 @@ export default withStyles(styles, { withTheme: true })((props: Props) => {
             <RefreshIcon onClick={handleRefresh}/>
           </Fab>
           <Box className={props.classes.grow} />
-          <IconButton color="inherit">
-            <SearchIcon />
+          <IconButton color="inherit" onClick={props.handleDialogOpen}>
+            <SearchIcon/>
           </IconButton>
         </Toolbar>
       </AppBar>

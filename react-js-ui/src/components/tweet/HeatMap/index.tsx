@@ -16,9 +16,9 @@
 import "leaflet/dist/leaflet.css";
 import L, { Map as LeafletMap } from "leaflet";
 import "leaflet.heat";
-import React, { useEffect, useState } from "react";
+import React from "react";
+import * as Redux from "react-redux";
 import { MapContainerProps } from "react-leaflet";
-import { useSelector } from "react-redux";
 import { Box } from "@material-ui/core";
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import styles from "./styles";
@@ -27,19 +27,19 @@ import { Selectors } from "../../../state/ducks/geos";
 interface Props extends WithStyles<typeof styles>, MapContainerProps {}
 
 export default withStyles(styles)((props: Props) => {
-  const geos = useSelector(Selectors.getGeos);
+  const geos = Redux.useSelector(Selectors.getGeos);
 
-  const r = useSelector(Selectors.getGeoRadius);
+  const r = Redux.useSelector(Selectors.getGeoRadius);
 
-  const b = useSelector(Selectors.getGeoBlur);
+  const b = Redux.useSelector(Selectors.getGeoBlur);
 
-  const z = useSelector(Selectors.getGeoZoom);
+  const z = Redux.useSelector(Selectors.getGeoZoom);
 
-  const [map, setMap] = useState<LeafletMap>();
+  const [map, setMap] = React.useState<LeafletMap>();
 
-  const [heat, setHeat] = useState<L.Layer>();
+  const [heat, setHeat] = React.useState<L.Layer>();
 
-  useEffect(() => {
+  React.useEffect(() => {
     const leafletMap = L.map("map", { ...props }).setView(props.center, props.zoom);
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
@@ -47,7 +47,7 @@ export default withStyles(styles)((props: Props) => {
     setMap(leafletMap);
   }, []);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (map) {
       const layer = L.heatLayer(geos, {
         radius: r,
