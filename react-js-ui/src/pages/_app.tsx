@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import "nprogress/nprogress.css";
 import React, { useState } from "react";
 import Head from "next/head";
 import { ThemeProvider } from "@material-ui/core/styles";

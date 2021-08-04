@@ -31,22 +31,14 @@ const init = Reducers.initState;
 
 const reducer = (state = init, action: Action.WithPayload<any | string | number | Tweet.Response[]>) => {
   switch (action.type) {
-    case Types.NEW_TEXT:
-      return Reducers.onNewText(state, action);
-    case Types.CLR_TEXT:
-      return Reducers.onClrText(state, action);
-    case Types.NEW_HASHTAGS:
-      return Reducers.onNewHashtags(state, action);
-    case Types.CLR_HASHTAGS:
-      return Reducers.onClrHashtags(state, action);
-    case Types.NEW_TIMESTAMP:
-      return Reducers.onNewTimestamp(state, action);
-    case Types.CLR_TIMESTAMP:
-      return Reducers.onClrTimestamp(state, action);
-    case Types.NEW_PAGE:
-      return Reducers.onNewPage(state, action);
-    case Types.CLR_PAGE:
-      return Reducers.onClrPage(state, action);
+    case Types.ASYNC_LOAD:
+      return Reducers.onAsyncLoad(state, action);
+    case Types.ASYNC_DONE:
+      return Reducers.onAsyncDone(state, action);
+    case Types.NEW_QUERY:
+      return Reducers.onNewQuery(state, action);
+    case Types.CLR_QUERY:
+      return Reducers.onClrQuery(state, action);
     case Types.OPN_DIALOG:
       return Reducers.onOpnDialog(state, action);
     case Types.CLS_DIALOG:

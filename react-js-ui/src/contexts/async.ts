@@ -26,3 +26,14 @@ export const useReducer = <R extends React.Reducer<any, any>, State>(
   };
   return [state as State, asyncDispatch];
 };
+
+export const useContext = <R extends React.Reducer<any, any>, State>(
+  initialState: React.ReducerState<R>,
+) => {
+  const [state, dispatch] = React.useContext(initialState);
+  const asyncDispatch = (action: any) => {
+    if (typeof action === "function") return action(dispatch);
+    return dispatch(action);
+  };
+  return [state as State, asyncDispatch];
+};

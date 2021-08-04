@@ -38,10 +38,6 @@ const PaperComponent = (props: PaperProps) => {
   );
 };
 
-const toList = (text: string) => (
-  /\S/.test(text) ? text.split(/\s+/) : []
-);
-
 interface Props extends WithStyles<typeof styles> {
   onRefresh: () => void;
 }
@@ -54,10 +50,22 @@ export default withStyles(styles, { withTheme: true })((props: Props) => {
     const { name, value } = e.target;
     switch (name) {
       case "text":
-        dispatch(Context.Actions.newText(value));
+        dispatch(Context.Actions.newQuery({
+          before: state.timestamp,
+          text: value,
+          hashtags: /\S/.test(state.hashtags) ? state.hashtags.split(/\s+/) : [],
+          page: state.page,
+          size: 50,
+        }));
         break;
       case "hashtags":
-        dispatch(Context.Actions.newHashtags(value));
+        dispatch(Context.Actions.newQuery({
+          before: state.timestamp,
+          text: state.text,
+          hashtags: /\S/.test(value) ? value.split(/\s+/) : [],
+          page: state.page,
+          size: 50,
+        }));
         break;
       default:
         break;
@@ -72,16 +80,7 @@ export default withStyles(styles, { withTheme: true })((props: Props) => {
   const handleSearch = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     props.onRefresh();
-    const now = new Date().getTime();
-    dispatch(Context.Actions.reqLatestTweets({
-      before: now,
-      text: state.text,
-      hashtags: toList(state.hashtags),
-      page: 0,
-      size: 50,
-    }));
-    dispatch(Context.Actions.newTimestamp(now));
-    dispatch(Context.Actions.newPage(0));
+    dispatch(Context.Actions.refTimeline(state.text, state.hashtags, dispatch));
     dispatch(Context.Actions.clsDialog());
   }
 

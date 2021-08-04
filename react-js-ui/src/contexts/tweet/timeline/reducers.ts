@@ -17,6 +17,7 @@ import * as Action from "../../action.d";
 import * as Tweet from "./tweet.d";
 
 export type State = {
+  loading: boolean;
   dialog: boolean;
   text: string;
   hashtags: string;
@@ -26,6 +27,7 @@ export type State = {
 };
 
 export const initState = {
+  loading: false,
   dialog: false,
   text: "",
   hashtags: "",
@@ -34,58 +36,36 @@ export const initState = {
   latest: [],
 } as State;
 
-export const onNewText = (state: State, action: Action.WithPayload<string>) => {
+export const onAsyncLoad = (state: State, _: Action.WithPayload<any>) => {
   return {
     ...state,
-    text: action.payload,
+    loading: true,
   };
 };
 
-export const onClrText = (state: State, _: Action.WithPayload<any>) => {
+export const onAsyncDone = (state: State, _: Action.WithPayload<any>) => {
   return {
     ...state,
-    text: "",
+    loading: false,
   };
 };
 
-export const onNewHashtags = (state: State, action: Action.WithPayload<string>) => {
+export const onNewQuery = (state: State, action: Action.WithPayload<Tweet.Query>) => {
   return {
     ...state,
-    hashtags: action.payload,
+    timestamp: action.payload.before,
+    text: action.payload.text,
+    hashtags: action.payload.hashtags.join(""),
+    page: action.payload.page,
   };
 };
 
-export const onClrHashtags = (state: State, _: Action.WithPayload<any>) => {
-  return {
-    ...state,
-    hashtags: "",
-  };
-};
-
-export const onNewTimestamp = (state: State, action: Action.WithPayload<number>) => {
-  return {
-    ...state,
-    timestamp: action.payload,
-  };
-};
-
-export const onClrTimestamp = (state: State, _: Action.WithPayload<any>) => {
+export const onClrQuery = (state: State, _: Action.WithPayload<any>) => {
   return {
     ...state,
     timestamp: 0,
-  };
-};
-
-export const onNewPage = (state: State, action: Action.WithPayload<number>) => {
-  return {
-    ...state,
-    page: action.payload,
-  };
-};
-
-export const onClrPage = (state: State, _: Action.WithPayload<any>) => {
-  return {
-    ...state,
+    text: "",
+    hashtags: "",
     page: 0,
   };
 };

@@ -17,7 +17,7 @@ import React from "react";
 import * as Next from "next";
 import Timeline from "../../../components/tweet/Timeline";
 import TimelineSearch from "../../../components/tweet/TimelineSearch";
-import * as Async from "../../../contexts/async";
+//import * as Async from "../../../contexts/async";
 import * as Context from "../../../contexts/tweet/timeline";
 
 const Index: Next.NextPage = () => {
@@ -26,7 +26,7 @@ const Index: Next.NextPage = () => {
   }
 
   const ContextProvider = (props: ContextProps) => {
-    const [state, dispatch] = Async.useReducer(Context.reducer, Context.init);
+    const [state, dispatch] = React.useReducer(Context.reducer, Context.init);
     return (
       <Context.store.Provider value={{state, dispatch}}>
         {props.children}

@@ -18,6 +18,7 @@ import {
   AppBar,
   Avatar,
   Box,
+  CircularProgress,
   Divider,
   IconButton,
   Link,
@@ -62,10 +63,6 @@ const groupByDate = (tweets: Context.Tweet.Model[]) => {
   }, {});
 };
 
-const toList = (text: string) => (
-  /\S/.test(text) ? text.split(/\s+/) : []
-);
-
 interface Props extends WithStyles<typeof styles> {
   onRefresh: () => void;
 }
@@ -76,15 +73,7 @@ export default withStyles(styles, { withTheme: true })(React.forwardRef<HTMLULis
   const [tweetsByDate, setTweetsByDate] = React.useState({});
 
   React.useEffect(() => {
-    const now = new Date().getTime();
-    dispatch(Context.Actions.reqLatestTweets({
-      before: now,
-      text: state.text,
-      hashtags: toList(state.hashtags),
-      page: state.page,
-      size: 50,
-    }));
-    dispatch(Context.Actions.newTimestamp(now));
+    dispatch(Context.Actions.newTimeline(dispatch));
   }, []);
 
   React.useEffect(() => {
@@ -99,30 +88,13 @@ export default withStyles(styles, { withTheme: true })(React.forwardRef<HTMLULis
   const handleScroll = (e: React.UIEvent<HTMLElement>) => {
     e.preventDefault();
     const isBottom = e.currentTarget.scrollHeight - e.currentTarget.scrollTop === e.currentTarget.clientHeight;
-    if (isBottom) {
-      dispatch(Context.Actions.updLatestTweets({
-        before: state.timestamp,
-        text: state.text,
-        hashtags: toList(state.hashtags),
-        page: state.page + 1,
-        size: 50,
-      }));
-      dispatch(Context.Actions.newPage(state.page + 1));
-    }
+    if (isBottom) dispatch(Context.Actions.addTimeline(state.text, state.hashtags, state.page, dispatch));
   };
 
   const handleRefresh = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     props.onRefresh();
-    dispatch(Context.Actions.newTimestamp(new Date().getTime()));
-    dispatch(Context.Actions.newPage(0));
-    dispatch(Context.Actions.reqLatestTweets({
-      before: state.timestamp,
-      text: state.text,
-      hashtags: toList(state.hashtags),
-      page: 0,
-      size: 50,
-    }));
+    dispatch(Context.Actions.refTimeline(state.text, state.hashtags, dispatch));
   };
 
   const withLink = (text: string, tweetIndex: number) => (

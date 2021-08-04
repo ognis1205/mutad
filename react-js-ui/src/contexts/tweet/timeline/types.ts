@@ -13,14 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-export const NEW_TEXT = "tweet/timeline/NEW_TEXT";
-export const CLR_TEXT = "tweet/timeline/CLR_TEXT";
-export const NEW_HASHTAGS = "tweet/timeline/NEW_HASHTAGS";
-export const CLR_HASHTAGS = "tweet/timeline/CLR_HASHTAGS";
-export const NEW_TIMESTAMP = "tweet/timeline/NEW_TIMESTAMP";
-export const CLR_TIMESTAMP = "tweet/timeline/CLR_TIMESTAMP";
-export const NEW_PAGE = "tweet/timeline/NEW_PAGE";
-export const CLR_PAGE = "tweet/timeline/CLR_PAGE";
+export const ASYNC_LOAD = "tweet/timeline/ASYNC_LOAD";
+export const ASYNC_DONE = "tweet/timeline/ASYNC_DONE";
+export const NEW_QUERY = "tweet/timeline/NEW_QUERY";
+export const CLR_QUERY = "tweet/timeline/CLR_QUERY";
 export const OPN_DIALOG = "tweet/timeline/OPN_DIALOG";
 export const CLS_DIALOG = "tweet/timeline/CLS_DIALOG";
 export const NEW_LATEST_TWEETS = "tweet/timeline/NEW_LATEST_TWEETS";

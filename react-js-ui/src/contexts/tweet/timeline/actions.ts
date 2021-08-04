@@ -17,82 +17,120 @@ import React from "react";
 import * as Tweet from "./tweet.d";
 import * as Types from "./types";
 
-export const reqLatestTweets = (query: Tweet.Query) => async (dispatch: React.Dispatch<React.ReducerAction<any>>) => {
-    const opts = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(query),
-    };
-    fetch(`${process.env.API_ENDPOINT}/tweet/latest`, opts)
-    .then((res) => {
-      if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
-      return res.json();
-    })
-    .then((json) => {
-      dispatch(newLatestTweets(json))
-    })
-    .catch((reason) => {
-      console.log(reason);
-    });
+export const newTimeline = (dispatch: React.Dispatch<React.ReducerAction<any>>) => {
+  const query = {
+    before: new Date().getTime(),
+    text: "",
+    hashtags: [],
+    page: 0,
+    size: 50,
+  } as Tweet.Query;
+
+  const opts = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(query),
+  };
+
+  fetch(`${process.env.API_ENDPOINT}/tweet/latest`, opts)
+  .then((res) => {
+    if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+    return res.json();
+  })
+  .then((json) => {
+    dispatch(newQuery(query));
+    dispatch(newLatestTweets(json))
+    dispatch(asyncDone())
+  })
+  .catch((reason) => {
+    console.log(reason);
+  });
+
+  return asyncLoad();
 };
 
-export const updLatestTweets = (query: Tweet.Query) => async (dispatch: React.Dispatch<React.ReducerAction<any>>) => {
-    const opts = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(query),
-    };
-    fetch(`${process.env.API_ENDPOINT}/tweet/latest`, opts)
-    .then((res) => {
-      if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
-      return res.json();
-    })
-    .then((json) => {
-      dispatch(addLatestTweets(json))
-    })
-    .catch((reason) => {
-      console.log(reason);
-    });
+export const refTimeline = (text: string, hashtags: string, dispatch: React.Dispatch<React.ReducerAction<any>>) => {
+  const query = {
+    before: new Date().getTime(),
+    text: text,
+    hashtags: /\S/.test(hashtags) ? hashtags.split(/\s+/) : [],
+    page: 0,
+    size: 50,
+  } as Tweet.Query;
+
+  const opts = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(query),
+  };
+
+  fetch(`${process.env.API_ENDPOINT}/tweet/latest`, opts)
+  .then((res) => {
+    if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+    return res.json();
+  })
+  .then((json) => {
+    dispatch(newQuery(query));
+    dispatch(newLatestTweets(json))
+    dispatch(asyncDone())
+  })
+  .catch((reason) => {
+    console.log(reason);
+  });
+
+  return asyncLoad();
 };
 
-export const newText = (text: string) => ({
-  type: Types.NEW_TEXT,
-  payload: text,
+export const addTimeline = (text: string, hashtags: string, page: number, dispatch: React.Dispatch<React.ReducerAction<any>>) => {
+  const query = {
+    before: new Date().getTime(),
+    text: text,
+    hashtags: /\S/.test(hashtags) ? hashtags.split(/\s+/) : [],
+    page: page + 1,
+    size: 50,
+  } as Tweet.Query;
+
+  const opts = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(query),
+  };
+
+  fetch(`${process.env.API_ENDPOINT}/tweet/latest`, opts)
+  .then((res) => {
+    if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+    return res.json();
+  })
+  .then((json) => {
+    dispatch(newQuery(query));
+    dispatch(addLatestTweets(json))
+    dispatch(asyncDone())
+  })
+  .catch((reason) => {
+    console.log(reason);
+  });
+
+  return asyncLoad();
+};
+
+const asyncLoad = () => ({
+  type: Types.ASYNC_LOAD,
+  payload: true,
 });
 
-export const clrText = () => ({
-  type: Types.CLR_TEXT,
+const asyncDone = () => ({
+  type: Types.ASYNC_DONE,
+  payload: false,
+});
+
+export const newQuery = (query: Tweet.Query) => ({
+  type: Types.NEW_QUERY,
+  payload: query,
+});
+
+export const clrQuery = () => ({
+  type: Types.NEW_QUERY,
   payload: "",
-});
-
-export const newHashtags = (hashtags: string) => ({
-  type: Types.NEW_HASHTAGS,
-  payload: hashtags,
-});
-
-export const clrHashtags = () => ({
-  type: Types.CLR_HASHTAGS,
-  payload: "",
-});
-
-export const newTimestamp = (timestamp: number) => ({
-  type: Types.NEW_TIMESTAMP,
-  payload: timestamp,
-});
-
-export const clrTimestamp = () => ({
-  type: Types.CLR_TIMESTAMP,
-  payload: 0,
-});
-
-export const newPage = (page: number) => ({
-  type: Types.NEW_PAGE,
-  payload: page,
-});
-
-export const clrPage = () => ({
-  type: Types.CLR_PAGE,
-  payload: 0,
 });
 
 export const opnDialog = () => ({
