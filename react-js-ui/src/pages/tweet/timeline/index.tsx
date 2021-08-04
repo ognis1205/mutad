@@ -14,101 +14,40 @@
  * limitations under the License.
  */
 import React from "react";
-import * as Redux from "react-redux";
-import { NextPage } from "next";
+import * as Next from "next";
 import Timeline from "../../../components/tweet/Timeline";
 import TimelineSearch from "../../../components/tweet/TimelineSearch";
-import {
-  Actions,
-} from "../../../state/ducks/tweets";
+import * as Async from "../../../contexts/async";
+import * as Context from "../../../contexts/tweet/timeline";
 
-const Index: NextPage = () => {
-  const dispatch = Redux.useDispatch();
+const Index: Next.NextPage = () => {
+  interface ContextProps {
+    children: JSX.Element[];
+  }
+
+  const ContextProvider = (props: ContextProps) => {
+    const [state, dispatch] = Async.useReducer(Context.reducer, Context.init);
+    return (
+      <Context.store.Provider value={{state, dispatch}}>
+        {props.children}
+      </Context.store.Provider>
+    );
+  };
 
   const scrollRef = React.createRef<HTMLUListElement>();
 
-  const [dialogOpen, setDialogOpen] = React.useState<boolean>(false);
-
-  const [text, setText] = React.useState<string>("");
-
-  const [hashtags, setHashtags] = React.useState<string>("");
-
-  const [now, setNow] = React.useState<number>((new Date()).getTime());
-
-  const [page, setPage] = React.useState<number>(0);
-
-  const handleOpen = () => {
-    setDialogOpen(true);
-  };
-
-  const handleClose = () => {
-    setDialogOpen(false);
-  };
-
-  const handleText = (text: string) => {
-    setText(text);
-  };
-
-  const handleHashtags = (hashtags: string) => {
-    setHashtags(hashtags);
-  };
-
-  const toHashtags = (hashtags: string) => (
-    /\S/.test(hashtags) ? hashtags.split(/\s+/) : []
-  );
-
-  const handleScroll = () => {
-    setPage(page + 1);
-    dispatch(Actions.updLatestTweets({
-      before: now,
-      text: text,
-      hashtags: toHashtags(hashtags),
-      page: page,
-      size: 50,
-    }));
-  };
-
-  const handleSearch = () => {
+  const handleRefresh = () => {
     scrollRef.current.scrollTo({top: 0});
-    setNow((new Date()).getTime());
-    setPage(0);
-    dispatch(Actions.reqLatestTweets({
-      before: now,
-      text: text,
-      hashtags: toHashtags(hashtags),
-      page: 0,
-      size: 50,
-    }));
   };
-
-  React.useEffect(() => {
-    dispatch(Actions.reqLatestTweets({
-      before: now,
-      text: text,
-      hashtags: toHashtags(hashtags),
-      page: page,
-      size: 50,
-    }));
-  }, []);
 
   return (
-    <React.Fragment>
+    <ContextProvider>
       <Timeline
         ref={scrollRef}
-        text={text}
-        hashtags={hashtags}
-        onDialog={handleOpen}
-        onScroll={handleScroll}
-        onSearch={handleSearch}/>
+        onRefresh={handleRefresh}/>
       <TimelineSearch
-        text={text}
-        hashtags={hashtags}
-        dialogOpen={dialogOpen}
-        onDialog={handleClose}
-        onText={handleText}
-        onHashtags={handleHashtags}
-        onSearch={handleSearch}/>
-    </React.Fragment>
+        onRefresh={handleRefresh}/>
+    </ContextProvider>
   );
 };
 

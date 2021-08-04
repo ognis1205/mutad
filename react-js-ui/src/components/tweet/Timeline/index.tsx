@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 import React from "react";
-import * as Redux from "react-redux";
 import {
   AppBar,
   Avatar,
@@ -35,12 +34,9 @@ import RefreshIcon from "@material-ui/icons/Refresh";
 import SearchIcon from "@material-ui/icons/Search";
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import styles from "./styles";
-import {
-  Selectors,
-  Types,
-} from "../../../state/ducks/tweets";
+import * as Context from "../../../contexts/tweet/timeline";
 
-const getDateOf = (tweet: Types.Tweet) => {
+const getDateOf = (tweet: Context.Tweet.Model) => {
   const date = new Date(tweet.timestamp);
   date.setMilliseconds(0);
   date.setSeconds(0);
@@ -57,7 +53,7 @@ const getDateString = (date: string) =>
     day: "numeric",
   });
 
-const groupByDate = (tweets: Types.Tweet[]) => {
+const groupByDate = (tweets: Context.Tweet.Model[]) => {
   return tweets.reduce((dates, tweet) => {
     const date = getDateOf(tweet);
     if (!dates[date]) dates[date] = [];
@@ -66,37 +62,67 @@ const groupByDate = (tweets: Types.Tweet[]) => {
   }, {});
 };
 
+const toList = (text: string) => (
+  /\S/.test(text) ? text.split(/\s+/) : []
+);
+
 interface Props extends WithStyles<typeof styles> {
-  text: string;
-  hashtags: string;
-  onDialog: () => void;
-  onScroll: () => void;
-  onSearch: () => void;
+  onRefresh: () => void;
 }
 
 export default withStyles(styles, { withTheme: true })(React.forwardRef<HTMLUListElement, Props>((props, scrollRef) => {
-  const tweets = Redux.useSelector(Selectors.getTweets);
+  const {state, dispatch} = React.useContext(Context.store);
 
   const [tweetsByDate, setTweetsByDate] = React.useState({});
 
   React.useEffect(() => {
-    setTweetsByDate(groupByDate(tweets));
-  }, [tweets]);
+    const now = new Date().getTime();
+    dispatch(Context.Actions.reqLatestTweets({
+      before: now,
+      text: state.text,
+      hashtags: toList(state.hashtags),
+      page: state.page,
+      size: 50,
+    }));
+    dispatch(Context.Actions.newTimestamp(now));
+  }, []);
 
-  const handleDialog = (e: React.MouseEvent<HTMLButtonElement>) => {
+  React.useEffect(() => {
+    setTweetsByDate(groupByDate(state.latest));
+  }, [state.latest]);
+
+  const handleSearch = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    props.onDialog();
+    dispatch(Context.Actions.opnDialog());
   };
 
   const handleScroll = (e: React.UIEvent<HTMLElement>) => {
     e.preventDefault();
-    const bottom = e.currentTarget.scrollHeight - e.currentTarget.scrollTop === e.currentTarget.clientHeight;
-    if (bottom) props.onScroll();
+    const isBottom = e.currentTarget.scrollHeight - e.currentTarget.scrollTop === e.currentTarget.clientHeight;
+    if (isBottom) {
+      dispatch(Context.Actions.updLatestTweets({
+        before: state.timestamp,
+        text: state.text,
+        hashtags: toList(state.hashtags),
+        page: state.page + 1,
+        size: 50,
+      }));
+      dispatch(Context.Actions.newPage(state.page + 1));
+    }
   };
 
-  const handleSearch = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleRefresh = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    props.onSearch();
+    props.onRefresh();
+    dispatch(Context.Actions.newTimestamp(new Date().getTime()));
+    dispatch(Context.Actions.newPage(0));
+    dispatch(Context.Actions.reqLatestTweets({
+      before: state.timestamp,
+      text: state.text,
+      hashtags: toList(state.hashtags),
+      page: 0,
+      size: 50,
+    }));
   };
 
   const withLink = (text: string, tweetIndex: number) => (
@@ -115,12 +141,12 @@ export default withStyles(styles, { withTheme: true })(React.forwardRef<HTMLULis
           Timeline
         </Typography>
         <List className={props.classes.list}>
-          {Object.entries(tweetsByDate).map(([key, value]: [string, Types.Tweet[]], dateIndex: number) => (
+          {Object.entries(tweetsByDate).map(([key, value]: [string, Context.Tweet.Model[]], dateIndex: number) => (
             <React.Fragment key={dateIndex}>
               <ListSubheader className={props.classes.subheader}>
                 {getDateString(key)}
               </ListSubheader>
-              {value.map((tweet: Types.Tweet, tweetIndex: number) => (
+              {value.map((tweet: Context.Tweet.Model, tweetIndex: number) => (
                 <ListItem button key={tweetIndex}>
                   <ListItemAvatar>
                     <Avatar alt="Profile Picture" src={tweet.image_url} />
@@ -141,10 +167,10 @@ export default withStyles(styles, { withTheme: true })(React.forwardRef<HTMLULis
       <AppBar className={props.classes.appBar}>
         <Toolbar>
           <Box className={props.classes.grow} />
-          <IconButton color="inherit" onClick={handleDialog}>
+          <IconButton color="inherit" onClick={handleSearch}>
             <SearchIcon/>
           </IconButton>
-          <IconButton color="inherit" onClick={handleSearch}>
+          <IconButton color="inherit" onClick={handleRefresh}>
             <RefreshIcon/>
           </IconButton>
         </Toolbar>

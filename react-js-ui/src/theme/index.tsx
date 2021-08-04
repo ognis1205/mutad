@@ -28,6 +28,7 @@ import {
   lime,
   purple,
   indigo,
+  blueGrey,
 } from "@material-ui/core/colors";
 
 declare module "@material-ui/core/styles/createTheme" {

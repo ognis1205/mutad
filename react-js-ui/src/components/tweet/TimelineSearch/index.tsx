@@ -28,11 +28,7 @@ import {
 import { PaperProps } from "@material-ui/core/Paper";
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import styles from "./styles";
-import {
-  Actions,
-  Selectors,
-  Types,
-} from "../../../state/ducks/tweets";
+import * as Context from "../../../contexts/tweet/timeline";
 
 const PaperComponent = (props: PaperProps) => {
   return (
@@ -42,26 +38,26 @@ const PaperComponent = (props: PaperProps) => {
   );
 };
 
+const toList = (text: string) => (
+  /\S/.test(text) ? text.split(/\s+/) : []
+);
+
 interface Props extends WithStyles<typeof styles> {
-  text: string;
-  hashtags: string;
-  dialogOpen: boolean;
-  onDialog: () => void;
-  onText: (text: string) => void;
-  onHashtags: (hashtags: string) => void;
-  onSearch: () => void;
+  onRefresh: () => void;
 }
 
 export default withStyles(styles, { withTheme: true })((props: Props) => {
+  const {state, dispatch} = React.useContext(Context.store);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const { name, value } = e.target;
     switch (name) {
       case "text":
-        props.onText(value);
+        dispatch(Context.Actions.newText(value));
         break;
       case "hashtags":
-        props.onHashtags(value);
+        dispatch(Context.Actions.newHashtags(value));
         break;
       default:
         break;
@@ -70,19 +66,29 @@ export default withStyles(styles, { withTheme: true })((props: Props) => {
 
   const handleClose = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    props.onDialog();
+    dispatch(Context.Actions.clsDialog());
   }
 
   const handleSearch = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    props.onSearch();
-    props.onDialog();
+    props.onRefresh();
+    const now = new Date().getTime();
+    dispatch(Context.Actions.reqLatestTweets({
+      before: now,
+      text: state.text,
+      hashtags: toList(state.hashtags),
+      page: 0,
+      size: 50,
+    }));
+    dispatch(Context.Actions.newTimestamp(now));
+    dispatch(Context.Actions.newPage(0));
+    dispatch(Context.Actions.clsDialog());
   }
 
   return (
     <Box>
       <Dialog
-        open={props.dialogOpen}
+        open={state.dialog}
         onClose={handleClose}
         PaperComponent={PaperComponent}
         aria-labelledby="draggable-dialog-title"
@@ -97,7 +103,7 @@ export default withStyles(styles, { withTheme: true })((props: Props) => {
                 id="text"
                 name="text"
                 label="Text"
-                value={props.text}
+                value={state.text}
                 fullWidth={true}
                 className={props.classes.textField}
                 variant="outlined"
@@ -109,7 +115,7 @@ export default withStyles(styles, { withTheme: true })((props: Props) => {
                 id="hashtags"
                 name="hashtags"
                 label="#Hashtag"
-                value={props.hashtags}
+                value={state.hashtags}
                 fullWidth={true}
                 className={props.classes.textField}
                 variant="outlined"
