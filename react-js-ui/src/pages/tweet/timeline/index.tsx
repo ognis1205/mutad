@@ -17,7 +17,6 @@ import React from "react";
 import * as Next from "next";
 import Timeline from "../../../components/tweet/Timeline";
 import TimelineSearch from "../../../components/tweet/TimelineSearch";
-//import * as Async from "../../../contexts/async";
 import * as Context from "../../../contexts/tweet/timeline";
 
 const Index: Next.NextPage = () => {

@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 import React from "react";
-import * as Redux from "react-redux";
 import clsx from "clsx";
 import {
   Box,
@@ -31,29 +30,23 @@ import {
 import LocationSearchingIcon from "@material-ui/icons/LocationSearching";
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import styles from "./styles";
-import {
-  Actions,
-  Selectors,
-} from "../../../state/ducks/geos";
+import * as Context from "../../../contexts/tweet/map";
 
-interface Props extends WithStyles<typeof styles> {
-  onText: (text: string) => void;
-  onHashtags: (hashtags: string) => void;
-  onFrom: (from: number) => void;
-  onTo: (from: number) => void;
-  onPost: () => void;
-}
+interface Props extends WithStyles<typeof styles> {}
 
 export default withStyles(styles)((props: Props) => {
-  const dispatch = Redux.useDispatch();
+  const {state, dispatch} = React.useContext(Context.store);
 
   const [expanded, setExpanded] = React.useState<boolean>(false);
 
-  const r = Redux.useSelector(Selectors.getGeoRadius);
-
-  const b = Redux.useSelector(Selectors.getGeoBlur);
-
-  const z = Redux.useSelector(Selectors.getGeoZoom);
+  React.useEffect(() => {
+    dispatch(Context.Actions.newQuery({
+      text: "",
+      hashtags: [],
+      from: (new Date()).getTime(),
+      to: (new Date()).getTime(),
+    }));
+  }, []);
 
   const handleExpand = () => {
     setExpanded(!expanded);
@@ -61,7 +54,12 @@ export default withStyles(styles)((props: Props) => {
 
   const handlePost = async (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
-    props.onPost();
+    dispatch(Context.Actions.request(
+      state.from,
+      state.to,
+      state.text,
+      state.hashtags,
+      dispatch));
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -69,34 +67,69 @@ export default withStyles(styles)((props: Props) => {
     const { name, value } = e.target;
     switch (name) {
       case "from":
-        props.onFrom((new Date(value)).getTime());
+        dispatch(Context.Actions.newQuery({
+          text: state.text,
+          hashtags: /\S/.test(state.hashtags) ? state.hashtags.split(/\s+/) : [],
+          from: (new Date(value)).getTime(),
+          to: state.to,
+        }));
         break;
       case "to":
-        props.onTo((new Date(value)).getTime());
+        dispatch(Context.Actions.newQuery({
+          text: state.text,
+          hashtags: /\S/.test(state.hashtags) ? state.hashtags.split(/\s+/) : [],
+          from: state.from,
+          to: (new Date(value)).getTime(),
+        }));
         break;
       case "text":
-        props.onText(value);
+        dispatch(Context.Actions.newQuery({
+          text: value,
+          hashtags: /\S/.test(state.hashtags) ? state.hashtags.split(/\s+/) : [],
+          from: state.from,
+          to: state.to,
+        }));
         break;
       case "hashtags":
-        props.onHashtags(value);
+        dispatch(Context.Actions.newQuery({
+          text: value,
+          hashtags: /\S/.test(value) ? value.split(/\s+/) : [],
+          from: state.from,
+          to: state.to,
+        }));
         break;
       default:
         break;
     }
   }
 
-  const handleSlide = (e: React.ChangeEvent<HTMLSpanElement>, v: number | number[]) => {
+  const handleSlide = (e: React.ChangeEvent<HTMLSpanElement>, value: number | number[]) => {
     e.preventDefault();
-    const { id } = e.target.parentElement;
+    const {id} = e.target.parentElement;
     switch (id) {
       case "radius":
-        if (typeof v === "number") dispatch(Actions.newGeoRadius(v));
+        if (typeof value === "number")
+          dispatch(Context.Actions.newConfig({
+            radius: value,
+            blur: state.blur,
+            zoom: state.zoom,
+          }));
         break;
       case "blur":
-        if (typeof v === "number") dispatch(Actions.newGeoBlur(v));
+        if (typeof value === "number")
+          dispatch(Context.Actions.newConfig({
+            radius: state.radius,
+            blur: value,
+            zoom: state.zoom,
+          }));
         break;
       case "maxZoom":
-        if (typeof v === "number") dispatch(Actions.newGeoZoom(v));
+        if (typeof value === "number")
+          dispatch(Context.Actions.newConfig({
+            radius: state.radius,
+            blur: state.blur,
+            zoom: value,
+          }));
         break;
       default:
         break;
@@ -183,7 +216,7 @@ export default withStyles(styles)((props: Props) => {
               </Typography>
               <Slider
                 id="radius"
-                value={r}
+                value={state.radius}
                 getAriaValueText={valuetext}
                 aria-labelledby="discrete-slider"
                 valueLabelDisplay="auto"
@@ -200,7 +233,7 @@ export default withStyles(styles)((props: Props) => {
               </Typography>
               <Slider
                 id="blur"
-                value={b}
+                value={state.blur}
                 getAriaValueText={valuetext}
                 aria-labelledby="discrete-slider"
                 valueLabelDisplay="auto"
@@ -217,7 +250,7 @@ export default withStyles(styles)((props: Props) => {
               </Typography>
               <Slider
                 id="maxZoom"
-                value={z}
+                value={state.zoom}
                 getAriaValueText={valuetext}
                 aria-labelledby="discrete-slider"
                 valueLabelDisplay="auto"

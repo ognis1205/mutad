@@ -15,17 +15,17 @@
  */
 import "nprogress/nprogress.css";
 import React, { useState } from "react";
+import * as NextApp from "next/app";
 import Head from "next/head";
 import { ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { wrapper } from "../state/store";
 import Specs from "../specs";
 import theme from "../theme";
 import Header from "../components/app/Header";
 import LeftDrawer from "../components/app/LeftDrawer";
 import Page from "../components/app/Page";
 
-export default wrapper.withRedux(({ Component, pageProps }) => {
+const App: React.FC<NextApp.AppProps> = ({ Component, pageProps }) => {
   const [navDrawerOpen, setNavDrawerOpen] = useState(false);
 
   React.useEffect(() => {
@@ -65,4 +65,6 @@ export default wrapper.withRedux(({ Component, pageProps }) => {
       </ThemeProvider>
     </React.Fragment>
   );
-});
+};
+
+export default App;

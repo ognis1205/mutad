@@ -49,68 +49,75 @@ export const init = (dispatch: React.Dispatch<React.ReducerAction<any>>) => {
   return load();
 };
 
-export const refresh = (text: string, hashtags: string, dispatch: React.Dispatch<React.ReducerAction<any>>) => {
-  const query = {
-    before: new Date().getTime(),
-    text: text,
-    hashtags: /\S/.test(hashtags) ? hashtags.split(/\s+/) : [],
-    page: 0,
-    size: 50,
-  } as Tweet.Query;
+export const refresh = (
+  text: string,
+  hashtags: string,
+  dispatch: React.Dispatch<React.ReducerAction<any>>) => {
+    const query = {
+      before: new Date().getTime(),
+      text: text,
+      hashtags: /\S/.test(hashtags) ? hashtags.split(/\s+/) : [],
+      page: 0,
+      size: 50,
+    } as Tweet.Query;
 
-  const opts = {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(query),
-  };
+    const opts = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(query),
+    };
 
-  fetch(`${process.env.API_ENDPOINT}/tweet/latest`, opts)
-  .then((res) => {
-    if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
-    return res.json();
-  })
-  .then((json) => {
-    dispatch(newQuery(query));
-    dispatch(newLatest(json))
-    dispatch(done())
-  })
-  .catch((reason) => {
-    console.log(reason);
-  });
+    fetch(`${process.env.API_ENDPOINT}/tweet/latest`, opts)
+    .then((res) => {
+      if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+      return res.json();
+    })
+    .then((json) => {
+      dispatch(newQuery(query));
+      dispatch(newLatest(json))
+      dispatch(done())
+    })
+    .catch((reason) => {
+      console.log(reason);
+    });
 
-  return load();
+    return load();
 };
 
-export const more = (text: string, hashtags: string, page: number, dispatch: React.Dispatch<React.ReducerAction<any>>) => {
-  const query = {
-    before: new Date().getTime(),
-    text: text,
-    hashtags: /\S/.test(hashtags) ? hashtags.split(/\s+/) : [],
-    page: page + 1,
-    size: 50,
-  } as Tweet.Query;
+export const more = (
+  text: string,
+  hashtags: string,
+  page: number,
+  dispatch: React.Dispatch<React.ReducerAction<any>>) => {
+    const query = {
+      before: new Date().getTime(),
+      text: text,
+      hashtags: /\S/.test(hashtags) ? hashtags.split(/\s+/) : [],
+      page: page + 1,
+      size: 50,
+    } as Tweet.Query;
 
-  const opts = {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(query),
-  };
+    const opts = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(query),
+    };
 
-  fetch(`${process.env.API_ENDPOINT}/tweet/latest`, opts)
-  .then((res) => {
-    if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
-    return res.json();
-  })
-  .then((json) => {
-    dispatch(newQuery(query));
-    dispatch(addLatest(json))
-    dispatch(done())
-  })
-  .catch((reason) => {
-    console.log(reason);
-  });
+    fetch(`${process.env.API_ENDPOINT}/tweet/latest`, opts)
+    .then((res) => {
+      if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+      return res.json();
+    })
+    .then((json) => {
+      dispatch(newQuery(query));
+      dispatch(addLatest(json))
+      dispatch(done())
+    })
+    .catch((reason) => {
+      console.log(reason);
+    });
 
-  return load();
+    return load();
 };
 
 const load = () => ({

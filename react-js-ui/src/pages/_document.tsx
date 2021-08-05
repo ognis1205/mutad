@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { ReactElement } from "react";
+import React from "react";
 import Document, {
   Html,
   Head,
@@ -49,7 +49,7 @@ export default class Doc extends Document {
     };
   }
 
-  render(): ReactElement {
+  render(): React.ReactElement {
     return (
       <Html lang="en">
         <Head>

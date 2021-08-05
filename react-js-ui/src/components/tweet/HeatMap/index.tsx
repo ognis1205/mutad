@@ -17,23 +17,16 @@ import "leaflet/dist/leaflet.css";
 import L, { Map as LeafletMap } from "leaflet";
 import "leaflet.heat";
 import React from "react";
-import * as Redux from "react-redux";
 import { MapContainerProps } from "react-leaflet";
 import { Box } from "@material-ui/core";
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import styles from "./styles";
-import { Selectors } from "../../../state/ducks/geos";
+import * as Context from "../../../contexts/tweet/map";
 
 interface Props extends WithStyles<typeof styles>, MapContainerProps {}
 
 export default withStyles(styles)((props: Props) => {
-  const geos = Redux.useSelector(Selectors.getGeos);
-
-  const r = Redux.useSelector(Selectors.getGeoRadius);
-
-  const b = Redux.useSelector(Selectors.getGeoBlur);
-
-  const z = Redux.useSelector(Selectors.getGeoZoom);
+  const {state} = React.useContext(Context.store);
 
   const [map, setMap] = React.useState<LeafletMap>();
 
@@ -49,16 +42,16 @@ export default withStyles(styles)((props: Props) => {
 
   React.useEffect(() => {
     if (map) {
-      const layer = L.heatLayer(geos, {
-        radius: r,
-        blur: b,
-        maxZoom: z,
+      const layer = L.heatLayer(state.points, {
+        radius: state.radius,
+        blur: state.blur,
+        maxZoom: state.zoom,
       });
       if (heat) map.removeLayer(heat);
       map.addLayer(layer);
       setHeat(layer);
     }
-  }, [geos, r, b, z]);
+  }, [state.points, state.radius, state.blur, state.zoom]);
   
   return <Box id="map" className={props.classes.leaflet}></Box>;
 });

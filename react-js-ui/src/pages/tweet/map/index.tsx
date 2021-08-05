@@ -14,13 +14,10 @@
  * limitations under the License.
  */
 import React from "react";
-import * as Redux from "react-redux";
 import dynamic from "next/dynamic";
 import { NextPage } from "next";
 import HeatMapSearch from "../../../components/tweet/HeatMapSearch";
-import {
-  Actions,
-} from "../../../state/ducks/geos";
+import * as Context from "../../../contexts/tweet/map";
 
 const Index: NextPage = () => {
   const HeatMap = React.useMemo(
@@ -32,47 +29,21 @@ const Index: NextPage = () => {
     []
   );
 
-  const dispatch = Redux.useDispatch();
-
-  const [text, setText] = React.useState<string>("");
-
-  const [hashtags, setHashtags] = React.useState<string>("");
-
-  const [from, setFrom] = React.useState<number>((new Date()).getTime());
-
-  const [to, setTo] = React.useState<number>((new Date()).getTime());
-
-  const handleText = (text: string) => {
-    setText(text);
-  };
-
-  const handleHashtags = (hashtags: string) => {
-    setHashtags(hashtags);
-  };
-
-  const handleFrom = (from: number) => {
-    setFrom(from);
-  };
-
-  const handleTo = (to: number) => {
-    setTo(to);
-  };
-
-  const toHashtags = (hashtags: string) => (
-    /\S/.test(hashtags) ? hashtags.split(/\s+/) : []
-  );
-
-  const handlePost = async () => {
-    dispatch(Actions.reqGeoPoints({
-      from: from,
-      to: to,
-      text: text,
-      hashtags: toHashtags(hashtags),
-    }));
+  interface ContextProps {
+    children: JSX.Element[];
   }
 
+  const ContextProvider = (props: ContextProps) => {
+    const [state, dispatch] = React.useReducer(Context.reducer, Context.init);
+    return (
+      <Context.store.Provider value={{state, dispatch}}>
+        {props.children}
+      </Context.store.Provider>
+    );
+  };
+
   return (
-    <React.Fragment>
+    <ContextProvider>
       <HeatMap
         center={[0.0, 0.0]}
         zoom={3}
@@ -82,14 +53,8 @@ const Index: NextPage = () => {
           [90, 180],
         ]}
       />
-      <HeatMapSearch
-        onText={handleText}
-        onHashtags={handleHashtags}
-        onFrom={handleFrom}
-        onTo={handleTo}
-        onPost={handlePost}
-      />
-    </React.Fragment>
+      <HeatMapSearch/>
+    </ContextProvider>
   );
 };
 
