@@ -28,7 +28,7 @@ import {
 import { PaperProps } from "@material-ui/core/Paper";
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import styles from "./styles";
-import * as Context from "../../../contexts/tweet/timeline";
+import * as Context from "../../../../contexts/tweet/timeline";
 
 const PaperComponent = (props: PaperProps) => {
   return (

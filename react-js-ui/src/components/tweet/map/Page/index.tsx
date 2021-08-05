@@ -21,7 +21,7 @@ import { MapContainerProps } from "react-leaflet";
 import { Box } from "@material-ui/core";
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import styles from "./styles";
-import * as Context from "../../../contexts/tweet/map";
+import * as Context from "../../../../contexts/tweet/map";
 
 interface Props extends WithStyles<typeof styles>, MapContainerProps {}
 

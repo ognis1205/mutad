@@ -16,13 +16,13 @@
 import React from "react";
 import dynamic from "next/dynamic";
 import { NextPage } from "next";
-import HeatMapSearch from "../../../components/tweet/HeatMapSearch";
+import Search from "../../../components/tweet/map/Search";
 import * as Context from "../../../contexts/tweet/map";
 
 const Index: NextPage = () => {
-  const HeatMap = React.useMemo(
+  const Page = React.useMemo(
     () =>
-      dynamic(() => import("../../../components/tweet/HeatMap"), {
+      dynamic(() => import("../../../components/tweet/map/Page"), {
         loading: () => <p>Loading a map...</p>,
         ssr: false,
       }),
@@ -44,7 +44,7 @@ const Index: NextPage = () => {
 
   return (
     <ContextProvider>
-      <HeatMap
+      <Page
         center={[0.0, 0.0]}
         zoom={3}
         minZoom={3}
@@ -53,7 +53,7 @@ const Index: NextPage = () => {
           [90, 180],
         ]}
       />
-      <HeatMapSearch/>
+      <Search/>
     </ContextProvider>
   );
 };

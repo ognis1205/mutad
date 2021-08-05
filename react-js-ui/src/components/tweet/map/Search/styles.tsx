@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import { createStyles } from "@material-ui/core/styles";
-import { CustomTheme } from "../../../theme";
+import { CustomTheme } from "../../../../theme";
 
 const styles = (theme: CustomTheme) =>
   createStyles({

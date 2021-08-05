@@ -34,7 +34,7 @@ import RefreshIcon from "@material-ui/icons/Refresh";
 import SearchIcon from "@material-ui/icons/Search";
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import styles from "./styles";
-import * as Context from "../../../contexts/tweet/timeline";
+import * as Context from "../../../../contexts/tweet/timeline";
 
 const getDateOf = (tweet: Context.Tweet.Model) => {
   const date = new Date(tweet.timestamp);

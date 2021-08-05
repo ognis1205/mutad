@@ -14,14 +14,16 @@
  * limitations under the License.
  */
 import { createStyles } from "@material-ui/core/styles";
-import { CustomTheme } from "../../../theme";
+import { CustomTheme } from "../../../../theme";
 
 const styles = (theme: CustomTheme) =>
   createStyles({
-    leaflet: {
-      height: theme.pageHeight,
-      width: theme.pagePosition,
-      position: theme.pagePosition,
+    form: {
+      display: "flex",
+      flexWrap: "wrap",
+    },
+    textField: {
+      width: "100%",
     },
   });
 

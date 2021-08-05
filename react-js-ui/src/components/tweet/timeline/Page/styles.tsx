@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import { createStyles } from "@material-ui/core/styles";
-import { CustomTheme } from "../../../theme";
+import { CustomTheme } from "../../../../theme";
 
 const styles = (theme: CustomTheme) =>
   createStyles({
@@ -38,8 +38,8 @@ const styles = (theme: CustomTheme) =>
       marginBottom: theme.spacing(2),
     },
     subheader: {
-//      backgroundColor: theme.palette.background.paper,
-      backgroundColor: theme.drawer.backgroundColor.light,
+      backgroundColor: theme.palette.background.paper,
+//      backgroundColor: theme.drawer.backgroundColor.light,
     },
     appBar: {
       position: "absolute",
