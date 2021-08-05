@@ -18,7 +18,6 @@ import {
   AppBar,
   Avatar,
   Box,
-  CircularProgress,
   Divider,
   IconButton,
   Link,
@@ -73,7 +72,7 @@ export default withStyles(styles, { withTheme: true })(React.forwardRef<HTMLULis
   const [tweetsByDate, setTweetsByDate] = React.useState({});
 
   React.useEffect(() => {
-    dispatch(Context.Actions.newTimeline(dispatch));
+    dispatch(Context.Actions.init(dispatch));
   }, []);
 
   React.useEffect(() => {
@@ -82,29 +81,44 @@ export default withStyles(styles, { withTheme: true })(React.forwardRef<HTMLULis
 
   const handleSearch = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    dispatch(Context.Actions.opnDialog());
+    dispatch(Context.Actions.open());
   };
 
   const handleScroll = (e: React.UIEvent<HTMLElement>) => {
     e.preventDefault();
-    const isBottom = e.currentTarget.scrollHeight - e.currentTarget.scrollTop === e.currentTarget.clientHeight;
-    if (isBottom) dispatch(Context.Actions.addTimeline(state.text, state.hashtags, state.page, dispatch));
+    const residual = e.currentTarget.scrollHeight - e.currentTarget.scrollTop;
+    const height   = e.currentTarget.clientHeight;
+    if (residual === height)
+      dispatch(Context.Actions.more(
+        state.text,
+        state.hashtags,
+        state.page,
+        dispatch));
   };
 
   const handleRefresh = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     props.onRefresh();
-    dispatch(Context.Actions.refTimeline(state.text, state.hashtags, dispatch));
+    dispatch(Context.Actions.refresh(
+      state.text,
+      state.hashtags,
+      dispatch));
   };
 
-  const withLink = (text: string, tweetIndex: number) => (
-    text
+  const withLink = (text: string) => {
+    const link = (text: string, index: number) => (
+      <Link key={index} component="button" variant="body2" onClick={() => { }}>
+        {text}
+      </Link>
+    );
+
+    return text
       .split(/\s+/)
       .map((text, index) =>
-        /#\w+/.test(text) ? (<Link key={tweetIndex + "-" + index} component="button" variant="body2" onClick={() => { }}>{text}</Link>) : text
+        /#\w+/.test(text) ? link(text, index) : text
       )
       .reduce((r: any[], a: any) => r.concat(a, " "), [" "])
-  );
+  };
 
   return (
     <Box className={props.classes.box}>
@@ -127,7 +141,7 @@ export default withStyles(styles, { withTheme: true })(React.forwardRef<HTMLULis
                     <Box className={props.classes.listItemText}>
                       <strong>{tweet.user_name}</strong>{ "@" }{tweet.user_id}
                       <Divider/>
-                      {withLink(tweet.text, tweetIndex)}
+                      {withLink(tweet.text)}
                     </Box>
                   } secondary={tweet.timestamp} />
                 </ListItem>

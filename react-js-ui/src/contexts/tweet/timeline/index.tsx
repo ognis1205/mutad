@@ -31,24 +31,24 @@ const init = Reducers.initState;
 
 const reducer = (state = init, action: Action.WithPayload<any | string | number | Tweet.Response[]>) => {
   switch (action.type) {
-    case Types.ASYNC_LOAD:
-      return Reducers.onAsyncLoad(state, action);
-    case Types.ASYNC_DONE:
-      return Reducers.onAsyncDone(state, action);
+    case Types.LOAD:
+      return Reducers.onLoad(state, action);
+    case Types.DONE:
+      return Reducers.onDone(state, action);
     case Types.NEW_QUERY:
       return Reducers.onNewQuery(state, action);
     case Types.CLR_QUERY:
       return Reducers.onClrQuery(state, action);
-    case Types.OPN_DIALOG:
-      return Reducers.onOpnDialog(state, action);
-    case Types.CLS_DIALOG:
-      return Reducers.onClsDialog(state, action);
-    case Types.NEW_LATEST_TWEETS:
-      return Reducers.onNewLatestTweets(state, action);
-    case Types.ADD_LATEST_TWEETS:
-      return Reducers.onAddLatestTweets(state, action);
-    case Types.CLR_LATEST_TWEETS:
-      return Reducers.onClrLatestTweets(state, action);
+    case Types.OPEN:
+      return Reducers.onOpen(state, action);
+    case Types.CLOSE:
+      return Reducers.onClose(state, action);
+    case Types.NEW_LATEST:
+      return Reducers.onNewLatest(state, action);
+    case Types.ADD_LATEST:
+      return Reducers.onAddLatest(state, action);
+    case Types.CLR_LATEST:
+      return Reducers.onClrLatest(state, action);
     default:
       return state;
   }

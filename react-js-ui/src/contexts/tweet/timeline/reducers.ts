@@ -36,14 +36,14 @@ export const initState = {
   latest: [],
 } as State;
 
-export const onAsyncLoad = (state: State, _: Action.WithPayload<any>) => {
+export const onLoad = (state: State, _: Action.WithPayload<any>) => {
   return {
     ...state,
     loading: true,
   };
 };
 
-export const onAsyncDone = (state: State, _: Action.WithPayload<any>) => {
+export const onDone = (state: State, _: Action.WithPayload<any>) => {
   return {
     ...state,
     loading: false,
@@ -70,21 +70,21 @@ export const onClrQuery = (state: State, _: Action.WithPayload<any>) => {
   };
 };
 
-export const onOpnDialog = (state: State, _: Action.WithPayload<any>) => {
+export const onOpen = (state: State, _: Action.WithPayload<any>) => {
   return {
     ...state,
     dialog: true,
   };
 };
 
-export const onClsDialog = (state: State, _: Action.WithPayload<any>) => {
+export const onClose = (state: State, _: Action.WithPayload<any>) => {
   return {
     ...state,
     dialog: false,
   };
 };
 
-export const onNewLatestTweets = (state: State, action: Action.WithPayload<Tweet.Response[]>) => {
+export const onNewLatest = (state: State, action: Action.WithPayload<Tweet.Response[]>) => {
   return {
     ...state,
     latest: action.payload.map((e) => ({
@@ -98,7 +98,7 @@ export const onNewLatestTweets = (state: State, action: Action.WithPayload<Tweet
   };
 };
 
-export const onAddLatestTweets = (state: State, action: Action.WithPayload<Tweet.Response[]>) => {
+export const onAddLatest = (state: State, action: Action.WithPayload<Tweet.Response[]>) => {
   return {
     ...state,
     latest: [...state.latest, ...action.payload.map((e) => { return {
@@ -112,7 +112,7 @@ export const onAddLatestTweets = (state: State, action: Action.WithPayload<Tweet
   };
 };
 
-export const onClrLatestTweets = (state: State, _: Action.WithPayload<any>) => {
+export const onClrLatest = (state: State, _: Action.WithPayload<any>) => {
   return {
     ...state,
     latest: [],

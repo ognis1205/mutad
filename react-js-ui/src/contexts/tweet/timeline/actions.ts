@@ -17,7 +17,7 @@ import React from "react";
 import * as Tweet from "./tweet.d";
 import * as Types from "./types";
 
-export const newTimeline = (dispatch: React.Dispatch<React.ReducerAction<any>>) => {
+export const init = (dispatch: React.Dispatch<React.ReducerAction<any>>) => {
   const query = {
     before: new Date().getTime(),
     text: "",
@@ -39,17 +39,17 @@ export const newTimeline = (dispatch: React.Dispatch<React.ReducerAction<any>>) 
   })
   .then((json) => {
     dispatch(newQuery(query));
-    dispatch(newLatestTweets(json))
-    dispatch(asyncDone())
+    dispatch(newLatest(json))
+    dispatch(done())
   })
   .catch((reason) => {
     console.log(reason);
   });
 
-  return asyncLoad();
+  return load();
 };
 
-export const refTimeline = (text: string, hashtags: string, dispatch: React.Dispatch<React.ReducerAction<any>>) => {
+export const refresh = (text: string, hashtags: string, dispatch: React.Dispatch<React.ReducerAction<any>>) => {
   const query = {
     before: new Date().getTime(),
     text: text,
@@ -71,17 +71,17 @@ export const refTimeline = (text: string, hashtags: string, dispatch: React.Disp
   })
   .then((json) => {
     dispatch(newQuery(query));
-    dispatch(newLatestTweets(json))
-    dispatch(asyncDone())
+    dispatch(newLatest(json))
+    dispatch(done())
   })
   .catch((reason) => {
     console.log(reason);
   });
 
-  return asyncLoad();
+  return load();
 };
 
-export const addTimeline = (text: string, hashtags: string, page: number, dispatch: React.Dispatch<React.ReducerAction<any>>) => {
+export const more = (text: string, hashtags: string, page: number, dispatch: React.Dispatch<React.ReducerAction<any>>) => {
   const query = {
     before: new Date().getTime(),
     text: text,
@@ -103,23 +103,23 @@ export const addTimeline = (text: string, hashtags: string, page: number, dispat
   })
   .then((json) => {
     dispatch(newQuery(query));
-    dispatch(addLatestTweets(json))
-    dispatch(asyncDone())
+    dispatch(addLatest(json))
+    dispatch(done())
   })
   .catch((reason) => {
     console.log(reason);
   });
 
-  return asyncLoad();
+  return load();
 };
 
-const asyncLoad = () => ({
-  type: Types.ASYNC_LOAD,
+const load = () => ({
+  type: Types.LOAD,
   payload: true,
 });
 
-const asyncDone = () => ({
-  type: Types.ASYNC_DONE,
+const done = () => ({
+  type: Types.DONE,
   payload: false,
 });
 
@@ -129,31 +129,31 @@ export const newQuery = (query: Tweet.Query) => ({
 });
 
 export const clrQuery = () => ({
-  type: Types.NEW_QUERY,
+  type: Types.CLR_QUERY,
   payload: "",
 });
 
-export const opnDialog = () => ({
-  type: Types.OPN_DIALOG,
+export const open = () => ({
+  type: Types.OPEN,
   payload: true,
 });
 
-export const clsDialog = () => ({
-  type: Types.CLS_DIALOG,
+export const close = () => ({
+  type: Types.CLOSE,
   payload: false,
 });
 
-export const newLatestTweets = (json: Tweet.Response[]) => ({
-  type: Types.NEW_LATEST_TWEETS,
+export const newLatest = (json: Tweet.Response[]) => ({
+  type: Types.NEW_LATEST,
   payload: json,
 });
 
-export const addLatestTweets = (json: Tweet.Response[]) => ({
-  type: Types.ADD_LATEST_TWEETS,
+export const addLatest = (json: Tweet.Response[]) => ({
+  type: Types.ADD_LATEST,
   payload: json,
 });
 
-export const clrLatestTweets = () => ({
-  type: Types.CLR_LATEST_TWEETS,
+export const clrLatest = () => ({
+  type: Types.CLR_LATEST,
   payload: [],
 });

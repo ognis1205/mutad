@@ -74,14 +74,17 @@ export default withStyles(styles, { withTheme: true })((props: Props) => {
 
   const handleClose = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    dispatch(Context.Actions.clsDialog());
+    dispatch(Context.Actions.close());
   }
 
   const handleSearch = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     props.onRefresh();
-    dispatch(Context.Actions.refTimeline(state.text, state.hashtags, dispatch));
-    dispatch(Context.Actions.clsDialog());
+    dispatch(Context.Actions.refresh(
+      state.text,
+      state.hashtags,
+      dispatch));
+    dispatch(Context.Actions.close());
   }
 
   return (
