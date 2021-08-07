@@ -15,7 +15,7 @@
  */
 import React from "react";
 import * as Next from "next";
-import Page from "../../../components/tweet/timeline/Page";
+import Main from "../../../components/tweet/timeline/Main";
 import Search from "../../../components/tweet/timeline/Search";
 import * as Context from "../../../contexts/tweet/timeline";
 
@@ -41,7 +41,7 @@ const Index: Next.NextPage = () => {
 
   return (
     <ContextProvider>
-      <Page
+      <Main
         ref={scrollRef}
         onRefresh={handleRefresh}/>
       <Search

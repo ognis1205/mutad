@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 import React from "react";
-import { NextPage } from "next";
+import * as Next from "next";
 import Specs from "../specs";
-import Dashboard from "../components/app/Dashboard";
+import Main from "../components/app/Main";
 
-const Index: NextPage = () => {
-  const menu = [].concat(...Specs.menu.map((item, index) => {
+const Index: Next.NextPage = () => {
+  const menu = [].concat(...Specs.menu.map((item) => {
     return item.hasOwnProperty("subMenu") && Array.isArray(item.subMenu) ? item.subMenu : [];
   }));
 
   return (
     <React.Fragment>
-      <Dashboard menu={menu} />
+      <Main menu={menu} />
     </React.Fragment>
   );
 };

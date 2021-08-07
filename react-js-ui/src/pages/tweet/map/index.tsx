@@ -20,9 +20,9 @@ import Search from "../../../components/tweet/map/Search";
 import * as Context from "../../../contexts/tweet/map";
 
 const Index: NextPage = () => {
-  const Page = React.useMemo(
+  const Main = React.useMemo(
     () =>
-      dynamic(() => import("../../../components/tweet/map/Page"), {
+      dynamic(() => import("../../../components/tweet/map/Main"), {
         loading: () => <p>Loading a map...</p>,
         ssr: false,
       }),
@@ -44,7 +44,7 @@ const Index: NextPage = () => {
 
   return (
     <ContextProvider>
-      <Page
+      <Main
         center={[0.0, 0.0]}
         zoom={3}
         minZoom={3}
