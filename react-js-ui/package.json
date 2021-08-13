@@ -28,7 +28,7 @@
     "immutable": "^4.0.0-rc.14",
     "leaflet": "^1.7.1",
     "leaflet.heat": "^0.2.0",
-    "next": "11.0.1",
+    "next": "^11.1.0",
     "next-redux-wrapper": "^7.0.2",
     "nprogress": "^0.2.0",
     "react": "17.0.2",
