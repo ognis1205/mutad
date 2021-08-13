@@ -21,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.elasticsearch.core.geo.GeoPoint;
 import org.springframework.stereotype.Service;
+import io.github.ognis1205.mutad.spring.model.Topic;
 import io.github.ognis1205.mutad.spring.model.Tweet;
 import io.github.ognis1205.mutad.spring.repository.TweetRepository;
 import io.github.ognis1205.mutad.spring.service.TweetService;
@@ -74,12 +75,25 @@ public class TweetServiceImpl implements TweetService {
      * {@inheritDoc}
      */
     @Override
-    public List<Tweet> getLatests(
+    public List<Tweet> getLatest(
             Date before,
             String text,
             List<String> hashtags,
             int page,
             int size) {
-        return this.repository.findLatests(before, text, hashtags, page, size);
+        return this.repository.findLatest(before, text, hashtags, page, size);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<Topic> getTopics(
+            Date from,
+            Date to,
+            GeoPoint center,
+            String radius,
+            int topN) {
+        return this.repository.findTopics(from, to, center, radius, topN);
     }
 }

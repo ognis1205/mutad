@@ -20,13 +20,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.common.unit.Fuzziness;
-import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
 import org.springframework.data.elasticsearch.core.SearchHit;
 import org.springframework.data.elasticsearch.core.geo.GeoPoint;
-import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Repository;
 import io.github.ognis1205.mutad.spring.model.Geo;
@@ -52,26 +50,24 @@ public class EsGeoRepositoryImpl implements EsGeoRepository {
             Date to,
             String text,
             List<String> hashtags) {
-        BoolQueryBuilder builder = QueryBuilders
-                .boolQuery()
-                .must(QueryBuilders
-                        .rangeQuery("timestamp")
-                        .gte(from.getTime())
-                        .lte(to.getTime()));
+        NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder()
+                .withQuery(QueryBuilders
+                        .boolQuery()
+                        .must(QueryBuilders
+                                .rangeQuery("timestamp")
+                                .gte(from.getTime())
+                                .lte(to.getTime())));
         if (!text.isEmpty())
-            builder.filter(QueryBuilders
+            queryBuilder.withFilter(QueryBuilders
                     .matchQuery("text", text)
                     .analyzer("rebuilt_english")
                     .fuzziness(Fuzziness.AUTO)
                     .prefixLength(3)
                     .maxExpansions(10));
         if (!hashtags.isEmpty())
-            builder.filter(QueryBuilders
+            queryBuilder.withFilter(QueryBuilders
                     .termsQuery("hashtags", hashtags));
-        NativeSearchQuery query = new NativeSearchQueryBuilder()
-                .withQuery(builder)
-                .build();
-        return this.template.search(query, Geo.class)
+        return this.template.search(queryBuilder.build(), Geo.class)
                 .get()
                 .map(SearchHit::getContent)
                 .collect(Collectors.toList());
@@ -88,30 +84,28 @@ public class EsGeoRepositoryImpl implements EsGeoRepository {
             List<String> hashtags,
             GeoPoint center,
             String radius) {
-        BoolQueryBuilder builder = QueryBuilders
-                .boolQuery()
-                .must(QueryBuilders
-                        .rangeQuery("timestamp")
-                        .gte(from.getTime())
-                        .lte(to.getTime()))
-                .filter(QueryBuilders
+        NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder()
+                .withQuery(QueryBuilders
+                        .boolQuery()
+                        .must(QueryBuilders
+                                .rangeQuery("timestamp")
+                                .gte(from.getTime())
+                                .lte(to.getTime())))
+                .withFilter(QueryBuilders
                         .geoDistanceQuery("city_coord")
                         .point(center.getLat(), center.getLon())
                         .distance(radius));
         if (!text.isEmpty())
-            builder.filter(QueryBuilders
+            queryBuilder.withFilter(QueryBuilders
                     .matchQuery("text", text)
                     .analyzer("rebuilt_english")
                     .fuzziness(Fuzziness.AUTO)
                     .prefixLength(3)
                     .maxExpansions(10));
         if (!hashtags.isEmpty())
-            builder.filter(QueryBuilders
+            queryBuilder.withFilter(QueryBuilders
                     .termsQuery("hashtags", hashtags));
-        NativeSearchQuery query = new NativeSearchQueryBuilder()
-                .withQuery(builder)
-                .build();
-        return this.template.search(query, Geo.class)
+        return this.template.search(queryBuilder.build(), Geo.class)
                 .get()
                 .map(SearchHit::getContent)
                 .collect(Collectors.toList());

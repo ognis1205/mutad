@@ -18,13 +18,15 @@ package io.github.ognis1205.mutad.spring.controller;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import io.github.ognis1205.mutad.spring.model.Topic;
 import io.github.ognis1205.mutad.spring.model.Tweet;
+import io.github.ognis1205.mutad.spring.dto.TopicDTO;
 import io.github.ognis1205.mutad.spring.dto.TweetDTO;
+import io.github.ognis1205.mutad.spring.filter.TopicFilter;
 import io.github.ognis1205.mutad.spring.filter.TweetFilter;
+import io.github.ognis1205.mutad.spring.mapper.TopicMapper;
 import io.github.ognis1205.mutad.spring.mapper.TweetMapper;
 import io.github.ognis1205.mutad.spring.service.TweetService;
 
@@ -45,7 +47,11 @@ public class TweetController {
 
     /** `TweetMapper` instance. */
     @Autowired
-    private TweetMapper mapper;
+    private TweetMapper tweetMapper;
+
+    /** `TopicMapper` instance. */
+    @Autowired
+    private TopicMapper topicMapper;
 
     /**
      * Gets all tweet documents in 'tweet' index.
@@ -56,7 +62,7 @@ public class TweetController {
     @ResponseStatus(HttpStatus.OK)
     public List<TweetDTO> getAll() {
         List<Tweet> tweets = this.service.getAll();
-        return this.mapper.convert(tweets);
+        return this.tweetMapper.convert(tweets);
     }
 
     /**
@@ -74,7 +80,7 @@ public class TweetController {
                 filter.getTo(),
                 filter.getText(),
                 filter.getHashtags());
-        return this.mapper.convert(tweets);
+        return this.tweetMapper.convert(tweets);
     }
 
     /**
@@ -94,11 +100,11 @@ public class TweetController {
                 filter.getHashtags(),
                 filter.getCenter(),
                 filter.getRadius());
-        return this.mapper.convert(tweets);
+        return this.tweetMapper.convert(tweets);
     }
 
     /**
-     * Returns the top 50 most recent tweet documents in 'tweet' index.
+     * Returns the top most recent tweet documents in 'tweet' index.
      * within a given time period with a given geolocation.
      * @param filter the search condition.
      * @return the `TweetDTO` instances match the query condition.
@@ -107,12 +113,31 @@ public class TweetController {
     @CrossOrigin
     @ResponseStatus(HttpStatus.OK)
     public List<TweetDTO> getLatest(@RequestBody TweetFilter filter) throws Exception {
-        List<Tweet> tweets = this.service.getLatests(
+        List<Tweet> tweets = this.service.getLatest(
                 filter.getBefore(),
                 filter.getText(),
                 filter.getHashtags(),
                 filter.getPage(),
                 filter.getSize());
-        return this.mapper.convert(tweets);
+        return this.tweetMapper.convert(tweets);
+    }
+
+    /**
+     * Returns the most hot topics/hashtags in 'tweet' index.
+     * within a given time period with a given geolocation.
+     * @param filter the search condition.
+     * @return the `TopicDTO` instances match the query condition.
+     */
+    @PostMapping("/topics")
+    @CrossOrigin
+    @ResponseStatus(HttpStatus.OK)
+    public List<TopicDTO> getTopics(@RequestBody TopicFilter filter) throws Exception {
+        List<Topic> topics = this.service.getTopics(
+                filter.getFrom(),
+                filter.getTo(),
+                filter.getCenter(),
+                filter.getRadius(),
+                filter.getTopN());
+        return this.topicMapper.convert(topics);
     }
 }

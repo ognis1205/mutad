@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.List;
 import org.springframework.data.elasticsearch.core.geo.GeoPoint;
 import io.github.ognis1205.mutad.spring.model.Tweet;
+import io.github.ognis1205.mutad.spring.model.Topic;
 
 /**
  * @author Shingo OKAWA
@@ -50,7 +51,7 @@ public interface EsTweetRepository {
     public List<Tweet> findByGeolocation(Date from, Date to, String text, List<String> hashtags, GeoPoint center, String radius);
 
     /**
-     * Finds the top 50 most recent tweet documents in 'tweet' index.
+     * Finds the top most recent tweet documents in 'tweet' index.
      * @param before the start date of a given period.
      * @param text the text for full text search.
      * @param hashtags the target hashtags.
@@ -58,5 +59,16 @@ public interface EsTweetRepository {
      * @param size the page size.
      * @return the `Tweet` instances match the query condition.
      */
-    public List<Tweet> findLatests(Date before, String text, List<String> hashtags, int page, int size);
+    public List<Tweet> findLatest(Date before, String text, List<String> hashtags, int page, int size);
+
+    /**
+     * Finds the most hot topics/hashtags in 'tweet' index.
+     * @param from the start date of a given period.
+     * @param to the end date of a given period.
+     * @param center the center geo point to be queried.
+     * @param radius the radius of a concerning geo area.
+     * @param topN the bucket size.
+     * @return the `Topic` instances match the query condition.
+     */
+    public List<Topic> findTopics(Date from, Date to, GeoPoint center, String radius, int topN);
 }
