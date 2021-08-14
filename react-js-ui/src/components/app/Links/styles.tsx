@@ -13,16 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { createStyles } from "@material-ui/core/styles";
-import { CustomTheme } from "../../../../theme";
+import * as MaterialStyles from "@material-ui/core/styles";
+import * as Themes from "../../../themes";
 
-const styles = (theme: CustomTheme) =>
-  createStyles({
-    box: {
-      width: "90%",
-      marginLeft: "auto",
-      marginRight: "auto",
-      overflow: 'scroll',
+const styles = (theme: Themes.Custom.Theme) =>
+  MaterialStyles.createStyles({
+    grid: {
+      height: theme.pageHeight,
+      justifyContent: "flex-start",
+      padding: "15px",
+    },
+    card: {
+      position: "relative",
+      "&:hover, &:focus": {
+        top: -5,
+      },
+    },
+    cardMedia: {
+      height: 140,
     },
   });
 

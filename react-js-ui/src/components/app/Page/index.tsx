@@ -15,10 +15,7 @@
  */
 import React from "react";
 import classNames from "classnames";
-import {
-  Box,
-  Paper,
-} from "@material-ui/core";
+import * as Material from "@material-ui/core";
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import styles from "./styles";
 
@@ -29,15 +26,15 @@ interface Props extends WithStyles<typeof styles> {
 
 export default withStyles(styles, { withTheme: true })((props: Props) => {
   return (
-    <Box
+    <Material.Box
       className={classNames(
         props.classes.box,
         !props.navDrawerOpen && props.classes.boxFull
       )}
     >
-      <Paper variant="outlined" square className={props.classes.paper}>
+      <Material.Paper variant="outlined" square className={props.classes.paper}>
         {props.children}
-      </Paper>
-    </Box>
+      </Material.Paper>
+    </Material.Box>
   );
 });

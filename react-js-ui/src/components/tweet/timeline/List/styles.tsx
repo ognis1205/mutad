@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { createStyles } from "@material-ui/core/styles";
-import { CustomTheme } from "../../../../theme";
+import * as MaterialStyles from "@material-ui/core/styles";
+import * as Themes from "../../../../themes";
 
-const styles = (theme: CustomTheme) =>
-  createStyles({
+const styles = (theme: Themes.Custom.Theme) =>
+  MaterialStyles.createStyles({
     box: {
       position: theme.pagePosition,
     },

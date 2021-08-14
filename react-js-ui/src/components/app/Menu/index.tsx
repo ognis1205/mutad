@@ -15,25 +15,16 @@
  */
 import React from "react";
 import Link from "next/link";
-import {
-  Collapse,
-  List,
-  ListItem,
-  ListItemIcon,
-  Menu,
-  MenuItem,
-} from "@material-ui/core";
-import {
-  ExpandMore,
-  KeyboardArrowRight,
-} from "@material-ui/icons";
+import * as Material from "@material-ui/core";
+import ExpandMore from "@material-ui/icons/ExpandMore";
+import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import styles from "./styles";
-import { MenuDef } from "../../../specs";
+import * as Metadata from "../../../metadata";
 
 interface ItemProps extends WithStyles<typeof styles> {
   key: number;
-  menu: MenuDef;
+  menu: Metadata.Menu.Item;
   navDrawerOpen: boolean;
 }
 
@@ -61,26 +52,26 @@ const Item = withStyles(styles, { withTheme: true })((props: ItemProps) => {
     if (!props.menu.subMenu || !props.menu.subMenu.length) {
       return (
         <Link key={props.key} href={props.menu.link}>
-          <MenuItem classes={{ root: props.classes.muMenuItem }}>
-            <ListItemIcon className={props.classes.listItemIcon}>
+          <Material.MenuItem classes={{ root: props.classes.muMenuItem }}>
+            <Material.ListItemIcon className={props.classes.listItemIcon}>
               {props.menu.icon}
-            </ListItemIcon>
-          </MenuItem>
+            </Material.ListItemIcon>
+          </Material.MenuItem>
         </Link>
       );
     }
 
     return (
-      <MenuItem
+      <Material.MenuItem
         key={props.key}
         classes={{ root: props.classes.muMenuItem }}
         onClick={handleClick}
       >
-        <ListItemIcon className={props.classes.listItemIcon}>
+        <Material.ListItemIcon className={props.classes.listItemIcon}>
           {props.menu.icon}
-        </ListItemIcon>
+        </Material.ListItemIcon>
         <Anchor ref={anchor} />
-        <Menu
+        <Material.Menu
           anchorEl={anchor.current}
           classes={{ paper: props.classes.muMenu }}
           open={open}
@@ -88,16 +79,16 @@ const Item = withStyles(styles, { withTheme: true })((props: ItemProps) => {
         >
           {props.menu.subMenu.map((item, index) => (
             <Link key={index} href={item.link}>
-              <MenuItem key={index} classes={{ root: props.classes.subMuMenuItem }}>
-                <ListItemIcon style={{ color: "white" }}>
+              <Material.MenuItem key={index} classes={{ root: props.classes.subMuMenuItem }}>
+                <Material.ListItemIcon style={{ color: "white" }}>
                   {item.icon}
-                </ListItemIcon>
+                </Material.ListItemIcon>
                 <span>{item.text}</span>
-              </MenuItem>
+              </Material.MenuItem>
             </Link>
           ))}
-        </Menu>
-      </MenuItem>
+        </Material.Menu>
+      </Material.MenuItem>
     );
   };
 
@@ -105,54 +96,54 @@ const Item = withStyles(styles, { withTheme: true })((props: ItemProps) => {
     if (!props.menu.subMenu || !props.menu.subMenu.length) {
       return (
         <Link key={props.key} href={props.menu.link}>
-          <MenuItem classes={{ root: props.classes.subMuMenuItem }}>
-            <ListItemIcon style={{ color: "white" }}>
+          <Material.MenuItem classes={{ root: props.classes.subMuMenuItem }}>
+            <Material.ListItemIcon style={{ color: "white" }}>
               {props.menu.icon}
-            </ListItemIcon>
+            </Material.ListItemIcon>
             <span>{props.menu.text}</span>
-          </MenuItem>
+          </Material.MenuItem>
         </Link>
       );
     }
 
     return (
       <React.Fragment>
-        <ListItem
+        <Material.ListItem
           key={props.key}
           classes={{ root: props.classes.subMuMenuItem }}
           onClick={handleClick}
         >
-          <ListItemIcon style={{ color: "white" }}>
+          <Material.ListItemIcon style={{ color: "white" }}>
             {props.menu.icon}
-          </ListItemIcon>
+          </Material.ListItemIcon>
           <span>{props.menu.text}</span>
           {open ? (
             <ExpandMore className={props.classes.chevronIcon} />
           ) : (
             <KeyboardArrowRight className={props.classes.chevronIcon} />
           )}
-        </ListItem>
-        <Collapse in={open} timeout="auto" unmountOnExit>
-          <List
+        </Material.ListItem>
+        <Material.Collapse in={open} timeout="auto" unmountOnExit>
+          <Material.List
             component="div"
             disablePadding
             classes={{ root: props.classes.subMenuItem }}
           >
             {props.menu.subMenu.map((item, index) => (
               <Link key={index} href={item.link}>
-                <MenuItem
+                <Material.MenuItem
                   key={index}
                   classes={{ root: props.classes.subMuMenuItem }}
                 >
-                  <ListItemIcon style={{ color: "white" }}>
+                  <Material.ListItemIcon style={{ color: "white" }}>
                     {item.icon}
-                  </ListItemIcon>
+                  </Material.ListItemIcon>
                   <span>{item.text}</span>
-                </MenuItem>
+                </Material.MenuItem>
               </Link>
             ))}
-          </List>
-        </Collapse>
+          </Material.List>
+        </Material.Collapse>
       </React.Fragment>
     );
   };
@@ -162,16 +153,16 @@ const Item = withStyles(styles, { withTheme: true })((props: ItemProps) => {
 });
 
 interface Props extends WithStyles<typeof styles> {
-  menu: MenuDef[];
+  menu: Metadata.Menu.Item[];
   navDrawerOpen: boolean;
 }
 
 export default withStyles(styles, { withTheme: true })((props: Props) => {
   return (
-    <List>
-      {props.menu.map((item: MenuDef, index: number) => (
+    <Material.List>
+      {props.menu.map((item: Metadata.Menu.Item, index: number) => (
         <Item key={index} menu={item} navDrawerOpen={props.navDrawerOpen} />
       ))}
-    </List>
+    </Material.List>
   );
 });

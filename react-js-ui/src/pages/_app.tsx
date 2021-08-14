@@ -13,20 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import "nprogress/nprogress.css";
-import React, { useState } from "react";
+import React from "react";
 import * as NextApp from "next/app";
+import * as Material from "@material-ui/core";
+import * as MaterialStyles from "@material-ui/core/styles";
 import Head from "next/head";
-import { ThemeProvider } from "@material-ui/core/styles";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Specs from "../specs";
-import theme from "../theme";
+import * as Metadata from "../metadata";
+import * as Themes from "../themes";
 import Header from "../components/app/Header";
 import LeftDrawer from "../components/app/LeftDrawer";
 import Page from "../components/app/Page";
 
-const App: React.FC<NextApp.AppProps> = ({ Component, pageProps }) => {
-  const [navDrawerOpen, setNavDrawerOpen] = useState(false);
+const Mutad: React.FC<NextApp.AppProps> = ({ Component, pageProps }) => {
+  const [navDrawerOpen, setNavDrawerOpen] = React.useState(false);
 
   React.useEffect(() => {
     const jssStyles = document.querySelector("#jss-server-side");
@@ -46,8 +45,8 @@ const App: React.FC<NextApp.AppProps> = ({ Component, pageProps }) => {
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
       </Head>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
+      <MaterialStyles.ThemeProvider theme={Themes.defaultTheme}>
+        <Material.CssBaseline/>
         <Header
           title={"mutad"}
           github={"https://github.com/ognis1205/mutad"}
@@ -57,14 +56,14 @@ const App: React.FC<NextApp.AppProps> = ({ Component, pageProps }) => {
         <LeftDrawer
           navDrawerOpen={navDrawerOpen}
           handleChangeNavDrawer={handleChangeNavDrawer}
-          menu={Specs.menu}
+          menu={Metadata.contents.menu}
         />
         <Page navDrawerOpen={navDrawerOpen}>
           <Component {...pageProps} />
         </Page>
-      </ThemeProvider>
+      </MaterialStyles.ThemeProvider>
     </React.Fragment>
   );
 };
 
-export default App;
+export default Mutad;

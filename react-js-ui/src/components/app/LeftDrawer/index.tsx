@@ -15,20 +15,16 @@
  */
 import React from "react";
 import classNames from "classnames";
-import {
-  Box,
-  Drawer,
-  Hidden,
-} from "@material-ui/core";
+import * as Material from "@material-ui/core";
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import styles from "./styles";
 import Menu from "../Menu";
-import { MenuDef } from "../../../specs";
-import { CustomTheme } from "../../../theme";
+import * as Metadata from "../../../metadata";
+import * as Themes from "../../../themes";
 
 interface Props extends WithStyles<typeof styles> {
-  theme: CustomTheme;
-  menu: MenuDef[];
+  theme: Themes.Custom.Theme;
+  menu: Metadata.Menu.Item[];
   navDrawerOpen: boolean;
   handleChangeNavDrawer: (e: any) => void;
 }
@@ -36,15 +32,15 @@ interface Props extends WithStyles<typeof styles> {
 export default withStyles(styles, { withTheme: true })((props: Props) => {
   const drawerContent = () => (
     <React.Fragment>
-      <Box className={props.classes.logo}></Box>
+      <Material.Box className={props.classes.logo}></Material.Box>
       <Menu menu={props.menu} navDrawerOpen={props.navDrawerOpen} />
     </React.Fragment>
   );
 
   return (
     <React.Fragment>
-      <Hidden mdUp>
-        <Drawer
+      <Material.Hidden mdUp>
+        <Material.Drawer
           variant="temporary"
           anchor={props.theme.direction === "rtl" ? "right" : "left"}
           open={props.navDrawerOpen}
@@ -57,10 +53,10 @@ export default withStyles(styles, { withTheme: true })((props: Props) => {
           }}
         >
           {drawerContent()}
-        </Drawer>
-      </Hidden>
-      <Hidden smDown>
-        <Drawer
+        </Material.Drawer>
+      </Material.Hidden>
+      <Material.Hidden smDown>
+        <Material.Drawer
           open={props.navDrawerOpen}
           variant="permanent"
           classes={{
@@ -71,8 +67,8 @@ export default withStyles(styles, { withTheme: true })((props: Props) => {
           }}
         >
           {drawerContent()}
-        </Drawer>
-      </Hidden>
+        </Material.Drawer>
+      </Material.Hidden>
     </React.Fragment>
   );
 });

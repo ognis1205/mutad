@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { createStyles } from "@material-ui/core/styles";
+import * as MaterialStyles from "@material-ui/core/styles";
+import * as Themes from "../../../themes";
 import Color from "color";
-import { CustomTheme } from "../../../theme";
 
-const styles = (theme: CustomTheme) =>
-  createStyles({
+const styles = (theme: Themes.Custom.Theme) =>
+  MaterialStyles.createStyles({
     muMenuItem: {
       color: "white",
       margin: "10px 0",

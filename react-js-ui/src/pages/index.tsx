@@ -15,17 +15,17 @@
  */
 import React from "react";
 import * as Next from "next";
-import Specs from "../specs";
-import Main from "../components/app/Main";
+import * as Metadata from "../metadata";
+import Links from "../components/app/Links";
 
 const Index: Next.NextPage = () => {
-  const menu = [].concat(...Specs.menu.map((item) => {
+  const menu = [].concat(...Metadata.contents.menu.map((item) => {
     return item.hasOwnProperty("subMenu") && Array.isArray(item.subMenu) ? item.subMenu : [];
   }));
 
   return (
     <React.Fragment>
-      <Main menu={menu} />
+      <Links menu={menu} />
     </React.Fragment>
   );
 };

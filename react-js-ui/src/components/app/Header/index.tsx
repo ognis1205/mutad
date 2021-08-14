@@ -15,17 +15,9 @@
  */
 import React from "react";
 import classNames from "classnames";
-import {
-  AppBar,
-  Box,
-  IconButton,
-  Toolbar,
-  Typography,
-} from "@material-ui/core";
-import {
-  GitHub,
-  Menu as MenuIcon,
-} from "@material-ui/icons/";
+import * as Material from "@material-ui/core";
+import GitHub from "@material-ui/icons/GitHub";
+import Menu from "@material-ui/icons/Menu";
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import styles from "./styles";
 
@@ -38,27 +30,27 @@ interface Props extends WithStyles<typeof styles> {
 
 export default withStyles(styles, { withTheme: true })((props: Props) => {
   return (
-    <AppBar
+    <Material.AppBar
       className={classNames(props.classes.appBar, {
         [props.classes.appBarShift]: props.navDrawerOpen,
       })}
     >
-      <Toolbar>
-        <IconButton
+      <Material.Toolbar>
+        <Material.IconButton
           className={props.classes.iconButton}
           color="inherit"
           aria-label="Open drawer"
           onClick={props.handleChangeNavDrawer}
         >
-          <MenuIcon />
-        </IconButton>
-        <Box className={props.classes.grow}>
-          <Typography variant="h5" color="inherit">
+          <Menu/>
+        </Material.IconButton>
+        <Material.Box className={props.classes.grow}>
+          <Material.Typography variant="h5" color="inherit">
             {props.title}
-          </Typography>
-        </Box>
-        <Box className={props.classes.links}>
-          <IconButton
+          </Material.Typography>
+        </Material.Box>
+        <Material.Box className={props.classes.links}>
+          <Material.IconButton
             aria-haspopup="true"
             onClick={() => {
               window.open(props.github);
@@ -66,9 +58,9 @@ export default withStyles(styles, { withTheme: true })((props: Props) => {
             color="inherit"
           >
             <GitHub />
-          </IconButton>
-        </Box>
-      </Toolbar>
-    </AppBar>
+          </Material.IconButton>
+        </Material.Box>
+      </Material.Toolbar>
+    </Material.AppBar>
   );
 });

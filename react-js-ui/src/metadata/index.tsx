@@ -14,30 +14,14 @@
  * limitations under the License.
  */
 import React from "react";
-import {
-  Assessment,
-  BorderClear,
-  BorderInner,
-  BorderOuter,
-  Home,
-} from "@material-ui/icons";
+import Assessment from "@material-ui/icons/Assessment";
+import BorderClear from "@material-ui/icons/BorderClear";
+import BorderInner from "@material-ui/icons/BorderInner";
+import BorderOuter from "@material-ui/icons/BorderOuter";
+import Home from "@material-ui/icons/Home";
+import * as Menu from "./menu.d";
 
-export interface MenuDef {
-  text: string,
-  icon: JSX.Element,
-  link?: string,
-  subMenu?: SubMenuDef[],
-}
-
-export interface SubMenuDef {
-  text: string,
-  description: string,
-  image: string,
-  icon: JSX.Element,
-  link: string,
-}
-
-const specs = {
+const contents = {
   menu: [
     {
       text: "Twitter Data",
@@ -74,4 +58,4 @@ const specs = {
   ],
 };
 
-export default specs;
+export { Menu, contents };

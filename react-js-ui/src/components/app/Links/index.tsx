@@ -15,63 +15,54 @@
  */
 import React from "react";
 import Link from "next/link";
-import {
-  Button,
-  Card,
-  CardActionArea,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Grid,
-  Typography
-} from "@material-ui/core";
+import * as Material from "@material-ui/core";
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import styles from "./styles";
-import { SubMenuDef } from "../../../specs";
+import * as Metadata from "../../../metadata";
 
 interface ItemProps extends WithStyles<typeof styles> {
-  subMenu: SubMenuDef;
+  subMenu: Metadata.Menu.SubItem;
 }
 
 const Item = withStyles(styles, { withTheme: true })((props: ItemProps) => {
   return (
-    <Card className={props.classes.card}>
+    <Material.Card className={props.classes.card}>
       <Link href={props.subMenu.link} passHref>
-        <CardActionArea>
-          <CardMedia
+        <Material.CardActionArea>
+          <Material.CardMedia
             className={props.classes.cardMedia}
             image={props.subMenu.image}
             title={props.subMenu.text}
           />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
+          <Material.CardContent>
+            <Material.Typography gutterBottom variant="h5" component="h2">
               {props.subMenu.text}
-            </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
+            </Material.Typography>
+            <Material.Typography variant="body2" color="textSecondary" component="p">
               {props.subMenu.description}
-            </Typography>
-          </CardContent>
-        </CardActionArea>
+            </Material.Typography>
+          </Material.CardContent>
+        </Material.CardActionArea>
       </Link>
-      <CardActions>
-        <Button size="small" color="primary">
+      <Material.CardActions>
+        <Material.Button size="small" color="primary">
           Reference
-        </Button>
-      </CardActions>
-    </Card>
+        </Material.Button>
+      </Material.CardActions>
+    </Material.Card>
   );
 });
 
 interface Props extends WithStyles<typeof styles> {
-  menu: SubMenuDef[];
+  menu: Metadata.Menu.SubItem[];
 }
 
 export default withStyles(styles, { withTheme: true })((props: Props) => (
-  <Grid container spacing={2} className={props.classes.grid}>
-    {props.menu.map((subMenu: SubMenuDef, index: number) => (
-      <Grid item xs={4} key={index}>
+  <Material.Grid container spacing={2} className={props.classes.grid}>
+    {props.menu.map((subMenu: Metadata.Menu.SubItem, index: number) => (
+      <Material.Grid item xs={4} key={index}>
         <Item subMenu={subMenu}/>
-      </Grid>
+      </Material.Grid>
     ))}
-  </Grid>
+  </Material.Grid>
   ));

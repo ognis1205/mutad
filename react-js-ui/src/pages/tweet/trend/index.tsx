@@ -15,7 +15,7 @@
  */
 import React from "react";
 import * as Next from "next";
-import Hashtags from "../../../components/tweet/trend/Hashtags";
+import Topics from "../../../components/tweet/trend/Topics";
 import * as Context from "../../../contexts/tweet/trend";
 
 const Index: Next.NextPage = () => {
@@ -48,7 +48,7 @@ const options = {
 
   return (
     <ContextProvider>
-      <Hashtags options={options}/>
+      <Topics options={options}/>
     </ContextProvider>
   );
 };

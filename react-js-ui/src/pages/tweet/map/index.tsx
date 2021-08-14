@@ -15,11 +15,11 @@
  */
 import React from "react";
 import dynamic from "next/dynamic";
-import { NextPage } from "next";
+import * as Next from "next";
 import Search from "../../../components/tweet/map/Search";
 import * as Context from "../../../contexts/tweet/map";
 
-const Index: NextPage = () => {
+const Index: Next.NextPage = () => {
   const Map = React.useMemo(
     () =>
       dynamic(() => import("../../../components/tweet/map/Map"), {

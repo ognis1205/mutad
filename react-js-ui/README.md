@@ -20,7 +20,7 @@ The following is a checklist of features and their progress:
 - [x] Dashboard
     - [x] Automation of Dashboard Page Generation
 - [ ] Twitter
-    - [ ] Usual Text Search
+    - [x] Usual Text Search
     - [x] Geoparsing Heatmap
     - [ ] Trend Chart
 - [ ] Misc
