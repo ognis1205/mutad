@@ -18,10 +18,13 @@ package io.github.ognis1205.mutad.spring.repository.impl;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.time.ZonedDateTime;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.common.unit.Fuzziness;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
+import org.elasticsearch.search.aggregations.bucket.histogram.DateHistogramInterval;
+import org.elasticsearch.search.aggregations.bucket.histogram.Histogram;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms;
 import org.elasticsearch.search.sort.SortOrder;
 import org.elasticsearch.search.sort.SortBuilders;
@@ -33,6 +36,7 @@ import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilde
 import org.springframework.stereotype.Repository;
 import io.github.ognis1205.mutad.spring.model.Topic;
 import io.github.ognis1205.mutad.spring.model.Tweet;
+import io.github.ognis1205.mutad.spring.model.TweetCount;
 import io.github.ognis1205.mutad.spring.repository.EsTweetRepository;
 
 /**
@@ -177,6 +181,41 @@ public class EsTweetRepositoryImpl implements EsTweetRepository {
                 .getBuckets()
                 .stream()
                 .map(bucket -> new Topic(bucket.getKeyAsString(), bucket.getDocCount()))
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<TweetCount> aggregate(
+            Date from,
+            Date to,
+            String interval,
+            GeoPoint center,
+            String radius) {
+        NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder()
+                .withQuery(QueryBuilders
+                        .boolQuery()
+                        .must(QueryBuilders
+                                .rangeQuery("timestamp")
+                                .gte(from.getTime())
+                                .lte(to.getTime())))
+                .addAggregation(AggregationBuilders
+                        .dateHistogram("counts")
+                        .field("timestamp")
+                        .calendarInterval(new DateHistogramInterval(interval)));
+        if (center != null && radius != null && !radius.isEmpty())
+            queryBuilder.withFilter(QueryBuilders
+                    .geoDistanceQuery("geo")
+                    .point(center.getLat(), center.getLon())
+                    .distance(radius));
+        return this.template.search(queryBuilder.build(), TweetCount.class)
+                .getAggregations()
+                .<Histogram>get("counts")
+                .getBuckets()
+                .stream()
+                .map(bucket -> new TweetCount(new Date(((ZonedDateTime) bucket.getKey()).toInstant().toEpochMilli()), bucket.getDocCount()))
                 .collect(Collectors.toList());
     }
 }

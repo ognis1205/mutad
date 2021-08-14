@@ -22,12 +22,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import io.github.ognis1205.mutad.spring.model.Topic;
 import io.github.ognis1205.mutad.spring.model.Tweet;
+import io.github.ognis1205.mutad.spring.model.TweetCount;
 import io.github.ognis1205.mutad.spring.dto.TopicDTO;
 import io.github.ognis1205.mutad.spring.dto.TweetDTO;
+import io.github.ognis1205.mutad.spring.dto.TweetCountDTO;
 import io.github.ognis1205.mutad.spring.filter.TopicFilter;
 import io.github.ognis1205.mutad.spring.filter.TweetFilter;
+import io.github.ognis1205.mutad.spring.filter.TweetCountFilter;
 import io.github.ognis1205.mutad.spring.mapper.TopicMapper;
 import io.github.ognis1205.mutad.spring.mapper.TweetMapper;
+import io.github.ognis1205.mutad.spring.mapper.TweetCountMapper;
 import io.github.ognis1205.mutad.spring.service.TweetService;
 
 /**
@@ -48,6 +52,10 @@ public class TweetController {
     /** `TweetMapper` instance. */
     @Autowired
     private TweetMapper tweetMapper;
+
+    /** `TweetCountMapper` instance. */
+    @Autowired
+    private TweetCountMapper tweetCountMapper;
 
     /** `TopicMapper` instance. */
     @Autowired
@@ -139,5 +147,23 @@ public class TweetController {
                 filter.getRadius(),
                 filter.getTopN());
         return this.topicMapper.convert(topics);
+    }
+
+    /**
+     * Returns the tweet count between a given period with a given interval.
+     * @param filter the search condition.
+     * @return the `TweetCountDTO` instances match the query condition.
+     */
+    @PostMapping("/counts")
+    @CrossOrigin
+    @ResponseStatus(HttpStatus.OK)
+    public List<TweetCountDTO> getCounts(@RequestBody TweetCountFilter filter) throws Exception {
+        List<TweetCount> counts = this.service.getCounts(
+                filter.getFrom(),
+                filter.getTo(),
+                filter.getInterval(),
+                filter.getCenter(),
+                filter.getRadius());
+        return this.tweetCountMapper.convert(counts);
     }
 }

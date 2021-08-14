@@ -13,29 +13,43 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.ognis1205.mutad.spring.filter;
+package io.github.ognis1205.mutad.spring.dto;
 
 import java.util.Date;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.data.elasticsearch.core.geo.GeoPoint;
 
 /**
  * @author Shingo OKAWA
  * @version 1.0.0
  */
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class TopicFilter {
-    private Date from;
+public class TweetCountDTO {
+    private Date timestamp;
 
-    private Date to;
+    private Long count;
 
-    private GeoPoint center;
+    /** Constructor. */
+    public TweetCountDTO() {
+        // Do nothing.
+    }
 
-    private String radius;
+    /** Getter/Setter. */
+    public Date getTimestamp() {
+        return this.timestamp;
+    }
 
-    private int topN;
+    /** Getter/Setter. */
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    /** Getter/Setter. */
+    public Long getCount() {
+        return this.count;
+    }
+
+    /** Getter/Setter. */
+    public void setCount(Long count) {
+        this.count = count;
+    }
 }
+
+

@@ -28,14 +28,15 @@ import org.springframework.data.elasticsearch.core.geo.GeoPoint;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class TopicFilter {
+public class TweetCountFilter {
     private Date from;
 
     private Date to;
 
+    private String interval;
+
     private GeoPoint center;
 
     private String radius;
-
-    private int topN;
 }
+

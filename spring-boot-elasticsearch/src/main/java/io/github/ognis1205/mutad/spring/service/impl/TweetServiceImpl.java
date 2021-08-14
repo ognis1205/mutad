@@ -23,6 +23,7 @@ import org.springframework.data.elasticsearch.core.geo.GeoPoint;
 import org.springframework.stereotype.Service;
 import io.github.ognis1205.mutad.spring.model.Topic;
 import io.github.ognis1205.mutad.spring.model.Tweet;
+import io.github.ognis1205.mutad.spring.model.TweetCount;
 import io.github.ognis1205.mutad.spring.repository.TweetRepository;
 import io.github.ognis1205.mutad.spring.service.TweetService;
 
@@ -95,5 +96,18 @@ public class TweetServiceImpl implements TweetService {
             String radius,
             int topN) {
         return this.repository.findTopics(from, to, center, radius, topN);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<TweetCount> getCounts(
+            Date from,
+            Date to,
+            String interval,
+            GeoPoint center,
+            String radius) {
+        return this.repository.aggregate(from, to, interval, center, radius);
     }
 }

@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.List;
 import org.springframework.data.elasticsearch.core.geo.GeoPoint;
 import io.github.ognis1205.mutad.spring.model.Tweet;
+import io.github.ognis1205.mutad.spring.model.TweetCount;
 import io.github.ognis1205.mutad.spring.model.Topic;
 
 /**
@@ -71,4 +72,15 @@ public interface EsTweetRepository {
      * @return the `Topic` instances match the query condition.
      */
     public List<Topic> findTopics(Date from, Date to, GeoPoint center, String radius, int topN);
+
+    /**
+     * Aggregates the tweet count between a given period with a given interval.
+     * @param from the start date of a given period.
+     * @param to the end date of a given period.
+     * @param interval the bucket interval
+     * @param center the center geo point to be queried.
+     * @param radius the radius of a concerning geo area.
+     * @return the `TweetCount` instances match the query condition.
+     */
+    public List<TweetCount> aggregate(Date from, Date to, String interval, GeoPoint center, String radius);
 }
