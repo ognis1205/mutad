@@ -14,21 +14,11 @@
  * limitations under the License.
  */
 import React from "react";
-import dynamic from "next/dynamic";
-import { NextPage } from "next";
-import Search from "../../../components/tweet/map/Search";
-import * as Context from "../../../contexts/tweet/map";
+import * as Next from "next";
+import Hashtags from "../../../components/tweet/trend/Hashtags";
+import * as Context from "../../../contexts/tweet/trend";
 
-const Index: NextPage = () => {
-  const Map = React.useMemo(
-    () =>
-      dynamic(() => import("../../../components/tweet/map/Map"), {
-        loading: () => <p>Loading a map...</p>,
-        ssr: false,
-      }),
-    []
-  );
-
+const Index: Next.NextPage = () => {
   interface ContextProps {
     children: JSX.Element | JSX.Element[];
   }
@@ -42,18 +32,23 @@ const Index: NextPage = () => {
     );
   };
 
+const options = {
+  indexAxis: "y",
+  responsive: true,
+  plugins: {
+    legend: {
+      display: false,
+    },
+    title: {
+      display: false,
+      text: "Hashtags [#]",
+    },
+  },
+};
+
   return (
     <ContextProvider>
-      <Map
-        center={[0.0, 0.0]}
-        zoom={3}
-        minZoom={3}
-        maxBounds={[
-          [-90, -180],
-          [90, 180],
-        ]}
-      />
-      <Search/>
+      <Hashtags options={options}/>
     </ContextProvider>
   );
 };

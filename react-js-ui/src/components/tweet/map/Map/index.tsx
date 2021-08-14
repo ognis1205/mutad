@@ -13,28 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import "leaflet/dist/leaflet.css";
-import L, { Map as LeafletMap } from "leaflet";
-import "leaflet.heat";
 import React from "react";
-import { MapContainerProps } from "react-leaflet";
-import { Box } from "@material-ui/core";
+import * as Leaflet from "leaflet";
+import "leaflet.heat";
+import "leaflet/dist/leaflet.css";
+import * as ReactLeaflet from "react-leaflet";
+import * as Material from "@material-ui/core";
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import styles from "./styles";
 import * as Context from "../../../../contexts/tweet/map";
 
-interface Props extends WithStyles<typeof styles>, MapContainerProps {}
+interface Props extends WithStyles<typeof styles>, ReactLeaflet.MapContainerProps {}
 
 export default withStyles(styles)((props: Props) => {
   const {state} = React.useContext(Context.store);
 
-  const [map, setMap] = React.useState<LeafletMap>();
+  const [map, setMap] = React.useState<Leaflet.Map>();
 
   const [heat, setHeat] = React.useState<L.Layer>();
 
   React.useEffect(() => {
-    const leafletMap = L.map("map", { ...props }).setView(props.center, props.zoom);
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    const leafletMap = Leaflet.map("map", { ...props }).setView(props.center, props.zoom);
+    Leaflet.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(leafletMap);
     setMap(leafletMap);
@@ -42,7 +42,7 @@ export default withStyles(styles)((props: Props) => {
 
   React.useEffect(() => {
     if (map) {
-      const layer = L.heatLayer(state.points, {
+      const layer = Leaflet.heatLayer(state.points, {
         radius: state.radius,
         blur: state.blur,
         maxZoom: state.zoom,
@@ -53,5 +53,5 @@ export default withStyles(styles)((props: Props) => {
     }
   }, [state.points, state.radius, state.blur, state.zoom]);
   
-  return <Box id="map" className={props.classes.leaflet}></Box>;
+  return <Material.Box id="map" className={props.classes.box}></Material.Box>;
 });

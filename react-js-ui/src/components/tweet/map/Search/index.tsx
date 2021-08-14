@@ -14,20 +14,9 @@
  * limitations under the License.
  */
 import React from "react";
-import clsx from "clsx";
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  CardActions,
-  Collapse,
-  IconButton,
-  Slider,
-  TextField,
-  Typography,
-} from "@material-ui/core";
+import * as Material from "@material-ui/core";
 import LocationSearchingIcon from "@material-ui/icons/LocationSearching";
+import clsx from "clsx";
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import styles from "./styles";
 import * as Context from "../../../../contexts/tweet/map";
@@ -141,10 +130,10 @@ export default withStyles(styles)((props: Props) => {
   };
 
   return (
-    <Card
+    <Material.Card
       className={props.classes.card}>
-      <CardActions className={props.classes.cardActions} disableSpacing>
-        <IconButton
+      <Material.CardActions className={props.classes.cardActions} disableSpacing>
+        <Material.IconButton
           className={clsx(props.classes.iconButton, {
             [props.classes.iconButtonOpen]: expanded,
           })}
@@ -153,13 +142,13 @@ export default withStyles(styles)((props: Props) => {
           aria-label="show more"
         >
           <LocationSearchingIcon />
-        </IconButton>
-      </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
+        </Material.IconButton>
+      </Material.CardActions>
+      <Material.Collapse in={expanded} timeout="auto" unmountOnExit>
+        <Material.CardContent>
           <form className={props.classes.form} noValidate>
-            <Box mb={2} width={1}>
-              <TextField
+            <Material.Box mb={2} width={1}>
+              <Material.TextField
                 id="from"
                 name="from"
                 label="From"
@@ -172,9 +161,9 @@ export default withStyles(styles)((props: Props) => {
                 }}
                 onChange={handleChange}
               />
-            </Box>
-            <Box mb={2} width={1}>
-              <TextField
+            </Material.Box>
+            <Material.Box mb={2} width={1}>
+              <Material.TextField
                 id="to"
                 name="to"
                 label="To"
@@ -187,9 +176,9 @@ export default withStyles(styles)((props: Props) => {
                 }}
                 onChange={handleChange}
               />
-            </Box>
-            <Box mb={2} width={1}>
-              <TextField
+            </Material.Box>
+            <Material.Box mb={2} width={1}>
+              <Material.TextField
                 id="text"
                 name="text"
                 label="Text"
@@ -198,9 +187,9 @@ export default withStyles(styles)((props: Props) => {
                 variant="outlined"
                 onChange={handleChange}
               />
-            </Box>
-            <Box mb={1} width={1}>
-              <TextField
+            </Material.Box>
+            <Material.Box mb={1} width={1}>
+              <Material.TextField
                 id="hashtags"
                 name="hashtags"
                 label="#Hashtag"
@@ -209,12 +198,12 @@ export default withStyles(styles)((props: Props) => {
                 variant="outlined"
                 onChange={handleChange}
               />
-            </Box>
-            <Box mb={1} width={1}>
-              <Typography variant="caption" align="center" gutterBottom>
+            </Material.Box>
+            <Material.Box mb={1} width={1}>
+              <Material.Typography variant="caption" align="center" gutterBottom>
                 Radius
-              </Typography>
-              <Slider
+              </Material.Typography>
+              <Material.Slider
                 id="radius"
                 value={state.radius}
                 getAriaValueText={valuetext}
@@ -226,12 +215,12 @@ export default withStyles(styles)((props: Props) => {
                 max={20}
                 onChange={handleSlide}
               />
-            </Box>
-            <Box mb={1} width={1}>
-              <Typography variant="caption" align="center" gutterBottom>
+            </Material.Box>
+            <Material.Box mb={1} width={1}>
+              <Material.Typography variant="caption" align="center" gutterBottom>
                 Blur
-              </Typography>
-              <Slider
+              </Material.Typography>
+              <Material.Slider
                 id="blur"
                 value={state.blur}
                 getAriaValueText={valuetext}
@@ -243,12 +232,12 @@ export default withStyles(styles)((props: Props) => {
                 max={20}
                 onChange={handleSlide}
               />
-            </Box>
-            <Box mb={1} width={1}>
-              <Typography variant="caption" align="center" gutterBottom>
+            </Material.Box>
+            <Material.Box mb={1} width={1}>
+              <Material.Typography variant="caption" align="center" gutterBottom>
                 Max Zoom
-              </Typography>
-              <Slider
+              </Material.Typography>
+              <Material.Slider
                 id="maxZoom"
                 value={state.zoom}
                 getAriaValueText={valuetext}
@@ -260,9 +249,9 @@ export default withStyles(styles)((props: Props) => {
                 max={15}
                 onChange={handleSlide}
               />
-            </Box>
-            <Box width={1}>
-              <Button
+            </Material.Box>
+            <Material.Box width={1}>
+              <Material.Button
                 id="search"
                 label="Search"
                 color="primary"
@@ -270,11 +259,11 @@ export default withStyles(styles)((props: Props) => {
                 onClick={handlePost}
               >
                 Search
-              </Button>
-            </Box>
+              </Material.Button>
+            </Material.Box>
           </form>
-        </CardContent>
-      </Collapse>
-    </Card>
+        </Material.CardContent>
+      </Material.Collapse>
+    </Material.Card>
   );
 });

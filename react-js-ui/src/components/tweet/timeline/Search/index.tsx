@@ -15,25 +15,15 @@
  */
 import React from "react";
 import Draggable from "react-draggable";
-import {
-  Box,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Paper,
-  TextField,
-} from "@material-ui/core";
-import { PaperProps } from "@material-ui/core/Paper";
+import * as Material from "@material-ui/core";
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import styles from "./styles";
 import * as Context from "../../../../contexts/tweet/timeline";
 
-const PaperComponent = (props: PaperProps) => {
+const PaperComponent = (props: Material.PaperProps) => {
   return (
     <Draggable handle="#draggable-dialog-title" cancel={'[class*="MuiDialogContent-root"]'}>
-      <Paper {...props} />
+      <Material.Paper {...props} />
     </Draggable>
   );
 };
@@ -88,20 +78,20 @@ export default withStyles(styles, { withTheme: true })((props: Props) => {
   }
 
   return (
-    <Box>
-      <Dialog
+    <Material.Box>
+      <Material.Dialog
         open={state.dialog}
         onClose={handleClose}
         PaperComponent={PaperComponent}
         aria-labelledby="draggable-dialog-title"
       >
-        <DialogTitle style={{ cursor: 'move' }} id="draggable-dialog-title">
+        <Material.DialogTitle style={{ cursor: "move" }} id="draggable-dialog-title">
           Search with:
-        </DialogTitle>
-        <DialogContent>
+        </Material.DialogTitle>
+        <Material.DialogContent>
           <form className={props.classes.form} noValidate>
-            <Box mb={2} width={1}>
-              <TextField
+            <Material.Box mb={2} width={1}>
+              <Material.TextField
                 id="text"
                 name="text"
                 label="Text"
@@ -111,9 +101,9 @@ export default withStyles(styles, { withTheme: true })((props: Props) => {
                 variant="outlined"
                 onChange={handleChange}
               />
-            </Box>
-            <Box mb={1} width={1}>
-              <TextField
+            </Material.Box>
+            <Material.Box mb={1} width={1}>
+              <Material.TextField
                 id="hashtags"
                 name="hashtags"
                 label="#Hashtag"
@@ -123,18 +113,18 @@ export default withStyles(styles, { withTheme: true })((props: Props) => {
                 variant="outlined"
                 onChange={handleChange}
               />
-            </Box>
+            </Material.Box>
           </form>
-        </DialogContent>
-        <DialogActions>
-          <Button autoFocus onClick={handleClose} color="primary">
+        </Material.DialogContent>
+        <Material.DialogActions>
+          <Material.Button autoFocus onClick={handleClose} color="primary">
             Cancel
-          </Button>
-          <Button onClick={handleSearch} color="primary">
+          </Material.Button>
+          <Material.Button onClick={handleSearch} color="primary">
             Search
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </Box>
+          </Material.Button>
+        </Material.DialogActions>
+      </Material.Dialog>
+    </Material.Box>
   );
 });

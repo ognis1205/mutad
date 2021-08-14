@@ -17,6 +17,39 @@ import React from "react";
 import * as Topic from "./topic.d";
 import * as Types from "./types";
 
+export const init = (topN: number, dispatch: React.Dispatch<React.ReducerAction<any>>) => {
+  const to = new Date();
+  const from = new Date();
+  from.setMonth(to.getMonth() - 2);
+  const query = {
+    from: from.getTime(),
+    to: to.getTime(),
+    topN: topN,
+  } as Topic.Query;
+
+  const opts = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(query),
+  };
+
+  fetch(`${process.env.API_ENDPOINT}/tweet/topics`, opts)
+  .then((res) => {
+    if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+    return res.json();
+  })
+  .then((json) => {
+    dispatch(newQuery(query));
+    dispatch(newTopic(json))
+    dispatch(done())
+  })
+  .catch((reason) => {
+    console.log(reason);
+  });
+
+  return load();
+};
+
 export const request = (
   from: number,
   to: number,

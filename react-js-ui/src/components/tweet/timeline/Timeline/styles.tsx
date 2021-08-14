@@ -18,10 +18,46 @@ import { CustomTheme } from "../../../../theme";
 
 const styles = (theme: CustomTheme) =>
   createStyles({
-    leaflet: {
-      height: theme.pageHeight,
-      width: theme.pagePosition,
+    box: {
       position: theme.pagePosition,
+    },
+    listItemText: {
+      whiteSpace: "nowrap",
+      overflow: "hidden",
+      textOverflow: "ellipsis",
+    },
+    text: {
+      padding: theme.spacing(2, 2, 0),
+    },
+    paper: {
+      overflow: "auto",
+      height: theme.pageHeight,
+      paddingBottom: 50,
+    },
+    list: {
+      marginBottom: theme.spacing(2),
+    },
+    subheader: {
+      backgroundColor: theme.palette.background.paper,
+    },
+    appBar: {
+      position: "absolute",
+      top: "auto",
+      bottom: 0,
+      backgroundColor: theme.drawer.backgroundColor.main,
+    },
+    grow: {
+      flexGrow: 1,
+    },
+    fabButton: {
+      ariaLabel: "add",
+      position: "absolute",
+      zIndex: 1,
+      top: -30,
+      left: 0,
+      right: 0,
+      margin: "0 auto",
+      backgroundColor: theme.drawer.backgroundColor.light,
     },
   });
 

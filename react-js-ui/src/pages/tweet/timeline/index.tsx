@@ -15,13 +15,13 @@
  */
 import React from "react";
 import * as Next from "next";
-import Main from "../../../components/tweet/timeline/Main";
+import Timeline from "../../../components/tweet/timeline/Timeline";
 import Search from "../../../components/tweet/timeline/Search";
 import * as Context from "../../../contexts/tweet/timeline";
 
 const Index: Next.NextPage = () => {
   interface ContextProps {
-    children: JSX.Element[];
+    children: JSX.Element | JSX.Element[];
   }
 
   const ContextProvider = (props: ContextProps) => {
@@ -41,7 +41,7 @@ const Index: Next.NextPage = () => {
 
   return (
     <ContextProvider>
-      <Main
+      <Timeline
         ref={scrollRef}
         onRefresh={handleRefresh}/>
       <Search

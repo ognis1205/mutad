@@ -14,22 +14,7 @@
  * limitations under the License.
  */
 import React from "react";
-import {
-  AppBar,
-  Avatar,
-  Box,
-  Divider,
-  IconButton,
-  Link,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-  ListSubheader,
-  Paper,
-  Toolbar,
-  Typography,
-} from "@material-ui/core";
+import * as Material from "@material-ui/core";
 import RefreshIcon from "@material-ui/icons/Refresh";
 import SearchIcon from "@material-ui/icons/Search";
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
@@ -107,9 +92,9 @@ export default withStyles(styles, { withTheme: true })(React.forwardRef<HTMLULis
 
   const withLink = (text: string) => {
     const link = (text: string, index: number) => (
-      <Link key={index} component="button" variant="body2" onClick={() => { }}>
+      <Material.Link key={index} component="button" variant="body2" onClick={() => { }}>
         {text}
-      </Link>
+      </Material.Link>
     );
 
     return text
@@ -121,46 +106,46 @@ export default withStyles(styles, { withTheme: true })(React.forwardRef<HTMLULis
   };
 
   return (
-    <Box className={props.classes.box}>
-      <Paper square className={props.classes.paper} onScroll={handleScroll} ref={scrollRef}>
-        <Typography className={props.classes.text} variant="h5" gutterBottom>
+    <Material.Box className={props.classes.box}>
+      <Material.Paper square className={props.classes.paper} onScroll={handleScroll} ref={scrollRef}>
+        <Material.Typography className={props.classes.text} variant="h5" gutterBottom>
           Timeline
-        </Typography>
-        <List className={props.classes.list}>
+        </Material.Typography>
+        <Material.List className={props.classes.list}>
           {Object.entries(tweetsByDate).map(([key, value]: [string, Context.Tweet.Model[]], dateIndex: number) => (
             <React.Fragment key={dateIndex}>
-              <ListSubheader className={props.classes.subheader}>
+              <Material.ListSubheader className={props.classes.subheader}>
                 {getDateString(key)}
-              </ListSubheader>
+              </Material.ListSubheader>
               {value.map((tweet: Context.Tweet.Model, tweetIndex: number) => (
-                <ListItem button key={tweetIndex}>
-                  <ListItemAvatar>
-                    <Avatar alt="Profile Picture" src={tweet.image_url} />
-                  </ListItemAvatar>
-                  <ListItemText primary={
-                    <Box className={props.classes.listItemText}>
+                <Material.ListItem button key={tweetIndex}>
+                  <Material.ListItemAvatar>
+                    <Material.Avatar alt="Profile Picture" src={tweet.image_url} />
+                  </Material.ListItemAvatar>
+                  <Material.ListItemText primary={
+                    <Material.Box className={props.classes.listItemText}>
                       <strong>{tweet.user_name}</strong>{ "@" }{tweet.user_id}
-                      <Divider/>
+                      <Material.Divider/>
                       {withLink(tweet.text)}
-                    </Box>
+                    </Material.Box>
                   } secondary={tweet.timestamp} />
-                </ListItem>
+                </Material.ListItem>
               ))}
             </React.Fragment>
           ))}
-        </List>
-      </Paper>
-      <AppBar className={props.classes.appBar}>
-        <Toolbar>
-          <Box className={props.classes.grow} />
-          <IconButton color="inherit" onClick={handleSearch}>
+        </Material.List>
+      </Material.Paper>
+      <Material.AppBar className={props.classes.appBar}>
+        <Material.Toolbar>
+          <Material.Box className={props.classes.grow} />
+          <Material.IconButton color="inherit" onClick={handleSearch}>
             <SearchIcon/>
-          </IconButton>
-          <IconButton color="inherit" onClick={handleRefresh}>
+          </Material.IconButton>
+          <Material.IconButton color="inherit" onClick={handleRefresh}>
             <RefreshIcon/>
-          </IconButton>
-        </Toolbar>
-      </AppBar>
-    </Box>
+          </Material.IconButton>
+        </Material.Toolbar>
+      </Material.AppBar>
+    </Material.Box>
   );
 }));
