@@ -28,8 +28,8 @@ All available functionalities will be shown up on the dashboard page.
 
 ## Features/Roadmap
 The following is a checklist of features and their progress:
-- [ ] Twitter API
+- [x] Twitter API
     - [x] Usual Text Search
     - [x] Geoparsing Heatmap
-    - [ ] Trend Chart
+    - [x] Trend Chart
 - [x] Dockernize the Service

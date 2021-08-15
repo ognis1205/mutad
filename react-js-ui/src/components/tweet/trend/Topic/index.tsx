@@ -168,6 +168,6 @@ export default withStyles(styles)((props: Props) => {
     </Material.Card>
   );
 
-  if (model?.datasets[0]?.data?.length !== 10) return emptyTopic();
+  if (model?.datasets[0]?.data?.length < 10) return emptyTopic();
   else return topic();
 });

@@ -25,6 +25,15 @@ const styles = (theme: Themes.Custom.Theme) =>
       position: "relative",
       background: "rgb(247, 247, 247)",
     },
+    typography: {
+      zIndex: 800,
+      margin: "auto",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
+      position: "absolute",
+      color: "rgba(  0,  71, 171, 0.7)",
+    },
   });
 
 export default styles;

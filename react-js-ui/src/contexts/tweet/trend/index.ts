@@ -13,11 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React from "react";
-import * as Action from "../../action.d";
-import * as Actions from "./actions";
-import * as Reducers from "./reducers";
-import * as Types from "./types";
 import * as Topic from "./topic.d";
 import * as Count from "./count.d";
 

@@ -17,6 +17,10 @@ on [CLAVIN](https://github.com/Novetta/CLAVIN). Because of my poor implementatio
 
 The above gif image demonstrates a list timeline displaying the latest Tweets ordered from newest to oldest with a specified search query.
 
+<img src="./img/trend.gif?raw=true">
+
+The above gif image demonstrates a trend chart displaying the top most trended hashtags and tweet counts per a minute in the last hour.
+
 ## Architecture
 <img src="./img/mutad.jpeg?raw=true">
 

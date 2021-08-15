@@ -19,10 +19,10 @@ All available functionalities will be shown up on the dashboard page.
 The following is a checklist of features and their progress:
 - [x] Dashboard
     - [x] Automation of Dashboard Page Generation
-- [ ] Twitter
+- [x] Twitter
     - [x] Usual Text Search
     - [x] Geoparsing Heatmap
-    - [ ] Trend Chart
+    - [x] Trend Chart
 - [ ] Misc
     - [ ] Unittests
     - [ ] Strictly Typed Implementation
