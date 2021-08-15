@@ -13,12 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React from "react";
-import * as Action from "../../action.d";
-import * as Actions from "./actions";
-import * as Reducers from "./reducers";
-import * as Types from "./types";
-import * as Topic from "./topic.d";
-import * as Count from "./count.d";
+export interface Model {
+  datasets: Dataset[];
+}
 
-export { Topic, Count };
+export interface Dataset {
+  label: string;
+  borderColor: string;
+  data: Data[];
+}
+
+export interface Data {
+  x: string;
+  y: number;
+}
+
+export interface Query {
+  from: number;
+  to: number;
+  interval: string;
+}
+
+export interface Response {
+  timestamp: string;
+  count: number;
+}

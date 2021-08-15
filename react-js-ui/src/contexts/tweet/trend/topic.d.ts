@@ -14,24 +14,24 @@
  * limitations under the License.
  */
 export interface Model {
-  labels: string[],
-  datasets: Dataset[],
+  labels: string[];
+  datasets: Dataset[];
 }
 
 export interface Dataset {
-  label: string,
-  backgroundColor: string[],
-  borderColor: string[],
-  data: number[],
+  label: string;
+  backgroundColor: string[];
+  borderColor: string[];
+  data: number[];
 }
 
 export interface Query {
-  from: number,
-  to: number,
-  topN: number,
+  from: number;
+  to: number;
+  topN: number;
 }
 
 export interface Response {
-  name: string,
-  count: number,
+  name: string;
+  count: number;
 }

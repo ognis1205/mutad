@@ -14,40 +14,11 @@
  * limitations under the License.
  */
 import React from "react";
-import dynamic from "next/dynamic";
 import * as Next from "next";
-//import Timeseries from "../../../components/tweet/trend/Timeseries";
 import Chart from "../../../components/tweet/trend/Chart";
-import * as Context from "../../../contexts/tweet/trend";
 
 const Index: Next.NextPage = () => {
-  const Timeseries = React.useMemo(
-    () =>
-      dynamic(() => import("../../../components/tweet/trend/Timeseries"), {
-        loading: () => <p>Loading a map...</p>,
-        ssr: false,
-      }),
-    []
-  );
-
-  interface ContextProps {
-    children: JSX.Element | JSX.Element[];
-  }
-
-  const ContextProvider = (props: ContextProps) => {
-    const [state, dispatch] = React.useReducer(Context.reducer, Context.init);
-    return (
-      <Context.store.Provider value={{ state, dispatch }}>
-        {props.children}
-      </Context.store.Provider>
-    );
-  };
-
-  return (
-    <ContextProvider>
-      <Chart/>
-    </ContextProvider>
-  );
+  return <Chart />;
 };
 
 export default Index;

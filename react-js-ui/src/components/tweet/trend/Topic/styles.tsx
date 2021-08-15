@@ -16,15 +16,23 @@
 import * as MaterialStyles from "@material-ui/core/styles";
 import * as Themes from "../../../../themes";
 
-const styles = (theme: Themes.Custom.Theme) =>
+const styles = (_: Themes.Custom.Theme) =>
   MaterialStyles.createStyles({
-    box: {
+    card: {
+      width: "100%",
+      marginLeft: "auto",
+      marginRight: "auto",
       position: "relative",
-//      height: "50vh",
-//      width: "90%",
-//      marginLeft: "auto",
-//      marginRight: "auto",
-//      overflow: 'scroll',
+      background: "rgb(247, 247, 247)",
+    },
+    typography: {
+      zIndex: 800,
+      margin: "auto",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
+      position: "absolute",
+      color: "rgba(  0,  71, 171, 0.7)",
     },
   });
 
