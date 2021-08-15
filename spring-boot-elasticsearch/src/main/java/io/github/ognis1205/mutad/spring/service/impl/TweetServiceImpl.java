@@ -108,6 +108,6 @@ public class TweetServiceImpl implements TweetService {
             String interval,
             GeoPoint center,
             String radius) {
-        return this.repository.aggregate(from, to, interval, center, radius);
+        return this.repository.aggregateByDate(from, to, interval, center, radius);
     }
 }

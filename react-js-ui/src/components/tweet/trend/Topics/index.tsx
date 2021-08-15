@@ -21,19 +21,136 @@ import styles from "./styles";
 import * as Context from "../../../../contexts/tweet/trend";
 
 interface Props extends WithStyles<typeof styles> {
-  options: any,
+  from: Date;
+  to: Date;
 }
 
 export default withStyles(styles)((props: Props) => {
-  const {state, dispatch} = React.useContext(Context.store);
+  const [model, setModel] = React.useState<Context.Topic.Model>(null);
+
+  const dummy = {
+    labels: [...Array(10).keys()].map((n) => "#Hashtag" + n),
+    datasets: [{
+      label: "count",
+      data: [...Array(10).keys()].map((_) => 0),
+    }],
+  } as Context.Topic.Model;
 
   React.useEffect(() => {
-    dispatch(Context.Actions.init(state.topN, dispatch));
+    const query = {
+      from: props.from.getTime(),
+      to: props.to.getTime(),
+      topN: 10,
+    } as Context.Topic.Query;
+
+    const opts = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(query),
+    };
+
+    fetch(`${process.env.API_ENDPOINT}/tweet/topics`, opts)
+      .then((res) => {
+        if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+        return res.json();
+      })
+      .then((json) => {
+        setModel({
+          labels: json.map((e: Context.Topic.Response) => "#" + e.name),
+          datasets: [{
+            label: "count",
+            data: json.map((e: Context.Topic.Response) => e.count),
+            backgroundColor: [
+              "rgba(  0,  71, 171, 0.7)",
+              "rgba( 17,  81, 171, 0.7)",
+              "rgba( 34,  91, 171, 0.7)",
+              "rgba( 51, 101, 171, 0.7)",
+              "rgba( 68, 111, 171, 0.7)",
+              "rgba( 85, 121, 171, 0.7)",
+              "rgba(103, 131, 171, 0.7)",
+              "rgba(120, 141, 171, 0.7)",
+              "rgba(137, 151, 171, 0.7)",
+              "rgba(154, 161, 171, 0.7)",
+            ],
+            borderColor: [
+              "rgb(  0,  71, 171)",
+              "rgb( 17,  81, 171)",
+              "rgb( 34,  91, 171)",
+              "rgb( 51, 101, 171)",
+              "rgb( 68, 111, 171)",
+              "rgb( 85, 121, 171)",
+              "rgb(103, 131, 171)",
+              "rgb(120, 141, 171)",
+              "rgb(137, 151, 171)",
+              "rgb(154, 161, 171)",
+            ],
+          }],
+        });
+      })
+      .catch((reason) => {
+        console.log(reason);
+      });
   }, []);
 
-  return (
-    <Material.Box className={props.classes.box}>
-      <ReactChart.Bar data={state.topic} options={props.options}/>
-    </Material.Box>
+const getDateString = (date: string) =>
+  new Date(date).toLocaleDateString(undefined, {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
+  const NotEnoughData = () => (
+    <Material.Card className={props.classes.card}>
+      <Material.CardHeader title={getDateString(props.from.toString())} />
+      <Material.Divider />
+      <Material.CardContent>
+      <Material.Typography variant="h6" className={props.classes.typography}>
+        Not Enough Data
+      </Material.Typography>
+      <ReactChart.Bar 
+        data={dummy} 
+        options={{
+          indexAxis: "y",
+          responsive: true,
+          plugins: {
+            legend: {
+              display: false,
+            },
+            title: {
+              display: false,
+              text: "Hashtags [#]",
+            },
+          },
+        }}/>
+      </Material.CardContent>
+    </Material.Card>
   );
+
+  const EnoughData = () => (
+    <Material.Card className={props.classes.card}>
+      <Material.CardHeader title={getDateString(props.from.toString())}/>
+      <Material.Divider/>
+      <Material.CardContent>
+        <ReactChart.Bar 
+          data={model} 
+          options={{
+            indexAxis: "y",
+            responsive: true,
+            plugins: {
+              legend: {
+                display: false,
+              },
+              title: {
+                display: false,
+                text: "Hashtags [#]",
+              },
+            },
+          }}/>
+      </Material.CardContent>
+    </Material.Card>
+  );
+
+  if (model?.datasets[0]?.data?.length !== 10) return NotEnoughData();
+  else return EnoughData();
 });

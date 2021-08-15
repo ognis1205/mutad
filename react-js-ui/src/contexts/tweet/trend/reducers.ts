@@ -15,21 +15,18 @@
  */
 import * as Action from "../../action.d";
 import * as Topic from "./topic.d";
+import * as Timeseries from "./timeseries.d";
 
 export type State = {
   loading: boolean;
-  from: number;
-  to: number;
-  topN: number;
-  topic: Topic.Model;
+  topicModel: Topic.Model,
+  timeseriesModel: Timeseries.Model,
 };
 
 export const initState = {
   loading: false,
-  from: 0,
-  to: 0,
-  topN: 10,
-  topic: null,
+  topicModel: null,
+  timeseriesModel: null,
 } as State;
 
 export const onLoad = (state: State, _: Action.WithPayload<any>) => {
@@ -46,58 +43,38 @@ export const onDone = (state: State, _: Action.WithPayload<any>) => {
   };
 };
 
-export const onNewQuery = (state: State, action: Action.WithPayload<Topic.Query>) => {
-  return {
-    ...state,
-    from: action.payload.from,
-    to: action.payload.to,
-  };
-};
-
-export const onClrQuery = (state: State, _: Action.WithPayload<any>) => {
-  return {
-    ...state,
-    from: 0,
-    to: 0,
-  };
-};
-
-const backgroundPalette = [
-  "rgba(  0,  71, 171, 0.7)",
-  "rgba( 17,  81, 171, 0.7)",
-  "rgba( 34,  91, 171, 0.7)",
-  "rgba( 51, 101, 171, 0.7)",
-  "rgba( 68, 111, 171, 0.7)",
-  "rgba( 85, 121, 171, 0.7)",
-  "rgba(103, 131, 171, 0.7)",
-  "rgba(120, 141, 171, 0.7)",
-  "rgba(137, 151, 171, 0.7)",
-  "rgba(154, 161, 171, 0.7)",
-];
-
-const borderPalette = [
-  "rgb(  0,  71, 171)",
-  "rgb( 17,  81, 171)",
-  "rgb( 34,  91, 171)",
-  "rgb( 51, 101, 171)",
-  "rgb( 68, 111, 171)",
-  "rgb( 85, 121, 171)",
-  "rgb(103, 131, 171)",
-  "rgb(120, 141, 171)",
-  "rgb(137, 151, 171)",
-  "rgb(154, 161, 171)",
-];
-
 export const onNewTopic = (state: State, action: Action.WithPayload<Topic.Response[]>) => {
   return {
     ...state,
-    topic: {
+    topicModel: {
       labels: action.payload.map((e) => "#" + e.name),
       datasets: [{
         label: "count",
         data: action.payload.map((e) => e.count),
-        backgroundColor: backgroundPalette,
-        borderColor: borderPalette,
+        backgroundColor: [
+          "rgba(  0,  71, 171, 0.7)",
+          "rgba( 17,  81, 171, 0.7)",
+          "rgba( 34,  91, 171, 0.7)",
+          "rgba( 51, 101, 171, 0.7)",
+          "rgba( 68, 111, 171, 0.7)",
+          "rgba( 85, 121, 171, 0.7)",
+          "rgba(103, 131, 171, 0.7)",
+          "rgba(120, 141, 171, 0.7)",
+          "rgba(137, 151, 171, 0.7)",
+          "rgba(154, 161, 171, 0.7)",
+        ],
+        borderColor: [
+          "rgb(  0,  71, 171)",
+          "rgb( 17,  81, 171)",
+          "rgb( 34,  91, 171)",
+          "rgb( 51, 101, 171)",
+          "rgb( 68, 111, 171)",
+          "rgb( 85, 121, 171)",
+          "rgb(103, 131, 171)",
+          "rgb(120, 141, 171)",
+          "rgb(137, 151, 171)",
+          "rgb(154, 161, 171)",
+        ],
       }],
     },
   };
@@ -106,6 +83,31 @@ export const onNewTopic = (state: State, action: Action.WithPayload<Topic.Respon
 export const onClrTopic = (state: State, _: Action.WithPayload<any>) => {
   return {
     ...state,
-    topic: null,
+    topicModel: null,
+  };
+};
+
+export const onNewTimeseries = (state: State, action: Action.WithPayload<Timeseries.Response[]>) => {
+  return {
+    ...state,
+    timeseriesModel: {
+      datasets: [{
+        label: "count",
+        data: action.payload.map((e) => {
+          return {
+            x: e.timestamp,
+            y: e.count 
+          };
+        }),
+        borderColor: "rgb(255,  99, 132)",
+      }],
+    },
+  };
+};
+
+export const onClrTimeseries = (state: State, _: Action.WithPayload<any>) => {
+  return {
+    ...state,
+    timeseriesModel: null,
   };
 };

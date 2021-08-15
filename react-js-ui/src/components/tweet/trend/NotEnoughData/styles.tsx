@@ -13,10 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-export const LOAD           = "tweet/trend/LOAD";
-export const DONE           = "tweet/trend/DONE";
-export const NEW_TOPIC      = "tweet/trend/NEW_TOPIC";
-export const CLR_TOPIC      = "tweet/trend/CLR_TOPIC";
-export const NEW_TIMESERIES = "tweet/trend/NEW_TIMESERIES";
-export const ADD_TIMESERIES = "tweet/trend/NEW_TIMESERIES";
-export const CLR_TIMESERIES = "tweet/trend/CLR_TIMESERIES";
+import * as MaterialStyles from "@material-ui/core/styles";
+import * as Themes from "../../../../themes";
+
+const styles = (theme: Themes.Custom.Theme) =>
+  MaterialStyles.createStyles({
+    box: {
+      width: "90%",
+      marginLeft: "auto",
+      marginRight: "auto",
+      position: "relative",
+    },
+    typography: {
+      zIndex: 800,
+      margin: "auto",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
+      position: "absolute",
+      color: "rgba(  0,  71, 171, 0.7)",
+    },
+  });
+
+export default styles;

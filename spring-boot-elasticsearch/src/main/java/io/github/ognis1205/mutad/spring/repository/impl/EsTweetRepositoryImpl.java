@@ -188,7 +188,7 @@ public class EsTweetRepositoryImpl implements EsTweetRepository {
      * {@inheritDoc}
      */
     @Override
-    public List<TweetCount> aggregate(
+    public List<TweetCount> aggregateByDate(
             Date from,
             Date to,
             String interval,

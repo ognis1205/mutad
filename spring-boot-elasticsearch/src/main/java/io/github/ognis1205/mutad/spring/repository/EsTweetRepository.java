@@ -82,5 +82,5 @@ public interface EsTweetRepository {
      * @param radius the radius of a concerning geo area.
      * @return the `TweetCount` instances match the query condition.
      */
-    public List<TweetCount> aggregate(Date from, Date to, String interval, GeoPoint center, String radius);
+    public List<TweetCount> aggregateByDate(Date from, Date to, String interval, GeoPoint center, String radius);
 }

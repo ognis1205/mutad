@@ -15,16 +15,17 @@
  */
 import React from "react";
 import * as Topic from "./topic.d";
+import * as Timeseries from "./timeseries.d";
 import * as Types from "./types";
 
-export const init = (topN: number, dispatch: React.Dispatch<React.ReducerAction<any>>) => {
+export const requestTopics = (dispatch: React.Dispatch<React.ReducerAction<any>>) => {
   const to = new Date();
   const from = new Date();
   from.setMonth(to.getMonth() - 2);
   const query = {
     from: from.getTime(),
     to: to.getTime(),
-    topN: topN,
+    topN: 10,
   } as Topic.Query;
 
   const opts = {
@@ -39,7 +40,6 @@ export const init = (topN: number, dispatch: React.Dispatch<React.ReducerAction<
     return res.json();
   })
   .then((json) => {
-    dispatch(newQuery(query));
     dispatch(newTopic(json))
     dispatch(done())
   })
@@ -50,15 +50,14 @@ export const init = (topN: number, dispatch: React.Dispatch<React.ReducerAction<
   return load();
 };
 
-export const request = (
-  from: number,
-  to: number,
-  topN: number,
-  dispatch: React.Dispatch<React.ReducerAction<any>>) => {
+export const requestTimeseries = (dispatch: React.Dispatch<React.ReducerAction<any>>) => {
+  const to = new Date("2021-07-26T02:00:00.000+00:00");
+  const from = new Date("2021-07-26T00:00:00.000+00:00");
+//  from.setMonth(to.getMonth() - 2);
   const query = {
-    from: from,
-    to: to,
-    topN: topN,
+    from: from.getTime(),
+    to: to.getTime(),
+    interval: "1m",
   } as Topic.Query;
 
   const opts = {
@@ -67,14 +66,13 @@ export const request = (
     body: JSON.stringify(query),
   };
 
-  fetch(`${process.env.API_ENDPOINT}/tweet/topics`, opts)
+  fetch(`${process.env.API_ENDPOINT}/tweet/counts`, opts)
   .then((res) => {
     if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
     return res.json();
   })
   .then((json) => {
-    dispatch(newQuery(query));
-    dispatch(newTopic(json))
+    dispatch(newTimeseries(json))
     dispatch(done())
   })
   .catch((reason) => {
@@ -94,16 +92,6 @@ const done = () => ({
   payload: false,
 });
 
-export const newQuery = (query: Topic.Query) => ({
-  type: Types.NEW_QUERY,
-  payload: query,
-});
-
-export const clrQuery = () => ({
-  type: Types.CLR_QUERY,
-  payload: "",
-});
-
 export const newTopic = (json: Topic.Response[]) => ({
   type: Types.NEW_TOPIC,
   payload: json,
@@ -111,5 +99,20 @@ export const newTopic = (json: Topic.Response[]) => ({
 
 export const clrTopic = () => ({
   type: Types.CLR_TOPIC,
+  payload: [],
+});
+
+export const newTimeseries = (json: Timeseries.Response[]) => ({
+  type: Types.NEW_TIMESERIES,
+  payload: json,
+});
+
+export const addTimeseries = (json: Timeseries.Response[]) => ({
+  type: Types.ADD_TIMESERIES,
+  payload: json,
+});
+
+export const clrTimeseries = () => ({
+  type: Types.CLR_TIMESERIES,
   payload: [],
 });

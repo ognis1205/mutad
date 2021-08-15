@@ -19,6 +19,9 @@ export interface Model {
 }
 
 export interface Dataset {
+  label: string,
+  backgroundColor: string[],
+  borderColor: string[],
   data: number[],
 }
 
