@@ -28,16 +28,16 @@ interface ItemProps extends WithStyles<typeof styles> {
   navDrawerOpen: boolean;
 }
 
+const Anchor = React.forwardRef<HTMLDivElement>((_, ref) => {
+  return <div ref={ref} style={{ position: "absolute", right: 0 }} />;
+});
+
+Anchor.displayName = "Anchor";
+
 const Item = withStyles(styles, { withTheme: true })((props: ItemProps) => {
   const [open, setOpen] = React.useState<boolean>(false);
 
   const anchor = React.createRef<HTMLDivElement>();
-
-  const Anchor = React.forwardRef<HTMLDivElement>((_, ref) => {
-    return (
-      <div ref={ref} style={{ position: "absolute", right: 0 }} />
-    );
-  });
 
   const handleClick = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
@@ -79,7 +79,10 @@ const Item = withStyles(styles, { withTheme: true })((props: ItemProps) => {
         >
           {props.menu.subMenu.map((item, index) => (
             <Link key={index} href={item.link}>
-              <Material.MenuItem key={index} classes={{ root: props.classes.subMuMenuItem }}>
+              <Material.MenuItem
+                key={index}
+                classes={{ root: props.classes.subMuMenuItem }}
+              >
                 <Material.ListItemIcon style={{ color: "white" }}>
                   {item.icon}
                 </Material.ListItemIcon>
