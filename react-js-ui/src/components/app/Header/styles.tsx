@@ -16,7 +16,9 @@
 import * as MaterialStyles from "@material-ui/core/styles";
 import * as Themes from "../../../themes";
 
-const styles = (theme: Themes.Custom.Theme) =>
+const styles = (
+  theme: Themes.Custom.Theme
+): ReturnType<MaterialStyles.createStyles> =>
   MaterialStyles.createStyles({
     appBar: {
       zIndex: theme.zIndex.drawer + 1,
@@ -44,7 +46,7 @@ const styles = (theme: Themes.Custom.Theme) =>
       [theme.breakpoints.up("md")]: {
         display: "flex",
       },
-    }
+    },
   });
 
 export default styles;

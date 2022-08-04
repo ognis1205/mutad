@@ -24,7 +24,7 @@ import styles from "./styles";
 interface Props extends WithStyles<typeof styles> {
   title: string;
   github: string;
-  handleChangeNavDrawer: (e: any) => void;
+  handleChangeNavDrawer: (e: React.MouseEvent) => void;
   navDrawerOpen: boolean;
 }
 
@@ -42,7 +42,7 @@ export default withStyles(styles, { withTheme: true })((props: Props) => {
           aria-label="Open drawer"
           onClick={props.handleChangeNavDrawer}
         >
-          <Menu/>
+          <Menu />
         </Material.IconButton>
         <Material.Box className={props.classes.grow}>
           <Material.Typography variant="h5" color="inherit">
