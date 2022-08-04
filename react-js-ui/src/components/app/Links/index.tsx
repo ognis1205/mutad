@@ -38,7 +38,11 @@ const Item = withStyles(styles, { withTheme: true })((props: ItemProps) => {
             <Material.Typography gutterBottom variant="h5" component="h2">
               {props.subMenu.text}
             </Material.Typography>
-            <Material.Typography variant="body2" color="textSecondary" component="p">
+            <Material.Typography
+              variant="body2"
+              color="textSecondary"
+              component="p"
+            >
               {props.subMenu.description}
             </Material.Typography>
           </Material.CardContent>
@@ -61,8 +65,8 @@ export default withStyles(styles, { withTheme: true })((props: Props) => (
   <Material.Grid container spacing={2} className={props.classes.grid}>
     {props.menu.map((subMenu: Metadata.Menu.SubItem, index: number) => (
       <Material.Grid item xs={4} key={index}>
-        <Item subMenu={subMenu}/>
+        <Item subMenu={subMenu} />
       </Material.Grid>
     ))}
   </Material.Grid>
-  ));
+));
