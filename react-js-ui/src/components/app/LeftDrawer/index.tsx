@@ -26,7 +26,7 @@ interface Props extends WithStyles<typeof styles> {
   theme: Themes.Custom.Theme;
   menu: Metadata.Menu.Item[];
   navDrawerOpen: boolean;
-  handleChangeNavDrawer: (e: any) => void;
+  handleChangeNavDrawer: () => void;
 }
 
 export default withStyles(styles, { withTheme: true })((props: Props) => {
