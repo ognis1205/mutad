@@ -16,7 +16,9 @@
 import * as MaterialStyles from "@material-ui/core/styles";
 import * as Themes from "../../../themes";
 
-const styles = (theme: Themes.Custom.Theme) =>
+const styles = (
+  theme: Themes.Custom.Theme
+): ReturnType<MaterialStyles.createStyles> =>
   MaterialStyles.createStyles({
     box: {
       margin: "80px 20px 20px 15px",
