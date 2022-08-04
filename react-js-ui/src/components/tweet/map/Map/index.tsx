@@ -23,19 +23,25 @@ import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import styles from "./styles";
 import * as Context from "../../../../contexts/tweet/map";
 
-interface Props extends WithStyles<typeof styles>, ReactLeaflet.MapContainerProps {}
+interface Props
+  extends WithStyles<typeof styles>,
+    ReactLeaflet.MapContainerProps {}
 
 export default withStyles(styles)((props: Props) => {
-  const {state} = React.useContext(Context.store);
+  const { state } = React.useContext(Context.store);
 
   const [map, setMap] = React.useState<Leaflet.Map>();
 
   const [heat, setHeat] = React.useState<L.Layer>();
 
   React.useEffect(() => {
-    const leafletMap = Leaflet.map("map", { ...props }).setView(props.center, props.zoom);
+    const leafletMap = Leaflet.map("map", { ...props }).setView(
+      props.center,
+      props.zoom
+    );
     Leaflet.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(leafletMap);
     setMap(leafletMap);
   }, []);
@@ -52,6 +58,6 @@ export default withStyles(styles)((props: Props) => {
       setHeat(layer);
     }
   }, [state.points, state.radius, state.blur, state.zoom]);
-  
+
   return <Material.Box id="map" className={props.classes.box}></Material.Box>;
 });
