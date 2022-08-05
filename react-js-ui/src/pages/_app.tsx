@@ -29,7 +29,7 @@ const Mutad: React.FC<NextApp.AppProps> = ({ Component, pageProps }) => {
 
   React.useEffect(() => {
     const jssStyles = document.querySelector("#jss-server-side");
-    if (jssStyles) jssStyles.parentElement!.removeChild(jssStyles);
+    jssStyles?.parentElement?.removeChild(jssStyles);
   }, []);
 
   const handleChangeNavDrawer = () => {
@@ -46,7 +46,7 @@ const Mutad: React.FC<NextApp.AppProps> = ({ Component, pageProps }) => {
         />
       </Head>
       <MaterialStyles.ThemeProvider theme={Themes.defaultTheme}>
-        <Material.CssBaseline/>
+        <Material.CssBaseline />
         <Header
           title={"mutad"}
           github={"https://github.com/ognis1205/mutad"}

@@ -19,9 +19,13 @@ import * as Metadata from "../metadata";
 import Links from "../components/app/Links";
 
 const Index: Next.NextPage = () => {
-  const menu = [].concat(...Metadata.contents.menu.map((item) => {
-    return item.hasOwnProperty("subMenu") && Array.isArray(item.subMenu) ? item.subMenu : [];
-  }));
+  const menu = [].concat(
+    ...Metadata.contents.menu.map((item) => {
+      return item.hasOwnProperty("subMenu") && Array.isArray(item.subMenu)
+        ? item.subMenu
+        : [];
+    })
+  );
 
   return (
     <React.Fragment>

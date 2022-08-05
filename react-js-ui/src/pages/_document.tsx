@@ -47,15 +47,18 @@ export default class Doc extends Document {
     return (
       <NextDocument.Html lang="en">
         <NextDocument.Head>
-          <meta name="theme-color" content={Themes.defaultTheme.palette.primary.main} />
+          <meta
+            name="theme-color"
+            content={Themes.defaultTheme.palette.primary.main}
+          />
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
           />
         </NextDocument.Head>
         <body>
-          <NextDocument.Main/>
-          <NextDocument.NextScript/>
+          <NextDocument.Main />
+          <NextDocument.NextScript />
         </body>
       </NextDocument.Html>
     );
