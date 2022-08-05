@@ -13,17 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import * as Material from "@material-ui/core";
 import * as MaterialStyles from "@material-ui/core/styles";
 import * as MaterialColors from "@material-ui/core/colors";
-import * as Custom from "./custom.d";
 
 declare module "@material-ui/core/styles/createTheme" {
   interface ThemeOptions {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     drawer?: any;
   }
 }
 
-const defaultTheme = MaterialStyles.createTheme({
+export interface Theme extends Material.Theme {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  drawer?: any;
+  pageHeight?: string | number;
+  pageWidth?: string | number;
+  pagePosition?: "relative" | "absolute";
+}
+
+export const defaultTheme = MaterialStyles.createTheme({
   palette: {
     primary: MaterialColors.indigo,
     secondary: MaterialColors.blue,
@@ -50,8 +59,8 @@ const defaultTheme = MaterialStyles.createTheme({
   pagePosition: "relative",
 } as Custom.Theme);
 
-const customize = (option: any) => {
+export const customize = (
+  option: ThemeOptions
+): ReturnType<MaterialStyles.createTheme> => {
   return MaterialStyles.createTheme({ ...defaultTheme, ...option });
 };
-
-export { defaultTheme, customize, Custom };
