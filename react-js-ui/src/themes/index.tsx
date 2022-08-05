@@ -57,7 +57,7 @@ export const defaultTheme = MaterialStyles.createTheme({
   pageHeight: "87vh",
   pageWidth: "100%",
   pagePosition: "relative",
-} as Custom.Theme);
+} as Theme);
 
 export const customize = (
   option: ThemeOptions
