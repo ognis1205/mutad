@@ -22,7 +22,10 @@ import * as Context from "../../../../contexts/tweet/timeline";
 
 const PaperComponent = (props: Material.PaperProps) => {
   return (
-    <Draggable handle="#draggable-dialog-title" cancel={'[class*="MuiDialogContent-root"]'}>
+    <Draggable
+      handle="#draggable-dialog-title"
+      cancel={'[class*="MuiDialogContent-root"]'}
+    >
       <Material.Paper {...props} />
     </Draggable>
   );
@@ -33,49 +36,52 @@ interface Props extends WithStyles<typeof styles> {
 }
 
 export default withStyles(styles, { withTheme: true })((props: Props) => {
-  const {state, dispatch} = React.useContext(Context.store);
+  const { state, dispatch } = React.useContext(Context.store);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const { name, value } = e.target;
     switch (name) {
       case "text":
-        dispatch(Context.Actions.newQuery({
-          before: state.timestamp,
-          text: value,
-          hashtags: /\S/.test(state.hashtags) ? state.hashtags.split(/\s+/) : [],
-          page: state.page,
-          size: 50,
-        }));
+        dispatch(
+          Context.Actions.newQuery({
+            before: state.timestamp,
+            text: value,
+            hashtags: /\S/.test(state.hashtags)
+              ? state.hashtags.split(/\s+/)
+              : [],
+            page: state.page,
+            size: 50,
+          })
+        );
         break;
       case "hashtags":
-        dispatch(Context.Actions.newQuery({
-          before: state.timestamp,
-          text: state.text,
-          hashtags: /\S/.test(value) ? value.split(/\s+/) : [],
-          page: state.page,
-          size: 50,
-        }));
+        dispatch(
+          Context.Actions.newQuery({
+            before: state.timestamp,
+            text: state.text,
+            hashtags: /\S/.test(value) ? value.split(/\s+/) : [],
+            page: state.page,
+            size: 50,
+          })
+        );
         break;
       default:
         break;
     }
-  }
+  };
 
   const handleClose = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     dispatch(Context.Actions.close());
-  }
+  };
 
   const handleSearch = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     props.onRefresh();
-    dispatch(Context.Actions.refresh(
-      state.text,
-      state.hashtags,
-      dispatch));
+    dispatch(Context.Actions.refresh(state.text, state.hashtags, dispatch));
     dispatch(Context.Actions.close());
-  }
+  };
 
   return (
     <Material.Box>
@@ -85,7 +91,10 @@ export default withStyles(styles, { withTheme: true })((props: Props) => {
         PaperComponent={PaperComponent}
         aria-labelledby="draggable-dialog-title"
       >
-        <Material.DialogTitle style={{ cursor: "move" }} id="draggable-dialog-title">
+        <Material.DialogTitle
+          style={{ cursor: "move" }}
+          id="draggable-dialog-title"
+        >
           Search with:
         </Material.DialogTitle>
         <Material.DialogContent>

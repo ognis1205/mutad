@@ -16,7 +16,10 @@
 import * as MaterialStyles from "@material-ui/core/styles";
 import * as Themes from "../../../../themes";
 
-const styles = (theme: Themes.Custom.Theme) =>
+const styles = (
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  theme: Themes.Custom.Theme
+): ReturnType<MaterialStyles.createStyles> =>
   MaterialStyles.createStyles({
     form: {
       display: "flex",
