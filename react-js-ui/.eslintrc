@@ -17,6 +17,7 @@
     "prettier/prettier": "error",
     "@typescript-eslint/no-var-requires": 0,
     "@typescript-eslint/indent": 0,
+    "react/prop-types": "off",
     "react/jsx-filename-extension": [1, {
       "extensions": [".ts", ".tsx", ".js", ".jsx"]
     }]
