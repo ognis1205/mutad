@@ -110,6 +110,7 @@ export default withStyles(styles)((props: Props) => {
     datasets: [
       {
         label: "count",
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         data: [...Array(10).keys()].map((_) => 0),
       },
     ],
