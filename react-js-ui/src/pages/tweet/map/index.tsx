@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 import * as React from "react";
-import dynamic from "next/dynamic";
 import * as Next from "next";
+import dynamic from "next/dynamic";
 import Search from "../../../components/tweet/map/Search";
 import * as Context from "../../../contexts/tweet/map";
 

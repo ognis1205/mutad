@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React from "react";
+import * as React from "react";
 import * as Next from "next";
 import List from "../../../components/tweet/timeline/List";
 import Search from "../../../components/tweet/timeline/Search";
