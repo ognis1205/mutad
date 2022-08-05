@@ -13,15 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React from "react";
+import * as React from "react";
 import Assessment from "@material-ui/icons/Assessment";
 import BorderClear from "@material-ui/icons/BorderClear";
 import BorderInner from "@material-ui/icons/BorderInner";
 import BorderOuter from "@material-ui/icons/BorderOuter";
 import Home from "@material-ui/icons/Home";
-import * as Menu from "./menu.d";
 
-const contents = {
+export interface Item {
+  text: string;
+  icon: React.ReactElement;
+  link?: string;
+  subMenu?: SubItem[];
+}
+
+export interface SubItem {
+  text: string;
+  description: string;
+  image: string;
+  icon: React.ReactElement;
+  link: string;
+}
+
+export const contents = {
   menu: [
     {
       text: "Twitter Data",
@@ -57,5 +71,3 @@ const contents = {
     },
   ],
 };
-
-export { Menu, contents };
