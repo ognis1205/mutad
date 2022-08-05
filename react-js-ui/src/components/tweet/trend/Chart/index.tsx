@@ -20,6 +20,7 @@ import Topic from "../Topic";
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import styles from "./styles";
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Props extends WithStyles<typeof styles> {}
 
 const yesterdayOf = (date: Date): Date => {
