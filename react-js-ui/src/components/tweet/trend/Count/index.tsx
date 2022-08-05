@@ -92,6 +92,7 @@ export default withStyles(styles)((props: Props) => {
     datasets: [
       {
         label: "count",
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         data: [...Array(60).keys()].map((_) => {
           return {
             x: "",
