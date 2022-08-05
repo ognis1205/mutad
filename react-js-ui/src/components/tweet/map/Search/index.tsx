@@ -21,20 +21,24 @@ import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import styles from "./styles";
 import * as Context from "../../../../contexts/tweet/map";
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Props extends WithStyles<typeof styles> {}
 
 export default withStyles(styles)((props: Props) => {
-  const {state, dispatch} = React.useContext(Context.store);
+  const { state, dispatch } = React.useContext(Context.store);
 
   const [expanded, setExpanded] = React.useState<boolean>(false);
 
   React.useEffect(() => {
-    dispatch(Context.Actions.newQuery({
-      text: "",
-      hashtags: [],
-      from: (new Date()).getTime(),
-      to: (new Date()).getTime(),
-    }));
+    const date = new Date();
+    dispatch(
+      Context.Actions.newQuery({
+        text: "",
+        hashtags: [],
+        from: date.getTime(),
+        to: date.getTime(),
+      })
+    );
   }, []);
 
   const handleExpand = () => {
@@ -43,96 +47,123 @@ export default withStyles(styles)((props: Props) => {
 
   const handlePost = async (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
-    dispatch(Context.Actions.request(
-      state.from,
-      state.to,
-      state.text,
-      state.hashtags,
-      dispatch));
-  }
+    dispatch(
+      Context.Actions.request(
+        state.from,
+        state.to,
+        state.text,
+        state.hashtags,
+        dispatch
+      )
+    );
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const { name, value } = e.target;
+    const date = new Date(value);
     switch (name) {
       case "from":
-        dispatch(Context.Actions.newQuery({
-          text: state.text,
-          hashtags: /\S/.test(state.hashtags) ? state.hashtags.split(/\s+/) : [],
-          from: (new Date(value)).getTime(),
-          to: state.to,
-        }));
+        dispatch(
+          Context.Actions.newQuery({
+            text: state.text,
+            hashtags: /\S/.test(state.hashtags)
+              ? state.hashtags.split(/\s+/)
+              : [],
+            from: date.getTime(),
+            to: state.to,
+          })
+        );
         break;
       case "to":
-        dispatch(Context.Actions.newQuery({
-          text: state.text,
-          hashtags: /\S/.test(state.hashtags) ? state.hashtags.split(/\s+/) : [],
-          from: state.from,
-          to: (new Date(value)).getTime(),
-        }));
+        dispatch(
+          Context.Actions.newQuery({
+            text: state.text,
+            hashtags: /\S/.test(state.hashtags)
+              ? state.hashtags.split(/\s+/)
+              : [],
+            from: state.from,
+            to: date.getTime(),
+          })
+        );
         break;
       case "text":
-        dispatch(Context.Actions.newQuery({
-          text: value,
-          hashtags: /\S/.test(state.hashtags) ? state.hashtags.split(/\s+/) : [],
-          from: state.from,
-          to: state.to,
-        }));
+        dispatch(
+          Context.Actions.newQuery({
+            text: value,
+            hashtags: /\S/.test(state.hashtags)
+              ? state.hashtags.split(/\s+/)
+              : [],
+            from: state.from,
+            to: state.to,
+          })
+        );
         break;
       case "hashtags":
-        dispatch(Context.Actions.newQuery({
-          text: value,
-          hashtags: /\S/.test(value) ? value.split(/\s+/) : [],
-          from: state.from,
-          to: state.to,
-        }));
+        dispatch(
+          Context.Actions.newQuery({
+            text: value,
+            hashtags: /\S/.test(value) ? value.split(/\s+/) : [],
+            from: state.from,
+            to: state.to,
+          })
+        );
         break;
       default:
         break;
     }
-  }
+  };
 
-  const handleSlide = (e: React.ChangeEvent<HTMLSpanElement>, value: number | number[]) => {
+  const handleSlide = (
+    e: React.ChangeEvent<HTMLSpanElement>,
+    value: number | number[]
+  ) => {
     e.preventDefault();
-    const {id} = e.target.parentElement;
+    const { id } = e.target.parentElement;
     switch (id) {
       case "radius":
         if (typeof value === "number")
-          dispatch(Context.Actions.newConfig({
-            radius: value,
-            blur: state.blur,
-            zoom: state.zoom,
-          }));
+          dispatch(
+            Context.Actions.newConfig({
+              radius: value,
+              blur: state.blur,
+              zoom: state.zoom,
+            })
+          );
         break;
       case "blur":
         if (typeof value === "number")
-          dispatch(Context.Actions.newConfig({
-            radius: state.radius,
-            blur: value,
-            zoom: state.zoom,
-          }));
+          dispatch(
+            Context.Actions.newConfig({
+              radius: state.radius,
+              blur: value,
+              zoom: state.zoom,
+            })
+          );
         break;
       case "maxZoom":
         if (typeof value === "number")
-          dispatch(Context.Actions.newConfig({
-            radius: state.radius,
-            blur: state.blur,
-            zoom: value,
-          }));
+          dispatch(
+            Context.Actions.newConfig({
+              radius: state.radius,
+              blur: state.blur,
+              zoom: value,
+            })
+          );
         break;
       default:
         break;
     }
-  }
-
-  const valuetext = (value: number) => {
-    return `${value}`;
   };
 
+  const valuetext = (value: number) => `${value}`;
+
   return (
-    <Material.Card
-      className={props.classes.card}>
-      <Material.CardActions className={props.classes.cardActions} disableSpacing>
+    <Material.Card className={props.classes.card}>
+      <Material.CardActions
+        className={props.classes.cardActions}
+        disableSpacing
+      >
         <Material.IconButton
           className={clsx(props.classes.iconButton, {
             [props.classes.iconButtonOpen]: expanded,
@@ -200,7 +231,11 @@ export default withStyles(styles)((props: Props) => {
               />
             </Material.Box>
             <Material.Box mb={1} width={1}>
-              <Material.Typography variant="caption" align="center" gutterBottom>
+              <Material.Typography
+                variant="caption"
+                align="center"
+                gutterBottom
+              >
                 Radius
               </Material.Typography>
               <Material.Slider
@@ -217,7 +252,11 @@ export default withStyles(styles)((props: Props) => {
               />
             </Material.Box>
             <Material.Box mb={1} width={1}>
-              <Material.Typography variant="caption" align="center" gutterBottom>
+              <Material.Typography
+                variant="caption"
+                align="center"
+                gutterBottom
+              >
                 Blur
               </Material.Typography>
               <Material.Slider
@@ -234,7 +273,11 @@ export default withStyles(styles)((props: Props) => {
               />
             </Material.Box>
             <Material.Box mb={1} width={1}>
-              <Material.Typography variant="caption" align="center" gutterBottom>
+              <Material.Typography
+                variant="caption"
+                align="center"
+                gutterBottom
+              >
                 Max Zoom
               </Material.Typography>
               <Material.Slider
