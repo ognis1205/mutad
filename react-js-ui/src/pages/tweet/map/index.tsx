@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React from "react";
+import * as React from "react";
 import dynamic from "next/dynamic";
 import * as Next from "next";
 import Search from "../../../components/tweet/map/Search";

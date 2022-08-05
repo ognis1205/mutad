@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React from "react";
+import * as React from "react";
 import * as Material from "@material-ui/core";
 import LocationSearchingIcon from "@material-ui/icons/LocationSearching";
 import clsx from "clsx";

@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React from "react";
-import Link from "next/link";
+import * as React from "react";
 import * as Material from "@material-ui/core";
+import Link from "next/link";
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import styles from "./styles";
 import * as Metadata from "../../../metadata";
