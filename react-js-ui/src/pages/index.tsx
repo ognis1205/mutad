@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React from "react";
+import * as React from "react";
 import * as Next from "next";
 import * as Metadata from "../metadata";
 import Links from "../components/app/Links";

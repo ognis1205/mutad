@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React from "react";
+import * as React from "react";
 import * as NextDocument from "next/document";
 import * as MaterialStyles from "@material-ui/core/styles";
 import Document from "next/document";

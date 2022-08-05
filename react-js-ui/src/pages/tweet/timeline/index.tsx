@@ -27,7 +27,7 @@ const Index: Next.NextPage = () => {
   const ContextProvider = (props: ContextProps) => {
     const [state, dispatch] = React.useReducer(Context.reducer, Context.init);
     return (
-      <Context.store.Provider value={{state, dispatch}}>
+      <Context.store.Provider value={{ state, dispatch }}>
         {props.children}
       </Context.store.Provider>
     );
@@ -36,16 +36,13 @@ const Index: Next.NextPage = () => {
   const scrollRef = React.createRef<HTMLUListElement>();
 
   const handleRefresh = () => {
-    scrollRef.current.scrollTo({top: 0});
+    scrollRef.current.scrollTo({ top: 0 });
   };
 
   return (
     <ContextProvider>
-      <List
-        ref={scrollRef}
-        onRefresh={handleRefresh}/>
-      <Search
-        onRefresh={handleRefresh}/>
+      <List ref={scrollRef} onRefresh={handleRefresh} />
+      <Search onRefresh={handleRefresh} />
     </ContextProvider>
   );
 };

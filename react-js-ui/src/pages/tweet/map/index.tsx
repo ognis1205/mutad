@@ -23,6 +23,7 @@ const Index: Next.NextPage = () => {
   const Map = React.useMemo(
     () =>
       dynamic(() => import("../../../components/tweet/map/Map"), {
+        // eslint-disable-next-line react/display-name
         loading: () => <p>Loading a map...</p>,
         ssr: false,
       }),
@@ -36,7 +37,7 @@ const Index: Next.NextPage = () => {
   const ContextProvider = (props: ContextProps) => {
     const [state, dispatch] = React.useReducer(Context.reducer, Context.init);
     return (
-      <Context.store.Provider value={{state, dispatch}}>
+      <Context.store.Provider value={{ state, dispatch }}>
         {props.children}
       </Context.store.Provider>
     );
@@ -53,7 +54,7 @@ const Index: Next.NextPage = () => {
           [90, 180],
         ]}
       />
-      <Search/>
+      <Search />
     </ContextProvider>
   );
 };
