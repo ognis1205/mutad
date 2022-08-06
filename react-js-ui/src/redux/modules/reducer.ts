@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Shingo OKAWA
+ * Copyright 2022 Shingo OKAWA
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,6 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-export const getTweets = (state: any = {}) => {
-  return state.tweet.latest;
-};
+import * as Redux from "redux";
+import geo from "./geo";
+
+const reducer = Redux.combineReducers({
+  geo: geo,
+});
+
+export default reducer;

@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Shingo OKAWA
+ * Copyright 2022 Shingo OKAWA
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,28 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-export interface Tweet {
-  user_id: string,
-  user_name: string,
-  image_url: string,
-  text: string,
-  hashtags: string[],
-  timestamp: number,
-}
+import * as Redux from "redux";
+import * as NextRedux from "next-redux-wrapper";
+import * as GeoModule from "./modules/geo";
+import reducer from "./modules/reducer";
 
-export interface TweetQuery {
-  before: number,
-  text: string,
-  hashtags: string[],
-  page: number,
-  size: number,
-}
-
-export interface TweetResponse {
-  userId: string,
-  userName: string,
-  imageUrl: string,
-  text: string,
-  hashtags: string[],
-  timestamp: number,
-}
