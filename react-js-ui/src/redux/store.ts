@@ -15,6 +15,18 @@
  */
 import * as Redux from "redux";
 import * as NextRedux from "next-redux-wrapper";
+import * as Geo from "./middlewares/geo";
 import * as GeoModule from "./modules/geo";
 import reducer from "./modules/reducer";
 
+const enhancer = Redux.applyMiddleware(Geo.middleware);
+
+export type Type = {
+  geo: GeoModule.State;
+};
+
+export const wrapper = NextRedux.createWrapper<Redux.Store>(
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  (_: NextRedux.Context) => Redux.createStore(reducer, enhancer),
+  { debug: true }
+);

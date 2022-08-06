@@ -67,9 +67,9 @@ const ACTION_CREATER = actionCreatorFactory(SUFFIX);
 
 export const REQUEST_ACTION = ACTION_CREATER<Query>(REQUEST);
 
-export const LOAD_ACTION = ACTION_CREATER<boolean>(LOAD);
+export const LOAD_ACTION = ACTION_CREATER<void>(LOAD);
 
-export const DONE_ACTION = ACTION_CREATER<boolean>(DONE);
+export const DONE_ACTION = ACTION_CREATER<void>(DONE);
 
 export const NEW_QUERY_ACTION = ACTION_CREATER<Query>(NEW_QUERY);
 
@@ -107,9 +107,9 @@ export const request = (
     to: to,
   });
 
-export const load = (): FSA.Action<boolean> => LOAD_ACTION(true);
+export const load = (): FSA.Action<void> => LOAD_ACTION();
 
-export const done = (): FSA.Action<boolean> => DONE_ACTION(false);
+export const done = (): FSA.Action<void> => DONE_ACTION();
 
 export const newQuery = (
   from: number,
@@ -185,11 +185,6 @@ const reducer = (
     } as State;
   }
   if (FSA.isType(action, NEW_QUERY_ACTION)) {
-    return {
-      ...state,
-    } as State;
-  }
-  if (FSA.isType(action, NEW_DEVICES_ACTION)) {
     return {
       ...state,
       text: action.payload.text,
