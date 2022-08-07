@@ -14,21 +14,22 @@
  * limitations under the License.
  */
 import * as React from "react";
+import * as ReactRedux from "react-redux";
 import * as Leaflet from "leaflet";
 import "leaflet.heat";
 import "leaflet/dist/leaflet.css";
 import * as ReactLeaflet from "react-leaflet";
 import * as Material from "@material-ui/core";
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
+import * as Store from "../../../../redux/store";
 import styles from "./styles";
-import * as Context from "../../../../contexts/tweet/map";
 
 interface Props
   extends WithStyles<typeof styles>,
     ReactLeaflet.MapContainerProps {}
 
 export default withStyles(styles)((props: Props) => {
-  const { state } = React.useContext(Context.store);
+  const geoStore = ReactRedux.useSelector((store: Store.Type) => store.geo);
 
   const [map, setMap] = React.useState<Leaflet.Map>();
 
@@ -48,16 +49,16 @@ export default withStyles(styles)((props: Props) => {
 
   React.useEffect(() => {
     if (map) {
-      const layer = Leaflet.heatLayer(state.points, {
-        radius: state.radius,
-        blur: state.blur,
-        maxZoom: state.zoom,
+      const layer = Leaflet.heatLayer(geoStore.points, {
+        radius: geoStore.radius,
+        blur: geoStore.blur,
+        maxZoom: geoStore.zoom,
       });
       if (heat) map.removeLayer(heat);
       map.addLayer(layer);
       setHeat(layer);
     }
-  }, [state.points, state.radius, state.blur, state.zoom]);
+  }, [geoStore.points, geoStore.radius, geoStore.blur, geoStore.zoom]);
 
   return <Material.Box id="map" className={props.classes.box}></Material.Box>;
 });

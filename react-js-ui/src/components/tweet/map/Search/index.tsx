@@ -14,25 +14,29 @@
  * limitations under the License.
  */
 import * as React from "react";
+import * as ReactRedux from "react-redux";
 import * as Material from "@material-ui/core";
 import LocationSearchingIcon from "@material-ui/icons/LocationSearching";
 import clsx from "clsx";
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
+import * as Store from "../../../../redux/store";
+import * as GeoModule from "../../../../redux/modules/geo";
 import styles from "./styles";
-import * as Context from "../../../../contexts/tweet/map";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Props extends WithStyles<typeof styles> {}
 
 export default withStyles(styles)((props: Props) => {
-  const { state, dispatch } = React.useContext(Context.store);
+  const geoStore = ReactRedux.useSelector((store: Store.Type) => store.geo);
+
+  const dispatch = ReactRedux.useDispatch();
 
   const [expanded, setExpanded] = React.useState<boolean>(false);
 
   React.useEffect(() => {
     const date = new Date();
     dispatch(
-      Context.Actions.newQuery({
+      GeoModule.newQuery({
         text: "",
         hashtags: [],
         from: date.getTime(),
@@ -48,11 +52,11 @@ export default withStyles(styles)((props: Props) => {
   const handlePost = async (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     dispatch(
-      Context.Actions.request(
-        state.from,
-        state.to,
-        state.text,
-        state.hashtags,
+      GeoModule.request(
+        geoStore.from,
+        geoStore.to,
+        geoStore.text,
+        geoStore.hashtags,
         dispatch
       )
     );
@@ -65,47 +69,47 @@ export default withStyles(styles)((props: Props) => {
     switch (name) {
       case "from":
         dispatch(
-          Context.Actions.newQuery({
-            text: state.text,
-            hashtags: /\S/.test(state.hashtags)
-              ? state.hashtags.split(/\s+/)
+          GeoModule.newQuery({
+            text: geoStore.text,
+            hashtags: /\S/.test(geoStore.hashtags)
+              ? geoStore.hashtags.split(/\s+/)
               : [],
             from: date.getTime(),
-            to: state.to,
+            to: geoStore.to,
           })
         );
         break;
       case "to":
         dispatch(
-          Context.Actions.newQuery({
-            text: state.text,
-            hashtags: /\S/.test(state.hashtags)
-              ? state.hashtags.split(/\s+/)
+          GeoModule.newQuery({
+            text: geoStore.text,
+            hashtags: /\S/.test(geoStore.hashtags)
+              ? geoStore.hashtags.split(/\s+/)
               : [],
-            from: state.from,
+            from: geoStore.from,
             to: date.getTime(),
           })
         );
         break;
       case "text":
         dispatch(
-          Context.Actions.newQuery({
+          GeoModule.newQuery({
             text: value,
-            hashtags: /\S/.test(state.hashtags)
-              ? state.hashtags.split(/\s+/)
+            hashtags: /\S/.test(geoStore.hashtags)
+              ? geoStore.hashtags.split(/\s+/)
               : [],
-            from: state.from,
-            to: state.to,
+            from: geoStore.from,
+            to: geoStore.to,
           })
         );
         break;
       case "hashtags":
         dispatch(
-          Context.Actions.newQuery({
+          GeoModule.newQuery({
             text: value,
             hashtags: /\S/.test(value) ? value.split(/\s+/) : [],
-            from: state.from,
-            to: state.to,
+            from: geoStore.from,
+            to: geoStore.to,
           })
         );
         break;
@@ -124,29 +128,29 @@ export default withStyles(styles)((props: Props) => {
       case "radius":
         if (typeof value === "number")
           dispatch(
-            Context.Actions.newConfig({
+            GeoModule.newConfig({
               radius: value,
-              blur: state.blur,
-              zoom: state.zoom,
+              blur: geoStore.blur,
+              zoom: geoStore.zoom,
             })
           );
         break;
       case "blur":
         if (typeof value === "number")
           dispatch(
-            Context.Actions.newConfig({
-              radius: state.radius,
+            GeoModule.newConfig({
+              radius: geoStore.radius,
               blur: value,
-              zoom: state.zoom,
+              zoom: geoStore.zoom,
             })
           );
         break;
       case "maxZoom":
         if (typeof value === "number")
           dispatch(
-            Context.Actions.newConfig({
-              radius: state.radius,
-              blur: state.blur,
+            GeoModule.newConfig({
+              radius: geoStore.radius,
+              blur: geoStore.blur,
               zoom: value,
             })
           );
@@ -240,7 +244,7 @@ export default withStyles(styles)((props: Props) => {
               </Material.Typography>
               <Material.Slider
                 id="radius"
-                value={state.radius}
+                value={geoStore.radius}
                 getAriaValueText={valuetext}
                 aria-labelledby="discrete-slider"
                 valueLabelDisplay="auto"
@@ -261,7 +265,7 @@ export default withStyles(styles)((props: Props) => {
               </Material.Typography>
               <Material.Slider
                 id="blur"
-                value={state.blur}
+                value={geoStore.blur}
                 getAriaValueText={valuetext}
                 aria-labelledby="discrete-slider"
                 valueLabelDisplay="auto"
@@ -282,7 +286,7 @@ export default withStyles(styles)((props: Props) => {
               </Material.Typography>
               <Material.Slider
                 id="maxZoom"
-                value={state.zoom}
+                value={geoStore.zoom}
                 getAriaValueText={valuetext}
                 aria-labelledby="discrete-slider"
                 valueLabelDisplay="auto"

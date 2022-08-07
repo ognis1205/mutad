@@ -68,9 +68,9 @@ export type Response = {
 
 const ACTION_CREATER = actionCreatorFactory(SUFFIX);
 
-const REQUEST_ACTION = ACTION_CREATER<Query>(REQUEST);
+export const REQUEST_ACTION = ACTION_CREATER<Query>(REQUEST);
 
-const MORE_ACTION = ACTION_CREATER<Query>(MORE);
+export const MORE_ACTION = ACTION_CREATER<Query>(MORE);
 
 export const LOAD_ACTION = ACTION_CREATER<void>(LOAD);
 
@@ -84,11 +84,11 @@ export const OPEN_ACTION = ACTION_CREATER<void>(OPEN);
 
 export const CLOSE_ACTION = ACTION_CREATER<void>(CLOSE);
 
-const NEW_LATEST_ACTION = ACTION_CREATER<Response[]>(NEW_LATEST);
+export const NEW_LATEST_ACTION = ACTION_CREATER<Response[]>(NEW_LATEST);
 
-const ADD_LATEST_ACTION = ACTION_CREATER<Response[]>(ADD_LATEST);
+export const ADD_LATEST_ACTION = ACTION_CREATER<Response[]>(ADD_LATEST);
 
-const CLEAR_LATEST_ACTION = ACTION_CREATER<void>(CLEAR_LATEST);
+export const CLEAR_LATEST_ACTION = ACTION_CREATER<void>(CLEAR_LATEST);
 
 export const hasAction = (action: FSA.Action<unknown>): boolean =>
   REQUEST_ACTION.match(action) ||

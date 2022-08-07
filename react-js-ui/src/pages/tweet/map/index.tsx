@@ -17,7 +17,6 @@ import * as React from "react";
 import * as Next from "next";
 import dynamic from "next/dynamic";
 import Search from "../../../components/tweet/map/Search";
-import * as Context from "../../../contexts/tweet/map";
 
 const Index: Next.NextPage = () => {
   const Map = React.useMemo(
@@ -30,21 +29,8 @@ const Index: Next.NextPage = () => {
     []
   );
 
-  interface ContextProps {
-    children: JSX.Element | JSX.Element[];
-  }
-
-  const ContextProvider = (props: ContextProps) => {
-    const [state, dispatch] = React.useReducer(Context.reducer, Context.init);
-    return (
-      <Context.store.Provider value={{ state, dispatch }}>
-        {props.children}
-      </Context.store.Provider>
-    );
-  };
-
   return (
-    <ContextProvider>
+    <>
       <Map
         center={[0.0, 0.0]}
         zoom={3}
@@ -55,7 +41,7 @@ const Index: Next.NextPage = () => {
         ]}
       />
       <Search />
-    </ContextProvider>
+    </>
   );
 };
 
