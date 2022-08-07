@@ -18,6 +18,7 @@ import * as NextApp from "next/app";
 import * as Material from "@material-ui/core";
 import * as MaterialStyles from "@material-ui/core/styles";
 import Head from "next/head";
+import * as Store from "../redux/store";
 import * as Metadata from "../metadata";
 import * as Themes from "../themes";
 import Header from "../components/app/Header";
@@ -66,4 +67,4 @@ const Mutad: React.FC<NextApp.AppProps> = ({ Component, pageProps }) => {
   );
 };
 
-export default Mutad;
+export default Store.wrapper.withRedux(Mutad);
