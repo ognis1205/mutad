@@ -15,9 +15,11 @@
  */
 import * as Redux from "redux";
 import geo from "./geo";
+import tweet from "./tweet";
 
 const reducer = Redux.combineReducers({
   geo: geo,
+  tweet: tweet,
 });
 
 export default reducer;
