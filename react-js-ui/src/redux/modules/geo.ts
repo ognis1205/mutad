@@ -99,7 +99,7 @@ export const request = (
   to: number,
   text: string,
   hashtags: string
-): FSA.Action<QUERY> =>
+): FSA.Action<Query> =>
   REQUEST_ACTION({
     text: text,
     hashtags: /\S/.test(hashtags) ? hashtags.split(/\s+/) : [],
@@ -111,18 +111,8 @@ export const load = (): FSA.Action<void> => LOAD_ACTION();
 
 export const done = (): FSA.Action<void> => DONE_ACTION();
 
-export const newQuery = (
-  from: number,
-  to: number,
-  text: string,
-  hashtags: string[]
-): FSA.Action<Query> =>
-  NEW_QUERY_ACTION({
-    text: text,
-    hashtags: hashtags,
-    from: from,
-    to: to,
-  });
+export const newQuery = (query: Query): FSA.Action<Query> =>
+  NEW_QUERY_ACTION(query);
 
 export const clearQuery = (): FSA.Action<void> => CLEAR_QUERY_ACTION();
 
@@ -153,7 +143,7 @@ export type State = {
   radius: number;
   blur: number;
   zoom: number;
-  points: Geo.Model[];
+  points: Point[];
 };
 
 const INITIAL_STATE = {
