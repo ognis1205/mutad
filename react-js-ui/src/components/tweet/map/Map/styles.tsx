@@ -25,6 +25,17 @@ const styles = (
       width: theme.pagePosition,
       position: theme.pagePosition,
     },
+    text: {
+      position: "absolute",
+      top: 0,
+      left: 0,
+      zIndex: 800,
+      padding: theme.spacing(2, 2, 0),
+    },
+    icon: {
+      color: "rgb(34, 156, 237)",
+      marginRight: 10,
+    },
   });
 
 export default styles;

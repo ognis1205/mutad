@@ -31,6 +31,10 @@ const styles = (
     text: {
       padding: theme.spacing(2, 2, 0),
     },
+    icon: {
+      color: "rgb(34, 156, 237)",
+      marginRight: 10,
+    },
     paper: {
       overflow: "auto",
       height: theme.pageHeight,

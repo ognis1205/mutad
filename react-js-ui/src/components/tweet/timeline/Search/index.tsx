@@ -82,13 +82,15 @@ export default withStyles(styles, { withTheme: true })((props: Props) => {
   const handleSearch = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     props.onRefresh();
-    dispatch(TweetModule.request(
-      new Date().getTime(),
-      tweetStore.text,
-      tweetStore.hashtags,
-      0,
-      50
-    ));
+    dispatch(
+      TweetModule.request(
+        new Date().getTime(),
+        tweetStore.text,
+        tweetStore.hashtags,
+        0,
+        50
+      )
+    );
     dispatch(TweetModule.close());
   };
 

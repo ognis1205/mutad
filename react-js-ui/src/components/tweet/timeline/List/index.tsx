@@ -56,20 +56,16 @@ interface Props extends WithStyles<typeof styles> {
 
 export default withStyles(styles, { withTheme: true })(
   React.forwardRef<HTMLUListElement, Props>((props, scrollRef) => {
-    const tweetStore = ReactRedux.useSelector((store: Store.Type) => store.tweet);
+    const tweetStore = ReactRedux.useSelector(
+      (store: Store.Type) => store.tweet
+    );
 
     const dispatch = ReactRedux.useDispatch();
 
     const [tweetsByDate, setTweetsByDate] = React.useState({});
 
     React.useEffect(() => {
-      dispatch(TweetModule.request(
-        new Date().getTime(),
-        "",
-        "",
-        0,
-        50
-      ));
+      dispatch(TweetModule.request(new Date().getTime(), "", "", 0, 50));
     }, []);
 
     React.useEffect(() => {
@@ -100,13 +96,7 @@ export default withStyles(styles, { withTheme: true })(
     const handleRefresh = (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
       if (props.onRefresh) props.onRefresh();
-      dispatch(TweetModule.request(
-        new Date().getTime(),
-        "",
-        "",
-        0,
-        50
-      ));
+      dispatch(TweetModule.request(new Date().getTime(), "", "", 0, 50));
     };
 
     const withLink = (text: string) => {
@@ -138,7 +128,13 @@ export default withStyles(styles, { withTheme: true })(
             variant="h5"
             gutterBottom
           >
-            <FontAwesomeIcon icon={faTwitter} />
+            <Material.Box
+              className={props.classes.icon}
+              component="span"
+              sx={{ display: "inline" }}
+            >
+              <FontAwesomeIcon icon={faTwitter} />
+            </Material.Box>
             Timeline
           </Material.Typography>
           <Material.List className={props.classes.list}>
@@ -151,32 +147,28 @@ export default withStyles(styles, { withTheme: true })(
                   <Material.ListSubheader className={props.classes.subheader}>
                     {getDateString(key)}
                   </Material.ListSubheader>
-                  {value.map(
-                    (tweet: TweetModule.Tweet, tweetIndex: number) => (
-                      <Material.ListItem button key={tweetIndex}>
-                        <Material.ListItemAvatar>
-                          <Material.Avatar
-                            alt="Profile Picture"
-                            src={tweet.image_url}
-                          />
-                        </Material.ListItemAvatar>
-                        <Material.ListItemText
-                          primary={
-                            <Material.Box
-                              className={props.classes.listItemText}
-                            >
-                              <strong>{tweet.user_name}</strong>
-                              {"@"}
-                              {tweet.user_id}
-                              <Material.Divider />
-                              {withLink(tweet.text)}
-                            </Material.Box>
-                          }
-                          secondary={tweet.timestamp}
+                  {value.map((tweet: TweetModule.Tweet, tweetIndex: number) => (
+                    <Material.ListItem button key={tweetIndex}>
+                      <Material.ListItemAvatar>
+                        <Material.Avatar
+                          alt="Profile Picture"
+                          src={tweet.image_url}
                         />
-                      </Material.ListItem>
-                    )
-                  )}
+                      </Material.ListItemAvatar>
+                      <Material.ListItemText
+                        primary={
+                          <Material.Box className={props.classes.listItemText}>
+                            <strong>{tweet.user_name}</strong>
+                            {"@"}
+                            {tweet.user_id}
+                            <Material.Divider />
+                            {withLink(tweet.text)}
+                          </Material.Box>
+                        }
+                        secondary={tweet.timestamp}
+                      />
+                    </Material.ListItem>
+                  ))}
                 </React.Fragment>
               )
             )}

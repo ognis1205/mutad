@@ -127,33 +127,15 @@ export default withStyles(styles)((props: Props) => {
     switch (id) {
       case "radius":
         if (typeof value === "number")
-          dispatch(
-            GeoModule.newConfig(
-              value,
-              geoStore.blur,
-              geoStore.zoom
-            )
-          );
+          dispatch(GeoModule.newConfig(value, geoStore.blur, geoStore.zoom));
         break;
       case "blur":
         if (typeof value === "number")
-          dispatch(
-            GeoModule.newConfig(
-              geoStore.radius,
-              value,
-              geoStore.zoom
-            )
-          );
+          dispatch(GeoModule.newConfig(geoStore.radius, value, geoStore.zoom));
         break;
       case "maxZoom":
         if (typeof value === "number")
-          dispatch(
-            GeoModule.newConfig(
-              geoStore.radius,
-              geoStore.blur,
-              value
-            )
-          );
+          dispatch(GeoModule.newConfig(geoStore.radius, geoStore.blur, value));
         break;
       default:
         break;

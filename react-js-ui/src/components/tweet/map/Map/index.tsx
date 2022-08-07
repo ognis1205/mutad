@@ -21,6 +21,8 @@ import "leaflet/dist/leaflet.css";
 import * as ReactLeaflet from "react-leaflet";
 import * as Material from "@material-ui/core";
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTwitter } from "@fortawesome/free-brands-svg-icons";
 import * as Store from "../../../../redux/store";
 import styles from "./styles";
 
@@ -36,10 +38,11 @@ export default withStyles(styles)((props: Props) => {
   const [heat, setHeat] = React.useState<L.Layer>();
 
   React.useEffect(() => {
-    const leafletMap = Leaflet.map("map", { ...props }).setView(
-      props.center,
-      props.zoom
-    );
+    const leafletMap = Leaflet.map("map", {
+      ...props,
+      zoomControl: false,
+    }).setView(props.center, props.zoom);
+    L.control.zoom({ position: "bottomleft" }).addTo(leafletMap);
     Leaflet.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution:
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
@@ -60,5 +63,23 @@ export default withStyles(styles)((props: Props) => {
     }
   }, [geoStore.points, geoStore.radius, geoStore.blur, geoStore.zoom]);
 
-  return <Material.Box id="map" className={props.classes.box}></Material.Box>;
+  return (
+    <>
+      <Material.Typography
+        className={props.classes.text}
+        variant="h5"
+        gutterBottom
+      >
+        <Material.Box
+          className={props.classes.icon}
+          component="span"
+          sx={{ display: "inline" }}
+        >
+          <FontAwesomeIcon icon={faTwitter} />
+        </Material.Box>
+        Geoparsing Map
+      </Material.Typography>
+      <Material.Box id="map" className={props.classes.box}></Material.Box>
+    </>
+  );
 });
