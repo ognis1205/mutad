@@ -1,15 +1,23 @@
 # React.js User Interface
-This subproject is responsible for implementing the UI/UX of the Mutad project
-which is bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app)
-command of [Next.js](https://nextjs.org/).
+This subproject is responsible for implementing the UI/UX of the Mutad project.
 
 ## Getting Started
-First, run the development server:
+ 0. If you want to run the development server, simply run the following command in the project root directory:
+ 
+ ```bash
+ $ npm run dev
+```
+ 
+ 1. Run the following command in the project root directory to install dependencies:
 
 ```bash
-npm run dev
-# or
-yarn dev
+ $ npm install && npm run build
+```
+
+ 2. After the installation, you can start the server by the following command in the project root directory:
+ 
+ ```bash
+ $ npm start
 ```
 
 Open http://localhost:3000 with your browser to see the result.
