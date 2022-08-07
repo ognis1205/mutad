@@ -14,14 +14,17 @@
  * limitations under the License.
  */
 import * as React from "react";
+import * as ReactRedux from "react-redux";
 import * as Material from "@material-ui/core";
 import RefreshIcon from "@material-ui/icons/Refresh";
 import SearchIcon from "@material-ui/icons/Search";
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTwitter } from "@fortawesome/free-brands-svg-icons";
+import * as TweetModule from "../../../../redux/modules/tweet";
 import styles from "./styles";
-import * as Context from "../../../../contexts/tweet/timeline";
 
-const getDateOf = (tweet: Context.Tweet.Model) => {
+const getDateOf = (tweet: TweetModule.Tweet) => {
   const date = new Date(tweet.timestamp);
   date.setMilliseconds(0);
   date.setSeconds(0);
@@ -38,7 +41,7 @@ const getDateString = (date: string) =>
     day: "numeric",
   });
 
-const groupByDate = (tweets: Context.Tweet.Model[]) => {
+const groupByDate = (tweets: TweetModule.Tweet[]) => {
   return tweets.reduce((dates, tweet) => {
     const date = getDateOf(tweet);
     if (!dates[date]) dates[date] = [];
@@ -53,21 +56,29 @@ interface Props extends WithStyles<typeof styles> {
 
 export default withStyles(styles, { withTheme: true })(
   React.forwardRef<HTMLUListElement, Props>((props, scrollRef) => {
-    const { state, dispatch } = React.useContext(Context.store);
+    const tweetStore = ReactRedux.useSelector((store: Store.Type) => store.tweet);
+
+    const dispatch = ReactRedux.useDispatch();
 
     const [tweetsByDate, setTweetsByDate] = React.useState({});
 
     React.useEffect(() => {
-      dispatch(Context.Actions.init(dispatch));
+      dispatch(TweetModule.request(
+        new Date().getTime(),
+        "",
+        "",
+        0,
+        50
+      ));
     }, []);
 
     React.useEffect(() => {
-      setTweetsByDate(groupByDate(state.latest));
-    }, [state.latest]);
+      setTweetsByDate(groupByDate(tweetStore.latest));
+    }, [tweetStore.latest]);
 
     const handleSearch = (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
-      dispatch(Context.Actions.open());
+      dispatch(TweetModule.open());
     };
 
     const handleScroll = (e: React.UIEvent<HTMLElement>) => {
@@ -76,14 +87,26 @@ export default withStyles(styles, { withTheme: true })(
       const height = e.currentTarget.clientHeight;
       if (residual === height)
         dispatch(
-          Context.Actions.more(state.text, state.hashtags, state.page, dispatch)
+          TweetModule.more(
+            new Date().getTime(),
+            tweetStore.text,
+            tweetStore.hashtags,
+            tweetStore.page + 1,
+            50
+          )
         );
     };
 
     const handleRefresh = (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
       if (props.onRefresh) props.onRefresh();
-      dispatch(Context.Actions.refresh(state.text, state.hashtags, dispatch));
+      dispatch(TweetModule.request(
+        new Date().getTime(),
+        "",
+        "",
+        0,
+        50
+      ));
     };
 
     const withLink = (text: string) => {
@@ -115,12 +138,13 @@ export default withStyles(styles, { withTheme: true })(
             variant="h5"
             gutterBottom
           >
+            <FontAwesomeIcon icon={faTwitter} />
             Timeline
           </Material.Typography>
           <Material.List className={props.classes.list}>
             {Object.entries(tweetsByDate).map(
               (
-                [key, value]: [string, Context.Tweet.Model[]],
+                [key, value]: [string, TweetModule.Tweet[]],
                 dateIndex: number
               ) => (
                 <React.Fragment key={dateIndex}>
@@ -128,7 +152,7 @@ export default withStyles(styles, { withTheme: true })(
                     {getDateString(key)}
                   </Material.ListSubheader>
                   {value.map(
-                    (tweet: Context.Tweet.Model, tweetIndex: number) => (
+                    (tweet: TweetModule.Tweet, tweetIndex: number) => (
                       <Material.ListItem button key={tweetIndex}>
                         <Material.ListItemAvatar>
                           <Material.Avatar

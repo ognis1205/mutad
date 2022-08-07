@@ -17,22 +17,8 @@ import * as React from "react";
 import * as Next from "next";
 import List from "../../../components/tweet/timeline/List";
 import Search from "../../../components/tweet/timeline/Search";
-import * as Context from "../../../contexts/tweet/timeline";
 
 const Index: Next.NextPage = () => {
-  interface ContextProps {
-    children: JSX.Element | JSX.Element[];
-  }
-
-  const ContextProvider = (props: ContextProps) => {
-    const [state, dispatch] = React.useReducer(Context.reducer, Context.init);
-    return (
-      <Context.store.Provider value={{ state, dispatch }}>
-        {props.children}
-      </Context.store.Provider>
-    );
-  };
-
   const scrollRef = React.createRef<HTMLUListElement>();
 
   const handleRefresh = () => {
@@ -40,10 +26,10 @@ const Index: Next.NextPage = () => {
   };
 
   return (
-    <ContextProvider>
+    <>
       <List ref={scrollRef} onRefresh={handleRefresh} />
       <Search onRefresh={handleRefresh} />
-    </ContextProvider>
+    </>
   );
 };
 

@@ -195,7 +195,7 @@ const reducer = (
       ...state,
       timestamp: action.payload.before,
       text: action.payload.text,
-      hashtags: action.payload.hashtags.join(""),
+      hashtags: action.payload.hashtags.join(" "),
       page: action.payload.page,
     } as State;
   }
