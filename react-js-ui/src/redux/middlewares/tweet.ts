@@ -37,7 +37,7 @@ export const middleware: Redux.Middleware =
           return res.json();
         })
         .then((json) => {
-          dispatch(Tweet.newQuery(query));
+          dispatch(Tweet.newQuery(action.payload));
           dispatch(Tweet.newLatest(json));
           dispatch(Tweet.done());
         })
@@ -57,7 +57,7 @@ export const middleware: Redux.Middleware =
           return res.json();
         })
         .then((json) => {
-          dispatch(Tweet.newQuery(query));
+          dispatch(Tweet.newQuery(action.payload));
           dispatch(Tweet.addLatest(json));
           dispatch(Tweet.done());
         })
