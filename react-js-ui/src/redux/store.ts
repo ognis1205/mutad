@@ -17,12 +17,15 @@ import * as Redux from "redux";
 import * as NextRedux from "next-redux-wrapper";
 import * as Geo from "./middlewares/geo";
 import * as GeoModule from "./modules/geo";
+import * as Tweet from "./middlewares/tweet";
+import * as TweetModule from "./modules/tweet";
 import reducer from "./modules/reducer";
 
-const enhancer = Redux.applyMiddleware(Geo.middleware);
+const enhancer = Redux.applyMiddleware(Geo.middleware, Tweet.middleware);
 
 export type Type = {
   geo: GeoModule.State;
+  tweet: TweetModule.State;
 };
 
 export const wrapper = NextRedux.createWrapper<Redux.Store>(

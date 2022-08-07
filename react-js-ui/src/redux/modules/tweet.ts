@@ -238,14 +238,14 @@ const reducer = (
       ...state,
       latest: [
         ...state.latest,
-        ...action.payload.map((e) => {
+        ...action.payload.map((t) => {
           return {
-            user_id: e.userId,
-            user_name: e.userName,
-            image_url: e.imageUrl,
-            text: e.text,
-            hashtags: e.hashtags,
-            timestamp: e.timestamp,
+            user_id: t.userId,
+            user_name: t.userName,
+            image_url: t.imageUrl,
+            text: t.text,
+            hashtags: t.hashtags,
+            timestamp: t.timestamp,
           };
         }),
       ],
