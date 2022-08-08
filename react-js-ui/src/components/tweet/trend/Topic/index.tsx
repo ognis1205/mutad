@@ -121,7 +121,7 @@ export default withStyles(styles)((props: Props) => {
       .catch((reason) => {
         console.log(reason);
       });
-  }, []);
+  }, [props.date]);
 
   const dummy = {
     labels: [...Array(10).keys()].map((n) => "#Hashtag" + n),

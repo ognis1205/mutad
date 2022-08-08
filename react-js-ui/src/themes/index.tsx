@@ -14,13 +14,22 @@
  * limitations under the License.
  */
 import * as Material from "@material-ui/core";
-import * as MaterialStyles from "@material-ui/core/styles";
 import * as MaterialColors from "@material-ui/core/colors";
+import createTheme from "@material-ui/core/styles/createTheme";
+import { ThemeOptions } from "@material-ui/core/styles/createTheme";
 
 declare module "@material-ui/core/styles/createTheme" {
-  interface ThemeOptions {
+  export interface ThemeOptions {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     drawer?: any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    appBar?: any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    raisedButton?: any;
+    error?: typeof MaterialColors[keyof typeof MaterialColors];
+    pageHeight: string | number;
+    pageWidth: string | number;
+    pagePosition: string;
   }
 }
 
@@ -32,7 +41,7 @@ export interface Theme extends Material.Theme {
   pagePosition?: "relative" | "absolute";
 }
 
-export const defaultTheme = MaterialStyles.createTheme({
+export const defaultTheme = createTheme({
   palette: {
     primary: MaterialColors.indigo,
     secondary: MaterialColors.blue,
@@ -57,10 +66,9 @@ export const defaultTheme = MaterialStyles.createTheme({
   pageHeight: "87vh",
   pageWidth: "100%",
   pagePosition: "relative",
-} as Theme);
+});
 
 export const customize = (
   option: ThemeOptions
-): ReturnType<MaterialStyles.createTheme> => {
-  return MaterialStyles.createTheme({ ...defaultTheme, ...option });
-};
+): ReturnType<typeof createTheme> =>
+  createTheme({ ...defaultTheme, ...option });

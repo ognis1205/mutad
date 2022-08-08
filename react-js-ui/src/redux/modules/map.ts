@@ -143,7 +143,7 @@ export type State = {
   radius: number;
   blur: number;
   zoom: number;
-  points: Point[];
+  points: [number, number][];
 };
 
 const INITIAL_STATE = {

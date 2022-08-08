@@ -98,10 +98,10 @@ export const hasAction = (action: FSA.Action<unknown>): boolean =>
   NEW_QUERY_ACTION.match(action) ||
   CLEAR_QUERY_ACTION.match(action) ||
   OPEN_ACTION.match(action) ||
-  CLOSE_CONFIG_ACTION.match(action) ||
+  CLOSE_ACTION.match(action) ||
   NEW_LATEST_ACTION.match(action) ||
   ADD_LATEST_ACTION.match(action) ||
-  CLEAR_POINTS_ACTION.match(action);
+  CLEAR_LATEST_ACTION.match(action);
 
 export const request = (
   before: number,

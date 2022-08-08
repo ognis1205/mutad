@@ -24,7 +24,7 @@ import * as Metadata from "../../../metadata";
 
 interface ItemProps extends WithStyles<typeof styles> {
   key: number;
-  menu: Metadata.Menu.Item;
+  menu: Metadata.Item;
   navDrawerOpen: boolean;
 }
 
@@ -156,14 +156,14 @@ const Item = withStyles(styles, { withTheme: true })((props: ItemProps) => {
 });
 
 interface Props extends WithStyles<typeof styles> {
-  menu: Metadata.Menu.Item[];
+  menu: Metadata.Item[];
   navDrawerOpen: boolean;
 }
 
 export default withStyles(styles, { withTheme: true })((props: Props) => {
   return (
     <Material.List>
-      {props.menu.map((item: Metadata.Menu.Item, index: number) => (
+      {props.menu.map((item: Metadata.Item, index: number) => (
         <Item key={index} menu={item} navDrawerOpen={props.navDrawerOpen} />
       ))}
     </Material.List>

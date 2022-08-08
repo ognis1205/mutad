@@ -43,7 +43,7 @@ export default withStyles(styles)((props: Props) => {
         to: date.getTime(),
       })
     );
-  }, []);
+  }, [dispatch]);
 
   const handleExpand = () => {
     setExpanded(!expanded);
@@ -56,8 +56,7 @@ export default withStyles(styles)((props: Props) => {
         mapStore.from,
         mapStore.to,
         mapStore.text,
-        mapStore.hashtags,
-        dispatch
+        mapStore.hashtags
       )
     );
   };
@@ -282,7 +281,6 @@ export default withStyles(styles)((props: Props) => {
             <Material.Box width={1}>
               <Material.Button
                 id="search"
-                label="Search"
                 color="primary"
                 className={props.classes.textField}
                 onClick={handlePost}

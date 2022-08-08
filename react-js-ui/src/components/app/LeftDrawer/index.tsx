@@ -23,8 +23,8 @@ import * as Metadata from "../../../metadata";
 import * as Themes from "../../../themes";
 
 interface Props extends WithStyles<typeof styles> {
-  theme: Themes.Custom.Theme;
-  menu: Metadata.Menu.Item[];
+  theme: Themes.Theme;
+  menu: Metadata.Item[];
   navDrawerOpen: boolean;
   handleChangeNavDrawer: () => void;
 }

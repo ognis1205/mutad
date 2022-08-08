@@ -21,7 +21,7 @@ import styles from "./styles";
 import * as Metadata from "../../../metadata";
 
 interface ItemProps extends WithStyles<typeof styles> {
-  subMenu: Metadata.Menu.SubItem;
+  subMenu: Metadata.SubItem;
 }
 
 const Item = withStyles(styles, { withTheme: true })((props: ItemProps) => {
@@ -58,12 +58,12 @@ const Item = withStyles(styles, { withTheme: true })((props: ItemProps) => {
 });
 
 interface Props extends WithStyles<typeof styles> {
-  menu: Metadata.Menu.SubItem[];
+  menu: Metadata.SubItem[];
 }
 
 export default withStyles(styles, { withTheme: true })((props: Props) => (
   <Material.Grid container spacing={2} className={props.classes.grid}>
-    {props.menu.map((subMenu: Metadata.Menu.SubItem, index: number) => (
+    {props.menu.map((subMenu: Metadata.SubItem, index: number) => (
       <Material.Grid item xs={4} key={index}>
         <Item subMenu={subMenu} />
       </Material.Grid>

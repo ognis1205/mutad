@@ -22,6 +22,7 @@ import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTwitter } from "@fortawesome/free-brands-svg-icons";
 import * as TimelineModule from "../../../../redux/modules/timeline";
+import * as Store from "../../../../redux/store";
 import styles from "./styles";
 
 const getDateOf = (tweet: TimelineModule.Tweet) => {
@@ -55,6 +56,7 @@ interface Props extends WithStyles<typeof styles> {
 }
 
 export default withStyles(styles, { withTheme: true })(
+  // eslint-disable-next-line react/display-name
   React.forwardRef<HTMLUListElement, Props>((props, scrollRef) => {
     const timelineStore = ReactRedux.useSelector(
       (store: Store.Type) => store.timeline
@@ -66,7 +68,7 @@ export default withStyles(styles, { withTheme: true })(
 
     React.useEffect(() => {
       dispatch(TimelineModule.request(new Date().getTime(), "", "", 0, 50));
-    }, []);
+    }, [dispatch]);
 
     React.useEffect(() => {
       setTweetsByDate(groupByDate(timelineStore.latest));

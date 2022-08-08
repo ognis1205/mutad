@@ -13,13 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import * as MaterialStyles from "@material-ui/core/styles";
+import createStyles from "@material-ui/core/styles/createStyles";
 import * as Themes from "../../../themes";
 
-const styles = (
-  theme: Themes.Custom.Theme
-): ReturnType<MaterialStyles.createStyles> =>
-  MaterialStyles.createStyles({
+const styles = (theme: Themes.Theme): ReturnType<typeof createStyles> =>
+  createStyles({
     logo: {
       cursor: "pointer",
       fontSize: 22,

@@ -107,7 +107,7 @@ export default withStyles(styles)((props: Props) => {
       .catch((reason) => {
         console.log(reason);
       });
-  }, []);
+  }, [props.date]);
 
   const dummy = {
     lines: [

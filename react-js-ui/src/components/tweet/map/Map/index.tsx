@@ -35,24 +35,25 @@ export default withStyles(styles)((props: Props) => {
 
   const [map, setMap] = React.useState<Leaflet.Map>();
 
-  const [heat, setHeat] = React.useState<L.Layer>();
+  const [heat, setHeat] = React.useState<Leaflet.Layer>();
 
   React.useEffect(() => {
     const leafletMap = Leaflet.map("map", {
       ...props,
       zoomControl: false,
     }).setView(props.center, props.zoom);
-    L.control.zoom({ position: "bottomleft" }).addTo(leafletMap);
+    Leaflet.control.zoom({ position: "bottomleft" }).addTo(leafletMap);
     Leaflet.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution:
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(leafletMap);
     setMap(leafletMap);
-  }, []);
+  }, [props]);
 
   React.useEffect(() => {
     if (map) {
-      const layer = Leaflet.heatLayer(mapStore.points, {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const layer = (Leaflet as any).heatLayer(mapStore.points, {
         radius: mapStore.radius,
         blur: mapStore.blur,
         maxZoom: mapStore.zoom,
@@ -61,7 +62,14 @@ export default withStyles(styles)((props: Props) => {
       map.addLayer(layer);
       setHeat(layer);
     }
-  }, [mapStore.points, mapStore.radius, mapStore.blur, mapStore.zoom]);
+  }, [
+    heat,
+    map,
+    mapStore.points,
+    mapStore.radius,
+    mapStore.blur,
+    mapStore.zoom,
+  ]);
 
   return (
     <>

@@ -18,8 +18,9 @@ import * as ReactRedux from "react-redux";
 import * as Material from "@material-ui/core";
 import Draggable from "react-draggable";
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
-import styles from "./styles";
 import * as TimelineModule from "../../../../redux/modules/timeline";
+import * as Store from "../../../../redux/store";
+import styles from "./styles";
 
 const PaperComponent = (props: Material.PaperProps) => {
   return (

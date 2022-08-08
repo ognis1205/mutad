@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import * as MaterialStyles from "@material-ui/core/styles";
+import createStyles from "@material-ui/core/styles/createStyles";
 import * as Themes from "../../../../themes";
 
 const styles = (
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  theme: Themes.Custom.Theme
-): ReturnType<MaterialStyles.createStyles> =>
-  MaterialStyles.createStyles({
+  theme: Themes.Theme
+): ReturnType<typeof createStyles> =>
+  createStyles({
     card: {
       width: "100%",
       marginLeft: "auto",
