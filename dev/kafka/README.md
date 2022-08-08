@@ -54,3 +54,35 @@ inside the directory run:
 ```bash
  $ sudo /usr/local/bin/docker-compose up -d
 ```
+
+## Check if it’s working
+
+From the external host/network you have configured in the VPC section,
+try to reach both node 1:
+
+```bash
+ $ docker run --rm --tty confluentinc/cp-kafkacat \
+kafkacat \
+-b ec2-A-B-C-D.us-east-1.compute.amazonaws.com:9092 \
+-L 
+```
+
+and node 2:
+
+```bash
+ $ docker run --rm --tty confluentinc/cp-kafkacat \
+kafkacat \
+-b ec2-E-F-G-H.us-east-1.compute.amazonaws.com:9092 \
+-L 
+```
+
+## Create topics
+
+From a client with Kafka installed (e.g., brew install kafka on macOS), run the following:
+
+```bash
+ $ kafka-topics --create \
+--zookeeper ec2-A-B-C-D.us-east-1.compute.amazonaws.com:2181 \
+--replication-factor 2 --partitions 10 \
+--topic my-test-topic
+```
