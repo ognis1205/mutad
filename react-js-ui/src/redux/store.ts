@@ -15,17 +15,17 @@
  */
 import * as Redux from "redux";
 import * as NextRedux from "next-redux-wrapper";
-import * as Geo from "./middlewares/geo";
-import * as GeoModule from "./modules/geo";
-import * as Tweet from "./middlewares/tweet";
-import * as TweetModule from "./modules/tweet";
+import * as Map from "./middlewares/map";
+import * as MapModule from "./modules/map";
+import * as Timeline from "./middlewares/timeline";
+import * as TimelineModule from "./modules/timeline";
 import reducer from "./modules/reducer";
 
-const enhancer = Redux.applyMiddleware(Geo.middleware, Tweet.middleware);
+const enhancer = Redux.applyMiddleware(Map.middleware, Timeline.middleware);
 
 export type Type = {
-  geo: GeoModule.State;
-  tweet: TweetModule.State;
+  map: MapModule.State;
+  timeline: TimelineModule.State;
 };
 
 export const wrapper = NextRedux.createWrapper<Redux.Store>(

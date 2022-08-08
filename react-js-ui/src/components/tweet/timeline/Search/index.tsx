@@ -19,7 +19,7 @@ import * as Material from "@material-ui/core";
 import Draggable from "react-draggable";
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import styles from "./styles";
-import * as TweetModule from "../../../../redux/modules/tweet";
+import * as TimelineModule from "../../../../redux/modules/timeline";
 
 const PaperComponent = (props: Material.PaperProps) => {
   return (
@@ -37,7 +37,9 @@ interface Props extends WithStyles<typeof styles> {
 }
 
 export default withStyles(styles, { withTheme: true })((props: Props) => {
-  const tweetStore = ReactRedux.useSelector((store: Store.Type) => store.tweet);
+  const timelineStore = ReactRedux.useSelector(
+    (store: Store.Type) => store.timeline
+  );
 
   const dispatch = ReactRedux.useDispatch();
 
@@ -47,24 +49,24 @@ export default withStyles(styles, { withTheme: true })((props: Props) => {
     switch (name) {
       case "text":
         dispatch(
-          TweetModule.newQuery({
-            before: tweetStore.timestamp,
+          TimelineModule.newQuery({
+            before: timelineStore.timestamp,
             text: value,
-            hashtags: /\S/.test(tweetStore.hashtags)
-              ? tweetStore.hashtags.split(/\s+/)
+            hashtags: /\S/.test(timelineStore.hashtags)
+              ? timelineStore.hashtags.split(/\s+/)
               : [],
-            page: tweetStore.page,
+            page: timelineStore.page,
             size: 50,
           })
         );
         break;
       case "hashtags":
         dispatch(
-          TweetModule.newQuery({
-            before: tweetStore.timestamp,
-            text: tweetStore.text,
+          TimelineModule.newQuery({
+            before: timelineStore.timestamp,
+            text: timelineStore.text,
             hashtags: /\S/.test(value) ? value.split(/\s+/) : [],
-            page: tweetStore.page,
+            page: timelineStore.page,
             size: 50,
           })
         );
@@ -76,28 +78,28 @@ export default withStyles(styles, { withTheme: true })((props: Props) => {
 
   const handleClose = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    dispatch(TweetModule.close());
+    dispatch(TimelineModule.close());
   };
 
   const handleSearch = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     props.onRefresh();
     dispatch(
-      TweetModule.request(
+      TimelineModule.request(
         new Date().getTime(),
-        tweetStore.text,
-        tweetStore.hashtags,
+        timelineStore.text,
+        timelineStore.hashtags,
         0,
         50
       )
     );
-    dispatch(TweetModule.close());
+    dispatch(TimelineModule.close());
   };
 
   return (
     <Material.Box>
       <Material.Dialog
-        open={tweetStore.dialog}
+        open={timelineStore.dialog}
         onClose={handleClose}
         PaperComponent={PaperComponent}
         aria-labelledby="draggable-dialog-title"
@@ -115,7 +117,7 @@ export default withStyles(styles, { withTheme: true })((props: Props) => {
                 id="text"
                 name="text"
                 label="Text"
-                value={tweetStore.text}
+                value={timelineStore.text}
                 fullWidth={true}
                 className={props.classes.textField}
                 variant="outlined"
@@ -127,7 +129,7 @@ export default withStyles(styles, { withTheme: true })((props: Props) => {
                 id="hashtags"
                 name="hashtags"
                 label="#Hashtag"
-                value={tweetStore.hashtags}
+                value={timelineStore.hashtags}
                 fullWidth={true}
                 className={props.classes.textField}
                 variant="outlined"

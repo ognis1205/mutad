@@ -16,7 +16,7 @@
 import * as Redux from "redux";
 import * as FSA from "typescript-fsa";
 import * as Store from "../store";
-import * as Tweet from "../modules/tweet";
+import * as Timeline from "../modules/timeline";
 
 export const middleware: Redux.Middleware =
   <S extends Store.Type>({
@@ -26,7 +26,7 @@ export const middleware: Redux.Middleware =
   }: Redux.MiddlewareAPI<Redux.Dispatch, S>) =>
   (next: Redux.Dispatch<Redux.AnyAction>) =>
   (action: FSA.Action<unknown>): unknown => {
-    if (Tweet.REQUEST_ACTION.match(action)) {
+    if (Timeline.REQUEST_ACTION.match(action)) {
       fetch(`${process.env.API_ENDPOINT}/tweet/latest`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -37,16 +37,16 @@ export const middleware: Redux.Middleware =
           return res.json();
         })
         .then((json) => {
-          dispatch(Tweet.newQuery(action.payload));
-          dispatch(Tweet.newLatest(json));
-          dispatch(Tweet.done());
+          dispatch(Timeline.newQuery(action.payload));
+          dispatch(Timeline.newLatest(json));
+          dispatch(Timeline.done());
         })
         .catch((reason) => {
           console.log(reason);
         });
-      dispatch(Tweet.load());
+      dispatch(Timeline.load());
     }
-    if (Tweet.MORE_ACTION.match(action)) {
+    if (Timeline.MORE_ACTION.match(action)) {
       fetch(`${process.env.API_ENDPOINT}/tweet/latest`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -57,14 +57,14 @@ export const middleware: Redux.Middleware =
           return res.json();
         })
         .then((json) => {
-          dispatch(Tweet.newQuery(action.payload));
-          dispatch(Tweet.addLatest(json));
-          dispatch(Tweet.done());
+          dispatch(Timeline.newQuery(action.payload));
+          dispatch(Timeline.addLatest(json));
+          dispatch(Timeline.done());
         })
         .catch((reason) => {
           console.log(reason);
         });
-      dispatch(Tweet.load());
+      dispatch(Timeline.load());
     }
     return next(action);
   };

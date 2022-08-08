@@ -16,7 +16,7 @@
 import * as Redux from "redux";
 import * as FSA from "typescript-fsa";
 import * as Store from "../store";
-import * as Geo from "../modules/geo";
+import * as Map from "../modules/map";
 
 export const middleware: Redux.Middleware =
   <S extends Store.Type>({
@@ -26,7 +26,7 @@ export const middleware: Redux.Middleware =
   }: Redux.MiddlewareAPI<Redux.Dispatch, S>) =>
   (next: Redux.Dispatch<Redux.AnyAction>) =>
   (action: FSA.Action<unknown>): unknown => {
-    if (Geo.REQUEST_ACTION.match(action)) {
+    if (Map.REQUEST_ACTION.match(action)) {
       fetch(`${process.env.API_ENDPOINT}/geo/hashtags`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -37,14 +37,14 @@ export const middleware: Redux.Middleware =
           return res.json();
         })
         .then((json) => {
-          dispatch(Geo.newQuery(action.payload));
-          dispatch(Geo.newPoints(json));
-          dispatch(Geo.done());
+          dispatch(Map.newQuery(action.payload));
+          dispatch(Map.newPoints(json));
+          dispatch(Map.done());
         })
         .catch((reason) => {
           console.log(reason);
         });
-      dispatch(Geo.load());
+      dispatch(Map.load());
     }
     return next(action);
   };

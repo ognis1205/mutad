@@ -21,10 +21,10 @@ import SearchIcon from "@material-ui/icons/Search";
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTwitter } from "@fortawesome/free-brands-svg-icons";
-import * as TweetModule from "../../../../redux/modules/tweet";
+import * as TimelineModule from "../../../../redux/modules/timeline";
 import styles from "./styles";
 
-const getDateOf = (tweet: TweetModule.Tweet) => {
+const getDateOf = (tweet: TimelineModule.Tweet) => {
   const date = new Date(tweet.timestamp);
   date.setMilliseconds(0);
   date.setSeconds(0);
@@ -41,7 +41,7 @@ const getDateString = (date: string) =>
     day: "numeric",
   });
 
-const groupByDate = (tweets: TweetModule.Tweet[]) => {
+const groupByDate = (tweets: TimelineModule.Tweet[]) => {
   return tweets.reduce((dates, tweet) => {
     const date = getDateOf(tweet);
     if (!dates[date]) dates[date] = [];
@@ -56,8 +56,8 @@ interface Props extends WithStyles<typeof styles> {
 
 export default withStyles(styles, { withTheme: true })(
   React.forwardRef<HTMLUListElement, Props>((props, scrollRef) => {
-    const tweetStore = ReactRedux.useSelector(
-      (store: Store.Type) => store.tweet
+    const timelineStore = ReactRedux.useSelector(
+      (store: Store.Type) => store.timeline
     );
 
     const dispatch = ReactRedux.useDispatch();
@@ -65,16 +65,16 @@ export default withStyles(styles, { withTheme: true })(
     const [tweetsByDate, setTweetsByDate] = React.useState({});
 
     React.useEffect(() => {
-      dispatch(TweetModule.request(new Date().getTime(), "", "", 0, 50));
+      dispatch(TimelineModule.request(new Date().getTime(), "", "", 0, 50));
     }, []);
 
     React.useEffect(() => {
-      setTweetsByDate(groupByDate(tweetStore.latest));
-    }, [tweetStore.latest]);
+      setTweetsByDate(groupByDate(timelineStore.latest));
+    }, [timelineStore.latest]);
 
     const handleSearch = (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
-      dispatch(TweetModule.open());
+      dispatch(TimelineModule.open());
     };
 
     const handleScroll = (e: React.UIEvent<HTMLElement>) => {
@@ -83,11 +83,11 @@ export default withStyles(styles, { withTheme: true })(
       const height = e.currentTarget.clientHeight;
       if (residual === height)
         dispatch(
-          TweetModule.more(
+          TimelineModule.more(
             new Date().getTime(),
-            tweetStore.text,
-            tweetStore.hashtags,
-            tweetStore.page + 1,
+            timelineStore.text,
+            timelineStore.hashtags,
+            timelineStore.page + 1,
             50
           )
         );
@@ -96,7 +96,7 @@ export default withStyles(styles, { withTheme: true })(
     const handleRefresh = (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
       if (props.onRefresh) props.onRefresh();
-      dispatch(TweetModule.request(new Date().getTime(), "", "", 0, 50));
+      dispatch(TimelineModule.request(new Date().getTime(), "", "", 0, 50));
     };
 
     const withLink = (text: string) => {
@@ -140,35 +140,39 @@ export default withStyles(styles, { withTheme: true })(
           <Material.List className={props.classes.list}>
             {Object.entries(tweetsByDate).map(
               (
-                [key, value]: [string, TweetModule.Tweet[]],
+                [key, value]: [string, TimelineModule.Tweet[]],
                 dateIndex: number
               ) => (
                 <React.Fragment key={dateIndex}>
                   <Material.ListSubheader className={props.classes.subheader}>
                     {getDateString(key)}
                   </Material.ListSubheader>
-                  {value.map((tweet: TweetModule.Tweet, tweetIndex: number) => (
-                    <Material.ListItem button key={tweetIndex}>
-                      <Material.ListItemAvatar>
-                        <Material.Avatar
-                          alt="Profile Picture"
-                          src={tweet.image_url}
+                  {value.map(
+                    (tweet: TimelineModule.Tweet, tweetIndex: number) => (
+                      <Material.ListItem button key={tweetIndex}>
+                        <Material.ListItemAvatar>
+                          <Material.Avatar
+                            alt="Profile Picture"
+                            src={tweet.image_url}
+                          />
+                        </Material.ListItemAvatar>
+                        <Material.ListItemText
+                          primary={
+                            <Material.Box
+                              className={props.classes.listItemText}
+                            >
+                              <strong>{tweet.user_name}</strong>
+                              {"@"}
+                              {tweet.user_id}
+                              <Material.Divider />
+                              {withLink(tweet.text)}
+                            </Material.Box>
+                          }
+                          secondary={tweet.timestamp}
                         />
-                      </Material.ListItemAvatar>
-                      <Material.ListItemText
-                        primary={
-                          <Material.Box className={props.classes.listItemText}>
-                            <strong>{tweet.user_name}</strong>
-                            {"@"}
-                            {tweet.user_id}
-                            <Material.Divider />
-                            {withLink(tweet.text)}
-                          </Material.Box>
-                        }
-                        secondary={tweet.timestamp}
-                      />
-                    </Material.ListItem>
-                  ))}
+                      </Material.ListItem>
+                    )
+                  )}
                 </React.Fragment>
               )
             )}

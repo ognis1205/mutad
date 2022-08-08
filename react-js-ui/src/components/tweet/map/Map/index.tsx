@@ -31,7 +31,7 @@ interface Props
     ReactLeaflet.MapContainerProps {}
 
 export default withStyles(styles)((props: Props) => {
-  const geoStore = ReactRedux.useSelector((store: Store.Type) => store.geo);
+  const mapStore = ReactRedux.useSelector((store: Store.Type) => store.map);
 
   const [map, setMap] = React.useState<Leaflet.Map>();
 
@@ -52,16 +52,16 @@ export default withStyles(styles)((props: Props) => {
 
   React.useEffect(() => {
     if (map) {
-      const layer = Leaflet.heatLayer(geoStore.points, {
-        radius: geoStore.radius,
-        blur: geoStore.blur,
-        maxZoom: geoStore.zoom,
+      const layer = Leaflet.heatLayer(mapStore.points, {
+        radius: mapStore.radius,
+        blur: mapStore.blur,
+        maxZoom: mapStore.zoom,
       });
       if (heat) map.removeLayer(heat);
       map.addLayer(layer);
       setHeat(layer);
     }
-  }, [geoStore.points, geoStore.radius, geoStore.blur, geoStore.zoom]);
+  }, [mapStore.points, mapStore.radius, mapStore.blur, mapStore.zoom]);
 
   return (
     <>

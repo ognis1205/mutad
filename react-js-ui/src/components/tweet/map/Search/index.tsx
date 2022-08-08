@@ -20,14 +20,14 @@ import LocationSearchingIcon from "@material-ui/icons/LocationSearching";
 import clsx from "clsx";
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import * as Store from "../../../../redux/store";
-import * as GeoModule from "../../../../redux/modules/geo";
+import * as MapModule from "../../../../redux/modules/map";
 import styles from "./styles";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Props extends WithStyles<typeof styles> {}
 
 export default withStyles(styles)((props: Props) => {
-  const geoStore = ReactRedux.useSelector((store: Store.Type) => store.geo);
+  const mapStore = ReactRedux.useSelector((store: Store.Type) => store.map);
 
   const dispatch = ReactRedux.useDispatch();
 
@@ -36,7 +36,7 @@ export default withStyles(styles)((props: Props) => {
   React.useEffect(() => {
     const date = new Date();
     dispatch(
-      GeoModule.newQuery({
+      MapModule.newQuery({
         text: "",
         hashtags: [],
         from: date.getTime(),
@@ -52,11 +52,11 @@ export default withStyles(styles)((props: Props) => {
   const handlePost = async (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     dispatch(
-      GeoModule.request(
-        geoStore.from,
-        geoStore.to,
-        geoStore.text,
-        geoStore.hashtags,
+      MapModule.request(
+        mapStore.from,
+        mapStore.to,
+        mapStore.text,
+        mapStore.hashtags,
         dispatch
       )
     );
@@ -69,47 +69,47 @@ export default withStyles(styles)((props: Props) => {
     switch (name) {
       case "from":
         dispatch(
-          GeoModule.newQuery({
-            text: geoStore.text,
-            hashtags: /\S/.test(geoStore.hashtags)
-              ? geoStore.hashtags.split(/\s+/)
+          MapModule.newQuery({
+            text: mapStore.text,
+            hashtags: /\S/.test(mapStore.hashtags)
+              ? mapStore.hashtags.split(/\s+/)
               : [],
             from: date.getTime(),
-            to: geoStore.to,
+            to: mapStore.to,
           })
         );
         break;
       case "to":
         dispatch(
-          GeoModule.newQuery({
-            text: geoStore.text,
-            hashtags: /\S/.test(geoStore.hashtags)
-              ? geoStore.hashtags.split(/\s+/)
+          MapModule.newQuery({
+            text: mapStore.text,
+            hashtags: /\S/.test(mapStore.hashtags)
+              ? mapStore.hashtags.split(/\s+/)
               : [],
-            from: geoStore.from,
+            from: mapStore.from,
             to: date.getTime(),
           })
         );
         break;
       case "text":
         dispatch(
-          GeoModule.newQuery({
+          MapModule.newQuery({
             text: value,
-            hashtags: /\S/.test(geoStore.hashtags)
-              ? geoStore.hashtags.split(/\s+/)
+            hashtags: /\S/.test(mapStore.hashtags)
+              ? mapStore.hashtags.split(/\s+/)
               : [],
-            from: geoStore.from,
-            to: geoStore.to,
+            from: mapStore.from,
+            to: mapStore.to,
           })
         );
         break;
       case "hashtags":
         dispatch(
-          GeoModule.newQuery({
+          MapModule.newQuery({
             text: value,
             hashtags: /\S/.test(value) ? value.split(/\s+/) : [],
-            from: geoStore.from,
-            to: geoStore.to,
+            from: mapStore.from,
+            to: mapStore.to,
           })
         );
         break;
@@ -127,15 +127,15 @@ export default withStyles(styles)((props: Props) => {
     switch (id) {
       case "radius":
         if (typeof value === "number")
-          dispatch(GeoModule.newConfig(value, geoStore.blur, geoStore.zoom));
+          dispatch(MapModule.newConfig(value, mapStore.blur, mapStore.zoom));
         break;
       case "blur":
         if (typeof value === "number")
-          dispatch(GeoModule.newConfig(geoStore.radius, value, geoStore.zoom));
+          dispatch(MapModule.newConfig(mapStore.radius, value, mapStore.zoom));
         break;
       case "maxZoom":
         if (typeof value === "number")
-          dispatch(GeoModule.newConfig(geoStore.radius, geoStore.blur, value));
+          dispatch(MapModule.newConfig(mapStore.radius, mapStore.blur, value));
         break;
       default:
         break;
@@ -226,7 +226,7 @@ export default withStyles(styles)((props: Props) => {
               </Material.Typography>
               <Material.Slider
                 id="radius"
-                value={geoStore.radius}
+                value={mapStore.radius}
                 getAriaValueText={valuetext}
                 aria-labelledby="discrete-slider"
                 valueLabelDisplay="auto"
@@ -247,7 +247,7 @@ export default withStyles(styles)((props: Props) => {
               </Material.Typography>
               <Material.Slider
                 id="blur"
-                value={geoStore.blur}
+                value={mapStore.blur}
                 getAriaValueText={valuetext}
                 aria-labelledby="discrete-slider"
                 valueLabelDisplay="auto"
@@ -268,7 +268,7 @@ export default withStyles(styles)((props: Props) => {
               </Material.Typography>
               <Material.Slider
                 id="maxZoom"
-                value={geoStore.zoom}
+                value={mapStore.zoom}
                 getAriaValueText={valuetext}
                 aria-labelledby="discrete-slider"
                 valueLabelDisplay="auto"

@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 import * as Redux from "redux";
-import geo from "./geo";
-import tweet from "./tweet";
+import map from "./map";
+import timeline from "./timeline";
 
 const reducer = Redux.combineReducers({
-  geo: geo,
-  tweet: tweet,
+  map: map,
+  timeline: timeline,
 });
 
 export default reducer;
