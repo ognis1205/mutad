@@ -13,7 +13,7 @@ After copying the resulting jar file to the Storm cluster, run the following com
 ```bash
  $ storm jar storm-processors-1.0.0-SNAPSHOT.jar io.github.ognis1205.mutad.storm.ProcessorTopology \
    --kafka-broker-list kafka_broker_dns_1:9092,kafka_broker_dns_2:9092 \
-   --kafka-topic kafka_topic_name \
+   --kafka-topic twitter \
    --es-node-list elastic_search_node_dns:9200
 ```
 

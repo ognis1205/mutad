@@ -17,7 +17,7 @@ After copying the resulting jar file to the Storm cluster, run the following com
    --hosebird-token hosebird_token_key \
    --hosebird-token-secret hosebird_toke_secret_key \
    --kafka-broker-list kafka_broker_dns:9092 \
-   --kafka-topic kafka_topic_name
+   --kafka-topic twitter
 ```
 
 Open http://localhost:8080 with your browser to see the Storm UI page.
