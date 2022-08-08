@@ -11,5 +11,5 @@
 
 ```bash
  $ curl -H "Content-Type: application/json" -XPUT 'http://localhost:9200/tweet/_mapping?pretty' -d @tweet.json
- $ curl -H "Content-Type: application/json" -XPUT 'http://localhost:9200/tweet/_mapping?pretty' -d @geo.json
+ $ curl -H "Content-Type: application/json" -XPUT 'http://localhost:9200/geo/_mapping?pretty' -d @geo.json
 ```
