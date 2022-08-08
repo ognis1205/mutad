@@ -82,7 +82,7 @@ From a client with Kafka installed (e.g., brew install kafka on macOS), run the 
 
 ```bash
  $ kafka-topics --create \
---zookeeper ec2-A-B-C-D.us-east-1.compute.amazonaws.com:2181 \
+--bootstrap-server ec2-A-B-C-D.us-east-1.compute.amazonaws.com:2181 \
 --replication-factor 2 --partitions 10 \
 --topic twitter
 ```
