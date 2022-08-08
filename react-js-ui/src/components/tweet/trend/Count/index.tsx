@@ -18,7 +18,32 @@ import * as Material from "@material-ui/core";
 import * as ReactChart from "react-chartjs-2";
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import styles from "./styles";
-import * as Context from "../../../../contexts/tweet/trend";
+
+type Model = {
+  lines: Line[];
+};
+
+type Line = {
+  label: string;
+  borderColor: string;
+  markers: Marker[];
+};
+
+type Marker = {
+  x: string;
+  y: number;
+};
+
+type Query = {
+  from: number;
+  to: number;
+  interval: string;
+};
+
+type Response = {
+  timestamp: string;
+  count: number;
+};
 
 const oneHourBeforeOf = (date: Date): Date => {
   const d = new Date(date);
@@ -47,35 +72,31 @@ interface Props extends WithStyles<typeof styles> {
 }
 
 export default withStyles(styles)((props: Props) => {
-  const [model, setModel] = React.useState<Context.Count.Model>(null);
+  const [model, setModel] = React.useState<Model>(null);
 
   React.useEffect(() => {
-    const query = {
-      from: oneHourBeforeOf(props.date).getTime(),
-      to: props.date.getTime(),
-      interval: "1m",
-    } as Context.Count.Query;
-
-    const opts = {
+    fetch(`${process.env.API_ENDPOINT}/tweet/counts`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(query),
-    };
-
-    fetch(`${process.env.API_ENDPOINT}/tweet/counts`, opts)
+      body: JSON.stringify({
+        from: oneHourBeforeOf(props.date).getTime(),
+        to: props.date.getTime(),
+        interval: "1m",
+      } as Query),
+    })
       .then((res) => {
         if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
         return res.json();
       })
       .then((json) => {
         setModel({
-          datasets: [
+          lines: [
             {
               label: "count",
-              data: json.map((e: Context.Count.Response) => {
+              markers: json.map((res: Response) => {
                 return {
-                  x: timestamp(e.timestamp),
-                  y: e.count,
+                  x: timestamp(res.timestamp),
+                  y: res.count,
                 };
               }),
               borderColor: "rgb(  0,  71, 171)",
@@ -89,11 +110,11 @@ export default withStyles(styles)((props: Props) => {
   }, []);
 
   const dummy = {
-    datasets: [
+    lines: [
       {
         label: "count",
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        data: [...Array(60).keys()].map((_) => {
+        markers: [...Array(60).keys()].map((_) => {
           return {
             x: "",
             y: 0,
@@ -101,7 +122,7 @@ export default withStyles(styles)((props: Props) => {
         }),
       },
     ],
-  } as Context.Topic.Model;
+  } as Model;
 
   const emptyCount = () => (
     <Material.Card className={props.classes.card}>
@@ -152,6 +173,6 @@ export default withStyles(styles)((props: Props) => {
     </Material.Card>
   );
 
-  if (model?.datasets[0]?.data?.length < 30) return emptyCount();
+  if (model?.lines[0]?.markers?.length < 30) return emptyCount();
   else return count();
 });

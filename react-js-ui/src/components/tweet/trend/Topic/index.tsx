@@ -18,7 +18,29 @@ import * as Material from "@material-ui/core";
 import * as ReactChart from "react-chartjs-2";
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import styles from "./styles";
-import * as Context from "../../../../contexts/tweet/trend";
+
+type Model = {
+  labels: string[];
+  hists: Histogram[];
+};
+
+type Histogram = {
+  label: string;
+  backgroundColor: string[];
+  borderColor: string[];
+  bins: number[];
+};
+
+type Query = {
+  from: number;
+  to: number;
+  topN: number;
+};
+
+type Response = {
+  name: string;
+  count: number;
+};
 
 const beginOf = (date: Date): Date => {
   const d = new Date(date);
@@ -45,33 +67,29 @@ interface Props extends WithStyles<typeof styles> {
 }
 
 export default withStyles(styles)((props: Props) => {
-  const [model, setModel] = React.useState<Context.Topic.Model>(null);
+  const [model, setModel] = React.useState<Model>(null);
 
   React.useEffect(() => {
-    const query = {
-      from: beginOf(props.date).getTime(),
-      to: endOf(props.date).getTime(),
-      topN: 10,
-    } as Context.Topic.Query;
-
-    const opts = {
+    fetch(`${process.env.API_ENDPOINT}/tweet/topics`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(query),
-    };
-
-    fetch(`${process.env.API_ENDPOINT}/tweet/topics`, opts)
+      body: JSON.stringify({
+        from: beginOf(props.date).getTime(),
+        to: endOf(props.date).getTime(),
+        topN: 10,
+      } as Query),
+    })
       .then((res) => {
         if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
         return res.json();
       })
       .then((json) => {
         setModel({
-          labels: json.map((e: Context.Topic.Response) => "#" + e.name),
-          datasets: [
+          labels: json.map((res: Response) => "#" + res.name),
+          hists: [
             {
               label: "count",
-              data: json.map((e: Context.Topic.Response) => e.count),
+              bins: json.map((res: Response) => res.count),
               backgroundColor: [
                 "rgba(  0,  71, 171, 0.7)",
                 "rgba( 17,  81, 171, 0.7)",
@@ -107,14 +125,14 @@ export default withStyles(styles)((props: Props) => {
 
   const dummy = {
     labels: [...Array(10).keys()].map((n) => "#Hashtag" + n),
-    datasets: [
+    hists: [
       {
         label: "count",
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        data: [...Array(10).keys()].map((_) => 0),
+        bins: [...Array(10).keys()].map((_) => 0),
       },
     ],
-  } as Context.Topic.Model;
+  } as Model;
 
   const emptyTopic = () => (
     <Material.Card className={props.classes.card}>
@@ -169,6 +187,6 @@ export default withStyles(styles)((props: Props) => {
     </Material.Card>
   );
 
-  if (model?.datasets[0]?.data?.length < 10) return emptyTopic();
+  if (model?.hists[0]?.bins?.length < 10) return emptyTopic();
   else return topic();
 });
