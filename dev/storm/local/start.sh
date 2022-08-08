@@ -59,7 +59,7 @@ while sleep 60; do
   if [ $drpc_status -ne 0 ]; then
     echo "storm drpc is temporarily down."
   fi
-  if [ $ui_status -ne 0     ]; then
+  if [ $ui_status -ne 0 ]; then
     echo "storm ui is temporarily down."
   fi
 done

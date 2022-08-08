@@ -10,7 +10,8 @@ RUN apt-get update && \
     apt-get install -y git && \
     apt-get install -y build-essential && \
     apt-get install -y software-properties-common && \
-    apt-get install -y python && \
+    apt-get install -y python3 && \
+    apt-get install -y python-is-python3 && \
     add-apt-repository ppa:openjdk-r/ppa && \
     apt-get install -y openjdk-8-jdk  && \
     rm -rf /var/lib/apt/lists/*
@@ -18,20 +19,20 @@ RUN apt-get update && \
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
 
 
-ARG SPARK_DISTRO=apache-storm-2.2.0
+ARG DISTRO=apache-storm-2.2.1
 
 RUN set -ex; \
-    wget -q "http://www.apache.org/dist/storm/$SPARK_DISTRO/$SPARK_DISTRO.tar.gz"; \
+    wget -q "http://www.apache.org/dist/storm/$DISTRO/$DISTRO.tar.gz"; \
     export GNUPGHOME="$(mktemp -d)"; \
-    tar -xzf "$SPARK_DISTRO.tar.gz"; \
-    rm "$SPARK_DISTRO.tar.gz";
+    tar -xzf "$DISTRO.tar.gz"; \
+    rm "$DISTRO.tar.gz";
 
-ENV PATH $PATH:/$SPARK_DISTRO/bin
+ENV PATH $PATH:/$DISTRO/bin
 
 
 COPY IndexDirectory.zip /IndexDirectory.zip
 
-RUN IndexDirectory.zip && \
+RUN unzip IndexDirectory.zip && \
     rm IndexDirectory.zip
 
 COPY worldcities.csv.zip /worldcities.csv.zip
