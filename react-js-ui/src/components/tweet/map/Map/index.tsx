@@ -80,7 +80,7 @@ export default withStyles(styles)((props: Props) => {
         >
           <FontAwesomeIcon icon={faTwitter} />
         </Material.Box>
-        Geoparsing Map
+        Heat Map
       </Material.Typography>
       <Material.Box id="map" className={props.classes.box}></Material.Box>
     </>

@@ -59,14 +59,6 @@ function timestamp(str: string) {
   });
 }
 
-const getDateString = (date: Date) =>
-  date.toLocaleDateString(undefined, {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-
 interface Props extends WithStyles<typeof styles> {
   date: Date;
 }
@@ -126,52 +118,46 @@ export default withStyles(styles)((props: Props) => {
   } as Model;
 
   const emptyCount = () => (
-    <Material.Card className={props.classes.card}>
-      <Material.CardHeader title={getDateString(props.date)} />
-      <Material.Divider />
-      <Material.CardContent>
-        <Material.Typography variant="h6" className={props.classes.typography}>
-          Not Enough Data
-        </Material.Typography>
-        <ReactChart.Line
-          data={dummy}
-          options={{
-            responsive: true,
-            plugins: {
-              legend: {
-                display: false,
-              },
-              title: {
-                display: false,
-              },
+    <Material.Box className={props.classes.box}>
+      <Material.Typography variant="h6" className={props.classes.typography}>
+        Not Enough Data
+      </Material.Typography>
+      <ReactChart.Line
+        data={dummy}
+        options={{
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false,
             },
-          }}
-        />
-      </Material.CardContent>
-    </Material.Card>
+            title: {
+              display: false,
+            },
+          },
+        }}
+      />
+    </Material.Box>
   );
 
   const count = () => (
-    <Material.Card className={props.classes.card}>
-      <Material.CardHeader title={getDateString(props.date)} />
-      <Material.Divider />
-      <Material.CardContent>
-        <ReactChart.Line
-          data={model}
-          options={{
-            responsive: true,
-            plugins: {
-              legend: {
-                display: false,
-              },
-              title: {
-                display: false,
-              },
+    <Material.Box className={props.classes.box}>
+      <ReactChart.Line
+        data={model}
+        height={null}
+        width={null}
+        options={{
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false,
             },
-          }}
-        />
-      </Material.CardContent>
-    </Material.Card>
+            title: {
+              display: false,
+            },
+          },
+        }}
+      />
+    </Material.Box>
   );
 
   if (model?.lines[0]?.markers?.length < 30) return emptyCount();

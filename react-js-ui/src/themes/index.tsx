@@ -64,6 +64,7 @@ export const defaultTheme = createTheme({
     primaryColor: MaterialColors.blue[600],
   },
   pageHeight: "87vh",
+  pageHalfHeight: "43vh",
   pageWidth: "100%",
   pagePosition: "relative",
 });

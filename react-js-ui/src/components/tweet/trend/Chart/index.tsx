@@ -18,6 +18,8 @@ import * as Material from "@material-ui/core";
 import Count from "../Count";
 import Topic from "../Topic";
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTwitter } from "@fortawesome/free-brands-svg-icons";
 import styles from "./styles";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -29,24 +31,51 @@ const yesterdayOf = (date: Date): Date => {
   return d;
 };
 
+const toString = (date: Date) =>
+  date.toLocaleDateString(undefined, {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
 export default withStyles(styles, { withTheme: true })((props: Props) => {
   const date = new Date();
-
   return (
-    <Material.Box className={props.classes.box}>
-      <Material.Paper square className={props.classes.paper}>
-        <Material.Grid container spacing={1}>
-          <Material.Grid item xs={12}>
-            <Count date={date} />
+    <>
+      <Material.Typography
+        className={props.classes.text}
+        variant="h5"
+        gutterBottom
+      >
+        <Material.Box
+          className={props.classes.icon}
+          component="span"
+          sx={{ display: "inline" }}
+        >
+          <FontAwesomeIcon icon={faTwitter} />
+        </Material.Box>
+        Trend Chart ({toString(date)})
+      </Material.Typography>
+      <Material.Box className={props.classes.box}>
+        <Material.Paper square className={props.classes.paper}>
+          <Material.Grid container spacing={0}>
+            <Material.Grid item xs={9}>
+              <Count date={date} />
+            </Material.Grid>
+            <Material.Grid item xs={3}>
+              <Material.Grid container spacing={0}>
+                <Material.Grid item xs={12}>
+                  <Topic date={date} />
+                </Material.Grid>
+                <Material.Grid item xs={12}>
+                  <Topic date={yesterdayOf(date)} />
+                </Material.Grid>
+              </Material.Grid>
+            </Material.Grid>
           </Material.Grid>
-          <Material.Grid item xs={6}>
-            <Topic date={date} />
-          </Material.Grid>
-          <Material.Grid item xs={6}>
-            <Topic date={yesterdayOf(date)} />
-          </Material.Grid>
-        </Material.Grid>
-      </Material.Paper>
-    </Material.Box>
+        </Material.Paper>
+      </Material.Box>
+    </>
   );
 });

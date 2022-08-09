@@ -54,14 +54,6 @@ const endOf = (date: Date): Date => {
   return d;
 };
 
-const getDateString = (date: Date) =>
-  date.toLocaleDateString(undefined, {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-
 interface Props extends WithStyles<typeof styles> {
   date: Date;
 }
@@ -136,56 +128,48 @@ export default withStyles(styles)((props: Props) => {
   } as Model;
 
   const emptyTopic = () => (
-    <Material.Card className={props.classes.card}>
-      <Material.CardHeader title={getDateString(props.date)} />
-      <Material.Divider />
-      <Material.CardContent>
-        <Material.Typography variant="h6" className={props.classes.typography}>
-          Not Enough Data
-        </Material.Typography>
-        <ReactChart.Bar
-          data={dummy}
-          options={{
-            indexAxis: "y",
-            responsive: true,
-            plugins: {
-              legend: {
-                display: false,
-              },
-              title: {
-                display: false,
-                text: "Hashtags [#]",
-              },
+    <Material.Box className={props.classes.box}>
+      <Material.Typography variant="h6" className={props.classes.typography}>
+        Not Enough Data
+      </Material.Typography>
+      <ReactChart.Bar
+        data={dummy}
+        options={{
+          indexAxis: "y",
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false,
             },
-          }}
-        />
-      </Material.CardContent>
-    </Material.Card>
+            title: {
+              display: false,
+              text: "Hashtags [#]",
+            },
+          },
+        }}
+      />
+    </Material.Box>
   );
 
   const topic = () => (
-    <Material.Card className={props.classes.card}>
-      <Material.CardHeader title={getDateString(props.date)} />
-      <Material.Divider />
-      <Material.CardContent>
-        <ReactChart.Bar
-          data={model}
-          options={{
-            indexAxis: "y",
-            responsive: true,
-            plugins: {
-              legend: {
-                display: false,
-              },
-              title: {
-                display: false,
-                text: "Hashtags [#]",
-              },
+    <Material.Box className={props.classes.box}>
+      <ReactChart.Bar
+        data={model}
+        options={{
+          indexAxis: "y",
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false,
             },
-          }}
-        />
-      </Material.CardContent>
-    </Material.Card>
+            title: {
+              display: false,
+              text: "Hashtags [#]",
+            },
+          },
+        }}
+      />
+    </Material.Box>
   );
 
   if (model?.hists[0]?.bins?.length < 10) return emptyTopic();

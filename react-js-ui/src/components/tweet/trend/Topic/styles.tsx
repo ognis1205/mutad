@@ -21,12 +21,12 @@ const styles = (
   theme: Themes.Theme
 ): ReturnType<typeof createStyles> =>
   createStyles({
-    card: {
-      width: "100%",
+    box: {
+      height: theme.pageHalfHeight,
       marginLeft: "auto",
       marginRight: "auto",
       position: "relative",
-      background: "rgb(247, 247, 247)",
+      //background: "rgb(247, 247, 247)",
     },
     typography: {
       zIndex: 800,

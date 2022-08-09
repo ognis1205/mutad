@@ -49,7 +49,7 @@ export const contents = {
           link: "/tweet/timeline",
         },
         {
-          text: "Geoparsing Map",
+          text: "Heat Map",
           description: "Visualization of Tweet Geoparsing",
           image: "/geoparse.jpg",
           icon: <BorderInner />,

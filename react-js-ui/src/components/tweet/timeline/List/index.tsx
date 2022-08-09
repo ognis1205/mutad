@@ -83,7 +83,7 @@ export default withStyles(styles, { withTheme: true })(
       e.preventDefault();
       const residual = e.currentTarget.scrollHeight - e.currentTarget.scrollTop;
       const height = e.currentTarget.clientHeight;
-      if (residual === height)
+      if (Math.abs(residual - height) < 10) {
         dispatch(
           TimelineModule.more(
             new Date().getTime(),
@@ -93,6 +93,7 @@ export default withStyles(styles, { withTheme: true })(
             50
           )
         );
+      }
     };
 
     const handleRefresh = (e: React.MouseEvent<HTMLButtonElement>) => {
