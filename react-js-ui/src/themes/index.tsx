@@ -28,6 +28,7 @@ declare module "@material-ui/core/styles/createTheme" {
     raisedButton?: any;
     error?: typeof MaterialColors[keyof typeof MaterialColors];
     pageHeight: string | number;
+    pageHalfHeight: string | number;
     pageWidth: string | number;
     pagePosition: string;
   }
@@ -37,6 +38,7 @@ export interface Theme extends Material.Theme {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   drawer?: any;
   pageHeight?: string | number;
+  pageHalfHeight?: string | number;
   pageWidth?: string | number;
   pagePosition?: "relative" | "absolute";
 }
