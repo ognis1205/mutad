@@ -43,7 +43,8 @@ export default withStyles(styles)((props: Props) => {
         to: date.getTime(),
       })
     );
-  }, [dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleExpand = () => {
     setExpanded(!expanded);

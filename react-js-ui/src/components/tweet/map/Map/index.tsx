@@ -48,7 +48,8 @@ export default withStyles(styles)((props: Props) => {
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(leafletMap);
     setMap(leafletMap);
-  }, [props]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   React.useEffect(() => {
     if (map) {
@@ -62,14 +63,8 @@ export default withStyles(styles)((props: Props) => {
       map.addLayer(layer);
       setHeat(layer);
     }
-  }, [
-    heat,
-    map,
-    mapStore.points,
-    mapStore.radius,
-    mapStore.blur,
-    mapStore.zoom,
-  ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mapStore.points, mapStore.radius, mapStore.blur, mapStore.zoom]);
 
   return (
     <>
