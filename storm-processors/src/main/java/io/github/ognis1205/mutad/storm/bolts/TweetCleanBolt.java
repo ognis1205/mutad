@@ -94,18 +94,18 @@ public class TweetCleanBolt extends BaseRichBolt {
         String json = tuple.getStringByField(KafkaTweetSpoutBuilder.FIELD);
         if (json != null && !json.isEmpty()) {
             Tweet tweet = JSON2Tweet.map(json);
-            if (tweet.getId() > -1 && !tweet.getText().isEmpty() && tweet.getLang().equals("en")) {
-                this.parse(tweet);
-                JSONObject tweetJSON = Tweet2JSON.map(tweet);
-                LOG.trace(tweetJSON.toString());
-                this.collector.emit(TWEET_STREAM, tuple, new Values(tweetJSON));
-                List<Geo> geos = Tweet2Geo.map(tweet);
-                for (Geo geo : geos) {
-                    JSONObject geoJSON = Geo2JSON.map(geo);
-                    LOG.trace(geoJSON.toString());
-                    this.collector.emit(GEO_STREAM, tuple, new Values(geoJSON));
-                }
-                this.collector.ack(tuple);
+            if (tweet.getId() > -1 &&
+		!tweet.getText().isEmpty() &&
+		tweet.getLang().equals("en") &&
+		tweet.getGeo().getDefined()) {
+	      JSONObject tweetJSON = Tweet2JSON.map(tweet);
+	      LOG.trace(tweetJSON.toString());
+	      this.collector.emit(TWEET_STREAM, tuple, new Values(tweetJSON));
+	      Geo geo = Tweet2Geo.copy(tweet);
+	      JSONObject geoJSON = Geo2JSON.map(geo);
+	      LOG.trace(geoJSON.toString());
+	      this.collector.emit(GEO_STREAM, tuple, new Values(geoJSON));
+	      this.collector.ack(tuple);
             }
         }
     }
@@ -123,6 +123,7 @@ public class TweetCleanBolt extends BaseRichBolt {
      * Parses a given `JSONObject` and converts it into a datum in Elasticsearch schema form.
      * @return the corresponding datum form of a given data.
      */
+    @Deprecated
     private void parse(Tweet tweet) {
         try {
             List<GeoParser.Location> locs = this.parser.parse(tweet.getText());

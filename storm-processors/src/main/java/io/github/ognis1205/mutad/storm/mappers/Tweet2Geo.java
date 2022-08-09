@@ -64,5 +64,25 @@ public class Tweet2Geo {
         return geos;
     }
 
+    /**
+     * Maps `Tweet` to `Geo`.
+     * @param tweet `Tweet` instance to be mapped.
+     * @return `Geo` instance.
+     */
+    public static Geo copy(Tweet tweet) {
+      Geo geo = new Geo();
+      geo.setId(tweet.getId());
+      geo.setTimestamp(tweet.getTimestamp());
+      geo.setLang(tweet.getLang());
+      geo.setUserName(tweet.getUserName());
+      geo.setUserId(tweet.getUserId());
+      geo.setImageUrl(tweet.getImageUrl());
+      geo.setText(tweet.getText());
+      geo.setHashtags(tweet.getHashtags());
+      geo.setCityName("N/A");
+      geo.setCityCoord(tweet.getGeo());
+      return geo;
+    }
+
     private Tweet2Geo() {}
 }
