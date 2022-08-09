@@ -96,18 +96,19 @@ public class TweetCleanBolt extends BaseRichBolt {
             Tweet tweet = JSON2Tweet.map(json);
             if (tweet.getId() > -1 &&
 		!tweet.getText().isEmpty() &&
-		tweet.getLang().equals("en") &&
-		tweet.getGeo().getDefined()) {
+		tweet.getLang().equals("en")) {
 	      JSONObject tweetJSON = Tweet2JSON.map(tweet);
 	      LOG.trace(tweetJSON.toString());
 	      this.collector.emit(TWEET_STREAM, tuple, new Values(tweetJSON));
-	      Geo geo = Tweet2Geo.copy(tweet);
-	      JSONObject geoJSON = Geo2JSON.map(geo);
-	      LOG.trace(geoJSON.toString());
-	      this.collector.emit(GEO_STREAM, tuple, new Values(geoJSON));
-	      this.collector.ack(tuple);
+	      if (tweet.getGeo().getDefined()) {
+		Geo geo = Tweet2Geo.copy(tweet);
+		JSONObject geoJSON = Geo2JSON.map(geo);
+		LOG.trace(geoJSON.toString());
+		this.collector.emit(GEO_STREAM, tuple, new Values(geoJSON));
+	      }
             }
         }
+	this.collector.ack(tuple);
     }
 
     /**
