@@ -107,7 +107,8 @@ export default withStyles(styles)((props: Props) => {
       .catch((reason) => {
         console.log(reason);
       });
-  }, [props.date]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const dummy = {
     lines: [

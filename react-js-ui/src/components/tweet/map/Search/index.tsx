@@ -31,7 +31,7 @@ export default withStyles(styles)((props: Props) => {
 
   const dispatch = ReactRedux.useDispatch();
 
-  const [expanded, setExpanded] = React.useState<boolean>(false);
+  const [isExpanded, setExpanded] = React.useState<boolean>(false);
 
   React.useEffect(() => {
     const date = new Date();
@@ -47,7 +47,7 @@ export default withStyles(styles)((props: Props) => {
   }, []);
 
   const handleExpand = () => {
-    setExpanded(!expanded);
+    setExpanded(!isExpanded);
   };
 
   const handlePost = async (e: React.MouseEvent<HTMLElement>) => {
@@ -152,16 +152,16 @@ export default withStyles(styles)((props: Props) => {
       >
         <Material.IconButton
           className={clsx(props.classes.iconButton, {
-            [props.classes.iconButtonOpen]: expanded,
+            [props.classes.iconButtonOpen]: isExpanded,
           })}
           onClick={handleExpand}
-          aria-expanded={expanded}
+          aria-expanded={isExpanded}
           aria-label="show more"
         >
           <LocationSearchingIcon />
         </Material.IconButton>
       </Material.CardActions>
-      <Material.Collapse in={expanded} timeout="auto" unmountOnExit>
+      <Material.Collapse in={isExpanded} timeout="auto" unmountOnExit>
         <Material.CardContent>
           <form className={props.classes.form} noValidate>
             <Material.Box mb={2} width={1}>
