@@ -25,12 +25,6 @@ import styles from "./styles";
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Props extends WithStyles<typeof styles> {}
 
-const yesterdayOf = (date: Date): Date => {
-  const d = new Date(date);
-  d.setHours(date.getHours() - 24);
-  return d;
-};
-
 const toString = (date: Date) =>
   date.toLocaleDateString(undefined, {
     weekday: "long",
@@ -64,14 +58,7 @@ export default withStyles(styles, { withTheme: true })((props: Props) => {
               <Count date={date} />
             </Material.Grid>
             <Material.Grid item xs={3}>
-              <Material.Grid container spacing={0}>
-                <Material.Grid item xs={12}>
-                  <Topic date={date} />
-                </Material.Grid>
-                <Material.Grid item xs={12}>
-                  <Topic date={yesterdayOf(date)} />
-                </Material.Grid>
-              </Material.Grid>
+              <Topic date={date} />
             </Material.Grid>
           </Material.Grid>
         </Material.Paper>

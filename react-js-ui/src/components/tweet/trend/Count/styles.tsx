@@ -26,7 +26,6 @@ const styles = (
       marginLeft: "auto",
       marginRight: "auto",
       position: "relative",
-      //background: "rgb(247, 247, 247)",
     },
     typography: {
       zIndex: 800,

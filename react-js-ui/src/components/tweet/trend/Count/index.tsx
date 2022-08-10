@@ -20,13 +20,13 @@ import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import styles from "./styles";
 
 type Model = {
-  lines: Line[];
+  datasets: Line[];
 };
 
 type Line = {
   label: string;
   borderColor: string;
-  markers: Marker[];
+  data: Marker[];
 };
 
 type Marker = {
@@ -45,19 +45,16 @@ type Response = {
   count: number;
 };
 
-const oneHourBeforeOf = (date: Date): Date => {
-  const d = new Date(date);
-  d.setHours(date.getHours() - 1);
-  return d;
-};
+const hoursBeforeOf = (date: Date, hours: number): Date =>
+  new Date(date.getTime() - hours * 60 * 60 * 1000);
 
-function timestamp(str: string) {
+const timestamp = (str: string): string => {
   const date = new Date(str);
   return date.toLocaleTimeString(undefined, {
     hour: "2-digit",
     minute: "2-digit",
   });
-}
+};
 
 interface Props extends WithStyles<typeof styles> {
   date: Date;
@@ -71,7 +68,7 @@ export default withStyles(styles)((props: Props) => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        from: oneHourBeforeOf(props.date).getTime(),
+        from: hoursBeforeOf(props.date, 1).getTime(),
         to: props.date.getTime(),
         interval: "1m",
       } as Query),
@@ -81,17 +78,38 @@ export default withStyles(styles)((props: Props) => {
         return res.json();
       })
       .then((json) => {
+        const count = json.map((res: Response) => {
+          return {
+            x: timestamp(res.timestamp),
+            y: res.count,
+          };
+        });
         setModel({
-          lines: [
+          datasets: [
             {
               label: "count",
-              markers: json.map((res: Response) => {
-                return {
-                  x: timestamp(res.timestamp),
-                  y: res.count,
-                };
-              }),
-              borderColor: "rgb(  0,  71, 171)",
+              data: count.slice(1, -1),
+              borderColor: "rgba(254,132,132,1)",
+            },
+            {
+              label: "average",
+              data: (function () {
+                const average = [];
+                for (let i = 1; i < count.length - 1; i++)
+                  average.push({
+                    x: count[i]["x"],
+                    y: Math.floor(
+                      (count[i + 1]["y"] + count[i]["y"] + count[i - 1]["y"]) /
+                        3
+                    ),
+                  });
+                return average;
+              })(),
+              // @ts-ignore
+              fill: true,
+              backgroundColor: "rgba(75,192,192,0.2)",
+              borderColor: "rgba(75,192,192,1)",
+              tension: 0.4,
             },
           ],
         });
@@ -103,11 +121,11 @@ export default withStyles(styles)((props: Props) => {
   }, []);
 
   const dummy = {
-    lines: [
+    datasets: [
       {
         label: "count",
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        markers: [...Array(60).keys()].map((_) => {
+        data: [...Array(60).keys()].map((k) => {
           return {
             x: "",
             y: 0,
@@ -134,6 +152,21 @@ export default withStyles(styles)((props: Props) => {
               display: false,
             },
           },
+          scales: {
+            x: {
+              display: false,
+              grid: {
+                display: false,
+              },
+            },
+            y: {
+              min: 0,
+              display: false,
+              grid: {
+                display: false,
+              },
+            },
+          },
         }}
       />
     </Material.Box>
@@ -143,8 +176,6 @@ export default withStyles(styles)((props: Props) => {
     <Material.Box className={props.classes.box}>
       <ReactChart.Line
         data={model}
-        height={null}
-        width={null}
         options={{
           maintainAspectRatio: false,
           plugins: {
@@ -155,11 +186,29 @@ export default withStyles(styles)((props: Props) => {
               display: false,
             },
           },
+          scales: {
+            x: {
+              display: model ? true : false,
+              grid: {
+                display: false,
+              },
+            },
+            y: {
+              min: 0,
+              max: model
+                ? Math.max(...model.datasets[0].data.map((m) => m["y"])) * 1.5
+                : 0,
+              display: false,
+              grid: {
+                display: false,
+              },
+            },
+          },
         }}
       />
     </Material.Box>
   );
 
-  if (model?.lines[0]?.markers?.length < 30) return emptyCount();
+  if (model?.datasets[0]?.data?.length < 1) return emptyCount();
   else return count();
 });

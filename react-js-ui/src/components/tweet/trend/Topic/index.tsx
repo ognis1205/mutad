@@ -21,14 +21,14 @@ import styles from "./styles";
 
 type Model = {
   labels: string[];
-  hists: Histogram[];
+  datasets: Histogram[];
 };
 
 type Histogram = {
   label: string;
   backgroundColor: string[];
   borderColor: string[];
-  bins: number[];
+  data: number[];
 };
 
 type Query = {
@@ -78,33 +78,33 @@ export default withStyles(styles)((props: Props) => {
       .then((json) => {
         setModel({
           labels: json.map((res: Response) => "#" + res.name),
-          hists: [
+          datasets: [
             {
               label: "count",
-              bins: json.map((res: Response) => res.count),
+              data: json.map((res: Response) => res.count),
               backgroundColor: [
-                "rgba(  0,  71, 171, 0.7)",
-                "rgba( 17,  81, 171, 0.7)",
-                "rgba( 34,  91, 171, 0.7)",
-                "rgba( 51, 101, 171, 0.7)",
-                "rgba( 68, 111, 171, 0.7)",
-                "rgba( 85, 121, 171, 0.7)",
-                "rgba(103, 131, 171, 0.7)",
-                "rgba(120, 141, 171, 0.7)",
-                "rgba(137, 151, 171, 0.7)",
-                "rgba(154, 161, 171, 0.7)",
+                "rgba(0,101, 255, 1)",
+                "rgba(25, 117, 255, 1)",
+                "rgba(50, 132, 255, 1)",
+                "rgba(76, 147, 255, 1)",
+                "rgba(102, 163, 255, 1)",
+                "rgba(127, 178, 255, 1)",
+                "rgba(153, 193, 255, 1)",
+                "rgba(178, 209, 255, 1)",
+                "rgba(204, 224, 255, 1)",
+                "rgba(229, 239, 255, 1)",
               ],
               borderColor: [
-                "rgb(  0,  71, 171)",
-                "rgb( 17,  81, 171)",
-                "rgb( 34,  91, 171)",
-                "rgb( 51, 101, 171)",
-                "rgb( 68, 111, 171)",
-                "rgb( 85, 121, 171)",
-                "rgb(103, 131, 171)",
-                "rgb(120, 141, 171)",
-                "rgb(137, 151, 171)",
-                "rgb(154, 161, 171)",
+                "rgba(0,101, 255, 1)",
+                "rgba(25, 117, 255, 1)",
+                "rgba(50, 132, 255, 1)",
+                "rgba(76, 147, 255, 1)",
+                "rgba(102, 163, 255, 1)",
+                "rgba(127, 178, 255, 1)",
+                "rgba(153, 193, 255, 1)",
+                "rgba(178, 209, 255, 1)",
+                "rgba(204, 224, 255, 1)",
+                "rgba(229, 239, 255, 1)",
               ],
             },
           ],
@@ -118,11 +118,11 @@ export default withStyles(styles)((props: Props) => {
 
   const dummy = {
     labels: [...Array(10).keys()].map((n) => "#Hashtag" + n),
-    hists: [
+    datasets: [
       {
         label: "count",
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        bins: [...Array(10).keys()].map((_) => 0),
+        data: [...Array(10).keys()].map((_) => 0),
       },
     ],
   } as Model;
@@ -146,6 +146,20 @@ export default withStyles(styles)((props: Props) => {
               text: "Hashtags [#]",
             },
           },
+          scales: {
+            x: {
+              display: false,
+              grid: {
+                display: false,
+              },
+            },
+            y: {
+              display: false,
+              grid: {
+                display: false,
+              },
+            },
+          },
         }}
       />
     </Material.Box>
@@ -167,11 +181,25 @@ export default withStyles(styles)((props: Props) => {
               text: "Hashtags [#]",
             },
           },
+          scales: {
+            x: {
+              display: false,
+              grid: {
+                display: false,
+              },
+            },
+            y: {
+              display: model ? true : false,
+              grid: {
+                display: false,
+              },
+            },
+          },
         }}
       />
     </Material.Box>
   );
 
-  if (model?.hists[0]?.bins?.length < 10) return emptyTopic();
+  if (model?.datasets[0]?.data?.length < 1) return emptyTopic();
   else return topic();
 });
