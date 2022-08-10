@@ -41,11 +41,11 @@ Launch services by following the instructions below:
  - [Set up ELK Environment](https://github.com/ognis1205/mutad/tree/master/dev/elk)
  - [Set up Kafka Cluster](https://github.com/ognis1205/mutad/tree/master/dev/kafka)
  - [Set up Storm Cluster](https://github.com/ognis1205/mutad/tree/master/dev/storm)
- - [Build Storm TRIE library](https://github.com/ognis1205/mutad/tree/master/storm-trie)
- - [Deploy Storm Collectors Topology](https://github.com/ognis1205/mutad/tree/master/storm-collectors)
- - [Deploy Storm Processors Topology](https://github.com/ognis1205/mutad/tree/master/storm-processors)
- - [Start Spring Boot Elasticsearch Backend](https://github.com/ognis1205/mutad/tree/master/spring-boot-elasticsearch)
- - [Start React User Interface](https://github.com/ognis1205/mutad/tree/master/react-js-ui)
+ - [Build Storm TRIE library](https://github.com/ognis1205/mutad/tree/master/java-backends/storm-trie)
+ - [Deploy Storm Collectors Topology](https://github.com/ognis1205/mutad/tree/master/java-backends/storm-collectors)
+ - [Deploy Storm Processors Topology](https://github.com/ognis1205/mutad/tree/master/java-backends/storm-processors)
+ - [Start Spring Boot Elasticsearch Backend](https://github.com/ognis1205/mutad/tree/master/java-backends/spring-boot-elasticsearch)
+ - [Start React User Interface](https://github.com/ognis1205/mutad/tree/master/react-frontend)
 
 ## Future Work
 The project is still WIP. See [Issues](https://github.com/ognis1205/mutad/issues).

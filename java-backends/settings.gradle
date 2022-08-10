@@ -4,7 +4,7 @@ System.setProperty(
         "buildTimestamp",
         LocalDateTime.now(ZoneOffset.UTC).format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")))
 
-rootProject.name = 'mutad'
+rootProject.name = 'java-backends'
 
 include 'spring-boot-elasticsearch'
 
